@@ -1,0 +1,50 @@
+.btnexit{
+    background-color: rgb(198, 198, 198) !important;
+    color: #ffffff;
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn.active.focus {
+    outline: none;          
+}
+.nav-div{
+    background-color: rgb(247, 255, 255) !important;
+}
+
+.hea-div{
+    background-color: rgb(247, 247, 247);
+}
+
+.hea-div>div:nth-of-type(1){
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.hea-div>div:nth-of-type(2){
+    padding-bottom: 10px;
+}
+
+
+
+.hea-div button{
+    font-weight: 500;
+    background-color: rgb(247, 247, 247) !important;
+}
+
+thead{
+    background-color: rgb(57, 206, 222) !important;
+    color: #ffffff;
+    font-weight: 600 !important;
+}
+
+tbody tr td{
+    font-weight: 600 !important;
+}
+
+.tabdiv{
+    margin-top: 5px;
+    background-color: red !important;
+}

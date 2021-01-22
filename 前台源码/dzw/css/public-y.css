@@ -1,0 +1,54 @@
+body,html{
+    height: 100%;
+}
+
+.btnexit{
+    background-color: rgb(198, 198, 198) !important;
+    color: #ffffff;
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn.active.focus {
+    outline: none;          
+}
+.nav-div{
+    background-color: rgb(247, 255, 255) !important;
+    
+}
+
+.btn-type{
+    border: 0px;
+    background-color: rgb(247, 247, 247);
+}
+
+
+.hea-div{
+    background-color: rgb(247, 247, 247) !important;
+}
+
+.selbtn{
+    padding-right: 25px;
+    padding-left: 25px;
+}
+
+thead{
+    background-color: rgb(57, 206, 222) !important;
+    color: #ffffff;
+    font-weight: 500 !important;
+    font-size: 16px !important; 
+   
+}
+
+thead tr td{
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+}
+
+tbody tr td{
+    font-weight: 500 !important;
+    font-size: 16px !important;
+}
