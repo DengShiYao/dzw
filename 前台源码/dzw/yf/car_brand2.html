@@ -9,20 +9,22 @@
     <link rel="stylesheet" type="text/css" href="css/font-awesome.css" />
     <link rel="stylesheet" href="css/car_brand.css">
     <link rel="stylesheet" href="css/public-y.css">
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="package/lib/style.css">
 </head>
 
 <body class="hea-div">
     <div class="container-fluid" style="height: 100%;">
         <div class="row" style="height: 100%;padding: 0px 0px !important;">
-            <div style="height: 10%; border: 1px solid red;" class="col-sm-12">
+            <div style="height: 10%; border: 0px solid red;" class="col-sm-12">
                 <div class="col-sm-12 clearfix nav-div">
                     <h2 class="clearfix">品牌车型<button class="btn btn-default pull-right btnexit"
                             type="button">关闭</button>
                     </h2>
                 </div>
             </div>
-            <div style="height: 85%; border: 1px solid red;" class="col-sm-12">
-                <div class="col-sm-3" style="height: 100%; border: 1px solid red;">
+            <div style="height: 85%; border: 0px solid red;" class="col-sm-12">
+                <div class="col-sm-3" style="height: 100%; border: 0px solid red;">
                     <div style="height: auto;">
                         <div class="btndiv">
                             <button class="btn btn-default btn-type" type="button" style="margin-left: 0px;"><span
@@ -46,7 +48,7 @@
                         </div>
                     </div>
                     <div
-                        style="margin-top: 5px; background-color: #ffffff; height:87%;  border: 1px solid rebeccapurple;">
+                        style="margin-top: 5px; background-color: #ffffff; height:87%;  border: 0px solid rebeccapurple;">
                         <table class="table table-hover table-bordered">
                             <thead>
                                 <tr>
@@ -76,7 +78,7 @@
                     </div>
                 </div>
                 <!-- 车型 -->
-                <div class="col-sm-9" style="height: 100%; border: 1px solid red;">
+                <div class="col-sm-9" style="height: 100%; border: 0px solid red;">
                     <div style="height: auto;">
                         <div class="btndiv">
                             <button class="btn btn-default btn-type" type="button" style="margin-left: 0px;"><span
@@ -102,12 +104,256 @@
                             </form>
                         </div>
                     </div>
+                    <div id="app" style="margin-top: 5px; ">
+                        <template>
+                            <!-- <button type="button" @click="getCurrentEvent"> 你好</button> -->
+                            <!-- <vxe-toolbar>
+                                <template v-slot:buttons>
+                                    <vxe-button @click="$refs.xTable.setCurrentRow(tableData[1])">设置第二行选中</vxe-button>
+                                    <vxe-button @click="$refs.xTable.clearCurrentRow()">取消选中</vxe-button>
+                                    <vxe-button @click="getCurrentEvent">获取高亮行</vxe-button>
+                                </template>
+                            </vxe-toolbar> -->
 
+                            <vxe-table border highlight-hover-row highlight-current-row resizable ref="xTable"
+                                auto-resize height="535" :data="tableData" @current-change="currentChangeEvent"
+                                show-overflow>
+                                <!-- <vxe-table-column field="id" title="全选" min-width="80"></vxe-table-column> -->
+                                <vxe-table-column type="checkbox" width="60" min-width="60"></vxe-table-column>
+                                <vxe-table-column field="id" title="车型ID" min-width="100"></vxe-table-column>
+                                <vxe-table-column field="name" min-width="200" title="车型名称"></vxe-table-column>
+                                <vxe-table-column field="sex" title="发动机品牌" min-width="150"></vxe-table-column>
+                                <vxe-table-column field="sex" title="参考价格" min-width="120"></vxe-table-column>
+                                <vxe-table-column field="age" title="车辆年款" min-width="120"></vxe-table-column>
+                                <vxe-table-column field="address" title="功率" min-width="100"></vxe-table-column>
+                                <vxe-table-column field="address" title="索赔厂商" min-width="120"></vxe-table-column>
+                                <vxe-table-column field="address" title="进口国产" min-width="120"></vxe-table-column>
+                                <vxe-table-column field="address" title="燃油编号" min-width="120"></vxe-table-column>
+                                <vxe-table-column field="address" title="载重" min-width="100"></vxe-table-column>
+                            </vxe-table>
+                        </template>
+                    </div>
                 </div>
             </div>
-            <div style="height: 5%; border: 1px solid red;" class="col-sm-12">记录总条数：</div>
+            <div class="col-sm-12 countn" style="border: 0px solid red;">&nbsp;&nbsp;&nbsp;记录条数：<span>999</span></div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xe-utils"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vxe-table"></script>
+    <script src="js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        var Main = {
+            data() {
+                return {
+                    tableData: [{
+                        id: 10001,
+                        name: 'Test1',
+                        role: 'Develop',
+                        sex: 'Man',
+                        age: 28,
+                        address: 'vxe-table 从入门到放弃'
+                    },
+                    {
+                        id: 10002,
+                        name: 'Test2',
+                        role: 'Test',
+                        sex: 'Women',
+                        age: 22,
+                        address: 'Guangzhou'
+                    },
+                    {
+                        id: 10003,
+                        name: 'Test3',
+                        role: 'PM',
+                        sex: 'Man',
+                        age: 32,
+                        address: 'Shanghai'
+                    },
+                    {
+                        id: 10004,
+                        name: 'Test4',
+                        role: 'Designer',
+                        sex: 'Women ',
+                        age: 24,
+                        address: 'Shanghai'
+                    },
+                    {
+                        id: 10004,
+                        name: 'Test4',
+                        role: 'Designer',
+                        sex: 'Women ',
+                        age: 24,
+                        address: 'Shanghai'
+                    },
+                    {
+                        id: 10004,
+                        name: 'Test4',
+                        role: 'Designer',
+                        sex: 'Women ',
+                        age: 24,
+                        address: 'Shanghai'
+                    },
+                    {
+                        id: 10004,
+                        name: 'Test4',
+                        role: 'Designer',
+                        sex: 'Women ',
+                        age: 24,
+                        address: 'Shanghai'
+                    },
+                    {
+                        id: 10004,
+                        name: 'Test4',
+                        role: 'Designer',
+                        sex: 'Women ',
+                        age: 24,
+                        address: 'Shanghai'
+                    },
+                    {
+                        id: 10004,
+                        name: 'Test4',
+                        role: 'Designer',
+                        sex: 'Women ',
+                        age: 24,
+                        address: 'Shanghai'
+                    },
+                    {
+                        id: 10004,
+                        name: 'Test4',
+                        role: 'Designer',
+                        sex: 'Women ',
+                        age: 24,
+                        address: 'Shanghai'
+                    },
+                    {
+                        id: 10004,
+                        name: 'Test4',
+                        role: 'Designer',
+                        sex: 'Women ',
+                        age: 24,
+                        address: 'Shanghai'
+                    },
+                    {
+                        id: 10004,
+                        name: 'Test4',
+                        role: 'Designer',
+                        sex: 'Women ',
+                        age: 24,
+                        address: 'Shanghai'
+                    },
+                    {
+                        id: 10004,
+                        name: 'Test4',
+                        role: 'Designer',
+                        sex: 'Women ',
+                        age: 24,
+                        address: 'Shanghai'
+                    },
+                    {
+                        id: 10004,
+                        name: 'Test4',
+                        role: 'Designer',
+                        sex: 'Women ',
+                        age: 24,
+                        address: 'Shanghai'
+                    },
+                    {
+                        id: 10004,
+                        name: 'Test4',
+                        role: 'Designer',
+                        sex: 'Women ',
+                        age: 24,
+                        address: 'Shanghai'
+                    },
+                    {
+                        id: 10004,
+                        name: 'Test4',
+                        role: 'Designer',
+                        sex: 'Women ',
+                        age: 24,
+                        address: 'Shanghai'
+                    },
+                    {
+                        id: 10004,
+                        name: 'Test4',
+                        role: 'Designer',
+                        sex: 'Women ',
+                        age: 24,
+                        address: 'Shanghai'
+                    },
+                    {
+                        id: 10004,
+                        name: 'Test4',
+                        role: 'Designer',
+                        sex: 'Women ',
+                        age: 24,
+                        address: 'Shanghai'
+                    },
+                    {
+                        id: 10004,
+                        name: 'Test4',
+                        role: 'Designer',
+                        sex: 'Women ',
+                        age: 24,
+                        address: 'Shanghai'
+                    },
+                    {
+                        id: 10004,
+                        name: 'Test4',
+                        role: 'Designer',
+                        sex: 'Women ',
+                        age: 24,
+                        address: 'Shanghai'
+                    },
+                    {
+                        id: 10004,
+                        name: 'Test4',
+                        role: 'Designer',
+                        sex: 'Women ',
+                        age: 24,
+                        address: 'Shanghai'
+                    }
+                    ]
+                }
+            },
+            methods: {
+                currentChangeEvent({
+                    row
+                }) {
+                    console.log('行选中事件')
+                },
+                getCurrentEvent() {
+                    //获取选中行数据
+                    alert(JSON.stringify(this.$refs.xTable.getCurrentRecord()));
+                    //  this.$XModal.alert(JSON.stringify(this.$refs.xTable.getCurrentRecord()));
+                },
+                find() {
+                    // var that = this;
+                    // $.ajax({
+                    // 	url:"http://localhost:8080/java37-SpringMVC-1/reststudent",
+                    // 	type:"get",
+                    // 	xhrFields: {
+                    // 		withCredentials: true
+                    // 	},
+                    // 	crossDomain: true,
+                    // 	dataType:"json",
+                    // 	success:function(result){
+                    // 		that.tableData = result;
+                    // 		console.log(result);
+                    // 	},error:function(error){
+                    // 		console.log(error);
+                    // 	}
+                    // });
+                }
+            },
+            created() {
+                this.find();
+            }
+        };
+        var Ctor = Vue.extend(Main);
+        new Ctor().$mount('#app')
+    </script>
 </body>
 
 </html>
