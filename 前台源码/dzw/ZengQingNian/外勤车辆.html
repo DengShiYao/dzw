@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>外勤车辆</title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+	</head>
+	<body>
+		<div id="ctn" class="container-fluid">
+			<div class="row" style="background-color: rgb(247,255,255);">
+				<span style="font-size: 30px;">外勤车辆</span>
+				<button class="btn" style="margin-left: 90%;margin-bottom: 10px;">关闭</button>
+			</div>
+			<div class="row"  style="background-color: rgb(247,247,247);">
+				<div class="row">
+					<div style="margin-top: 20px;">
+						<button class="btn btn-success" style="margin-left: 88.3%;">增加</button>
+						<button class="btn btn-danger" style="margin-left: 10px;">删除</button>
+						<button class="btn btn-primary" style="margin-left: 10px;">保存</button>
+					</div>
+				</div>
+				<div class="row" style="height: 52px;">
+					<form class="form-inline">
+					  <div class="form-group" style="margin-left: 35px;">
+					    <label for="exampleInputName2" style="color: rgb(33,182,206);">车牌号</label>
+					    <input type="text" class="form-control" id="exampleInputName2"  style="width: 120px;">
+					  </div>
+					  <div class="form-group" style="margin-left: 10px;">
+					    <label for="exampleInputEmail2" style="color: rgb(33,182,206);">品牌</label>
+					    <input type="text" class="form-control" id="exampleInputEmail2"  style="width: 120px;">
+					  </div>
+						<div class="form-group" style="margin-left: 10px;">
+						  <label for="exampleInputEmail2" style="color: rgb(33,182,206);">车型</label>
+						  <input type="text" class="form-control" id="exampleInputEmail2"  style="width: 120px;">
+						</div>
+						<div class="form-group" style="margin-left: 10px;">
+						  <label for="exampleInputEmail2" style="color: rgb(33,182,206);">当前里程</label>
+						  <input type="text" class="form-control" id="exampleInputEmail2"  style="width: 150px;">
+						</div>
+						<div class="form-group" style="margin-left: 10px;">
+						  <label for="exampleInputEmail2" style="color: rgb(33,182,206);">班组</label>
+							<select name="" class="form-control" id="exampleInputEmail2" disabled="disabled" style="width: 150px;">
+								<option value=""></option>
+								<option value=""></option>
+							</select>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3">
+					<table class="table table-bordered table-striped table-hover">
+						<tr style="background-color: rgb(33,182,206); color: white;">
+							<td>车牌号</td>
+							<td>品牌</td>
+							<td>车型</td>
+							<td>当前里程</td>
+							<td>归属班组</td>
+						</tr>
+						<tr>
+							<td>湘A0111</td>
+							<td>布加迪</td>
+							<td>跑车</td>
+							<td>10000</td>
+							<td>武昌队</td>
+						</tr>
+						<tr>
+							<td>渝B3111</td>
+							<td>大众</td>
+							<td>速腾1.6L</td>
+							<td>1000</td>
+							<td>机修1组</td>
+						</tr>
+					</table>
+				</div>
+				
+			</div>
+		</div>
+		
+		
+		
+		
+		<script src="js/jquery-1.12.4.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/vue-2.6.js"></script>
+		<script>
+			new Vue({
+				el:"#ctn",
+				data(){
+					return {}
+				},
+				methods:{
+					
+				},
+				created(){
+					
+				}
+			})
+			
+		</script>
+	</body>
+</html>

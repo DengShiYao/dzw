@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>班组技工</title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/css1.css"/>
+	</head>
+	<body>
+		<div id="ctn" class="container-fluid">
+			<div class="row" style="background-color: rgb(247,255,255);">
+				<div style="margin-bottom: 10px;">
+					<span style="font-size: 30px;">班组技工</span>
+					<input type="text" placeholder="匹配工号/姓名/手机" style="margin-left: 70%;width: 250px;height: 33px;">
+					<button class="btn btn-primary">搜索</button>
+					<button class="btn">关闭</button>		
+				</div>
+			</div>
+			<div class="row" style="background-color: rgb(247,247,247);">
+				<div class="row">
+					<div style="margin-top: 5px;margin-bottom: 5px;">
+						<button class="btn btn-default" style="margin-left: 30px;"  @click="add()">增加技工</button>
+						<button class="btn btn-default" style="margin-left: 10px;">修改</button>
+						<button class="btn btn-default" style="margin-left: 10px;">删除</button>
+						<button class="btn btn-default" style="margin-left: 10px;">查询</button>
+						<button class="btn btn-default" style="margin-left: 10px;">置空密码</button>
+						<button class="btn btn-default" style="margin-left: 10px;">班组全重</button>
+						<button class="btn btn-default" style="margin-left: 10px;">导出</button>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3" style="border: 1px solid red;">
+					<ul>
+							<!-- 直接循环这个li就行了多重循环嵌套 -->
+							<li v-for="item in clasM"  @click.stop="select_bj($event)" class="select_bj">{{item.storeName}}
+									<ul>
+											<li @click.stop="select_bj_school($event)" v-for="i in item.children" class="select_bj_school">{{i.storeName}}
+													<ul class="no_style">
+															<li @click.stop="select_bj_school_class($event,a.classid,a.schoolid)" v-for="a in i.children" class="select_bj_school_class">{{a.dName}}</li>
+													</ul>
+											</li>
+									</ul>
+							</li>
+					</ul>
+					
+					
+					
+					
+					
+				</div>
+				<div class="col-md-9" style="border: 1px solid gold;">
+					<table class="table table-bordered table-striped table-hover">
+						<tr style="background-color: rgb(33,182,206); color: white;">
+							<td>技工编号</td>
+							<td>技工姓名</td>
+							<td>性别</td>
+							<td>是否是组长</td>
+							<td>所在班组</td>
+							<td>手机</td>
+							<td>登陆账号</td>
+							<td>地址</td>
+							<td>出生日期</td>
+							<td>微信号</td>
+							<td>身份证号</td>
+							<td>户口地址</td>
+							<td>开户银行</td>
+							<td>银行账号</td>
+							<td>等级编码</td>
+							<td>维修工种</td>
+							<td>维修品牌</td>
+							<td>是否离职</td>
+						</tr>
+						<tr>
+							<td>1000</td>
+							<td>机修1组</td>
+							<td>0EX0001</td>
+							<td>黄犁鸟</td>
+							<td>男</td>
+							<td>A1</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td>0EX0001</td>
+						</tr>
+						<tr>
+							<td>1000</td>
+							<td>机修1组</td>
+							<td>0EX0002</td>
+							<td>黄渤</td>
+							<td>男</td>
+							<td>A2</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td>0EX0002</td>
+						</tr>
+						<tr>
+							<td>1000</td>
+							<td>机修1组</td>
+							<td>0EX0016</td>
+							<td>么么么</td>
+							<td>男</td>
+							<td>23456</td>
+							<td>232</td>
+							<td>2019-12-25</td>
+							<td></td>
+							<td>0EX0001</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			
+			
+			
+			
+			<!--模态框-->
+			<div class="modal" data-backdrop="static" id="mymodal">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<span class="close" data-dismiss="modal">&times;</span>
+							<span style="font-size: 27px;"><strong>技工资料</strong></span>
+							<button style="margin-left: 65%;" class="btn btn-success">保存</button>
+						</div>
+						<div class="modal-body" style="background-color: rgb(247,247,247);">
+							<p>
+								<span style="color: red;">*</span>技工编号：<input type="text" style="width: 120px;"> 
+								 <span style="color: red;margin-left: 10px;">*</span>技工姓名：<input type="text" style="width: 100px;"> 
+							   <span style="color: red;margin-left: 10px;">*</span>姓别：<select name="">
+													<option value="">男</option>
+													<option value="">女</option>
+											 </select>
+									<input type="checkbox" style="margin-left: 10px;">组长
+							</p>
+							
+							<p>
+								<span style="color: red;">*</span>
+								所在班级：<input type="text">
+								手机：<input type="text" style="margin-left: 10px;">
+							</p>
+							
+							<p>
+								登陆账号：<input type="text" style="margin-left: 10px;">
+								地址：<input type="text" style="margin-left: 10px;">
+							</p>
+							
+							<p>
+								出生日期：<input type="date" style="margin-left: 10px;">
+								微信号：<input type="text" style="margin-left: 10px;">
+							</p>
+							
+							<p>
+								身份证号：<input type="text" style="margin-left: 10px;">
+								户口地址：<input type="text" style="margin-left: 10px;">
+							</p>
+							
+							<p>
+								开户银行：<select name="">
+														<option value="">工商银行</option>
+														<option value="">建设银行</option>
+												  </select>
+								银行账号：<input type="text" style="width: 150px;margin-left: 10px;">
+								星级：<select name="" style="margin-left: 10px;">
+														<option value="">一星</option>
+														<option value="">二星</option>
+												  </select>
+							</p>
+							<p>
+								维修工种：<input type="text" style="width: 450px;">
+							</p>
+							<p>
+								维修品牌：<input type="text" style="width: 450px;">
+							</p>
+							
+						</div>
+						<div class="modal-footer">
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
+			
+		</div>
+		<script src="js/jquery-1.12.4.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/vue-2.6.js"></script>
+		<script>
+			new Vue({
+				el:"#ctn",
+				data(){
+					return {
+						city:{},
+											clasM:{},
+											classT:{},
+											student:{},
+											grade:{},
+											addStu:{},
+											stuid:[],
+											stu1:{},
+											zd:[],
+											gongsi1:[{
+												storeId:1,
+												storeName:"北京卡修",
+												pstoreId:0,
+												children:[{
+													storeId:2,
+													storeName:"0000-成高",
+													pstoreId:1,
+													children:[{
+														dId:11,
+														dName:"管钱部",
+														tId:1,
+														sId:2
+													},{
+														dId:21,
+														dName:"客服部",
+														tId:2,
+														sId:2
+													}]
+												},{
+													storeId:3,
+													storeName:"0001-成高1",
+													pstoreId:1,
+													children:[{
+														dId:31,
+														dName:"hh部",
+														tId:3,
+														sId:3
+													},{
+														dId:11,
+														dName:"管钱部",
+														tId:1,
+														sId:3
+													}]
+												}]
+												}]
+					}
+				},
+				methods:{
+					add(){
+						$("#mymodal").modal("show");
+					},
+					 find(){
+					                        /*let that = this;
+											$.ajax({
+												url:"http://127.0.0.1:8080/kabht/clzzM/find",
+												data:{},
+												async:false,
+												type:"get",
+												xhrFields: {
+													withCredentials: true
+												},
+												crossDomain: true,
+												dataType:"JSON",
+												success:function(result){
+													console.log(result);
+													console.log(JSON.stringify(result));
+													that.clasM = result;
+												}
+											})*/
+											this.clasM=this.gongsi1;
+					                    },
+					                    select_bj(e){
+					                        $(e.target).find("ul").toggleClass("hide");
+					                        $(e.target).toggleClass("img_up");
+					                        this.classT = {};
+					                        this.student = {};
+					                    },
+					                    select_bj_school(e){
+					                        $(e.target).find("ul").toggleClass("hide");
+					                        $(e.target).toggleClass("img_up");
+					                        this.classT = {};
+					                        this.student = {};
+					                        
+					                    },
+					                    // 根据这个城市的这个学校的这个班级查询所有
+					                    select_bj_school_class(e,classid,schoolid){
+					                        var item = $("[class*=select_bj_school_class]");
+					                        $.each(item,function(i,item){
+					                                var flag = $(item).hasClass("backgroun_color");
+					                                if(flag){
+					                                    $(item).toggleClass("backgroun_color")
+					                                }
+					                        })
+					                        $(e.target).toggleClass("backgroun_color");
+					
+											/*let that = this;
+											$.ajax({
+												url:"http://127.0.0.1:8080/kabht/clzzM/selectClass",
+												async:false,
+												data:{classid:classid},
+												type:"get",
+												xhrFields: {
+													withCredentials: true
+												},
+												crossDomain: true,
+												dataType:"JSON",
+												success:function(result){
+													console.log("classT");
+													console.log(result);
+													that.classT = result;
+												}
+											})
+											$.ajax({
+												url:"http://127.0.0.1:8080/kabht/clzzM/selectStudent",
+												async:false,
+												data:{schoolid:schoolid,classid:classid},
+												type:"get",
+												dataType:"JSON",
+												xhrFields: {
+													withCredentials: true
+												},
+												crossDomain: true,
+												success:function(result){
+													console.log("student");
+													console.log(result);
+													that.student = result;
+												}
+											});*/
+											
+					                    },
+					                    delClas(){
+					                        if(JSON.stringify(this.classT) == "{}"){
+												alert("请先选择班级!");
+												return false;
+					                        }
+											var msg = "是否删除此班级！";
+											if(confirm(msg)){
+												/*let that = this;
+												$.ajax({
+													url:"http://127.0.0.1:8080/kabht/clzzM/",
+													async:false,
+													data:{classid:that.classT[0].classid},
+													xhrFields: {
+													withCredentials: true
+													},
+													crossDomain: true,
+													type:"get",
+													 dataType:"JSON",
+													success:function(result){
+														alert(result);
+														window.location.href="classManage.html";
+													}
+												})*/
+											}
+					                    },
+					                    addstu1(){
+					                        this.addStu.classid=this.classT[0].classid;
+					                        this.addStu.schoolid=this.classT[0].schoolid;
+					                        let that = this;
+					                        this.addStu.sex = $(".dm").val();
+					                        $("input[name='sex11']").each(function(i,v){
+					                            if ($(v).is(":checked"))
+					                            {
+					                            	that.addStu.sex=$(v).val();
+					                            }
+					                        });
+					                        alert(this.addStu.sex);
+					                       /* $.ajax({
+												url:"http://127.0.0.1:8080/kabht/clzzM/addStu",
+												async:false,
+												data:that.addStu,
+												type:"get",
+												xhrFields: {
+													withCredentials: true
+												},
+												crossDomain: true,
+												success:function(result){
+													alert(result);
+													$("#addStudent").modal("hide");
+													window.location.href="classManage.html";
+												}
+											})*/
+					                    },
+					                    updatestu1(){
+					                    	let that = this;
+					                        this.stu1.sex = $(".dm").val();
+					                       /* $("input[name='sex']").each(function(i,v){
+					                            if ($(v).is(":checked"))
+					                            {
+					                            	that.stu1.sex=$(v).val();                      
+					                            	}
+					                        });
+					                    	 $.ajax({
+					 							url:"http://127.0.0.1:8080/kabht/clzzM/updateStu1",
+					 							async:false,
+					 							data:that.stu1,
+					 							type:"get",
+					 							xhrFields: {
+													withCredentials: true
+												},
+												crossDomain: true,
+					 							
+					 							success:function(result){
+					 								alert(result);
+					 								
+					 								$("#updateStudent").modal("hide");
+					 								window.location.href="classManage.html";
+					 							}
+					 						})*/
+					                    },
+					                    close(){
+					                        $("#addStudent").modal("hide");
+					                        
+					                        $("#updateStudent").modal("hide");
+					                    },
+					                    addStu_show(){
+					                    	 if(JSON.stringify(this.classT) == "{}"){
+					 							alert("请先选择班级!");
+					 							return false;
+					                         }
+					                    	 $("#addStudent").modal("show");
+					                       /* $("[class=addStu]").show();*/
+					                        this.findGrade();
+					                    },
+					                    updateStu_show(){
+					                    	var a = this.findupdateStu();
+					                    	if(!a){
+					                        	return;
+					                       	}
+					                    	this.findGrade();
+					                    	$("#updateStudent").modal("show");
+					                        /*$("[class=updateStu]").show();*/
+					                        
+					                    },
+					                    to_updateClass(){
+					                    	if(JSON.stringify(this.classT) == "{}"){
+												alert("请先选择班级!");
+												return false;
+					                        }
+					                        window.location.href="updateClass.html?classid=" + this.classT[0].classid;
+					                    },
+					                    findupdateStu(){
+					                        if(JSON.stringify(this.stuid) == "[]"){
+												alert("请先选择学生");
+												return false;
+					                        }
+					                        /*let that = this;
+					                        var json = JSON.stringify(this.stuid);
+					                    	$.ajax({
+					    						url:"http://127.0.0.1:8080/kabht/clzzM/findStu1",
+					    						type:"post",
+					    						contentType:"application/json;charset=utf-8",
+					    						async:false,
+					    						xhrFields: {
+													withCredentials: true
+												},
+												crossDomain: true,
+					    						data:json,
+					    						dataType:"JSON",
+					    						success:function(result){
+					    							that.stu1 = result;
+					    						}
+					    					})*/
+					    					return true;
+					                    },
+					                    delStu(){
+					                    	console.log(this.stuid);
+					                    	if(this.stuid.length==0){
+					                    		alert("请先选择学生!");
+					                    		return;
+					                    	}
+											var flag = "是否要删除此学生？";
+											if(confirm(flag)){
+												var json = JSON.stringify(this.stuid);
+												/*$.ajax({
+						    						url:"http://127.0.0.1:8080/kabht/clzzM/delStu1",
+						    						type:"post",
+						    						xhrFields: {
+													withCredentials: true
+													},
+													crossDomain: true,
+						    						
+						    						async:false,
+						    						data:{"json":json},
+						    						
+						    						success:function(result){
+						    						  alert(result);
+						    						 window.location.href="classManage.html";
+						    						}
+						    					})*/
+											}
+					                    },
+					                    findGrade(){
+					                    	/*let that = this;
+					    					$.ajax({
+					    						url:"http://127.0.0.1:8080/kabht/clzzM/findGrade",
+					    						type:"get",
+					    						async:false,
+					    						xhrFields: {
+													withCredentials: true
+												},
+												crossDomain: true,
+					    						dataType:"JSON",
+					    						success:function(result){
+					    							that.grade = result;
+					    						}
+					    					})*/
+					                    }
+				},
+				created(){
+					this.find();
+				}
+			})
+		</script>
+	</body>
+</html>
