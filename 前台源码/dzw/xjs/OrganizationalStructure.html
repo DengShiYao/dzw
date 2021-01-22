@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>组织架构</title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/aaa.css"/>
+		<style type="text/css">
+			.headDiv{
+				background-color:ghostwhite;
+				width: 100%;
+				height:80px;
+			}
+			.clear1{
+				display: block;
+				content: '';
+				clear: both;
+			}
+			.headDiv_left {
+				font-size: 26px;
+				margin: 20px 30px;
+				height: 40px;
+				line-height: 40px;
+				float: left;
+			}
+			.headDiv_right{
+				float: right;
+				height: 40px;
+				line-height: 40px;
+				margin: 20px 30px;
+			}
+			.search{
+				width: 450px;
+				height: 40px;
+				line-height: 40px;
+				outline: none;
+			}
+			.btn{
+				height: 40px;
+				line-height: 40px;
+				text-align: center;
+				padding: 0px 12px;
+				margin-left: 10px;
+				/*width: 80px;*/
+			}
+			.buttonMenus{
+				margin-top: 20px;
+				margin-left: 10px;
+				background-color:whitesmoke;				
+			}
+			.bodyDiv{
+				width: 100%;
+				background-color: ghostwhite
+			}
+			.table th{
+				color: white;
+				background-color: deepskyblue;
+				border: 1px solid black;
+			}
+			.table td{
+				border: 1px solid gray;
+			}
+			ul li{
+				list-style: none;
+			}
+			.row{
+				width: 100%;
+				height: 100%;
+			}
+			body{
+				background-color: ghostwhite;
+				width: 100%;
+				height: 100%;
+				margin: 0px;
+				padding: 0px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="ctx">
+			<div class="clear1 headDiv">
+				<div class="headDiv_left">组织架构</div>
+				<div class="headDiv_right">
+				<input type="text" class="search" placeholder="匹配工号/姓名/手机"/>
+				<button class="btn btn-info">搜索</button>
+				<button class="btn btn-danger">关闭</button>
+				</div>
+			</div>
+			<div class="bodyDiv">
+				<div class="buttonMenus">
+					<button class="btn btn-primary">增加员工</button>
+					<button class="btn btn-danger">修改</button>
+					<button class="btn btn-danger">删除</button>
+					<button class="btn btn-info">查询</button>
+					<button class="btn btn-danger">置空密码</button>
+					<button class="btn btn-success">导出</button>
+					<button class="btn btn-default">导入</button>
+					<button class="btn btn-danger">员工角色</button>
+					<button class="btn btn-info">字段设置</button>
+				</div>
+				<div class="row">
+					<div class="col-lg-4">
+						<!--<ul>
+                             	直接循环这个li就行了多重循环嵌套 
+                            <li v-for="item in clasM"  @click.stop="select_bj($event)" class="select_bj">{{item.school}}
+                                <ul>
+                                    <li @click.stop="select_bj_school($event)" v-for="i in item.sc" class="select_bj_school">{{i.school}}
+                                        <ul class="no_style">
+                                            <li @click.stop="select_bj_school_class($event,a.classid,a.schoolid)" v-for="a in i.cs" class="select_bj_school_class">{{a.classname}}</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>-->
+                        <ul>
+                            <!-- 直接循环这个li就行了多重循环嵌套 -->
+                            <li v-for="item in clasM"  @click.stop="select_bj($event)" class="select_bj">{{item.storeName}}
+                                <ul>
+                                    <li @click.stop="select_bj_school($event)" v-for="i in item.children" class="select_bj_school">{{i.storeName}}
+                                        <ul class="no_style">
+                                            <li @click.stop="select_bj_school_class($event,a.classid,a.schoolid)" v-for="a in i.children" class="select_bj_school_class">{{a.dName}}</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+					</div>
+					<div class="col-lg-8">
+						<table class="table">
+							<tr>
+								<th></th>
+								<th>机构</th>
+								<th>部门代码</th>
+								<th>部门名称</th>
+								<th>工号</th>
+								<th>姓名</th>
+								<th>性别</th>
+								<th>岗位名称</th>
+								<th>身体状况</th>
+								<th>身高</th>
+								<th>籍贯</th>
+							</tr>
+							<tr>
+								<td></td>
+								<td>成高</td>
+								<td>11</td>
+								<td>管钱部</td>
+								<td>0EM0007</td>
+								<td>邓比</td>
+								<td>男</td>
+								<td></td>
+								<td>健康</td>
+								<td>21</td>
+								<td>21</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td>成高1</td>
+								<td>11</td>
+								<td>管钱部</td>
+								<td>0EM0009</td>
+								<td>邓比1</td>
+								<td>男</td>
+								<td></td>
+								<td></td>
+								<td>21</td>
+								<td>21</td>
+							</tr>
+						</table>						
+					</div>
+				</div>
+			</div>
+			<!--增加员工div -->
+			
+			<!--修改员工div-->
+			
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery-1.12.4.js" ></script>
+	<script type="text/javascript" src="js/bootstrap.min.js" ></script>
+	<script type="text/javascript" src="js/vue.js" ></script>
+	<script>
+        var vu = new Vue({
+                el:"#ctx",
+                data:{
+					city:{},
+					clasM:{},
+					classT:{},
+					student:{},
+					grade:{},
+					addStu:{},
+					stuid:[],
+					stu1:{},
+					zd:[],
+					gongsi1:[{
+						storeId:1,
+						storeName:"北京卡修",
+						pstoreId:0,
+						children:[{
+							storeId:2,
+							storeName:"0000-成高",
+							pstoreId:1,
+							children:[{
+								dId:11,
+								dName:"管钱部",
+								tId:1,
+								sId:2
+							},{
+								dId:21,
+								dName:"客服部",
+								tId:2,
+								sId:2
+							}]
+						},{
+							storeId:3,
+							storeName:"0001-成高1",
+							pstoreId:1,
+							children:[{
+								dId:31,
+								dName:"hh部",
+								tId:3,
+								sId:3
+							},{
+								dId:11,
+								dName:"管钱部",
+								tId:1,
+								sId:3
+							}]
+						}]
+						}]
+                },
+                methods:{
+                    find(){
+                        /*let that = this;
+						$.ajax({
+							url:"http://127.0.0.1:8080/kabht/clzzM/find",
+							data:{},
+							async:false,
+							type:"get",
+							xhrFields: {
+								withCredentials: true
+							},
+							crossDomain: true,
+							dataType:"JSON",
+							success:function(result){
+								console.log(result);
+								console.log(JSON.stringify(result));
+								that.clasM = result;
+							}
+						})*/
+						this.clasM=this.gongsi1;
+                    },
+                    select_bj(e){
+                        $(e.target).find("ul").toggleClass("hide");
+                        $(e.target).toggleClass("img_up");
+                        this.classT = {};
+                        this.student = {};
+                    },
+                    select_bj_school(e){
+                        $(e.target).find("ul").toggleClass("hide");
+                        $(e.target).toggleClass("img_up");
+                        this.classT = {};
+                        this.student = {};
+                        
+                    },
+                    // 根据这个城市的这个学校的这个班级查询所有
+                    select_bj_school_class(e,classid,schoolid){
+                        var item = $("[class*=select_bj_school_class]");
+                        $.each(item,function(i,item){
+                                var flag = $(item).hasClass("backgroun_color");
+                                if(flag){
+                                    $(item).toggleClass("backgroun_color")
+                                }
+                        })
+                        $(e.target).toggleClass("backgroun_color");
+
+						/*let that = this;
+						$.ajax({
+							url:"http://127.0.0.1:8080/kabht/clzzM/selectClass",
+							async:false,
+							data:{classid:classid},
+							type:"get",
+							xhrFields: {
+								withCredentials: true
+							},
+							crossDomain: true,
+							dataType:"JSON",
+							success:function(result){
+								console.log("classT");
+								console.log(result);
+								that.classT = result;
+							}
+						})
+						$.ajax({
+							url:"http://127.0.0.1:8080/kabht/clzzM/selectStudent",
+							async:false,
+							data:{schoolid:schoolid,classid:classid},
+							type:"get",
+							dataType:"JSON",
+							xhrFields: {
+								withCredentials: true
+							},
+							crossDomain: true,
+							success:function(result){
+								console.log("student");
+								console.log(result);
+								that.student = result;
+							}
+						});*/
+						
+                    },
+                    delClas(){
+                        if(JSON.stringify(this.classT) == "{}"){
+							alert("请先选择班级!");
+							return false;
+                        }
+						var msg = "是否删除此班级！";
+						if(confirm(msg)){
+							/*let that = this;
+							$.ajax({
+								url:"http://127.0.0.1:8080/kabht/clzzM/",
+								async:false,
+								data:{classid:that.classT[0].classid},
+								xhrFields: {
+								withCredentials: true
+								},
+								crossDomain: true,
+								type:"get",
+								 dataType:"JSON",
+								success:function(result){
+									alert(result);
+									window.location.href="classManage.html";
+								}
+							})*/
+						}
+                    },
+                    addstu1(){
+                        this.addStu.classid=this.classT[0].classid;
+                        this.addStu.schoolid=this.classT[0].schoolid;
+                        let that = this;
+                        this.addStu.sex = $(".dm").val();
+                        $("input[name='sex11']").each(function(i,v){
+                            if ($(v).is(":checked"))
+                            {
+                            	that.addStu.sex=$(v).val();
+                            }
+                        });
+                        alert(this.addStu.sex);
+                       /* $.ajax({
+							url:"http://127.0.0.1:8080/kabht/clzzM/addStu",
+							async:false,
+							data:that.addStu,
+							type:"get",
+							xhrFields: {
+								withCredentials: true
+							},
+							crossDomain: true,
+							success:function(result){
+								alert(result);
+								$("#addStudent").modal("hide");
+								window.location.href="classManage.html";
+							}
+						})*/
+                    },
+                    updatestu1(){
+                    	let that = this;
+                        this.stu1.sex = $(".dm").val();
+                       /* $("input[name='sex']").each(function(i,v){
+                            if ($(v).is(":checked"))
+                            {
+                            	that.stu1.sex=$(v).val();                      
+                            	}
+                        });
+                    	 $.ajax({
+ 							url:"http://127.0.0.1:8080/kabht/clzzM/updateStu1",
+ 							async:false,
+ 							data:that.stu1,
+ 							type:"get",
+ 							xhrFields: {
+								withCredentials: true
+							},
+							crossDomain: true,
+ 							
+ 							success:function(result){
+ 								alert(result);
+ 								
+ 								$("#updateStudent").modal("hide");
+ 								window.location.href="classManage.html";
+ 							}
+ 						})*/
+                    },
+                    close(){
+                        $("#addStudent").modal("hide");
+                        
+                        $("#updateStudent").modal("hide");
+                    },
+                    addStu_show(){
+                    	 if(JSON.stringify(this.classT) == "{}"){
+ 							alert("请先选择班级!");
+ 							return false;
+                         }
+                    	 $("#addStudent").modal("show");
+                       /* $("[class=addStu]").show();*/
+                        this.findGrade();
+                    },
+                    updateStu_show(){
+                    	var a = this.findupdateStu();
+                    	if(!a){
+                        	return;
+                       	}
+                    	this.findGrade();
+                    	$("#updateStudent").modal("show");
+                        /*$("[class=updateStu]").show();*/
+                        
+                    },
+                    to_updateClass(){
+                    	if(JSON.stringify(this.classT) == "{}"){
+							alert("请先选择班级!");
+							return false;
+                        }
+                        window.location.href="updateClass.html?classid=" + this.classT[0].classid;
+                    },
+                    findupdateStu(){
+                        if(JSON.stringify(this.stuid) == "[]"){
+							alert("请先选择学生");
+							return false;
+                        }
+                        /*let that = this;
+                        var json = JSON.stringify(this.stuid);
+                    	$.ajax({
+    						url:"http://127.0.0.1:8080/kabht/clzzM/findStu1",
+    						type:"post",
+    						contentType:"application/json;charset=utf-8",
+    						async:false,
+    						xhrFields: {
+								withCredentials: true
+							},
+							crossDomain: true,
+    						data:json,
+    						dataType:"JSON",
+    						success:function(result){
+    							that.stu1 = result;
+    						}
+    					})*/
+    					return true;
+                    },
+                    delStu(){
+                    	console.log(this.stuid);
+                    	if(this.stuid.length==0){
+                    		alert("请先选择学生!");
+                    		return;
+                    	}
+						var flag = "是否要删除此学生？";
+						if(confirm(flag)){
+							var json = JSON.stringify(this.stuid);
+							/*$.ajax({
+	    						url:"http://127.0.0.1:8080/kabht/clzzM/delStu1",
+	    						type:"post",
+	    						xhrFields: {
+								withCredentials: true
+								},
+								crossDomain: true,
+	    						
+	    						async:false,
+	    						data:{"json":json},
+	    						
+	    						success:function(result){
+	    						  alert(result);
+	    						 window.location.href="classManage.html";
+	    						}
+	    					})*/
+						}
+                    },
+                    findGrade(){
+                    	/*let that = this;
+    					$.ajax({
+    						url:"http://127.0.0.1:8080/kabht/clzzM/findGrade",
+    						type:"get",
+    						async:false,
+    						xhrFields: {
+								withCredentials: true
+							},
+							crossDomain: true,
+    						dataType:"JSON",
+    						success:function(result){
+    							that.grade = result;
+    						}
+    					})*/
+                    },
+                },
+                created(){
+                	this.find();
+               	},
+            });
+        </script>
+</html>
