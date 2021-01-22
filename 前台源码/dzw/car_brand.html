@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>品牌车型</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.css" />
+    <link rel="stylesheet" href="css/car_brand.css">
+    <link rel="stylesheet" href="css/public-y.css">
+</head>
+
+<body class="hea-div">
+    <div class="container-fluid" style="height: 100%;">
+        <div class="row " style="height: 100%;">
+            <div class="col-sm-12 nav-div" style="height: 10%; border: 1px solid red; ">
+                <h2 class="clearfix">品牌车型<button class="btn btn-default pull-right btnexit" type="button">关闭</button>
+                </h2>
+            </div>
+            <div class="col-sm-12" style="height: 85%; border:2px solid green;">
+                <div class="col-sm-3" style="height: 100%;  border: 1px solid rebeccapurple;">
+                    <div style="height: auto;">
+                        <div class="btndiv">
+                            <button class="btn btn-default btn-type" type="button" style="margin-left: 0px;"><span
+                                    class="glyphicon glyphicon-plus"></span>
+                                增加品牌</button>
+                            <button class="btn btn-default btn-type" type="button"><span
+                                    class="glyphicon glyphicon-edit"></span>
+                                修改</button>
+                            <button class="btn btn-default btn-type" type="button" @click="remove(1)"
+                                data-target="#myModal"><span class="glyphicon glyphicon-remove-circle"></span>
+                                删除</button>
+                        </div>
+                        <div>
+                            <form class="form-inline">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" style="width: 240px;"
+                                        placeholder="匹配 品牌编码/品牌名称/首字母">
+                                </div>
+                                <button type="button" class="btn btn-warning selbtn">搜索</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div
+                        style="margin-top: 5px; background-color: #ffffff; height:90%;  border: 1px solid rebeccapurple;">
+                        <table class="table table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <td>编码</td>
+                                    <td>品牌名称</td>
+                                    <td>首字母</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>test</td>
+                                    <td>test</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-sm-9">22222</div>
+            </div>
+            <div class="col-sm-12" style="height: 5%; border: 1px solid rebeccapurple;">
+                1
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>

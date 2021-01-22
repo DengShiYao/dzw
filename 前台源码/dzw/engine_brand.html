@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>发动机品牌</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/engine_brand.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.css" />
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12 nav-div">
+                <h1 class="clearfix">发动机品牌<button class="btn btn-default pull-right btnexit" type="button">关闭</button>
+                </h1>
+            </div>
+            <div class="col-sm-12 hea-div">
+                <div style="text-align: right;">
+                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-plus"></span>
+                        增加</button>
+                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-floppy-disk"></span>
+                        保存</button>
+                    <button class="btn btn-default" type="button" @click="remove(1)" data-target="#myModal"><span
+                            class="glyphicon glyphicon-remove-circle"></span>
+                        删除</button>
+                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-export"></span>
+                        导出</button>
+                </div>
+                <div>
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <label for="exampleInputName2" style="color:rgb(51, 206, 222);">分类代码</label>
+                            <input type="text" class="form-control" id="exampleInputName2">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail2" style="color:rgb(51, 206, 222);">分类名称</label>
+                            <input type="text" class="form-control" id="exampleInputEmail2">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <table class="table table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <td>发动机品牌编码</td>
+                            <td>发动机品牌名称</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>test</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>test</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>test</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">删除确认</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h4>是否确认删除该记录？</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary">否</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">是</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/jquery-1.12.4.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/vue-2.6.js"></script>
+    <script>
+        new Vue({
+            el: ".container-fluid",
+            data() {
+                return {
+
+                }
+            },
+            methods: {
+                find() {
+
+                },
+                remove(item) {
+                    $("#myModal1").modal("show");
+                }
+            }
+
+        })
+    </script>
+</body>
+
+</html>
