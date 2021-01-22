@@ -100,18 +100,6 @@
 				</div>
 				<div class="row">
 					<div class="col-lg-4">
-						<!--<ul>
-                             	直接循环这个li就行了多重循环嵌套 
-                            <li v-for="item in clasM"  @click.stop="select_bj($event)" class="select_bj">{{item.school}}
-                                <ul>
-                                    <li @click.stop="select_bj_school($event)" v-for="i in item.sc" class="select_bj_school">{{i.school}}
-                                        <ul class="no_style">
-                                            <li @click.stop="select_bj_school_class($event,a.classid,a.schoolid)" v-for="a in i.cs" class="select_bj_school_class">{{a.classname}}</li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>-->
                         <ul>
                             <!-- 直接循环这个li就行了多重循环嵌套 -->
                             <li v-for="item in clasM"  @click.stop="select_bj($event)" class="select_bj">{{item.storeName}}
@@ -171,7 +159,11 @@
 				</div>
 			</div>
 			<!--增加员工div -->
-			
+			<div>
+				<div>
+					
+				</div>
+			</div>
 			<!--修改员工div-->
 			
 		</div>
