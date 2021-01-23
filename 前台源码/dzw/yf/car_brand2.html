@@ -27,14 +27,15 @@
                 <div class="col-sm-3" style="height: 100%; border: 0px solid red;">
                     <div style="height: auto;">
                         <div class="btndiv">
-                            <button class="btn btn-default btn-type" type="button" style="margin-left: 0px;"><span
-                                    class="glyphicon glyphicon-plus"></span>
+                            <button class="btn btn-default btn-type" data-toggle="modal" data-target="#myModal5"
+                                type="button" style="margin-left: 0px;"><span class="glyphicon glyphicon-plus"></span>
                                 增加品牌</button>
-                            <button class="btn btn-default btn-type" type="button"><span
-                                    class="glyphicon glyphicon-edit"></span>
+                            <button class="btn btn-default btn-type" type="button" data-toggle="modal"
+                                data-target="#myModal6"><span class="glyphicon glyphicon-edit"></span>
                                 修改</button>
-                            <button class="btn btn-default btn-type" type="button" @click="remove(1)"
-                                data-target="#myModal"><span class="glyphicon glyphicon-remove-circle"></span>
+                            <button class="btn btn-default btn-type" type="button" data-toggle="modal"
+                                data-target="#myModal7" data-target="#myModal"><span
+                                    class="glyphicon glyphicon-remove-circle"></span>
                                 删除</button>
                         </div>
                         <div style="margin-top: 5px;">
@@ -58,20 +59,11 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>test</td>
-                                    <td>test</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>test</td>
-                                    <td>test</td>
+                                <tr v-for="item,index in templist" @click="clibanck(index)"
+                                    :class="{'clibanck':num==index}">
+                                    <td>{{ item.id }}</td>
+                                    <td>{{ item.name }}</td>
+                                    <td>{{ item.id }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -80,19 +72,33 @@
                 <!-- 车型 -->
                 <div class="col-sm-9" style="height: 100%; border: 0px solid red; padding-right: 0px;">
                     <div style="height: auto;">
-                        <div class="btndiv">
-                            <button class="btn btn-default btn-type" type="button" style="margin-left: 0px;"><span
-                                    class="glyphicon glyphicon-plus"></span>
+                        <div class="btndiv" style="background-color: red !important;">
+                            <vxe-toolbar>
+                                <template v-slot:buttons>
+                                    <vxe-button icon="glyphicon glyphicon-plus" data-toggle="modal"
+                                        data-target="#myModal1">增加车型</vxe-button>
+                                    <vxe-button @click="getCurrentEvent" icon="glyphicon glyphicon-edit">修改
+                                    </vxe-button>
+                                    <vxe-button icon="glyphicon glyphicon-remove-circle" data-toggle="modal"
+                                        data-target="#myModal3">删除</vxe-button>
+                                    <vxe-button icon="glyphicon glyphicon-picture" data-toggle="modal"
+                                        data-target="#myModal4">照片</vxe-button>
+                                    <!-- <vxe-button @click="$refs.xTable.setCurrentRow(tableData[1])">设置第二行选中</vxe-button> -->
+                                    <!-- <vxe-button @click="$refs.xTable.clearCurrentRow()">取消选中</vxe-button> -->
+                                </template>
+                            </vxe-toolbar>
+                            <!-- <button class="btn btn-default btn-type" data-toggle="modal" data-target="#myModal1"
+                                type="button" style="margin-left: 0px;"><span class="glyphicon glyphicon-plus"></span>
                                 增加车型</button>
-                            <button class="btn btn-default btn-type" type="button"><span
-                                    class="glyphicon glyphicon-edit"></span>
+                            <button class="btn btn-default btn-type " type="button"><span
+                                    class="glyphicon glyphicon-edit" @click="getCurrentEvent"></span>
                                 修改</button>
-                            <button class="btn btn-default btn-type" type="button" @click="remove(1)"
-                                data-target="#myModal"><span class="glyphicon glyphicon-remove-circle"></span>
+                            <button class="btn btn-default btn-type" type="button"><span
+                                    class="glyphicon glyphicon-remove-circle"></span>
                                 删除</button>
                             <button class="btn btn-default btn-type" type="button"><span
                                     class="glyphicon glyphicon-picture"></span>
-                                照片</button>
+                                照片</button> -->
                         </div>
                         <div style="margin-top: 5px;">
                             <form class="form-inline">
@@ -105,16 +111,8 @@
                         </div>
                     </div>
                     <div style="margin-top: 5px; ">
+                        <!-- <button v-slot:buttons type="button" @click="getCurrentEvent"> 你好</button> -->
                         <template>
-                            <!-- <button type="button" @click="getCurrentEvent"> 你好</button> -->
-                            <!-- <vxe-toolbar>
-                                <template v-slot:buttons>
-                                    <vxe-button @click="$refs.xTable.setCurrentRow(tableData[1])">设置第二行选中</vxe-button>
-                                    <vxe-button @click="$refs.xTable.clearCurrentRow()">取消选中</vxe-button>
-                                    <vxe-button @click="getCurrentEvent">获取高亮行</vxe-button>
-                                </template>
-                            </vxe-toolbar> -->
-
                             <vxe-table border highlight-hover-row highlight-current-row resizable ref="xTable"
                                 auto-resize height="535" :data="tableData" @current-change="currentChangeEvent"
                                 show-overflow>
@@ -136,16 +134,515 @@
                 </div>
             </div>
             <div class="col-sm-12 countn" style="border: 0px solid red;">&nbsp;&nbsp;&nbsp;记录条数：<span>999</span></div>
+            <!-- 模态框 -->
+            <!-- 车型新增 -->
+            <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="myModal1"
+                aria-labelledby="myLargeModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title clearfix" id="myModalLabel">车型定义<button type="button"
+                                    class="btn btn-success pull-right"
+                                    style="padding-left: 25px; padding-right: 25px; margin-right: 30px;"><span
+                                        class="glyphicon glyphicon-ok"></span> 保存</button>
+                            </h4>
+
+                        </div>
+                        <div class="modal-body row">
+                            <div class="col-sm-7 " style="padding: 0px 20px !important;">
+                                <form class="form-horizontal fordiv1">
+                                    <table class="col-sm-12">
+                                        <tr>
+                                            <td colspan="2">
+                                                <div class="form-group">
+                                                    <label for="inputEmail1" class="col-sm-2 control-label"><span
+                                                            class="span1">*</span>&nbsp;车辆品牌</label>
+                                                    <div class="col-sm-4">
+                                                        <input type="text" class="form-control" id="inputEmail1"
+                                                            style="border-radius:4px 0px 0px 4px;" disabled>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <input type="text" class="form-control" id="inputEmail1"
+                                                            style="border-radius:0px 4px 4px 0px;" disabled>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="tdpr">
+                                                <div class="form-group">
+                                                    <label for="inputPassword2" class="col-sm-4 control-label"><span
+                                                            class="span1">*</span>&nbsp;车型ID</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control" id="inputPassword2">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-group">
+                                                    <label for="inputPassword3" class="col-sm-4 control-label"><span
+                                                            class="span1">*</span>&nbsp;车型名称</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control" id="inputPassword3">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="tdpr">
+                                                <div class="form-group">
+                                                    <label for="inputPassword4"
+                                                        class="col-sm-4 control-label">进口国产</label>
+                                                    <div class="col-sm-8">
+                                                        <select class="form-control" id="inputPassword4">
+                                                            <option value="">===请选择===</option>
+                                                            <option>1</option>
+                                                            <option>2</option>
+                                                            <option>3</option>
+                                                            <option>4</option>
+                                                            <option>5</option>
+                                                        </select>
+                                                        <!-- <input type="text" class="form-control" id="inputPassword4"> -->
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-group">
+                                                    <label for="inputPassword5"
+                                                        class="col-sm-4 control-label">参考价格</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control" id="inputPassword5">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="tdpr">
+                                                <div class="form-group">
+                                                    <label for="inputPassword6"
+                                                        class="col-sm-4 control-label">车辆年款</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control" id="inputPassword6">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-group">
+                                                    <label for="inputPassword7"
+                                                        class="col-sm-4 control-label">功率</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control" id="inputPassword7">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="tdpr">
+                                                <div class="form-group">
+                                                    <label for="inputPassword8"
+                                                        class="col-sm-4 control-label">燃油编号</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control" id="inputPassword8">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-group">
+                                                    <label for="inputPassword9"
+                                                        class="col-sm-4 control-label">载重</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control" id="inputPassword9">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <div class="form-group">
+                                                    <label for="inputEmail10" class="col-sm-2 control-label"><span
+                                                            class="span1">*</span>&nbsp;索赔厂商</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" id="inputEmail10">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <div class="form-group">
+                                                    <label for="inputEmail11" class="col-sm-2 control-label"><span
+                                                            class="span1">*</span>&nbsp;发动机品牌</label>
+                                                    <div class="col-sm-10">
+                                                        <select class="form-control" id="inputEmail11">
+                                                            <option value="">===请选择===</option>
+                                                            <option>1</option>
+                                                            <option>2</option>
+                                                            <option>3</option>
+                                                            <option>4</option>
+                                                            <option>5</option>
+                                                        </select>
+                                                        <!-- <input type="text" class="form-control"> -->
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                </form>
+                            </div>
+                            <div class="col-sm-5 icon-btn">
+                                <div><span v-if="textHide"><img :src="imgUrl" alt=""></span></div>
+                                <div>
+                                    <span style="display: none;"><input type="file" ref="filElem" accept="image/*"
+                                            @change="getFile"></span>
+                                    <button @click="choiceImg" icon="ios-cloud-upload-outline"
+                                        type="primary">照片</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- 车型修改 -->
+            <div class="modal fade bs-example-modal-lg" tabindex="-1" id="myModel2" role="dialog"
+                aria-labelledby="myLargeModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title clearfix" id="myModalLabel2">车型定义<button type="button"
+                                    class="btn btn-success pull-right"
+                                    style="padding-left: 25px; padding-right: 25px; margin-right: 30px;"><span
+                                        class="glyphicon glyphicon-ok"></span> 保存</button>
+                            </h4>
+                        </div>
+                        <div class="modal-body row">
+                            <div class="col-sm-7 " style="padding: 0px 20px !important;">
+                                <form class="form-horizontal fordiv1">
+                                    <table class="col-sm-12">
+                                        <tr>
+                                            <td colspan="2">
+                                                <div class="form-group">
+                                                    <label for="inputEmail1" class="col-sm-2 control-label"><span
+                                                            class="span1">*</span>&nbsp;车辆品牌</label>
+                                                    <div class="col-sm-4">
+                                                        <input type="text" class="form-control" id="inputEmail1"
+                                                            style="border-radius:4px 0px 0px 4px;" disabled>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <input type="text" class="form-control" id="inputEmail1"
+                                                            style="border-radius:0px 4px 4px 0px;" disabled>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="tdpr">
+                                                <div class="form-group">
+                                                    <label for="inputPassword2" class="col-sm-4 control-label"><span
+                                                            class="span1">*</span>&nbsp;车型ID</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control" id="inputPassword2">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-group">
+                                                    <label for="inputPassword3" class="col-sm-4 control-label"><span
+                                                            class="span1">*</span>&nbsp;车型名称</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control" id="inputPassword3">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="tdpr">
+                                                <div class="form-group">
+                                                    <label for="inputPassword4"
+                                                        class="col-sm-4 control-label">进口国产</label>
+                                                    <div class="col-sm-8">
+                                                        <select class="form-control" id="inputPassword4">
+                                                            <option value="">===请选择===</option>
+                                                            <option>1</option>
+                                                            <option>2</option>
+                                                            <option>3</option>
+                                                            <option>4</option>
+                                                            <option>5</option>
+                                                        </select>
+                                                        <!-- <input type="text" class="form-control" id="inputPassword4"> -->
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-group">
+                                                    <label for="inputPassword5"
+                                                        class="col-sm-4 control-label">参考价格</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control" id="inputPassword5">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="tdpr">
+                                                <div class="form-group">
+                                                    <label for="inputPassword6"
+                                                        class="col-sm-4 control-label">车辆年款</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control" id="inputPassword6">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-group">
+                                                    <label for="inputPassword7"
+                                                        class="col-sm-4 control-label">功率</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control" id="inputPassword7">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="tdpr">
+                                                <div class="form-group">
+                                                    <label for="inputPassword8"
+                                                        class="col-sm-4 control-label">燃油编号</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control" id="inputPassword8">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-group">
+                                                    <label for="inputPassword9"
+                                                        class="col-sm-4 control-label">载重</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control" id="inputPassword9">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <div class="form-group">
+                                                    <label for="inputEmail10" class="col-sm-2 control-label"><span
+                                                            class="span1">*</span>&nbsp;索赔厂商</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" id="inputEmail10">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <div class="form-group">
+                                                    <label for="inputEmail11" class="col-sm-2 control-label"><span
+                                                            class="span1">*</span>&nbsp;发动机品牌</label>
+                                                    <div class="col-sm-10">
+                                                        <select class="form-control" id="inputEmail11">
+                                                            <option value="">===请选择===</option>
+                                                            <option>1</option>
+                                                            <option>2</option>
+                                                            <option>3</option>
+                                                            <option>4</option>
+                                                            <option>5</option>
+                                                        </select>
+                                                        <!-- <input type="text" class="form-control"> -->
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                </form>
+                            </div>
+                            <div class="col-sm-5 icon-btn">
+                                <div><span v-if="textHide"><img :src="imgUrl" alt=""></span></div>
+                                <div>
+                                    <span style="display: none;"><input type="file" ref="filElem" accept="image/*"
+                                            @change="getFile"></span>
+                                    <button @click="choiceImg" icon="ios-cloud-upload-outline"
+                                        type="primary">照片</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- 车型删除 -->
+            <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel3">删除确认</h4>
+                        </div>
+                        <div class="modal-body">
+                            <h4>是否确认删除该记录？</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary">是</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">否</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 车型照片 -->
+            <div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                style="height: 900px !important;">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title clearfix" id="myModalLabel4">车型照片
+                                <button type="button" class="btn btn-success pull-right"
+                                    style="padding-left: 25px; padding-right: 25px; margin-right: 30px;"><span
+                                        class="glyphicon glyphicon-ok"></span> 保存</button>
+                                <button type="button" class="btn btn-warning pull-right" @click="choiceImg"
+                                    icon="ios-cloud-upload-outline" type="primary"
+                                    style="padding-left: 25px; padding-right: 25px; margin-right: 30px;"><span
+                                        class="glyphicon glyphicon-picture"></span> 指定照片</button>
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="icon-size">
+                                <span style="display: none;"><input type="file" ref="filElem" accept="image/*"
+                                        @change="getFile"></span>
+                                <img src="../imags/3AA159DD714F65B532595C955DEB5356.jpg" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 品牌新增 -->
+            <div class="modal fade" id="myModal5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">品牌定义</h4>
+                        </div>
+                        <div class="modal-body" style="padding: 15px 30px;">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-3 control-label"><span
+                                            class="span1">*</span>&nbsp;品牌编码</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control" id="inputEmail3">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-3 control-label"><span
+                                            class="span1">*</span>&nbsp;品牌名称</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control" id="inputPassword3">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-3 control-label"><span
+                                            class="span1">*</span>&nbsp;首字母</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control" id="inputPassword3">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-info abtn"
+                                style="padding-left: 25px; padding-right: 25px;" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn  btn-success abtn"
+                                style="padding-left: 25px; padding-right: 25px;">保存</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 品牌修改 -->
+            <div class="modal fade" id="myModal6" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">品牌定义</h4>
+                        </div>
+                        <div class="modal-body" style="padding: 15px 30px;">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-3 control-label"><span
+                                            class="span1">*</span>&nbsp;品牌编码</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control" id="inputEmail3">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-3 control-label"><span
+                                            class="span1">*</span>&nbsp;品牌名称</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control" id="inputPassword3">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-3 control-label"><span
+                                            class="span1">*</span>&nbsp;首字母</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control" id="inputPassword3">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-info abtn"
+                                style="padding-left: 25px; padding-right: 25px;" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn  btn-success abtn"
+                                style="padding-left: 25px; padding-right: 25px;">保存</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 品牌删除 -->
+            <div class="modal fade" id="myModal7" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">品牌定义</h4>
+                        </div>
+                        <div class="modal-body">
+                            <h4>删除品牌时，是否连同车系一起删除？</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">否</button>
+                            <button type="button" class="btn btn-primary">是</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+    <script src="js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/bootstrap.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="https://cdn.jsdelivr.net/npm/xe-utils"></script>
     <script src="https://cdn.jsdelivr.net/npm/vxe-table"></script>
-    <script src="js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript">
         var Main = {
             data() {
                 return {
+                    templist: [{ id: 1, name: "test" }, { id: 2, name: "test" }, { id: 3, name: "test" }, { id: 4, name: "test" }],
+                    num: -1,
+                    imgUrl: '',
+                    textHide: false,
                     tableData: [{
                         id: 10001,
                         name: 'Test1',
@@ -318,6 +815,10 @@
                 }
             },
             methods: {
+                //左侧表格点击更换背景色
+                clibanck(index) {
+                    this.num = index;
+                },
                 currentChangeEvent({
                     row
                 }) {
@@ -325,10 +826,49 @@
                 },
                 getCurrentEvent() {
                     //获取选中行数据
-                    alert(JSON.stringify(this.$refs.xTable.getCurrentRecord()));
+                    //   alert(typeof JSON.stringify(this.$refs.xTable.getCurrentRecord()))
+                    if (JSON.stringify(this.$refs.xTable.getCurrentRecord()) != "null") {
+                        $("#myModel2").modal("show");
+                    }
                     //  this.$XModal.alert(JSON.stringify(this.$refs.xTable.getCurrentRecord()));
                 }
-                ,
+                //点击出发 file
+                , choiceImg() {
+                    this.$refs.filElem.dispatchEvent(new MouseEvent('click'))
+                },
+                //图片预览
+                getFile(e) {
+                    console.log("成功");
+                    let _this = this;
+                    var files = e.target.files[0];
+                    /*图片类型正则验证*/
+                    var imgStr = /\.(jpg|jpeg|png|bmp|BMP|JPG|PNG|JPEG)$/;
+                    if (files.name == "") {
+                        alert("请选择图片");
+                        return false;
+                    }
+                    else {
+                        if (!imgStr.test(files.name)) {
+                            alert("文件不是图片类型");
+                            return false;
+                        } else {
+                            /*图片大小*/
+                            var imagSize = files.size;
+                            if (!imagSize < (1024 * 1024 * 5)) {
+                                if (!e || !window.FileReader) return  // 判断是否支持FileReader
+                                let reader = new FileReader()
+                                reader.readAsDataURL(files) // 文件转换
+                                reader.onloadend = function () {
+                                    _this.imgUrl = this.result
+                                    _this.textHide = true;
+                                }
+                            } else {
+                                alert(files.name + "大小不能超过" + 5 + "M");
+                                return false;
+                            }
+                        }
+                    }
+                },
                 find() {
                     // var that = this;
                     // $.ajax({

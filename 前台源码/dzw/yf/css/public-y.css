@@ -13,16 +13,23 @@ body,html{
 .btn.focus,
 .btn:active.focus,
 .btn.active.focus {
-    outline: none;          
+    outline: none;   
+    border-color: transparent;         
 }
+
 .nav-div{
     background-color: rgb(247, 255, 255) !important;
     
 }
+.type--button{
+    border: 0px !important;
+    line-height: 0 !important;
+    background-color:#eeeeee !important;
+}
 
 .btn-type{
     border: 0px;
-    background-color: rgb(247, 247, 247);
+    background-color: #eeeeee;
 }
 
 
@@ -84,4 +91,10 @@ tbody tr td{
     padding: 6px 12px !important;
     height: 5%;
 }
+
+/*  *红色 */
+.span1{
+    color: red;
+}
+
 
