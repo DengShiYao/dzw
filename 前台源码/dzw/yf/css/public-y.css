@@ -78,7 +78,7 @@ tbody tr td{
 }
 /* 列头 */
 .vxe-table .vxe-body--column:not(.col--ellipsis), .vxe-table .vxe-footer--column:not(.col--ellipsis), .vxe-table .vxe-header--column:not(.col--ellipsis) {
-    padding: 6px 12px !important;
+    padding: 5px 12px !important;
     font-weight: 500 !important;
  }
 
@@ -97,4 +97,29 @@ tbody tr td{
     color: red;
 }
 
+.vxe-toolbar{
+    height: auto !important;
+     background-color: rgb(247, 247, 247) !important;
+}
 
+/* button右对齐 */
+.flexdiv{
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 15px;
+}
+
+.treefont{
+    font-size: 16px;
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Helvetica Neue,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+}
+
+.treefont>div:nth-of-type(1){
+    padding: 0px 15px 0px 0px;
+}
+
+.treefont>div:nth-of-type(1)>div{
+    height: 100%;
+    padding: 0px;
+    background-color: #ffffff;
+}

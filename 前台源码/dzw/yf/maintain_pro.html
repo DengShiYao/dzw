@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>维修项目</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.css">
+    <link rel="stylesheet" href="css/maintain_pro.css">
+    <link rel="stylesheet" href="css/public-y.css">
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="package/lib/style.css">
+</head>
+
+<body class="hea-div">
+    <div class="container-fluid" style="height: 100%;">
+        <div class="row" style="height: 100%;padding: 0px 0px !important;">
+            <div style=" border: 0px solid red; padding: 0px 0px !important;" class="col-sm-12">
+                <div class="col-sm-12 clearfix nav-div" style="border: 0px solid rebeccapurple;">
+                    <h3 class="clearfix" style="margin-top: 10px;">维修项目
+                        <button class="btn btn-default pull-right btnexit" type="button">关闭</button>
+                        <div class="pull-right" style="margin-right: 10px !important;">
+                            <form class="form-inline">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" style="width: 300px;"
+                                        placeholder="匹配编码/名称/名称简写">
+                                </div>
+                                <button type="button" class="btn btn-warning selbtn">搜索</button>
+                            </form>
+                        </div>
+                    </h3>
+                </div>
+            </div>
+            <div class="col-sm-12 flexdiv" style="border: 0px solid red;">
+                <div>
+                    <vxe-toolbar>
+                        <template v-slot:buttons>
+                            <vxe-button icon="glyphicon glyphicon-plus" data-toggle="modal" data-target="#myModal1">增加分类
+                            </vxe-button>
+                            <vxe-button @click="getCurrentEvent" icon="glyphicon glyphicon-edit">修改分类
+                            </vxe-button>
+                            <vxe-button icon="glyphicon glyphicon-remove-circle" data-toggle="modal"
+                                data-target="#myModal3">删除</vxe-button>
+                        </template>
+                    </vxe-toolbar>
+                </div>
+                <div>
+                    <vxe-toolbar>
+                        <template v-slot:buttons>
+                            <vxe-button icon="glyphicon glyphicon-plus" data-toggle="modal" data-target="#myModal1">增加
+                            </vxe-button>
+                            <vxe-button @click="getCurrentEvent" icon="glyphicon glyphicon-edit">修改
+                            </vxe-button>
+                            <vxe-button icon="glyphicon glyphicon-remove-circle" data-toggle="modal"
+                                data-target="#myModal3">删除</vxe-button>
+                            <vxe-button icon="fa fa-gavel" data-toggle="modal" data-target="#myModal4">
+                                调价</vxe-button>
+                            <vxe-button icon="glyphicon glyphicon-floppy-disk" data-toggle="modal"
+                                data-target="#myModal3">保存</vxe-button>
+                            <vxe-button icon="glyphicon glyphicon-export">导出</vxe-button>
+                            <!-- <vxe-button @click="$refs.xTable.setCurrentRow(tableData[1])">设置第二行选中</vxe-button> -->
+                            <!-- <vxe-button @click="$refs.xTable.clearCurrentRow()">取消选中</vxe-button> -->
+                        </template>
+                    </vxe-toolbar>
+                </div>
+            </div>
+            <div class="col-sm-12 treefont" style="height: 81%; border: 0px solid red; padding-right: 0px;">
+                <div class="col-sm-2" style=" height: 100%;border: 0px solid red; font-size: 16px;padding-left: 3px;">
+                    <div class="col-sm-12">
+                        <div id="treeview12" class=""></div>
+                    </div>
+                </div>
+                <div class="col-sm-10" style="height: 100%;border: 0px solid red; padding: 0px;">
+                    <div style="height: 100%;">
+                        <!-- <button v-slot:buttons type="button" @click="getCurrentEvent"> 你好</button> -->
+                        <template>
+                            <vxe-table border highlight-hover-row highlight-current-row resizable ref="xTable"
+                                auto-resize height="100%" :data="tableData" @current-change="currentChangeEvent"
+                                show-overflow>
+                                <!-- <vxe-table-column field="id" title="全选" min-width="80"></vxe-table-column> -->
+                                <vxe-table-column field="id" title="项目类别" min-width="200" sortable></vxe-table-column>
+                                <vxe-table-column field="name" min-width="200" title="项目编码"></vxe-table-column>
+                                <vxe-table-column field="sex" title="项目名称" min-width="150"></vxe-table-column>
+                                <vxe-table-column field="sex" title="售价按" min-width="120"></vxe-table-column>
+                                <vxe-table-column field="age" title="收入种类" min-width="120"></vxe-table-column>
+                                <vxe-table-column field="address" title="标准价" min-width="100"></vxe-table-column>
+                                <vxe-table-column field="address" title="会员价" min-width="120"></vxe-table-column>
+                                <vxe-table-column field="address" title="VIP价" min-width="120"></vxe-table-column>
+                                <vxe-table-column field="address" title="协议价" min-width="120"></vxe-table-column>
+                                <vxe-table-column field="address" title="索赔价" min-width="120"></vxe-table-column>
+                                <vxe-table-column field="address" title="保险加" min-width="100"></vxe-table-column>
+                            </vxe-table>
+                        </template>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 countn" style=" height: 4.6%; border: 0px solid red;">
+                &nbsp;&nbsp;&nbsp;总数据：<span>999</span></div>
+        </div>
+
+    </div>
+    <script src="js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xe-utils"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vxe-table"></script>
+    <script src="js/bootstrap-treeview.js"></script>
+    <script type="text/javascript">
+        var Main = {
+            data() {
+                return {
+                    templist: [{ id: 1, name: "test" }, { id: 2, name: "test" }, { id: 3, name: "test" }, { id: 4, name: "test" }],
+                    tableData: [{
+                        id: 10001,
+                        name: 'Test1',
+                        role: 'Develop',
+                        sex: 'Man',
+                        age: 28,
+                        address: 'vxe-table 从入门到放弃'
+                    },
+                    {
+                        id: 10002,
+                        name: 'Test2',
+                        role: 'Test',
+                        sex: 'Women',
+                        age: 22,
+                        address: 'Guangzhou'
+                    },
+                    {
+                        id: 10003,
+                        name: 'Test3',
+                        role: 'PM',
+                        sex: 'Man',
+                        age: 32,
+                        address: 'Shanghai'
+                    },
+                    {
+                        id: 10005,
+                        name: 'Test4',
+                        role: 'Designer',
+                        sex: 'Women ',
+                        age: 24,
+                        address: 'Shanghai'
+                    },
+                    {
+                        id: 10006,
+                        name: 'Test4',
+                        role: 'Designer',
+                        sex: 'Women ',
+                        age: 24,
+                        address: 'Shanghai'
+                    },
+                    {
+                        id: 10007,
+                        name: 'Test4',
+                        role: 'Designer',
+                        sex: 'Women ',
+                        age: 24,
+                        address: 'Shanghai'
+                    },
+                    {
+                        id: 10008,
+                        name: 'Test4',
+                        role: 'Designer',
+                        sex: 'Women ',
+                        age: 24,
+                        address: 'Shanghai'
+                    },
+                    {
+                        id: 10009,
+                        name: 'Test4',
+                        role: 'Designer',
+                        sex: 'Women ',
+                        age: 24,
+                        address: 'Shanghai'
+                    },
+                    {
+                        id: 10010,
+                        name: 'Test4',
+                        role: 'Designer',
+                        sex: 'Women ',
+                        age: 24,
+                        address: 'Shanghai'
+                    },
+                    {
+                        id: 10011,
+                        name: 'Test4',
+                        role: 'Designer',
+                        sex: 'Women ',
+                        age: 24,
+                        address: 'Shanghai'
+                    },
+                    {
+                        id: 10012,
+                        name: 'Test4',
+                        role: 'Designer',
+                        sex: 'Women ',
+                        age: 24,
+                        address: 'Shanghai'
+                    },
+                    {
+                        id: 10013,
+                        name: 'Test4',
+                        role: 'Designer',
+                        sex: 'Women ',
+                        age: 24,
+                        address: 'Shanghai'
+                    },
+                    {
+                        id: 10014,
+                        name: 'Test4',
+                        role: 'Designer',
+                        sex: 'Women ',
+                        age: 24,
+                        address: 'Shanghai'
+                    },
+                    {
+                        id: 10015,
+                        name: 'Test4',
+                        role: 'Designer',
+                        sex: 'Women ',
+                        age: 24,
+                        address: 'Shanghai'
+                    },
+                    {
+                        id: 10016,
+                        name: 'Test4',
+                        role: 'Designer',
+                        sex: 'Women ',
+                        age: 24,
+                        address: 'Shanghai'
+                    },
+                    {
+                        id: 10017,
+                        name: 'Test4',
+                        role: 'Designer',
+                        sex: 'Women ',
+                        age: 24,
+                        address: 'Shanghai'
+                    },
+                    {
+                        id: 10018,
+                        name: 'Test4',
+                        role: 'Designer',
+                        sex: 'Women ',
+                        age: 24,
+                        address: 'Shanghai'
+                    },
+                    {
+                        id: 10019,
+                        name: 'Test4',
+                        role: 'Designer',
+                        sex: 'Women ',
+                        age: 24,
+                        address: 'Shanghai'
+                    },
+                    {
+                        id: 10020,
+                        name: 'Test4',
+                        role: 'Designer',
+                        sex: 'Women ',
+                        age: 24,
+                        address: 'Shanghai'
+                    },
+                    {
+                        id: 10021,
+                        name: 'Test4',
+                        role: 'Designer',
+                        sex: 'Women ',
+                        age: 24,
+                        address: 'Shanghai'
+                    },
+                    {
+                        id: 100022,
+                        name: 'Test4',
+                        role: 'Designer',
+                        sex: 'Women ',
+                        age: 24,
+                        address: 'Shanghai'
+                    }
+                    ]
+                }
+            },
+            methods: {
+                //左侧表格点击更换背景色
+                clibanck(index) {
+                    this.num = index;
+                },
+                currentChangeEvent({
+                    row
+                }) {
+                    console.log('行选中事件')
+                },
+                getCurrentEvent() {
+                    //获取选中行数据
+                    //   alert(typeof JSON.stringify(this.$refs.xTable.getCurrentRecord()))
+                    if (JSON.stringify(this.$refs.xTable.getCurrentRecord()) != "null") {
+                        $("#myModel2").modal("show");
+                    }
+                    //  this.$XModal.alert(JSON.stringify(this.$refs.xTable.getCurrentRecord()));
+                }
+                //点击出发 file
+                , choiceImg() {
+                    this.$refs.filElem.dispatchEvent(new MouseEvent('click'))
+                },
+                find() {
+                    // var that = this;
+                    // $.ajax({
+                    // 	url:"http://localhost:8080/java37-SpringMVC-1/reststudent",
+                    // 	type:"get",
+                    // 	xhrFields: {
+                    // 		withCredentials: true
+                    // 	},
+                    // 	crossDomain: true,
+                    // 	dataType:"json",
+                    // 	success:function(result){
+                    // 		that.tableData = result;
+                    // 		console.log(result);
+                    // 	},error:function(error){
+                    // 		console.log(error);
+                    // 	}
+                    // });
+                }
+            },
+            created() {
+                this.find();
+            }
+        };
+        var Ctor = Vue.extend(Main);
+        new Ctor().$mount('.container-fluid');
+
+
+
+        var json = [{ text: 1, nodes: [{ text: 2 }] }, { text: 2 }, { text: 3 },]
+
+        var $tree = $('#treeview12').treeview({
+            data: json,
+            color: "#606266;",// 文本颜色
+            levels: 1,// 展开层级,
+            // expandIcon: "fa fa-taxi",   //下面有子节点的图标
+            // collapseIcon: "fa fa-ambulance",//可收缩的节点图标
+            // emptyIcon: "fa fa-motorcycle",//设置列表树中没有子节点的节点的图标
+        });
+
+    </script>
+</body>
+
+</html>
