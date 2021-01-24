@@ -4,17 +4,14 @@
 		<meta charset="utf-8">
 		<title>班组技工</title>
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
-		<link rel="stylesheet" type="text/css" href="css/css1.css"/>
 	</head>
 	<body>
 		<div id="ctn" class="container-fluid">
-			<div class="row" style="background-color: rgb(247,255,255);">
-				<div style="margin-bottom: 10px;">
-					<span style="font-size: 30px;">班组技工</span>
-					<input type="text" placeholder="匹配工号/姓名/手机" style="margin-left: 70%;width: 250px;height: 33px;">
-					<button class="btn btn-primary">搜索</button>
-					<button class="btn">关闭</button>		
-				</div>
+			<div class="row" style="background-color: rgb(247,255,255);height: 50px;display: flex;align-items: center;">
+					<span style="font-size: 25px;margin-left: 10px;">班组技工</span>
+					<input type="text" placeholder="匹配工号/姓名/手机" style="margin-left: 74%;width: 250px;height: 33px;">
+					<button class="btn btn-primary" style="margin-left: 10px;">搜索</button>
+					<button class="btn"  style="margin-left: 10px;">关闭</button>		
 			</div>
 			<div class="row" style="background-color: rgb(247,247,247);">
 				<div class="row">
@@ -30,7 +27,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-3" style="border: 1px solid red;">
+				<div class="col-md-2">
 					<ul>
 							<!-- 直接循环这个li就行了多重循环嵌套 -->
 							<li v-for="item in clasM"  @click.stop="select_bj($event)" class="select_bj">{{item.storeName}}
@@ -49,7 +46,7 @@
 					
 					
 				</div>
-				<div class="col-md-9" style="border: 1px solid gold;">
+				<div class="col-md-10">
 					<table class="table table-bordered table-striped table-hover">
 						<tr style="background-color: rgb(33,182,206); color: white;">
 							<td>技工编号</td>
@@ -82,6 +79,14 @@
 							<td></td>
 							<td></td>
 							<td>0EX0001</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
 						</tr>
 						<tr>
 							<td>1000</td>
@@ -94,6 +99,14 @@
 							<td></td>
 							<td></td>
 							<td>0EX0002</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
 						</tr>
 						<tr>
 							<td>1000</td>
@@ -106,6 +119,14 @@
 							<td>2019-12-25</td>
 							<td></td>
 							<td>0EX0001</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
 						</tr>
 					</table>
 				</div>

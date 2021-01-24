@@ -7,43 +7,125 @@
 	</head>
 	<body>
 		<div id="ctn" class="container-fluid">
-			<div class="row" style="background-color: rgb(247,255,255);">
-				<span style="font-size: 30px;">结算中心</span>
-				<button class="btn btn-success" style="margin-left: 86%;margin-bottom: 10px;">查询</button>
-				<button class="btn" style="margin-bottom: 10px;margin-left: 10px;">关闭</button>
+			<div class="row" style="background-color: rgb(247,255,255);display: flex; align-items: center;height: 50px;">
+				<span style="font-size: 25px;margin-left: 20px;">结算中心</span>
+				<button class="btn btn-success" style="margin-left: 86%;">查询</button>
+				<button class="btn" style="margin-left: 10px;">关闭</button>
 			</div>
-			<div class="row">
+			<div class="row" style="background-color: rgb(247,247,247);height: 40px;"></div>
+			<div class="row" style="border-top: 1px solid rgb(33,182,206);">
 				<form class="form-inline">
-				  <div class="form-group" style="margin-left: 35px;">
-				    <label for="exampleInputName2" style="color: rgb(33,182,206);">开单日期</label>
-				    <input type="date" class="form-control" id="exampleInputName2"  style="width: 150px;">
-						<input type="date" class="form-control" id="exampleInputName2"  style="width: 150px;">
-				  </div>
-				  <div class="form-group" style="margin-left: 10px;">
-				    <label for="exampleInputEmail2" style="color: rgb(33,182,206);">销售单号</label>
-				    <input type="text" class="form-control" id="exampleInputEmail2"  style="width: 120px;">
-				  </div>
-					<div class="form-group" style="margin-left: 10px;">
-					  <label for="exampleInputEmail2" style="color: rgb(33,182,206);">结算状态</label>
-					  <input type="text" class="form-control" id="exampleInputEmail2"  style="width: 120px;">
+					<div style="margin-top: 10px;">
+						<div class="form-group" style="margin-left: 35px;">
+						  <label for="exampleInputName2" style="color: rgb(33,182,206);">开单日期</label>
+						  <input type="date" class="form-control" id="exampleInputName2"  style="width: 150px;">
+							<input type="date" class="form-control" id="exampleInputName2"  style="width: 150px;">
+						</div>
+						<div class="form-group" style="margin-left: 10px;">
+						  <label for="exampleInputEmail2" style="color: rgb(33,182,206);">销售单号</label>
+						  <input type="text" class="form-control" id="exampleInputEmail2"  style="width: 120px;">
+						</div>
+						<div class="form-group" style="margin-left: 10px;">
+						  <label for="exampleInputEmail2" style="color: rgb(33,182,206);">结算状态</label>
+						  <input type="text" class="form-control" id="exampleInputEmail2"  style="width: 120px;">
+						</div>
+						<div class="form-group" style="margin-left: 10px;">
+						  <label for="exampleInputEmail2" style="color: rgb(33,182,206);">车牌号</label>
+						  <input type="text" class="form-control" id="exampleInputEmail2"  style="width: 150px;">
+						</div>
 					</div>
-					<div class="form-group" style="margin-left: 10px;">
-					  <label for="exampleInputEmail2" style="color: rgb(33,182,206);">车牌号</label>
-					  <input type="text" class="form-control" id="exampleInputEmail2"  style="width: 150px;">
+				  
+					<div style="margin-top: 10px;margin-bottom: 10px;">
+						<div class="form-group" style="margin-left: 34px;">
+								  <label for="exampleInputEmail2" style="color: rgb(33,182,206);">客户名称</label>
+									<select name="" class="form-control" id="exampleInputEmail2" style="width: 150px;">
+										<option value=""></option>
+										<option value=""></option>
+									</select>
+								</div>
+								<div class="form-group" style="margin-left: 10px;">
+								  <label for="exampleInputEmail2" style="color: rgb(33,182,206);">服务顾问</label>
+									<select name="" class="form-control" id="exampleInputEmail2" style="width: 150px;">
+										<option value=""></option>
+										<option value=""></option>
+									</select>
+								</div>
+								<div class="form-group" style="margin-left: 10px;">
+								  <label for="exampleInputEmail2" style="color: rgb(33,182,206);">业务类型</label>
+									<select name="" class="form-control" id="exampleInputEmail2" style="width: 150px;">
+										<option value=""></option>
+										<option value=""></option>
+									</select>
+								</div>
+								<div class="form-group" style="margin-left: 10px;">
+								  <label for="exampleInputEmail2" style="color: rgb(33,182,206);">单据类型</label>
+									<select name="" class="form-control" id="exampleInputEmail2" style="width: 150px;">
+										<option value=""></option>
+										<option value=""></option>
+									</select>
+								</div>
+								<div class="form-group" style="margin-left: 10px;">
+								  <label for="exampleInputEmail2" style="color: rgb(33,182,206);">备注</label>
+									<input type="text" class="form-control" id="exampleInputEmail2"  style="width: 150px;">
+								</div>
+							</form>
+						</div>
 					</div>
-					<br>
-					<div class="form-group" style="margin-left: 10px;">
-					  <label for="exampleInputEmail2" style="color: rgb(33,182,206);">班组</label>
-						<select name="" class="form-control" id="exampleInputEmail2" disabled="disabled" style="width: 150px;">
-							<option value=""></option>
-							<option value=""></option>
-						</select>
-					</div>
-				</form>
-				
+					
+			
+			<div class="row" style="height: 40px;background-color: rgb(247,247,247);display: flex; align-items: center;">
+				<a href="#" style="font-size: 20px;color: black;margin-left: 20px;"><img src="img/513d2798454719071e0f1ae34102d3fc.jpeg" style="width: 20px;margin-right: 6px;">门店选择</a>
+				<a href="#" style="font-size: 20px;color: black;margin-left: 73%;"><img src="img/033bc0f8ab625ceafdcfee32af9fbd67.jpeg" style="width: 20px;margin-right: 6px;">收银</a>
+				<a href="#" style="font-size: 20px;color: black;margin-left: 100px;"><img src="img/9c7fd9b4fd5666dcda308b03c648bcb3.jpeg" style="width: 20px;margin-right:6px;">打开单据</a>
+				<a href="#" style="font-size: 20px;color: black;margin-left: 35px;"><img src="img/9c7fd9b4fd5666dcda308b03c648bcb3.jpeg" style="width: 20px;margin-right: 6px;" >导出</a>
 			</div>
+			
 			<div class="row">
-				
+				<table class="table table-bordered table-striped table-hover">
+					<tr style="background-color: rgb(33,182,206); color: white;">
+						<td>销售单号</td>
+						<td>单据类型</td>
+						<td>结算方式</td>
+						<td>单据状态</td>
+						<td>结算状态</td>
+						<td>结算时间</td>
+						<td>结算人</td>
+						<td>结算金额</td>
+						<td>业务类型</td>
+						<td>客户名称</td>
+						<td>车型</td>
+						<td>车架号</td>
+						<td>联系电话</td>
+						<td>保险公司</td>
+						<td>赔款公司</td>
+						<td>对方车牌</td>
+						<td>服务顾问</td>
+						<td>完工时间</td>
+						<td>备注</td>
+					</tr>
+						<tr>
+							<td>00000RE210100023</td>
+							<td>救援</td>
+							<td>现结</td>
+							<td>完工</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td>1.00</td>
+							<td>饭喷</td>
+							<td>a</td>
+							<td>藏</td>
+							<td>重汽汕德卡</td>
+							<td>dasdas</td>
+							<td>adas</td>
+							<td></td>
+							<td></td>
+							<td>张三</td>
+							<td>2021-01-19 11:20</td>
+							<td></td>
+						</tr>
+					
+				</table>
 			</div>
 		</div>
 		
