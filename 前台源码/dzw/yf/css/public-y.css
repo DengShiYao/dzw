@@ -78,7 +78,7 @@ tbody tr td{
 }
 /* 列头 */
 .vxe-table .vxe-body--column:not(.col--ellipsis), .vxe-table .vxe-footer--column:not(.col--ellipsis), .vxe-table .vxe-header--column:not(.col--ellipsis) {
-    padding: 5px 12px !important;
+    padding: 7px 12px !important;
     font-weight: 500 !important;
  }
 
@@ -122,4 +122,11 @@ tbody tr td{
     height: 100%;
     padding: 0px;
     background-color: #ffffff;
+}
+.list-group-item {
+    padding: 7.4px 15px;
+}
+
+.vxe-table .vxe-cell {
+    padding-right: 0px !important;
 }
