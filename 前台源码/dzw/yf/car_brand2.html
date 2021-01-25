@@ -115,7 +115,7 @@
                         <template>
                             <vxe-table border highlight-hover-row highlight-current-row resizable ref="xTable"
                                 auto-resize height="535" :data="tableData" @current-change="currentChangeEvent"
-                                show-overflow>
+                                class="mytable-scrollbar" show-overflow>
                                 <!-- <vxe-table-column field="id" title="全选" min-width="80"></vxe-table-column> -->
                                 <vxe-table-column type="checkbox" width="60" min-width="60"></vxe-table-column>
                                 <vxe-table-column field="id" title="车型ID" min-width="120" sortable></vxe-table-column>

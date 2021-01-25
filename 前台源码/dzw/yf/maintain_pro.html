@@ -76,9 +76,9 @@
                     <div style="height: 100%;">
                         <!-- <button v-slot:buttons type="button" @click="getCurrentEvent"> 你好</button> -->
                         <template>
-                            <vxe-table border highlight-hover-row highlight-current-row resizable ref="xTable"
-                                auto-resize height="100%" :data="tableData" @current-change="currentChangeEvent"
-                                show-overflow>
+                            <vxe-table border show-footer highlight-hover-row highlight-current-row resizable
+                                ref="xTable" auto-resize height="100%" round :data="tableData" class="mytable-scrollbar"
+                                @current-change="currentChangeEvent" show-overflow>
                                 <!-- <vxe-table-column field="id" title="全选" min-width="80"></vxe-table-column> -->
                                 <vxe-table-column field="id" title="项目类别" min-width="150" sortable></vxe-table-column>
                                 <vxe-table-column field="name" min-width="120" title="项目编码"></vxe-table-column>

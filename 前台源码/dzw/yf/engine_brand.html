@@ -51,17 +51,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>test</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>test</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>test</td>
+
+                        <tr v-for="item,index in templist" @click="clibanck(index)" :class="{'clibanck':num==index}">
+                            <td>{{ item.id }}</td>
+                            <td>{{ item.name }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -97,10 +90,15 @@
             el: ".container-fluid",
             data() {
                 return {
-
+                    num: -1,
+                    templist: [{ id: 1, name: "test" }, { id: 2, name: "test" }, { id: 3, name: "test" }, { id: 4, name: "test" }],
                 }
             },
             methods: {
+                //左侧表格点击更换背景色
+                clibanck(index) {
+                    this.num = index;
+                },
                 find() {
 
                 },
