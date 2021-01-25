@@ -1,0 +1,67 @@
+.vxe-button {
+    padding: 0 20px !important;
+    margin-left: 3px !important;
+ }
+ 
+ .countn{
+     line-height: 38px;
+     font-size: 16px;
+     color: #606266;
+     padding-left: 0px ;
+     font-family: -apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Helvetica Neue,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+ }
+ 
+ .fordiv1 label,.fordiv1 div{
+     padding: 0px !important;
+     font-weight: 500 !important;
+     font-size: 14px !important;
+     color: #606266;
+     font-family: -apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Helvetica Neue,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+ }
+ 
+ .fordiv1 label{
+     text-align: center !important;
+     line-height: 35px;
+     width: 85px !important;
+ }
+ 
+.nav-li li{
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.nav-li a{
+  cursor: pointer;
+}
+
+.nav-li a:focus,
+.nav-li a:active:focus,
+.nav-li a.active:focus,
+.nav-li a.focus,
+.nav-li a:active.focus,
+.nav-li a.active.focus {
+    outline: none;   
+    border-color: transparent;         
+}
+
+.form-fiex{
+    display: flex;
+    justify-content: center;
+}
+
+.ul1 li{
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+.checcss{
+    display: inline-block;
+    margin-right: 60px;
+}
+
+.checcss label{
+    font-size: 14px !important;
+    font-weight: bold;
+    color:  rgb(57, 206, 222) !important;
+    
+}
