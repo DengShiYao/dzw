@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>车辆管理</title>
+		<link rel="stylesheet" href="../css/bootstrap.min.css" />
+		<style>
+			nav{
+				margin-left: 600px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="row">
+  			<div class="col-md-8"><h1>车辆资料</h1></div>
+  			<div class="col-md-4"><form class="form-inline">
+  			<div class="form-group">
+    		<label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+    		<div class="input-group">
+      		<div class="input-group-addon">搜索</div>
+      		<input type="text" class="form-control" id="exampleInputAmount" placeholder="车辆搜索">
+    		</div>
+  			</div>
+  			<button type="submit" class="btn btn-primary">查询</button>
+			</form></div>
+		</div>
+		<div class="row">
+  		<div class="col-md-5"></div>
+  		<div class="col-md-3">
+  		<div class="btn-group" role="group" aria-label="...">
+  		<button type="button"   data-toggle="modal" href="#insertmodal" class="btn btn-default">新增</button>
+  		<button type="button"  data-toggle="modal" href="#insertmodal" class="btn btn-default">修改</button>
+  		<button type="button" class="btn btn-default">删除</button>
+		</div>
+  		</div>
+	<div class="col-md-1"></div>
+	<div class="col-md-3">
+	<div class="btn-group" role="group" aria-label="...">
+  		<button type="button"  data-toggle="modal" href="#Bymodal" class="btn btn-default">保养</button>
+  		<button type="button" class="btn btn-default">导出</button>
+		</div>
+	</div>
+		</div>
+		<table class="table table-bordered">
+			<tr>
+				<td>车牌号码</td>
+				<td>车牌号码</td>
+				<td>车牌号码</td>
+				<td>车牌号码</td>
+				<td>车牌号码</td>
+				<td>车牌号码</td>
+				<td>车牌号码</td>
+				<td>车牌号码</td>
+				<td>车牌号码</td>
+				<td>车牌号码</td>
+				<td>车牌号码</td>
+				<td>车牌号码</td>
+			</tr>
+		</table>
+		
+		
+		
+		
+		
+		<nav aria-label="Page navigation">
+			  <ul class="pagination">
+			    <li>
+			      <a href="#" aria-label="Previous">
+			        <span aria-hidden="true">&laquo;</span>
+			      </a>
+			    </li>
+			    <li><a href="#">1</a></li>
+			    <li><a href="#">2</a></li>
+			    <li><a href="#">3</a></li>
+			    <li><a href="#">4</a></li>
+			    <li><a href="#">5</a></li>
+			    <li>
+			      <a href="#" aria-label="Next">
+			        <span aria-hidden="true">&raquo;</span>
+			      </a>
+			    </li>
+			  </ul>
+		</nav>
+
+
+
+
+		
+		<table class="table table-bordered">
+			<tr>
+				<td>车牌号码</td>
+				<td>车牌号码</td>
+				<td>车牌号码</td>
+				<td>车牌号码</td>
+				<td>车牌号码</td>
+				<td>车牌号码</td>
+				<td>车牌号码</td>
+				<td>车牌号码</td>
+				<td>车牌号码</td>
+				<td>车牌号码</td>
+				<td>车牌号码</td>
+				<td>车牌号码</td>
+			</tr>
+		</table>
+		
+		
+		
+		<nav aria-label="Page navigation">
+			  <ul class="pagination">
+			    <li>
+			      <a href="#" aria-label="Previous">
+			        <span aria-hidden="true">&laquo;</span>
+			      </a>
+			    </li>
+			    <li><a href="#">1</a></li>
+			    <li><a href="#">2</a></li>
+			    <li><a href="#">3</a></li>
+			    <li><a href="#">4</a></li>
+			    <li><a href="#">5</a></li>
+			    <li>
+			      <a href="#" aria-label="Next">
+			        <span aria-hidden="true">&raquo;</span>
+			      </a>
+			    </li>
+			  </ul>
+			</nav>
+		
+		
+		
+		
+		
+		
+		<!--新增-->
+			<div class="modal" data-backdrop="true" id="insertmodal">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">车辆资料编辑</div>
+						<div class="modal-body">
+							<div class="editStudent">
+									<form class="form-inline">
+  									<div class="form-group">
+    								<label for="exampleInputName2">车辆号码</label>
+    								<select class="form-control">
+  											<option>1</option>
+  											<option>2</option>
+  											<option>3</option>
+  											<option>4</option>
+  											<option>5</option>
+									</select>
+  									</div>
+  									<div class="form-group">
+    								<label for="exampleInputName2">车辆品牌</label>
+    								<select class="form-control">
+  											<option>1</option>
+  											<option>2</option>
+  											<option>3</option>
+  											<option>4</option>
+  											<option>5</option>
+									</select>
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">车辆型号</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">驾驶员</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">驾驶员电话</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">驾驶员电话</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">出生日期</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+  									<div class="form-group">
+    								<label for="exampleInputName2">车辆归属</label>
+    								<select class="form-control">
+  											<option>1</option>
+  											<option>2</option>
+  											<option>3</option>
+  											<option>4</option>
+  											<option>5</option>
+									</select>
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">驾证到期</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">车架号</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">发动机号</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">车辆年款</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">里程</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">发动机品牌</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">载重</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">购买日期</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">上牌日期</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">车检到期</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">燃油类别</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">车系</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">交强保险公司</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">交强险到期</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">商业险保险公司</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">商业险到期</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">下次保养里程</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">下次保养日期</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">客户名称</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+									</form>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button @click="addStudent()">保存</button>
+							<button>关闭</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
+			<!--修改-->
+			<div class="modal" data-backdrop="true" id="updatamodal">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">车辆资料编辑</div>
+						<div class="modal-body">
+							<div class="editStudent">
+									<form class="form-inline">
+  									<div class="form-group">
+    								<label for="exampleInputName2">车辆号码</label>
+    								<select class="form-control">
+  											<option>1</option>
+  											<option>2</option>
+  											<option>3</option>
+  											<option>4</option>
+  											<option>5</option>
+									</select>
+  									</div>
+  									<div class="form-group">
+    								<label for="exampleInputName2">车辆品牌</label>
+    								<select class="form-control">
+  											<option>1</option>
+  											<option>2</option>
+  											<option>3</option>
+  											<option>4</option>
+  											<option>5</option>
+									</select>
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">车辆型号</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">驾驶员</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">驾驶员电话</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">驾驶员电话</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">出生日期</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+  									<div class="form-group">
+    								<label for="exampleInputName2">车辆归属</label>
+    								<select class="form-control">
+  											<option>1</option>
+  											<option>2</option>
+  											<option>3</option>
+  											<option>4</option>
+  											<option>5</option>
+									</select>
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">驾证到期</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">车架号</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">发动机号</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">车辆年款</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">里程</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">发动机品牌</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">载重</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">购买日期</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">上牌日期</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">车检到期</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">燃油类别</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">车系</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">交强保险公司</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">交强险到期</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">商业险保险公司</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">商业险到期</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">下次保养里程</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">下次保养日期</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">客户名称</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2">
+  									</div>
+									</form>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button @click="addStudent()">保存</button>
+							<button>关闭</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
+			
+			
+			<!--保养-->
+			<div class="modal" data-backdrop="true" id="Bymodal">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">车辆保养登记</div>
+						<div class="modal-body">
+							<div class="editStudent">
+								<button type="button"   data-toggle="modal" href="#Byxzmodal" class="btn btn-default">新增</button>
+						  		<button type="button"  class="btn btn-default">修改</button>
+						  		<button type="button" class="btn btn-default">删除</button>
+						  		<button type="button" class="btn btn-default">导出</button>
+								<table class="table table-bordered">
+									<tr>
+										<td>车牌号码</td>
+										<td>车牌号码</td>
+										<td>车牌号码</td>
+										<td>车牌号码</td>
+										<td>车牌号码</td>
+										<td>车牌号码</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button @click="addStudent()">保存</button>
+							<button>关闭</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
+			<!--保养新增-->
+			<div class="modal" data-backdrop="true" id="Byxzmodal">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">车辆保养登记</div>
+						<div class="modal-body">
+							<div class="editStudent">
+								<form class="form-horizontal">
+								  <div class="form-group">
+								    <label for="inputEmail3" class="col-sm-2 control-label">保养名称</label>
+								    <div class="col-sm-10">
+								      <input type="email" class="form-control" id="inputEmail3">
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label for="inputPassword3" class="col-sm-2 control-label">计划里程</label>
+								    <div class="col-sm-10">
+								      <input type="password" class="form-control" id="inputPassword3">
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label for="inputPassword3" class="col-sm-2 control-label">计划日期</label>
+								    <div class="col-sm-10">
+								      <input type="password" class="form-control" id="inputPassword3">
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <label for="inputPassword3" class="col-sm-2 control-label">备注</label>
+								    <div class="col-sm-10">
+								      <input type="password" class="form-control" id="inputPassword3">
+								    </div>
+								  </div>
+								  <div class="form-group">
+								    <div class="col-sm-offset-2 col-sm-10">
+								      <button type="submit" class="btn btn-default">Sign in</button>
+								    </div>
+								  </div>
+								</form>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button @click="addStudent()">保存</button>
+							<button>关闭</button>
+						</div>
+					</div>
+				</div>
+			</div>
+	</body>
+	<script type="text/javascript" src="../js/jquery.min.js" ></script>
+	<script type="text/javascript" src="../js/vue.js" ></script>
+	<script type="text/javascript" src="../js/bootstrap.min.js" ></script>
+</html>

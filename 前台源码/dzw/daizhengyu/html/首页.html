@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link href="../css/bootstrap.min.css" rel="stylesheet" />
+		<style type="text/css">
+			body,html{
+				margin:0px;
+				padding:0px;
+				height: 100%;
+			}
+			#ctn{
+				height: 100%;
+				width:100%;
+				border: 2px solid #e3e3e3;
+			}
+			.hreder{
+				height: 10%;
+				border-bottom: 1px solid #e3e3e3;
+			}
+			.nav{
+				margin-left:20px;
+			}
+			.row>div:nth-child(1){
+				border-right:1px solid #e3e3e3;
+			}
+			.a,#a{
+				padding:0px;
+				margin:0px;
+			}
+			iframe{
+				width:100%;
+				height:600px;
+				border:0px;
+			}
+			.tabclose{
+				position: absolute;
+				top:0px;
+				right: 0px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="ctn" class="container-fluid">
+			<h2 class="hreder">德召文</h2>
+			<div class="row">
+				<div class="col-xs-2">
+					<tree :menu="menu" @create-tab="createTab"></tree>
+				</div>
+				<div class="col-xs-10 a">
+					<ul class="nav nav-tabs" id="a">
+						<li :class="{active:item.active}" v-for="item,index in tabs"><a :href="'#'+item.ename" data-toggle="tab">{{item.name}}<span @click="removeTab(index)" class="close tabclose" data-dismiss="modal" v-if="index!=0">&times;</span></a></li>
+					</ul>
+					<div class="tab-content">
+						<div v-for="item in tabs" :id="item.ename" :class="['tab-pane',item.active?'active':'']">
+							<iframe :src="item.path"></iframe>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../js/vue.js"></script>
+	<script src="../static/js/bootstrap.min.js"></script>
+	<script type="text/javascript">	
+		Vue.component("tree",{
+			props:["menu"],
+			template:`
+				<ul class="nav nav-pills nav-stacked">
+					<li v-for="item in menu">
+						<a href="#" @click="createTab(item)">{{item.name}}</a>
+						<tree @create-tab="createTab" :menu="item.children"></tree>
+					</li>
+				</ul>
+			`,
+			methods:{
+				createTab(item){
+					this.$emit("create-tab",item);
+				}
+			}
+		})
+		var menu = [
+		{
+			id:1,
+			name:"首页",
+			ename:"sys"
+		},{
+			id:2,
+			name:"服务接待",
+			ename:"sys",
+			children:[{
+				id:4,
+				name:"维修接车",
+				ename:"role",
+				path:"Select.html"	
+			},{
+				id:5,
+				name:"竣工检验",
+				ename:"user",
+				path:"Select.html"
+			}]
+		},{
+			id:3,
+			name:"备品管理",
+			ename:"stady",
+			children:[{
+				id:6,
+				name:"学员管理",
+				ename:"student",
+				path:"Select.html"
+			},{
+				id:7,
+				name:"班级管理",
+				ename:"clazz",
+				path:"Select.html"
+				
+			}]
+		},{
+			id:4,
+			name:"维修救援",
+			ename:"stady",
+			children:[{
+				id:8,
+				name:"维修接车",
+				ename:"wxjc",
+				path:"Select.html"
+			},{
+				id:9,
+				name:"竣工检验",
+				ename:"jgjy",
+				path:"Select.html"
+				
+			},{
+				id:10,
+				name:"出厂放行",
+				ename:"ccfx",
+				path:"Select.html"
+				
+			},{
+				id:11,
+				name:"施工登记",
+				ename:"sgdj",
+				path:"Select.html"
+				
+			}]
+		}];
+		new Vue({
+			el:"#ctn",
+			data(){
+				return{
+					menu:menu,
+					tabs:[
+						{id:0,name:"首页",ename:"index",active:true}
+					]
+				}
+			},
+			methods:{
+				createTab(item){
+					if(item.children && item.children.length>0){
+						return;
+					}
+					this.tabs.forEach(item=>{item.active=false;});
+					this.$set(item,"active",true);
+					var bool = this.tabs.some(sitem=>sitem.ename==item.ename);
+					if(!bool){
+						
+						this.tabs.push(item);
+					}
+				},
+				removeTab(index){
+					if(index==this.tabs.length-1){
+						this.tabs[index-1].active=true;
+					}
+					this.tabs.splice(index,1);
+				}
+			}
+		});
+	</script>
+	</body>
+</html>
