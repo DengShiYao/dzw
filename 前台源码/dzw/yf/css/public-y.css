@@ -157,3 +157,7 @@ tbody tr td{
   .mytable-scrollbar ::-webkit-scrollbar-corner {
     background-color: #FFFFFF;
   }
+
+  .vxe-header--column{
+      font-weight: 500 !important;
+  }

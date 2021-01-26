@@ -101,7 +101,7 @@
                             <vxe-button icon="fa fa-barcode">条码</vxe-button>
                             <vxe-button icon=" glyphicon-th-large
                         glyphicon glyphicon-th">分类设置</vxe-button>
-                            <vxe-button icon="fa fa-cog" data-toggle="modal" data-target="#myModal10">字段设置</vxe-button>
+                            <vxe-button icon="fa fa-cog" data-toggle="modal" data-target="#myModel10">字段设置</vxe-button>
                             <!-- <vxe-button @click="$refs.xTable.setCurrentRow(tableData[1])">设置第二行选中</vxe-button> -->
                             <!-- <vxe-button @click="$refs.xTable.clearCurrentRow()">取消选中</vxe-button> -->
                         </template>
@@ -118,7 +118,7 @@
                     <div style="height: 100%;">
                         <!-- <button v-slot:buttons type="button" @click="getCurrentEvent"> 你好</button> -->
                         <template>
-                            <vxe-grid border highlight-hover-row highlight-current-row resizable ref="xTable"
+                            <vxe-grid border stripe highlight-hover-row highlight-current-row resizable ref="xTable"
                                 class="mytable-scrollbar" auto-resize height="100%" :data="tableData"
                                 :columns="tableColumn" @current-change="currentChangeEvent" round show-header-overflow
                                 show-overflow>
@@ -159,7 +159,6 @@
             </div>
             <div class="col-sm-12 countn" style=" height: 4.6%; border: 0px solid red;">
                 &nbsp;&nbsp;&nbsp;&nbsp;总数据：<span>999</span></div>
-
             <!-- 模态框  -->
             <!-- 增加分类 -->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -1234,37 +1233,70 @@
                 </div>
             </div>
             <!-- 字段设置 -->
-            <div class="modal fade" id="myModal10" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog" role="document">
+            <div class="modal fade bs-example-modal-lg" tabindex="-1" id="myModel10" role="dialog"
+                aria-labelledby="myLargeModalLabel">
+                <div class="modal-dialog modal-lg" role="document" style="width: 900px;">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                     aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel">调价</h4>
+                            <h4 class="modal-title clearfix" id="myModalLabel2">字段设置
+
+                            </h4>
                         </div>
-                        <div class="modal-body">
-                            <form class="form-horizontal ">
-                                <div class="col-sm-2"></div>
-                                <div class="form-group" style="margin-top: 15px;">
-                                    <div class=" col-sm-3">
-                                        <select class="form-control" style="width: 102.1%">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                        </select>
-                                    </div>
-                                    <label for="inputPassword3" class="col-sm-2 control-label">=&nbsp;标准价&nbsp;*</label>
-                                    <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="inputPassword3">
-                                    </div>
+                        <div class="modal-body row">
+                            <div class="coml-sm-12" style="padding: 0px 30px ;">
+                                <div style="height:394px;  overflow:auto;">
+                                    <table class="table table-bordered table-hover table-striped itemtable">
+                                        <tr>
+                                            <td style="width: 10%;">
+                                                <div class="checkbox" style="margin: 00px;">
+                                                    <label>
+                                                        <input type="checkbox" @click="checkAll"
+                                                            v-model="is_check_all">显示
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td style="width: 15%;"><span>序号</span></td>
+                                            <td style="width: 25%;"><span>字段</span></td>
+                                            <td style="width: 25%;"><span>字段名称</span></td>
+                                            <td style="width: 25%;"><span>显示宽度</span></td>
+                                        </tr>
+                                        <tr v-for="item,index in tableColumn">
+                                            <td class="context">
+                                                <span><input type="checkbox" v-model="check_list"
+                                                        :value="item.num"></span>
+                                            </td>
+                                            <td><span>{{ item.num}}</span></td>
+                                            <td><span>{{ item.field }}</span></td>
+                                            <td><span>{{ item.title }}</span></td>
+                                            <td @dblclick="td_dbclick(item,index)"
+                                                style="padding-bottom: 0px; padding-top: 0px;">
+                                                <span v-if="item.inputVislble">{{ item.widthtemp }}</span>
+                                                <div v-else class="form-group inputdiv">
+                                                    <input type="tel" pattern="[0-9]*" :ref="item.tfocus"
+                                                        v-model="item.widthtemp" class="form-control"
+                                                        @blur="inputblur(item,index)"
+                                                        @keyup.enter="inputblur(item,index)"
+                                                        oninput="value=value.replace(/[^\d]/g,'')" />
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
                                 </div>
-                                <div class="col-sm-2"></div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">否</button>
-                            <button type="button" class="btn btn-primary">是</button>
+                            </div>
+                            <div class="col-sm-12" style="text-align: right;padding-top: 10px;padding-right: 30px;">
+                                <button type="button" class="btn"
+                                    style="padding-right: 25px; padding-left: 25px;">取消</button>
+                                <button type=" button" class="btn btn-info" @click="updshow"
+                                    style="padding-right: 25px; padding-left: 25px;">保存</button>
+                                <!-- <vxe-toolbar>
+                                    <template v-slot:buttons>
+
+                                        <vxe-button @click="$refs.xTable.resetColumn()">重置</vxe-button>
+                                    </template>
+                                </vxe-toolbar> -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1279,35 +1311,77 @@
     <script src="https://cdn.jsdelivr.net/npm/vxe-table"></script>
     <script src="js/bootstrap-treeview.js"></script>
     <script type="text/javascript">
+        //获取字段名和属性名
+        // SELECT COLUMN_NAME,column_comment FROM INFORMATION_SCHEMA.Columns WHERE table_name='student' AND table_schema='myschool1913'
         var Main = {
             data() {
                 return {
+                    obj1: [{
+                        "authList": [],
+                        "enabled": 1,
+                        "id": "b3bae8fcde0d4a50b7fbcbbccf4fe216",
+                        "lastLogin": 1564363725773,
+                        "lastLoginStr": "2019-07-29",
+                        "namePinyin": "chenghua",
+                        "namePinyinFirst": "c",
+                        "rowLocked": 0,
+                        "sex": 2,
+                        "userAccount": "chenghua",
+                        "userName": "lomo"
+                    }, {
+                        "authList": [],
+                        "enabled": 1,
+                        "id": "b3bae8fcde0d4a50b7fbcbbccf4fe216",
+                        "lastLogin": 1564363725773,
+                        "lastLoginStr": "2019-07-29",
+                        "namePinyin": "chenghua",
+                        "namePinyinFirst": "c",
+                        "rowLocked": 0,
+                        "sex": 3,
+                        "userAccount": "chenghua",
+                        "userName": "lomo"
+                    }],
+
+                    obj2: [{
+                        "sex": '',
+                        "userAccount": "",
+                        "userName": ""
+                    }, {
+                        "sex": '',
+                        "userAccount": "",
+                        "userName": ""
+                    }],
                     imgUrl: [],
                     textHide: [false, false, false, false],
+                    check_list: [],
+                    is_check_all: false,
                     templist: [{ id: 1, name: "test" }, { id: 2, name: "test" }, { id: 3, name: "test" }, { id: 4, name: "test" }],
+                    //修改 加载时查询字段及其注释加 然后再查询数据
+                    //先查询加载列表 然后获取列头
+                    columns: [],
                     tableColumn: [
-                        { field: 'id', title: '登记门店', sortable: true, showOverflow: true, width: 200 },
-                        { field: 'name', title: '照片名', sortable: true, showOverflow: true, width: 200 },
-                        { field: 'sex', title: '商品编码', sortable: true, showOverflow: true, width: 200 },
-                        { field: 'age', title: '商品名称', sortable: true, showOverflow: true, width: 200 },
-                        { field: 'address', title: '适用车型', sortable: true, showOverflow: true, width: 120 },
-                        { field: 'sex', title: '商品大类', sortable: true, showOverflow: true, width: 200 },
-                        { field: 'sex', title: '商品中类', sortable: true, showOverflow: true, width: 200 },
-                        { field: 'sex', title: '商品小类', sortable: true, showOverflow: true, width: 200 },
-                        { field: 'sex', title: '收入分类', sortable: true, showOverflow: true, width: 200 },
-                        { field: 'sex', title: '原厂副厂', sortable: true, showOverflow: true, width: 200 },
-                        { field: 'sex', title: '商品等级', sortable: true, showOverflow: true, width: 200 },
-                        { field: 'sex', title: '商品产地', sortable: true, showOverflow: true, width: 200 },
-                        { field: 'sex', title: '厂商名称', sortable: true, showOverflow: true, width: 200 },
-                        { field: 'sex', title: '原厂编码', sortable: true, showOverflow: true, width: 200 },
-                        { field: 'sex', title: '条形码', sortable: true, showOverflow: true, width: 200 },
-                        { field: 'sex', title: '包装规格', sortable: true, showOverflow: true, width: 200 },
-                        { field: 'sex', title: '体积', sortable: true, showOverflow: true, width: 200 },
-                        { field: 'sex', title: '毛重', sortable: true, showOverflow: true, width: 200 },
-                        { field: 'sex', title: '净重', sortable: true, showOverflow: true, width: 200 },
-                        { field: 'sex', title: '加价率', sortable: true, showOverflow: true, width: 200 },
-                        { field: 'sex', title: '互换码', sortable: true, showOverflow: true, width: 200 },
-                        { field: 'sex', title: '售价按', sortable: true, showOverflow: true, width: 200 }
+                        { num: 1, field: 'id', title: '登记门店', sortable: true, showOverflow: true, width: 200, visible: true, inputVislble: true, widthtemp: 150, tfocus: 'itemName' },
+                        { num: 2, field: 'name', title: '照片名', sortable: true, showOverflow: true, width: 200, visible: true, inputVislble: true, widthtemp: 150, tfocus: 'itemName' },
+                        { num: 3, field: 'sex', title: '商品编码', sortable: true, showOverflow: true, width: 200, visible: true, inputVislble: true, widthtemp: 150, tfocus: 'itemName' },
+                        { num: 4, field: 'age', title: '商品名称', sortable: true, showOverflow: true, width: 200, visible: true, inputVislble: true, widthtemp: 150, tfocus: 'itemName' },
+                        { num: 5, field: 'address', title: '适用车型', sortable: true, showOverflow: true, width: 120, visible: true, inputVislble: true, widthtemp: 150, tfocus: 'itemName' },
+                        { num: 6, field: 'sex', title: '商品大类', sortable: true, showOverflow: true, width: 200, visible: true, inputVislble: true, widthtemp: 150, tfocus: 'itemName' },
+                        { num: 7, field: 'sex', title: '商品中类', sortable: true, showOverflow: true, width: 200, visible: true, inputVislble: true, widthtemp: 150, tfocus: 'itemName' },
+                        { num: 8, field: 'sex', title: '商品小类', sortable: true, showOverflow: true, width: 200, visible: true, inputVislble: true, widthtemp: 150, tfocus: 'itemName' },
+                        { num: 9, field: 'sex', title: '收入分类', sortable: true, showOverflow: true, width: 200, visible: true, inputVislble: true, widthtemp: 150, tfocus: 'itemName' },
+                        { num: 10, field: 'sex', title: '原厂副厂', sortable: true, showOverflow: true, width: 200, visible: true, inputVislble: true, widthtemp: 150, tfocus: 'itemName' },
+                        { num: 11, field: 'sex', title: '商品等级', sortable: true, showOverflow: true, width: 200, visible: true, inputVislble: true, widthtemp: 150, tfocus: 'itemName' },
+                        { num: 12, field: 'sex', title: '商品产地', sortable: true, showOverflow: true, width: 200, visible: true, inputVislble: true, widthtemp: 150, tfocus: 'itemName' },
+                        { num: 13, field: 'sex', title: '厂商名称', sortable: true, showOverflow: true, width: 200, visible: true, inputVislble: true, widthtemp: 150, tfocus: 'itemName' },
+                        { num: 14, field: 'sex', title: '原厂编码', sortable: true, showOverflow: true, width: 200, visible: true, inputVislble: true, widthtemp: 150, tfocus: 'itemName' },
+                        { num: 15, field: 'sex', title: '条形码', sortable: true, showOverflow: true, width: 200, visible: true, inputVislble: true, widthtemp: 150, tfocus: 'itemName' },
+                        { num: 16, field: 'sex', title: '包装规格', sortable: true, showOverflow: true, width: 200, visible: true, inputVislble: true, widthtemp: 150, tfocus: 'itemName' },
+                        { num: 17, field: 'sex', title: '体积', sortable: true, showOverflow: true, width: 200, visible: true, inputVislble: true, widthtemp: 150, tfocus: 'itemName' },
+                        { num: 18, field: 'sex', title: '毛重', sortable: true, showOverflow: true, width: 200, visible: true, inputVislble: true, widthtemp: 150, tfocus: 'itemName' },
+                        { num: 19, field: 'sex', title: '净重', sortable: true, showOverflow: true, width: 200, visible: true, inputVislble: true, widthtemp: 150, tfocus: 'itemName' },
+                        { num: 20, field: 'sex', title: '加价率', sortable: true, showOverflow: true, width: 200, visible: true, inputVislble: true, widthtemp: 150, tfocus: 'itemName' },
+                        { num: 21, field: 'sex', title: '互换码', sortable: true, showOverflow: true, width: 200, visible: true, inputVislble: true, widthtemp: 150, tfocus: 'itemName' },
+                        { num: 22, field: 'sex', title: '售价按', sortable: true, showOverflow: true, width: 200, visible: true, inputVislble: true, widthtemp: 150, tfocus: 'itemName' }
                     ],
                     tableData: [{
                         id: 10001,
@@ -1482,9 +1556,52 @@
                 }
             },
             methods: {
-                //左侧表格点击更换背景色
-                clibanck(index) {
-                    this.num = index;
+                //获取焦点时显示文本框
+                td_dbclick(item, index) {
+                    item.inputVislble = false;
+                    this.$nextTick(function () {
+                        this.$refs.itemName[0].focus()
+                    });
+                },
+                //input失去焦点显示span
+                inputblur(item, index) {
+                    item.inputVislble = true;
+                },
+                //字段设置 - 点击保存
+                updshow() {
+                    //设置所有false
+                    this.tableColumn.forEach(item => item.visible = false);
+                    //遍历checklist 选中的为true
+                    this.tableColumn.forEach((item) => {
+                        this.check_list.forEach(arr => {
+                            if (arr == item.num) { item.visible = true; }
+                        })
+                        item.width = item.widthtemp;
+                    });
+                    //循环进行修改页面 table 配置信息
+                    let obj = JSON.parse(JSON.stringify(this.tableColumn))
+                    //循环tbale配置对象 将tableColumn相同的属性值赋值给columns
+                    this.columns.forEach((value, key) => {
+                        value.width = obj[key].width;
+                        value.visible = obj[key].visible;
+                    })
+                    this.$refs.xTable.refreshColumn();
+                },
+                //获取列头
+                gettableColumns() {
+                    // 获取所有列配置
+                    this.$nextTick(() => {
+                        this.columns = this.$refs.xTable.getColumns();
+                        console.log(JSON.stringify(this.$refs.xTable.getColumns()))
+                    })
+                },
+                //全选
+                checkAll() {
+                    if (this.tableColumn.length == this.check_list.length) {
+                        this.check_list = [];
+                    } else {
+                        this.check_list = this.tableColumn.map(item => item.num)
+                    }
                 },
                 currentChangeEvent({
                     row
@@ -1501,7 +1618,7 @@
                     }
                     //  this.$XModal.alert(JSON.stringify(this.$refs.xTable.getCurrentRecord()));
                 }
-                //点击出发 file
+                //点击触发 file
                 , choiceImg(index) {
                     if (index == 0) {
                         this.$refs.filElem.dispatchEvent(new MouseEvent('click'));
@@ -1574,8 +1691,20 @@
             },
             created() {
                 this.find();
+                //获取列表可视的列
+                this.gettableColumns();
             }
-        };
+            ,
+            watch: {
+                check_list() {
+                    if (this.tableColumn.length == this.check_list.length) {
+                        this.is_check_all = true;
+                    } else {
+                        this.is_check_all = false;
+                    }
+                }
+            }
+        }
         var Ctor = Vue.extend(Main);
         new Ctor().$mount('.container-fluid');
 

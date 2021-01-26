@@ -159,3 +159,20 @@
     background-color: #FFFFFF;
   }
   
+.inputdiv{
+    margin-bottom: 0px !important;
+}
+
+.inputdiv input {
+    /* padding-top: 0px;
+    padding-bottom: 0px; */
+    /* height: 30px; */
+}
+
+.itemtable tr td{
+    vertical-align:baseline !important;
+}
+
+.context{
+    text-align: center;
+}
