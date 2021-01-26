@@ -9,7 +9,7 @@
 		<div id="ctn" class="container-fluid">
 			<div class="row" style="background-color: rgb(247,255,255);height: 50px;display: flex;align-items: center;">
 					<span style="font-size: 25px;margin-left: 10px;">班组技工</span>
-					<input type="text" placeholder="匹配工号/姓名/手机" style="margin-left: 74%;width: 250px;height: 33px;">
+					<input type="text" placeholder="匹配工号/姓名/手机" style="margin-left: 67%;width: 250px;height: 33px;">
 					<button class="btn btn-primary" style="margin-left: 10px;">搜索</button>
 					<button class="btn"  style="margin-left: 10px;">关闭</button>		
 			</div>
@@ -17,11 +17,11 @@
 				<div class="row">
 					<div style="margin-top: 5px;margin-bottom: 5px;">
 						<button class="btn btn-default" style="margin-left: 30px;"  @click="add()">增加技工</button>
-						<button class="btn btn-default" style="margin-left: 10px;">修改</button>
+						<button class="btn btn-default" style="margin-left: 10px;" @click="update()">修改</button>
 						<button class="btn btn-default" style="margin-left: 10px;">删除</button>
 						<button class="btn btn-default" style="margin-left: 10px;">查询</button>
 						<button class="btn btn-default" style="margin-left: 10px;">置空密码</button>
-						<button class="btn btn-default" style="margin-left: 10px;">班组全重</button>
+						<button class="btn btn-default" style="margin-left: 10px;" @click="qc()">班组全重</button>
 						<button class="btn btn-default" style="margin-left: 10px;">导出</button>
 					</div>
 				</div>
@@ -62,9 +62,7 @@
 							<td>身份证号</td>
 							<td>户口地址</td>
 							<td>开户银行</td>
-							<td>银行账号</td>
 							<td>等级编码</td>
-							<td>维修工种</td>
 							<td>维修品牌</td>
 							<td>是否离职</td>
 						</tr>
@@ -79,8 +77,6 @@
 							<td></td>
 							<td></td>
 							<td>0EX0001</td>
-							<td></td>
-							<td></td>
 							<td></td>
 							<td></td>
 							<td></td>
@@ -105,8 +101,6 @@
 							<td></td>
 							<td></td>
 							<td></td>
-							<td></td>
-							<td></td>
 						</tr>
 						<tr>
 							<td>1000</td>
@@ -119,8 +113,6 @@
 							<td>2019-12-25</td>
 							<td></td>
 							<td>0EX0001</td>
-							<td></td>
-							<td></td>
 							<td></td>
 							<td></td>
 							<td></td>
@@ -203,6 +195,159 @@
 			
 			
 			
+			
+			
+			
+			<!--模态框-->
+			<div class="modal" data-backdrop="static" id="mymodal2">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<span class="close" data-dismiss="modal">&times;</span>
+							<span style="font-size: 27px;"><strong>技工资料</strong></span>
+							<button style="margin-left: 65%;" class="btn btn-success">保存</button>
+						</div>
+						<div class="modal-body" style="background-color: rgb(247,247,247);">
+							<p>
+								<span style="color: red;">*</span>技工编号：<input type="text" style="width: 120px;"> 
+								 <span style="color: red;margin-left: 10px;">*</span>技工姓名：<input type="text" style="width: 100px;"> 
+							   <span style="color: red;margin-left: 10px;">*</span>姓别：<select name="">
+													<option value="">男</option>
+													<option value="">女</option>
+											 </select>
+									<input type="checkbox" style="margin-left: 10px;">组长
+							</p>
+							
+							<p>
+								<span style="color: red;">*</span>
+								所在班级：<input type="text">
+								手机：<input type="text" style="margin-left: 10px;">
+							</p>
+							
+							<p>
+								登陆账号：<input type="text" style="margin-left: 10px;">
+								地址：<input type="text" style="margin-left: 10px;">
+							</p>
+							
+							<p>
+								出生日期：<input type="date" style="margin-left: 10px;">
+								微信号：<input type="text" style="margin-left: 10px;">
+							</p>
+							
+							<p>
+								身份证号：<input type="text" style="margin-left: 10px;">
+								户口地址：<input type="text" style="margin-left: 10px;">
+							</p>
+							
+							<p>
+								开户银行：<select name="">
+														<option value="">工商银行</option>
+														<option value="">建设银行</option>
+												  </select>
+								银行账号：<input type="text" style="width: 150px;margin-left: 10px;">
+								星级：<select name="" style="margin-left: 10px;">
+														<option value="">一星</option>
+														<option value="">二星</option>
+												  </select>
+							</p>
+							<p>
+								维修工种：<input type="text" style="width: 450px;">
+							</p>
+							<p>
+								维修品牌：<input type="text" style="width: 450px;">
+							</p>
+							
+						</div>
+						<div class="modal-footer">
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
+			
+			
+			
+			<!--模态框-->
+			<div class="modal" data-backdrop="static" id="mymodal3">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<span class="close" data-dismiss="modal">&times;</span>
+						<div class="modal-header">
+							
+							<div class="row" style="background-color: rgb(247,255,255);height: 30px;display: flex;align-items: center;">
+									<span style="font-size: 25px;margin-left: 10px;">班组技工</span>
+									<input type="text" placeholder="匹配工号/姓名/手机" style="margin-left: 16%;width: 250px;height: 33px;">
+									<button class="btn btn-primary" style="margin-left: 10px;">搜索</button>
+									<button class="btn"  style="margin-left: 10px;">关闭</button>		
+							</div>
+						</div>
+						<div class="modal-body">
+							<div class="row" style="margin-bottom: 14px;">
+								<button class="btn btn-default" style="margin-left: 10px;">查询</button>
+								<button class="btn btn-default" style="margin-left: 10px;">全部选择</button>
+								<button class="btn btn-default" style="margin-left: 10px;">全部取消</button>
+								<button class="btn btn-default" style="margin-left: 10px;">保存</button>
+							</div>
+							<div class="row">
+								<div class="col-md-2">
+									<span>10-自建</span>
+									<span>11-联队</span>
+									<span>12-加盟</span>
+									<span>13-合伙人</span>
+								</div>
+								<div class="col-md-10">
+									<table class="table table-bordered table-striped table-hover">
+										<tr style="background-color: rgb(33,182,206); color: white;">
+											<td>选择</td>
+											<td>编号</td>
+											<td>班组名称</td>
+											<td>工时费-站内白天</td>
+											<td>站内晚上</td>
+											<td>站外白天</td>
+											<td>站外晚上</td>
+										</tr>
+										<tr>
+											<td><input type="checkbox"></td>
+											<td>1000</td>
+											<td>机修1组</td>
+											<td>0.4</td>
+											<td>0.5</td>
+											<td>0.5</td>
+											<td>0.6</td>
+										</tr>
+										<tr>
+											<td><input type="checkbox"></td>
+											<td>1000</td>
+											<td>机修1组</td>
+											<td>0.4</td>
+											<td>0.5</td>
+											<td>0.5</td>
+											<td>0.6</td>
+										</tr>
+										<tr>
+											<td><input type="checkbox"></td>
+											<td>1000</td>
+											<td>机修1组</td>
+											<td>0.4</td>
+											<td>0.5</td>
+											<td>0.5</td>
+											<td>0.6</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
+			
+			
+			
 		</div>
 		<script src="js/jquery-1.12.4.js"></script>
 		<script src="js/bootstrap.min.js"></script>
@@ -263,24 +408,13 @@
 					add(){
 						$("#mymodal").modal("show");
 					},
+					update(){
+						$("#mymodal2").modal("show");
+						},
+						qc(){
+							$("#mymodal3").modal("show");
+						},
 					 find(){
-					                        /*let that = this;
-											$.ajax({
-												url:"http://127.0.0.1:8080/kabht/clzzM/find",
-												data:{},
-												async:false,
-												type:"get",
-												xhrFields: {
-													withCredentials: true
-												},
-												crossDomain: true,
-												dataType:"JSON",
-												success:function(result){
-													console.log(result);
-													console.log(JSON.stringify(result));
-													that.clasM = result;
-												}
-											})*/
 											this.clasM=this.gongsi1;
 					                    },
 					                    select_bj(e){
@@ -306,40 +440,6 @@
 					                                }
 					                        })
 					                        $(e.target).toggleClass("backgroun_color");
-					
-											/*let that = this;
-											$.ajax({
-												url:"http://127.0.0.1:8080/kabht/clzzM/selectClass",
-												async:false,
-												data:{classid:classid},
-												type:"get",
-												xhrFields: {
-													withCredentials: true
-												},
-												crossDomain: true,
-												dataType:"JSON",
-												success:function(result){
-													console.log("classT");
-													console.log(result);
-													that.classT = result;
-												}
-											})
-											$.ajax({
-												url:"http://127.0.0.1:8080/kabht/clzzM/selectStudent",
-												async:false,
-												data:{schoolid:schoolid,classid:classid},
-												type:"get",
-												dataType:"JSON",
-												xhrFields: {
-													withCredentials: true
-												},
-												crossDomain: true,
-												success:function(result){
-													console.log("student");
-													console.log(result);
-													that.student = result;
-												}
-											});*/
 											
 					                    },
 					                    delClas(){
@@ -349,22 +449,7 @@
 					                        }
 											var msg = "是否删除此班级！";
 											if(confirm(msg)){
-												/*let that = this;
-												$.ajax({
-													url:"http://127.0.0.1:8080/kabht/clzzM/",
-													async:false,
-													data:{classid:that.classT[0].classid},
-													xhrFields: {
-													withCredentials: true
-													},
-													crossDomain: true,
-													type:"get",
-													 dataType:"JSON",
-													success:function(result){
-														alert(result);
-														window.location.href="classManage.html";
-													}
-												})*/
+												
 											}
 					                    },
 					                    addstu1(){
@@ -379,48 +464,12 @@
 					                            }
 					                        });
 					                        alert(this.addStu.sex);
-					                       /* $.ajax({
-												url:"http://127.0.0.1:8080/kabht/clzzM/addStu",
-												async:false,
-												data:that.addStu,
-												type:"get",
-												xhrFields: {
-													withCredentials: true
-												},
-												crossDomain: true,
-												success:function(result){
-													alert(result);
-													$("#addStudent").modal("hide");
-													window.location.href="classManage.html";
-												}
-											})*/
+					                       
 					                    },
 					                    updatestu1(){
 					                    	let that = this;
 					                        this.stu1.sex = $(".dm").val();
-					                       /* $("input[name='sex']").each(function(i,v){
-					                            if ($(v).is(":checked"))
-					                            {
-					                            	that.stu1.sex=$(v).val();                      
-					                            	}
-					                        });
-					                    	 $.ajax({
-					 							url:"http://127.0.0.1:8080/kabht/clzzM/updateStu1",
-					 							async:false,
-					 							data:that.stu1,
-					 							type:"get",
-					 							xhrFields: {
-													withCredentials: true
-												},
-												crossDomain: true,
-					 							
-					 							success:function(result){
-					 								alert(result);
-					 								
-					 								$("#updateStudent").modal("hide");
-					 								window.location.href="classManage.html";
-					 							}
-					 						})*/
+					                      
 					                    },
 					                    close(){
 					                        $("#addStudent").modal("hide");
@@ -458,23 +507,7 @@
 												alert("请先选择学生");
 												return false;
 					                        }
-					                        /*let that = this;
-					                        var json = JSON.stringify(this.stuid);
-					                    	$.ajax({
-					    						url:"http://127.0.0.1:8080/kabht/clzzM/findStu1",
-					    						type:"post",
-					    						contentType:"application/json;charset=utf-8",
-					    						async:false,
-					    						xhrFields: {
-													withCredentials: true
-												},
-												crossDomain: true,
-					    						data:json,
-					    						dataType:"JSON",
-					    						success:function(result){
-					    							that.stu1 = result;
-					    						}
-					    					})*/
+					                       
 					    					return true;
 					                    },
 					                    delStu(){
@@ -486,39 +519,11 @@
 											var flag = "是否要删除此学生？";
 											if(confirm(flag)){
 												var json = JSON.stringify(this.stuid);
-												/*$.ajax({
-						    						url:"http://127.0.0.1:8080/kabht/clzzM/delStu1",
-						    						type:"post",
-						    						xhrFields: {
-													withCredentials: true
-													},
-													crossDomain: true,
-						    						
-						    						async:false,
-						    						data:{"json":json},
-						    						
-						    						success:function(result){
-						    						  alert(result);
-						    						 window.location.href="classManage.html";
-						    						}
-						    					})*/
+												
 											}
 					                    },
 					                    findGrade(){
-					                    	/*let that = this;
-					    					$.ajax({
-					    						url:"http://127.0.0.1:8080/kabht/clzzM/findGrade",
-					    						type:"get",
-					    						async:false,
-					    						xhrFields: {
-													withCredentials: true
-												},
-												crossDomain: true,
-					    						dataType:"JSON",
-					    						success:function(result){
-					    							that.grade = result;
-					    						}
-					    					})*/
+					                    	
 					                    }
 				},
 				created(){
