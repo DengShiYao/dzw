@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>车资料</title>
+		<link rel="stylesheet" href="../css/bootstrap.min.css" />
+		<link rel="stylesheet" href="../css/Car Information.css" />
+	</head>
+	<body>
+		<div id="ctn">
+			<div style="background-color:#08216b;width:1525px;height: 25px;color:white;font-size: 16px;">
+				<p><img src="../images/tb.png">车资料</p>
+			</div>
+			<div class="div-modal-tou" class="modal-footer">
+				<ul>
+					<li class="ul-li-jiechedengji">车资料</li>
+					<li><button class="btn btn-defult"><img src="../images/qingxuanzetupian.png" />&nbsp;选择</button></li>
+					<li><input type="text" size="65"></li>
+					<li><button class="btn btn-primary">搜索</button></li>
+					<li><a href="Maintenance - Repair and Rescue - Maintenance Pick-up.html"><button class="btn btnz-group">关闭</button></a></li>
+				</ul>
+				<div class="div-background-color">
+					 <ul>
+					 	<li>车牌号<input type="text" size="8" style="margin-left: 25px;"></li>
+					 	<li>车架号<input type="text"  style="margin-left: 25px;"></li>
+					 </ul>
+					 <ul class="ul-li-gongnenganniu">
+					 	<li><a data-toggle="modal" href="#mymodal" style="text-decoration:none;color: #969696;"><img src="../images/Chezhiliaozengjiaanniu.png"/>增加</a></li>
+					 	<li><a data-toggle="modal" href="#updatemymodal" style="text-decoration:none;color: #969696;"><img src="../images/chezhiliaoxiugaianniu.png" />修改</a></li>
+					 	<li style="margin-left:50px;"><img src="../images/chezhiliaoxiugaianniu.png" />查询</li>
+					 	<li style="margin-left:100px;"><img src="../images/chezhiliaoxiugaianniu.png" />保养</li>
+					 	<li><img src="../images/chezhiliaoxiugaianniu.png" />导出</li>
+					 	<li><img src="../images/chezhiliaoxiugaianniu.png" />字段设置</li>
+					 </ul>
+					<div class="table-div">
+						<table border="3" width="1480" height="45">
+							<tr align="center">
+								<th>车牌号码</th>
+								<th>车辆品牌</th>
+								<th>车辆型号</th>
+								<th>驾驶员</th>
+								<th>驾驶员电话</th>
+								<th>出生日期</th>
+								<th>车辆归属</th>
+								<th>驾驶员地址</th>
+								<th>驾证到期</th>
+								<th>车架号</th>
+								<th>发动机号</th>
+								<th>发动机品牌号</th>
+								<th>车辆年款</th>
+								<th>里程</th>
+								<th>载重</th>
+								<th>车系</th>
+							</tr>
+							<tr align="center">
+								<th>购买日期</th>
+								<th>上牌日期</th>
+								<th>车检到期</th>
+								<th>交强险保险公司</th>
+								<th>交强险到期</th>
+								<th>商业险保险公司</th>
+								<th>在我投保车</th>
+								<th>二维日期</th>
+								<th>燃油类别</th>
+								<th>下次保养里程</th>
+								<th>下次保养日期</th>
+								<th>会员码</th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+							</tr>
+							<tr align="center">
+								<td>京A8888</td>
+								<td>中国重汽</td>
+								<td>重汽杉德卡</td>
+								<td>咣咣</td>
+								<td>0666666465456456</td>
+								<td>2015-01-05 13:15:15</td>
+								<td>个人车</td>
+								<td>美国	</td>
+								<td>2025-01-05 13:15:15</td>
+								<td>A1561616</td>
+								<td>动机</td>
+								<td>09</td>
+								<td>d2</td>
+								<td>assdsds</td>
+								<td>132131.00</td>
+								<td>152.0</td>
+							</tr>
+							<tr align="center">
+								<td>2025-01-05 13:15:15</td>
+								<td>2025-01-05 13:15:15</td>
+								<td>faefa</td>
+								<td>2025-01-05 13:15:15</td>
+								<td>ladas</td>
+								<td>2025-01-05 13:15:15</td>
+								<td>否</td>
+								<td>汽油</td>
+								<td>21213</td>
+								<td>2025-01-05 13:15:15</td>
+								<td>feesfsgs</td>
+								<td>200201022</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr align="center">
+								<td>京A8888</td>
+								<td>中国重汽</td>
+								<td>重汽杉德卡</td>
+								<td>咣咣</td>
+								<td>0666666465456456</td>
+								<td>2015-01-05 13:15:15</td>
+								<td>个人车</td>
+								<td>美国	</td>
+								<td>2025-01-05 13:15:15</td>
+								<td>A1561616</td>
+								<td>动机</td>
+								<td>09</td>
+								<td>d2</td>
+								<td>assdsds</td>
+								<td>132131.00</td>
+								<td>152.0</td>
+							</tr>
+							<tr align="center">
+								<td>2025-01-05 13:15:15</td>
+								<td>2025-01-05 13:15:15</td>
+								<td>faefa</td>
+								<td>2025-01-05 13:15:15</td>
+								<td>ladas</td>
+								<td>2025-01-05 13:15:15</td>
+								<td>否</td>
+								<td>汽油</td>
+								<td>21213</td>
+								<td>2025-01-05 13:15:15</td>
+								<td>feesfsgs</td>
+								<td>200201022</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr align="center">
+								<td>京A8888</td>
+								<td>中国重汽</td>
+								<td>重汽杉德卡</td>
+								<td>咣咣</td>
+								<td>0666666465456456</td>
+								<td>2015-01-05 13:15:15</td>
+								<td>个人车</td>
+								<td>美国	</td>
+								<td>2025-01-05 13:15:15</td>
+								<td>A1561616</td>
+								<td>动机</td>
+								<td>09</td>
+								<td>d2</td>
+								<td>assdsds</td>
+								<td>132131.00</td>
+								<td>152.0</td>
+							</tr>
+							<tr align="center">
+								<td>2025-01-05 13:15:15</td>
+								<td>2025-01-05 13:15:15</td>
+								<td>faefa</td>
+								<td>2025-01-05 13:15:15</td>
+								<td>ladas</td>
+								<td>2025-01-05 13:15:15</td>
+								<td>否</td>
+								<td>汽油</td>
+								<td>21213</td>
+								<td>2025-01-05 13:15:15</td>
+								<td>feesfsgs</td>
+								<td>200201022</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+						</table>
+						<div class="modal" data-backgrop="static" id="mymodal">
+							<div class="modal-dialog">
+								<div class="modal-content" style="width:1100px;height:490px;border: 2px solid #d6d6ce;margin-left:-260px;margin-top:100px;">
+									<div style="background-color:#08216b;width:1095px;height: 25px;color:white;font-size: 16px;">
+										<p><img src="../images/tb.png">车辆资料编辑</p>
+									</div>
+									<span class="close" data-dismiss="modal" style="font-size:65px;margin-top: -15px;margin-left: 2px;"><button class="btn btn-defult" style="color:#b8eb84;"><img src="../images/qingxuanzetupian.png" />&nbsp;保存</button>&times;</span>	
+									<div style="background-color:#fbb13b;width:5px;height:25px; margin-left:10px;margin-top: 5px;color: #565656;">
+									</div>
+									<div style="margin-top:-30px;">
+										<p style="margin-left:25px;font-size: 22px;color: #565656;">车辆资料编辑</p>
+									</div>
+									<div style="background-color:#f7f7f7;width:1050px;height: 400px;margin-left: 25px;border: 2px solid #eaeaea;margin-top:15px;">
+										<p style="margin-left: 15px;margin-top: 10px;">
+											<span>
+												车牌号码
+												<select style="width: 100px;color:#797979;margin-left: 8px;">
+													<option>京</option>
+													<option>湘</option>
+													<option>云</option>
+												</select>
+											</span>
+											<span>
+												车辆品牌
+												<input type="text" style="margin-left: 8px;"/>
+											</span>
+											<span>
+												车辆型号
+												<input type="text" style="margin-left: 8px;"/>
+											</span>
+											<span>
+											       驾驶员
+												<input type="text" style="margin-left: 8px;"/>
+											</span>
+										</p>
+										<p style="margin-left: 15px;margin-top: 10px;">
+											<span>
+											       驾驶员电话
+												<input type="text" style="margin-left: 8px;"/>
+											</span>
+											<span>
+												出生日期
+												<input type="date" style="margin-left: 8px;"/>
+											</span>
+											<span>
+												驾驶员地址
+												<input type="text" style="margin-left: 8px;" size="45"/>
+											</span>
+										</p>
+										<p style="margin-left: 15px;margin-top: 10px;">
+											<span>
+												车架号
+												<input type="text" style="margin-left: 8px;"/>
+											</span>
+											<span>
+												发动机号
+												<input type="text" style="margin-left: 8px;"/>
+											</span>
+											<span>
+												车辆年款
+												<input type="text" style="margin-left: 8px;"/>
+											</span>
+											<span>
+												里程
+												<input type="text" style="margin-left: 8px;"  size="13"/>
+											</span>
+										</p>
+										<p style="margin-left: 15px;margin-top: 10px;">
+											<span>
+												发动机品牌
+												<input type="text" style="margin-left: 8px;" size="45"/>
+											</span>
+											<span>
+												载重
+												<input type="text" style="margin-left: 8px;"/>
+											</span>
+											<span>
+												购买日期
+												<input type="date" style="margin-left: 8px;width: 187px;"/>
+											</span>
+										</p>
+										<p style="margin-left: 15px;margin-top: 10px;">
+											<span>
+												上牌日期
+												<input type="date" style="margin-left: 8px;"/>
+											</span>
+											<span>
+												车检到期
+												<input type="date" style="margin-left: 8px;"/>
+											</span>
+											<span>
+												二维日期
+												<input type="date" style="margin-left: 8px;"/>
+											</span>
+											<span>
+												车系
+												<input type="text" style="margin-left: 8px;" size="34"/>
+											</span>
+										</p>
+										<p style="margin-left: 15px;margin-top: 10px;">
+											<span style="color: red;">保险:</span>
+											<span>
+												交通险保险公司
+												<select style="width: 100px;color:#797979;">
+													<option>阳光保险</option>
+													<option>中华联合保险公司</option>
+													<option>中国平安保险</option>
+													<option>太平洋保险</option>
+												</select>
+											</span>
+											<span>
+												交强险到期
+												<input type="date" style="margin-left: 8px;"/>
+											</span>
+											<span>
+												二维日期
+												<input type="date" style="margin-left: 8px;"/>
+												<input type="checkbox" style="margin-left: 8px;"/>在我投保车
+											</span>
+											<span>
+												车辆归属
+												<input type="text" style="margin-left: 8px;" size="5"/>
+											</span>
+										</p>
+										<p style="margin-left: 0px;margin-top: 10px;">
+											<span>
+												商业险保险公司
+												<select style="width: 50px;color: #797979;">
+													<option>选择</option>
+													<option>阳光保险</option>
+													<option>中华联合保险公司</option>
+													<option>中国平安保险</option>
+													<option>太平洋保险</option>
+												</select>
+											</span>
+											<span>
+												交强险到期
+												<input type="date" style="margin-left: 8px;"/>
+											</span>
+											<span>
+												商业险到期
+												<input type="date" style="margin-left: 8px;"/>
+											</span>
+											<span>
+												驾证到期
+												<input type="date" style="margin-left: 8px;"/>
+											</span>
+											<span>
+												燃油类别
+												<input type="text" style="margin-left: 8px;" size="3"/>
+											</span>
+										</p>
+										<p style="margin-left: 0px;margin-top: 10px;">
+											<span>
+												下次保养里程
+												<input type="date" style="margin-left: 8px;"/>
+											</span>
+											<span>
+												下次保养日期
+												<input type="datetime" style="margin-left: 8px;"/>
+											</span>
+											<span>
+												客户名称
+												<input type="text" style="margin-left: 8px;" size="42"/>
+											</span>
+										</p>
+									</div>
+									<!--<button class="btn btn-danger" data-dismiss="modal">关闭</button>-->			
+								</div>
+							</div>
+						</div>
+						<div class="modal" data-backgrop="static" id="updatemymodal">
+							<div class="modal-dialog">
+								<div class="modal-content" style="width:1100px;height:490px;border: 2px solid #d6d6ce;margin-left:-260px;margin-top:100px;">
+									<div style="background-color:#08216b;width:1095px;height: 25px;color:white;font-size: 16px;">
+										<p><img src="../images/tb.png">车辆资料编辑</p>
+									</div>
+									<span class="close" data-dismiss="modal" style="font-size:65px;margin-top: -15px;margin-left: 2px;"><button class="btn btn-defult" style="color:#b8eb84;"><img src="../images/qingxuanzetupian.png" />&nbsp;保存</button>&times;</span>	
+									<div style="background-color:#fbb13b;width:5px;height:25px; margin-left:10px;margin-top: 5px;color: #565656;">
+									</div>
+									<div style="margin-top:-30px;">
+										<p style="margin-left:25px;font-size: 22px;color: #565656;">车辆资料编辑</p>
+									</div>
+									<div style="background-color:#f7f7f7;width:1050px;height: 400px;margin-left: 25px;border: 2px solid #eaeaea;margin-top:15px;">
+										<p style="margin-left: 15px;margin-top: 10px;">
+											<span>
+												车牌号码
+												<select style="width: 100px;color:#797979;margin-left: 8px;">
+													<option>京</option>
+													<option>湘</option>
+													<option>云</option>
+												</select>
+											</span>
+											<span>
+												车辆品牌
+												<input type="text" style="margin-left: 8px;"/>
+											</span>
+											<span>
+												车辆型号
+												<input type="text" style="margin-left: 8px;"/>
+											</span>
+											<span>
+											       驾驶员
+												<input type="text" style="margin-left: 8px;"/>
+											</span>
+										</p>
+										<p style="margin-left: 15px;margin-top: 10px;">
+											<span>
+											       驾驶员电话
+												<input type="text" style="margin-left: 8px;"/>
+											</span>
+											<span>
+												出生日期
+												<input type="date" style="margin-left: 8px;"/>
+											</span>
+											<span>
+												驾驶员地址
+												<input type="text" style="margin-left: 8px;" size="45"/>
+											</span>
+										</p>
+										<p style="margin-left: 15px;margin-top: 10px;">
+											<span>
+												车架号
+												<input type="text" style="margin-left: 8px;"/>
+											</span>
+											<span>
+												发动机号
+												<input type="text" style="margin-left: 8px;"/>
+											</span>
+											<span>
+												车辆年款
+												<input type="text" style="margin-left: 8px;"/>
+											</span>
+											<span>
+												里程
+												<input type="text" style="margin-left: 8px;"  size="13"/>
+											</span>
+										</p>
+										<p style="margin-left: 15px;margin-top: 10px;">
+											<span>
+												发动机品牌
+												<input type="text" style="margin-left: 8px;" size="45"/>
+											</span>
+											<span>
+												载重
+												<input type="text" style="margin-left: 8px;"/>
+											</span>
+											<span>
+												购买日期
+												<input type="date" style="margin-left: 8px;width: 187px;"/>
+											</span>
+										</p>
+										<p style="margin-left: 15px;margin-top: 10px;">
+											<span>
+												上牌日期
+												<input type="date" style="margin-left: 8px;"/>
+											</span>
+											<span>
+												车检到期
+												<input type="date" style="margin-left: 8px;"/>
+											</span>
+											<span>
+												二维日期
+												<input type="date" style="margin-left: 8px;"/>
+											</span>
+											<span>
+												车系
+												<input type="text" style="margin-left: 8px;" size="34"/>
+											</span>
+										</p>
+										<p style="margin-left: 15px;margin-top: 10px;">
+											<span style="color: red;">保险:</span>
+											<span>
+												交通险保险公司
+												<select style="width: 100px;color:#797979;">
+													<option>阳光保险</option>
+													<option>中华联合保险公司</option>
+													<option>中国平安保险</option>
+													<option>太平洋保险</option>
+												</select>
+											</span>
+											<span>
+												交强险到期
+												<input type="date" style="margin-left: 8px;"/>
+											</span>
+											<span>
+												二维日期
+												<input type="date" style="margin-left: 8px;"/>
+												<input type="checkbox" style="margin-left: 8px;"/>在我投保车
+											</span>
+											<span>
+												车辆归属
+												<input type="text" style="margin-left: 8px;" size="5"/>
+											</span>
+										</p>
+										<p style="margin-left: 0px;margin-top: 10px;">
+											<span>
+												商业险保险公司
+												<select style="width: 50px;color: #797979;">
+													<option>选择</option>
+													<option>阳光保险</option>
+													<option>中华联合保险公司</option>
+													<option>中国平安保险</option>
+													<option>太平洋保险</option>
+												</select>
+											</span>
+											<span>
+												交强险到期
+												<input type="date" style="margin-left: 8px;"/>
+											</span>
+											<span>
+												商业险到期
+												<input type="date" style="margin-left: 8px;"/>
+											</span>
+											<span>
+												驾证到期
+												<input type="date" style="margin-left: 8px;"/>
+											</span>
+											<span>
+												燃油类别
+												<input type="text" style="margin-left: 8px;" size="3"/>
+											</span>
+										</p>
+										<p style="margin-left: 0px;margin-top: 10px;">
+											<span>
+												下次保养里程
+												<input type="date" style="margin-left: 8px;"/>
+											</span>
+											<span>
+												下次保养日期
+												<input type="datetime" style="margin-left: 8px;"/>
+											</span>
+											<span>
+												客户名称
+												<input type="text" style="margin-left: 8px;" size="42"/>
+											</span>
+										</p>
+									</div>
+									<!--<button class="btn btn-danger" data-dismiss="modal">关闭</button>-->			
+								</div>
+							</div>
+						</div>
+					</div>
+					</div>
+					<div class="div-shuju-background-color" style="margin-top:-450px;margin-left: 15px;">
+						<div id="table-tou">
+							<ul>
+								<li class="tou" class="yi" style="color:#39cede;">客户信息</li>
+								<li class="tou" style="color:#949494;">历史维修</li>
+							</ul>
+						</div>
+						<div class="table-div">
+							<table border="3" width="1485" height="500" class="div-table-biaoge1">
+								<tr align="center">
+									<th>单据状态</th>
+									<th>业务类型</th>
+									<th>客户名称</th>
+									<th>车牌号</th>
+									<th>手机</th>
+									<th>会员卡号</th>
+									<th>维修单号</th>
+									<th>单据类型</th>
+									<th>开单时间</th>
+									<th>预计完工</th>
+									<th>完工时间</th>
+									<th>结算时间</th>
+								</tr>
+								<tr align="center">
+									<td>接车</td>
+									<td>中国重汽</td>
+									<td>孙悟空</td>
+									<td>G666666</td>
+									<td>05616516</td>
+									<td>16156156156</td>
+									<td>1615616516</td>
+									<td>维修</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+								</tr>
+								<tr align="center">
+									<td>接车</td>
+									<td>中国重汽</td>
+									<td>如来佛祖</td>
+									<td>G666666</td>
+									<td>05616516</td>
+									<td>16156156156</td>
+									<td>1615616516</td>
+									<td>维修</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+								</tr>
+								<tr align="center">
+									<td>接车</td>
+									<td>中国重汽</td>
+									<td>李三</td>
+									<td>G666666</td>
+									<td>05616516</td>
+									<td>16156156156</td>
+									<td>1615616516</td>
+									<td>维修</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+								</tr>
+								<tr align="center">
+									<td>接车</td>
+									<td>中国重汽</td>
+									<td>猪八戒</td>
+									<td>G666666</td>
+									<td>05616516</td>
+									<td>16156156156</td>
+									<td>1615616516</td>
+									<td>维修</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+								</tr>
+								<tr align="center">
+									<td>接车</td>
+									<td>中国重汽</td>
+									<td>唐僧</td>
+									<td>G666666</td>
+									<td>05616516</td>
+									<td>16156156156</td>
+									<td>1615616516</td>
+									<td>维修</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+								</tr>
+								<tr align="center">
+									<td>接车</td>
+									<td>中国重汽</td>
+									<td>沙和尚</td>
+									<td>G666666</td>
+									<td>05616516</td>
+									<td>16156156156</td>
+									<td>1615616516</td>
+									<td>维修</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+								</tr>
+								<tr align="center">
+									<td>接车</td>
+									<td>中国重汽</td>
+									<td>李德华</td>
+									<td>G666666</td>
+									<td>05616516</td>
+									<td>16156156156</td>
+									<td>1615616516</td>
+									<td>维修</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+								</tr>
+								<tr align="center">
+									<td>接车</td>
+									<td>中国重汽</td>
+									<td>李粑粑</td>
+									<td>G666666</td>
+									<td>05616516</td>
+									<td>16156156156</td>
+									<td>1615616516</td>
+									<td>维修</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+								</tr>
+								<tr align="center">
+									<td>接车</td>
+									<td>中国重汽</td>
+									<td>邓紫棋</td>
+									<td>G666666</td>
+									<td>05616516</td>
+									<td>16156156156</td>
+									<td>1615616516</td>
+									<td>维修</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+								</tr>
+								<tr align="center">
+									<td>接车</td>
+									<td>中国重汽</td>
+									<td>刘毅</td>
+									<td>G666666</td>
+									<td>05616516</td>
+									<td>16156156156</td>
+									<td>1615616516</td>
+									<td>维修</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+								</tr>
+								<tr align="center">
+									<td>接车</td>
+									<td>中国重汽</td>
+									<td>张三分</td>
+									<td>G666666</td>
+									<td>05616516</td>
+									<td>16156156156</td>
+									<td>1615616516</td>
+									<td>维修</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+								</tr>
+								<tr align="center">
+									<td>接车</td>
+									<td>中国重汽</td>
+									<td>榴芒</td>
+									<td>G666666</td>
+									<td>05616516</td>
+									<td>16156156156</td>
+									<td>1615616516</td>
+									<td>维修</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+								</tr>
+							</table>
+							<p style="color: #969696;margin-left:15px;margin-top: 5px;">共未知条记录</p>
+						</div>
+						<div class="table-div">
+							<table border="3" width="1485" height="250" class="div-table-biaoge2" style="display: none;">
+								<tr align="center">
+									<th>单据状态</th>
+									<th>业务类型</th>
+									<th>客户名称</th>
+									<th>车牌号</th>
+									<th>手机</th>
+									<th>会员卡号</th>
+									<th>维修单号</th>
+									<th>单据类型</th>
+									<th>开单时间</th>
+									<th>预计完工</th>
+									<th>完工时间</th>
+									<th>结算时间</th>
+								</tr>
+								<tr align="center">
+									<td>未接车</td>
+									<td>中国重汽</td>
+									<td>张三</td>
+									<td>G666666</td>
+									<td>05616516</td>
+									<td>16156156156</td>
+									<td>1615616516</td>
+									<td>维修</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+								</tr>
+								<tr align="center">
+									<td>接车</td>
+									<td>中国重汽</td>
+									<td>李四</td>
+									<td>G666666</td>
+									<td>05616516</td>
+									<td>16156156156</td>
+									<td>1615616516</td>
+									<td>维修</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+								</tr>
+								<tr align="center">
+									<td>接车</td>
+									<td>中国重汽</td>
+									<td>王五</td>
+									<td>G666666</td>
+									<td>05616516</td>
+									<td>16156156156</td>
+									<td>1615616516</td>
+									<td>维修</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+								</tr>
+								<tr align="center">
+									<td>接车</td>
+									<td>中国重汽</td>
+									<td>刘三</td>
+									<td>G666666</td>
+									<td>05616516</td>
+									<td>16156156156</td>
+									<td>1615616516</td>
+									<td>维修</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+								</tr>
+							</table>
+						</div>	
+					</div>
+				</div>
+			</div> 
+		</div>
+		<script src="../js/jquery-1.12.4.js"></script>
+		<script type="text/javascript" src="../js/bootstrap.min.js" ></script>
+		<script src="../js/Car Information.js"></script>
+	</body>
+</html>

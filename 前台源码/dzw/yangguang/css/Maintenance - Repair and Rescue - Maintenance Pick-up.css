@@ -1,0 +1,140 @@
+*{
+	
+	margin: 0px;
+	padding: 0px;
+}
+#ctn{
+	width: 1920px;
+	height: 1080px;
+	margin: 0px;
+	padding: 0px;
+}
+.li-text-wenzi{
+	font-size:25px;
+	margin-left:10px;
+	height: 25px;
+	color:#727272;
+}
+.juxtaposition ul li{
+	list-style-type:none;
+	display: inline-block;
+	margin-top:5px;
+}
+.juxtaposition input{
+	margin-left: 1010px;
+	border: 2px solid #f0f0f0;
+}
+.juxtaposition .btn-primary{
+	background-color:#fcac26;
+	border: 0px solid white;
+	width:80px;
+	border-radius:0x;
+}
+.juxtaposition .input-text{
+	width:213px;
+	height:35px;
+	font-size: 15px;
+}
+.div-background-color{
+	background-color:#f7f7f7;
+	width:1518px;
+	height:1030px;
+	margin-left:1px;
+	margin-top:-6px;
+	border: 2px solid #eaeaea;
+	padding: 5px;
+	font-size: 18px;
+	color:#878787;
+}
+.div-background-color ul li{
+	list-style-type: none;
+	display: inline-block;
+	padding:15px 15px 15px 15px;
+	vertical-align: middle;
+}
+.div-background-color img{
+	vertical-align: middle;
+}
+.div-background-color .div-ul-li{
+	margin-top:-15px;
+	margin-left:1085px;
+}
+.div-background-color .background-white-div{
+	background-color:#FFFFFF;
+	width: 1505px;
+	height: 1025px;
+	margin-top:-20px;
+	border-top:2.5px solid #94d9e3;
+	color:#39cede;
+}
+.div-background-color .background-white-div #you{
+	margin-left: 10px;
+	color:#bebebe;
+}
+.div-background-color .background-white-div .div-gongzhenghao{
+	margin-top:-10px;
+}
+.background-white-div .div-gongzhenghao .li-chepaihao{
+	margin-left:225px;
+}
+.background-white-div .div-top input{
+	border-bottom:2px solid a0a0a0;
+	border-top:0px solid white;
+	border-left:0px solid white;
+	border-right: 0px solid white;
+	width: 300px;
+}
+.background-white-div .div-top .text-juyou{
+	margin-left:30px;
+}
+.div-top .text-juyou{
+	margin-top:-35px;
+}
+.div-top .text-juyou-text1{
+	margin-top:-35px;
+}
+.div-top .cheliangxinxi{
+	margin-left: 260px;
+}
+.shang-top{
+	margin-top:-35px;
+}
+.goumairiqi{
+	color:#a1a1a1;
+}
+#se{
+	color:#a1a1a1;
+	margin-left:15px;
+}
+.shang-top #baoyangriqi{
+	color:#a1a1a1;
+	margin-left:242px;
+}
+.div-shuju-background-color{
+	background-color:#f7f7f7;
+	width:1920px;
+	margin-left:1px;
+	height:100%;
+}
+.div-shuju-background-color ul li{
+	color:#b6b6b6;
+	margin-top:-5px;
+}
+.div-shuju-background-color .yi{
+	color: #3dc4d3;
+}
+.table-div table{
+	margin-top:-15px;
+	margin-left:15px;
+	color: #e7e7e7;
+	padding: 25px;
+}
+.table-div th{
+	color: white;
+	background-color:#39cede;
+	text-align: center;
+}
+.table-div td{
+	color:#1a1a1a;
+	background-color:white;
+}

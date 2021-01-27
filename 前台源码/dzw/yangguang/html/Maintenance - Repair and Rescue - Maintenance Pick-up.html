@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>维修-维修救援-维修接车</title>
+		<link rel="stylesheet" href="../css/bootstrap.min.css"/>
+		<link rel="stylesheet" href="../css/Maintenance - Repair and Rescue - Maintenance Pick-up.css" />
+	</head>
+	<body>
+		<div id="ctn">
+			<div style="background-color:#08216b;width:1525px;height: 25px;color:white;font-size: 16px;">
+				<p><img src="../images/tb.png">接车登记</p>
+			</div>
+			<div class="juxtaposition" class="modal-footer">
+				<ul>
+					<li class="li-text-wenzi">接车登记</li>
+					<li><input type="text" placeholder="匹配车牌号/车架号/手机/客户" class="input-text"></li>
+					<li><button class="btn btn-primary"  style="margin-left: 5px;">搜索</button></li>
+					<li><button class="btn btnz-group" style="margin-left: 27px;color: white">关闭</button></li>
+				</ul>
+			</div> 
+			<div class="div-background-color">
+				<div class="div-ul-li">
+					<ul>
+						<li><img src="../images/WeiXiujiechetupian.png" />维修接车</li>
+						<li><img src="../images/Jiuyuankaidantupian.png" />救援开单</li>
+						<li><img src="../images/guanzhugongzonghaotupian.png" />关注公众号</li>
+					</ul>
+				</div>
+				<div class="background-white-div">
+					<div class="div-gongzhenghao">
+						<ul>
+							<li>公众号会员码</li>
+							<li class="li-chepaihao">车牌号<span id="you"><a href="Car Information.html" style="text-decoration: none;">△</a></span></li>
+						</ul>
+					</div>
+					<div class="div-top">
+						<ul>
+							<li class="text-juyou-text1"><input type="text"></li>
+							<li class="text-juyou"><input type="text"></li>
+						</ul>
+						<ul class="shang-top">
+							<li>车主信息</li>
+							<li class="cheliangxinxi">车辆信息</li>
+							<li class="goumairiqi">购买日期 : --</li>
+						</ul>
+						<ul class="shang-top" id="se">
+							<li>姓名 : --</li>
+							<li class="cheliangxinxi">品牌 : --</li>
+						</ul>
+						<ul class="shang-top" id="se">
+							<li>地址 : --</li>
+							<li class="cheliangxinxi">发动机 : --</li>
+						</ul>
+						<ul class="shang-top" id="se">
+							<li>驾驶员 : --</li>
+							<li class="cheliangxinxi" id="baoyangriqi">保养日期 : --</li>
+						</ul>
+					</div>
+					<div class="div-shuju-background-color">
+						<div id="table-tou">
+							<ul>
+								<li class="tou" class="yi" style="color:#39cede;">作业中车辆</li>
+								<li class="tou">维修历史</li>
+								<li class="tou">维修项目</li>
+								<li class="tou">领料情况</li>
+								<li class="tou">历史回访</li>
+							</ul>
+						</div>
+						<div class="table-div">
+							<table border="3" width="1485" height="500" class="div-table-biaoge1">
+								<tr align="center">
+									<th>单据状态</th>
+									<th>业务类型</th>
+									<th>客户名称</th>
+									<th>车牌号</th>
+									<th>手机</th>
+									<th>会员卡号</th>
+									<th>维修单号</th>
+									<th>单据类型</th>
+									<th>开单时间</th>
+									<th>预计完工</th>
+									<th>完工时间</th>
+									<th>结算时间</th>
+								</tr>
+								<tr align="center">
+									<td>接车</td>
+									<td>中国重汽</td>
+									<td>孙悟空</td>
+									<td>G666666</td>
+									<td>05616516</td>
+									<td>16156156156</td>
+									<td>1615616516</td>
+									<td>维修</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+								</tr>
+								<tr align="center">
+									<td>接车</td>
+									<td>中国重汽</td>
+									<td>如来佛祖</td>
+									<td>G666666</td>
+									<td>05616516</td>
+									<td>16156156156</td>
+									<td>1615616516</td>
+									<td>维修</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+								</tr>
+								<tr align="center">
+									<td>接车</td>
+									<td>中国重汽</td>
+									<td>李三</td>
+									<td>G666666</td>
+									<td>05616516</td>
+									<td>16156156156</td>
+									<td>1615616516</td>
+									<td>维修</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+								</tr>
+								<tr align="center">
+									<td>接车</td>
+									<td>中国重汽</td>
+									<td>猪八戒</td>
+									<td>G666666</td>
+									<td>05616516</td>
+									<td>16156156156</td>
+									<td>1615616516</td>
+									<td>维修</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+								</tr>
+								<tr align="center">
+									<td>接车</td>
+									<td>中国重汽</td>
+									<td>唐僧</td>
+									<td>G666666</td>
+									<td>05616516</td>
+									<td>16156156156</td>
+									<td>1615616516</td>
+									<td>维修</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+								</tr>
+								<tr align="center">
+									<td>接车</td>
+									<td>中国重汽</td>
+									<td>沙和尚</td>
+									<td>G666666</td>
+									<td>05616516</td>
+									<td>16156156156</td>
+									<td>1615616516</td>
+									<td>维修</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+								</tr>
+								<tr align="center">
+									<td>接车</td>
+									<td>中国重汽</td>
+									<td>李德华</td>
+									<td>G666666</td>
+									<td>05616516</td>
+									<td>16156156156</td>
+									<td>1615616516</td>
+									<td>维修</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+								</tr>
+								<tr align="center">
+									<td>接车</td>
+									<td>中国重汽</td>
+									<td>李粑粑</td>
+									<td>G666666</td>
+									<td>05616516</td>
+									<td>16156156156</td>
+									<td>1615616516</td>
+									<td>维修</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+								</tr>
+								<tr align="center">
+									<td>接车</td>
+									<td>中国重汽</td>
+									<td>邓紫棋</td>
+									<td>G666666</td>
+									<td>05616516</td>
+									<td>16156156156</td>
+									<td>1615616516</td>
+									<td>维修</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+								</tr>
+								<tr align="center">
+									<td>接车</td>
+									<td>中国重汽</td>
+									<td>刘毅</td>
+									<td>G666666</td>
+									<td>05616516</td>
+									<td>16156156156</td>
+									<td>1615616516</td>
+									<td>维修</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+								</tr>
+								<tr align="center">
+									<td>接车</td>
+									<td>中国重汽</td>
+									<td>张三分</td>
+									<td>G666666</td>
+									<td>05616516</td>
+									<td>16156156156</td>
+									<td>1615616516</td>
+									<td>维修</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+								</tr>
+								<tr align="center">
+									<td>接车</td>
+									<td>中国重汽</td>
+									<td>榴芒</td>
+									<td>G666666</td>
+									<td>05616516</td>
+									<td>16156156156</td>
+									<td>1615616516</td>
+									<td>维修</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+								</tr>
+							</table>
+							<p style="color: #969696;margin-left:15px;margin-top: 5px;">共未知条记录</p>
+						</div>
+						<div class="table-div">
+							<table border="3" width="1485" height="250" class="div-table-biaoge2" style="display: none;">
+								<tr align="center">
+									<th>单据状态</th>
+									<th>业务类型</th>
+									<th>客户名称</th>
+									<th>车牌号</th>
+									<th>手机</th>
+									<th>会员卡号</th>
+									<th>维修单号</th>
+									<th>单据类型</th>
+									<th>开单时间</th>
+									<th>预计完工</th>
+									<th>完工时间</th>
+									<th>结算时间</th>
+								</tr>
+								<tr align="center">
+									<td>未接车</td>
+									<td>中国重汽</td>
+									<td>张三</td>
+									<td>G666666</td>
+									<td>05616516</td>
+									<td>16156156156</td>
+									<td>1615616516</td>
+									<td>维修</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+								</tr>
+								<tr align="center">
+									<td>接车</td>
+									<td>中国重汽</td>
+									<td>李四</td>
+									<td>G666666</td>
+									<td>05616516</td>
+									<td>16156156156</td>
+									<td>1615616516</td>
+									<td>维修</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+								</tr>
+								<tr align="center">
+									<td>接车</td>
+									<td>中国重汽</td>
+									<td>王五</td>
+									<td>G666666</td>
+									<td>05616516</td>
+									<td>16156156156</td>
+									<td>1615616516</td>
+									<td>维修</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+								</tr>
+								<tr align="center">
+									<td>接车</td>
+									<td>中国重汽</td>
+									<td>刘三</td>
+									<td>G666666</td>
+									<td>05616516</td>
+									<td>16156156156</td>
+									<td>1615616516</td>
+									<td>维修</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+								</tr>
+							</table>
+						</div>	
+						<div class="table-div">
+							<table border="3" width="1485" height="250" class="div-table-biaoge3" style="display: none;">
+								<tr align="center">
+									<th>单据状态</th>
+									<th>业务类型</th>
+									<th>客户名称</th>
+									<th>车牌号</th>
+									<th>手机</th>
+									<th>会员卡号</th>
+									<th>维修单号</th>
+									<th>单据类型</th>
+									<th>开单时间</th>
+									<th>预计完工</th>
+									<th>完工时间</th>
+									<th>结算时间</th>
+								</tr>
+								<tr align="center">
+									<td>未接车</td>
+									<td>中国重汽</td>
+									<td>曙光</td>
+									<td>G666666</td>
+									<td>05616516</td>
+									<td>16156156156</td>
+									<td>1615616516</td>
+									<td>维修</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+								</tr>
+								<tr align="center">
+									<td>接车</td>
+									<td>中国重汽</td>
+									<td>是非</td>
+									<td>G666666</td>
+									<td>05616516</td>
+									<td>16156156156</td>
+									<td>1615616516</td>
+									<td>维修</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+								</tr>
+								<tr align="center">
+									<td>接车</td>
+									<td>中国重汽</td>
+									<td>纷纷</td>
+									<td>G666666</td>
+									<td>05616516</td>
+									<td>16156156156</td>
+									<td>1615616516</td>
+									<td>维修</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+								</tr>
+								<tr align="center">
+									<td>格格</td>
+									<td>中国重汽</td>
+									<td>刘三</td>
+									<td>G666666</td>
+									<td>05616516</td>
+									<td>16156156156</td>
+									<td>1615616516</td>
+									<td>维修</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+								</tr>
+							</table>
+						</div>	
+						<div class="table-div">
+							<table border="3" width="1485" height="250" class="div-table-biaoge4" style="display: none;">
+								<tr align="center">
+									<th>单据状态</th>
+									<th>业务类型</th>
+									<th>客户名称</th>
+									<th>车牌号</th>
+									<th>手机</th>
+									<th>会员卡号</th>
+									<th>维修单号</th>
+									<th>单据类型</th>
+									<th>开单时间</th>
+									<th>预计完工</th>
+									<th>完工时间</th>
+									<th>结算时间</th>
+								</tr>
+								<tr align="center">
+									<td>未接车</td>
+									<td>中国重汽</td>
+									<td>Greg</td>
+									<td>G666666</td>
+									<td>05616516</td>
+									<td>16156156156</td>
+									<td>1615616516</td>
+									<td>维修</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+								</tr>
+								<tr align="center">
+									<td>接车</td>
+									<td>中国重汽</td>
+									<td>fefegeg</td>
+									<td>G666666</td>
+									<td>05616516</td>
+									<td>16156156156</td>
+									<td>1615616516</td>
+									<td>维修</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+								</tr>
+								<tr align="center">
+									<td>接车</td>
+									<td>中国重汽</td>
+									<td>fafafa</td>
+									<td>G666666</td>
+									<td>05616516</td>
+									<td>16156156156</td>
+									<td>1615616516</td>
+									<td>维修</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+								</tr>
+								<tr align="center">
+									<td>格格</td>
+									<td>中国重汽</td>
+									<td>fafafa</td>
+									<td>G666666</td>
+									<td>05616516</td>
+									<td>16156156156</td>
+									<td>1615616516</td>
+									<td>维修</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+								</tr>
+							</table>
+						</div>	
+							<div class="table-div">
+							<table border="3" width="1485" height="250" class="div-table-biaoge5" style="display: none;">
+								<tr align="center">
+									<th>单据状态</th>
+									<th>业务类型</th>
+									<th>客户名称</th>
+									<th>车牌号</th>
+									<th>手机</th>
+									<th>会员卡号</th>
+									<th>维修单号</th>
+									<th>单据类型</th>
+									<th>开单时间</th>
+									<th>预计完工</th>
+									<th>完工时间</th>
+									<th>结算时间</th>
+								</tr>
+								<tr align="center">
+									<td>未接车</td>
+									<td>中国重汽</td>
+									<td>grgdgd</td>
+									<td>G666666</td>
+									<td>05616516</td>
+									<td>16156156156</td>
+									<td>1615616516</td>
+									<td>维修</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+								</tr>
+								<tr align="center">
+									<td>接车</td>
+									<td>中国重汽</td>
+									<td>efegfegrdgdrgdg</td>
+									<td>G666666</td>
+									<td>05616516</td>
+									<td>16156156156</td>
+									<td>1615616516</td>
+									<td>维修</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+								</tr>
+								<tr align="center">
+									<td>接车</td>
+									<td>中国重汽</td>
+									<td>fafagdgsfa</td>
+									<td>G666666</td>
+									<td>05616516</td>
+									<td>16156156156</td>
+									<td>1615616516</td>
+									<td>维修</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+								</tr>
+								<tr align="center">
+									<td>格格</td>
+									<td>中国重汽</td>
+									<td>gagaafafe</td>
+									<td>G666666</td>
+									<td>05616516</td>
+									<td>16156156156</td>
+									<td>1615616516</td>
+									<td>维修</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+									<td>2021-01-25 10:43</td>
+								</tr>
+							</table>
+						</div>	
+					</div>
+				</div>
+			</div>
+		</div>    
+		<script type="text/javascript" src="../js/jquery-1.12.4.js" ></script>
+		<script type="text/javascript" src="../js/Maintenance - Repair and Rescue - Maintenance Pick-up.js" ></script>
+	</body>
+</html>
