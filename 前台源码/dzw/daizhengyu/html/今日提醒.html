@@ -4,8 +4,55 @@
 		<meta charset="UTF-8">
 		<title>今日提醒</title>
 		<link href="../css/bootstrap.min.css" rel="stylesheet" />
+		<style>
+			iframe{
+				width: 600px;
+			}
+		</style>
 	</head>
 	<body>
-		
+		<div id="ctn">
+		<h1>
+			今日提醒
+		</h1>
+		<div class="row">
+  		<div class="col-md-3">
+  			<ul>
+  				<li @click="cl_ick0('今天提醒1.html')">wqdadadas</li>
+  				<li @click="cl_ick0('今天提醒2.html')">wqdadadas</li>
+  				<li @click="cl_ick0('今天提醒2.html')">wqdadadas</li>
+  				<li @click="cl_ick0('今天提醒2.html')">wqdadadas</li>
+  				<li @click="cl_ick0('今天提醒2.html')">wqdadadas</li>
+  				<li @click="cl_ick0('今天提醒2.html')">wqdadadas</li>
+  			</ul>
+  		</div>
+  		<div class="col-md-9">
+
+			<iframe :src="path"></iframe>
+
+  		</div>
+		</div>
+		</div>
 	</body>
+	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../js/vue.js"></script>
+	<script src="../static/js/bootstrap.min.js"></script>
+	<script>
+		new Vue({
+			el:"#ctn",
+			data(){
+				return{
+					path:"",	
+				}
+			},
+			methods:{
+				cl_ick0(path){
+					this.path=path;
+				},
+				
+			},created(){
+				this.path="今天提醒1.html"
+			}
+		});
+	</script>
 </html>
