@@ -102,7 +102,7 @@
                     </div>
                 </div>
                 <div class="col-sm-10" style="height: 100%;border: 0px solid red; padding-right: 00px;">
-                    <div style="height: 62.1%;">
+                    <div style="height: 57%;">
                         <!-- <button v-slot:buttons type="button" @click="getCurrentEvent"> 你好</button> -->
                         <template>
                             <vxe-grid border stripe highlight-hover-row highlight-current-row resizable ref="xTable"
@@ -112,7 +112,7 @@
                             </vxe-grid>
                         </template>
                     </div>
-                    <div style="height: 33.6%;">
+                    <div style="height: 38%;">
                         <h5 class="context2"><span>&nbsp;&nbsp;&nbsp;&nbsp;联系人</span></h5>
                         <!-- <button v-slot:buttons type="button" @click="getCurrentEvent"> 你好</button> -->
                         <template>
@@ -1486,6 +1486,7 @@
                         value.visible = obj[key].visible;
                     })
                     this.$refs.xTable.refreshColumn();
+                    console.log(JSON.stringify(this.columns))
                 },
                 //获取列头
                 gettableColumns() {

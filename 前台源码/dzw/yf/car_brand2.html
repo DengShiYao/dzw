@@ -50,12 +50,13 @@
                     </div>
                     <div
                         style="margin-top: 4.8px; background-color: #ffffff; height:87%;  border: 0px solid rebeccapurple;">
-                        <table class="table table-hover table-bordered">
+                        <table class="table table-bordered table-hover table-striped itemtable">
                             <thead>
-                                <tr>
+                                <tr
+                                    style="font-weight: 700; height: 33px !important; background-image: linear-gradient(#e8eaec,#e8eaec),linear-gradient(#e8eaec,#e8eaec);">
                                     <td style="padding: 8.0px 8px !important;">编码</td>
                                     <td style="padding: 8.0px 8px !important;">品牌名称</td>
-                                    <td style="padding: 8.0x 8px !important;">首字母</td>
+                                    <td style="padding: 8.0px 8px !important;">首字母</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -113,22 +114,14 @@
                     <div style="margin-top: 5px; ">
                         <!-- <button v-slot:buttons type="button" @click="getCurrentEvent"> 你好</button> -->
                         <template>
-                            <vxe-table border highlight-hover-row highlight-current-row resizable ref="xTable"
-                                auto-resize height="535" :data="tableData" @current-change="currentChangeEvent"
-                                class="mytable-scrollbar" show-overflow>
-                                <!-- <vxe-table-column field="id" title="全选" min-width="80"></vxe-table-column> -->
-                                <vxe-table-column type="checkbox" width="60" min-width="60"></vxe-table-column>
-                                <vxe-table-column field="id" title="车型ID" min-width="120" sortable></vxe-table-column>
-                                <vxe-table-column field="name" min-width="200" title="车型名称"></vxe-table-column>
-                                <vxe-table-column field="sex" title="发动机品牌" min-width="150"></vxe-table-column>
-                                <vxe-table-column field="sex" title="参考价格" min-width="120"></vxe-table-column>
-                                <vxe-table-column field="age" title="车辆年款" min-width="120"></vxe-table-column>
-                                <vxe-table-column field="address" title="功率" min-width="100"></vxe-table-column>
-                                <vxe-table-column field="address" title="索赔厂商" min-width="120"></vxe-table-column>
-                                <vxe-table-column field="address" title="进口国产" min-width="120"></vxe-table-column>
-                                <vxe-table-column field="address" title="燃油编号" min-width="120"></vxe-table-column>
-                                <vxe-table-column field="address" title="载重" min-width="100"></vxe-table-column>
-                            </vxe-table>
+                            <vxe-grid border stripe highlight-hover-row highlight-current-row resizable ref="xTable"
+                                class="mytable-scrollbar" auto-resize height="535" :data="tableData"
+                                :columns="tableColumn" @current-change="currentChangeEvent" round show-header-overflow
+                                show-overflow>
+                            </vxe-grid>
+                            <!-- <vxe-table border highlight-hover-row highlight-current-row resizable ref="xTable"
+             auto-resize :data="tableData" @current-change="currentChangeEvent"
+             class="mytable-scrollbar" show-overflow> -->
                         </template>
                     </div>
                 </div>
@@ -630,6 +623,7 @@
             </div>
         </div>
     </div>
+
     <script src="js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
     <script src="js/bootstrap.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
@@ -643,6 +637,17 @@
                     num: -1,
                     imgUrl: '',
                     textHide: false,
+                    tableColumn: [
+                        { num: 1, type: 'checkbox', width: 50, visible: true },
+                        { num: 1, field: 'id', title: '车型ID', sortable: true, showOverflow: true, width: 200, visible: true },
+                        { num: 1, field: 'id', title: '发动机品牌', sortable: true, showOverflow: true, width: 200, visible: true },
+                        { num: 1, field: 'id', title: '车辆年款', sortable: true, showOverflow: true, width: 200, visible: true },
+                        { num: 1, field: 'id', title: '功率', sortable: true, showOverflow: true, width: 200, visible: true },
+                        { num: 1, field: 'id', title: '索赔厂商', sortable: true, showOverflow: true, width: 200, visible: true },
+                        { num: 1, field: 'id', title: '进口国产', sortable: true, showOverflow: true, width: 200, visible: true },
+                        { num: 1, field: 'id', title: '燃油编号', sortable: true, showOverflow: true, width: 200, visible: true },
+                        { num: 1, field: 'id', title: '载重', sortable: true, showOverflow: true, width: 200, visible: true },
+                    ],
                     tableData: [{
                         id: 10001,
                         name: 'Test1',
