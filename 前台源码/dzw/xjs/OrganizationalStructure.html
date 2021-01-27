@@ -7,73 +7,125 @@
 		<link rel="stylesheet" type="text/css" href="css/aaa.css"/>
 		<style type="text/css">
 			.headDiv{
-				background-color:ghostwhite;
-				width: 100%;
-				height:80px;
+				background-color:ghostwhite;width: 100%;height:80px;
 			}
 			.clear1{
-				display: block;
-				content: '';
-				clear: both;
+				display: block;content: '';clear: both;
 			}
 			.headDiv_left {
-				font-size: 26px;
-				margin: 20px 30px;
-				height: 40px;
-				line-height: 40px;
-				float: left;
+				font-size: 26px;margin: 20px 30px;height: 40px;line-height: 40px;float: left;
 			}
 			.headDiv_right{
-				float: right;
-				height: 40px;
-				line-height: 40px;
-				margin: 20px 30px;
+				float: right;height: 40px;line-height: 40px;margin: 20px 30px;
 			}
 			.search{
-				width: 450px;
-				height: 40px;
-				line-height: 40px;
-				outline: none;
+				width: 450px;height: 40px;line-height: 40px;outline: none;
 			}
 			.btn{
-				height: 40px;
-				line-height: 40px;
-				text-align: center;
-				padding: 0px 12px;
-				margin-left: 10px;
+				height: 40px;line-height: 40px;text-align: center;padding: 0px 12px;margin-left: 10px;
 				/*width: 80px;*/
 			}
 			.buttonMenus{
-				margin-top: 20px;
-				margin-left: 10px;
-				background-color:whitesmoke;				
+				margin-top: 20px;margin-left: 10px;background-color:whitesmoke;				
 			}
 			.bodyDiv{
 				width: 100%;
 				background-color: ghostwhite
 			}
+			.table{
+				margin-top: 20px;
+			}
+			.table2{
+				width: 60%;
+			}
 			.table th{
-				color: white;
-				background-color: deepskyblue;
-				border: 1px solid black;
+				color: white;background-color: deepskyblue;border: 1px solid black;
 			}
 			.table td{
 				border: 1px solid gray;
+			}
+			.table tr{
+				margin-top: 10px;
 			}
 			ul li{
 				list-style: none;
 			}
 			.row{
-				width: 100%;
-				height: 100%;
+				width: 100%;height: 100%;
 			}
 			body{
-				background-color: ghostwhite;
-				width: 100%;
-				height: 100%;
-				margin: 0px;
-				padding: 0px;
+				background-color: ghostwhite;width: 100%;height: 100%;margin: 0px;padding: 0px;
 			}
+			.addEployDivHeadButton{
+				height: 40px;line-height: 40px;
+			}
+			.row{
+				width: 90%;height: 100%;
+			}
+			#addEployDiv{
+				border: 1px solid red;width: 90%;height:auto;margin: 20px auto;display: none;
+			}
+			#updateEployDiv{
+				border: 1px solid red;width: 90%;height:auto;margin: 20px auto;display: none;
+			}
+			#eployRole{
+				border: 1px solid red;width: 80%;margin: 20px auto;height: auto;display: none;
+			}
+			.roleDivHeadButton{
+				height: 40px;line-height: 40px;margin-top: 20px;
+			}
+			#selBy{
+				border: 1px solid red;width: 80%;height: auto;margin: 20px auto;display: none;
+			}
+			.zdButtonDiv{
+				margin-top: 20px;
+			}
+			.zdprimary{
+				margin-left:20px;
+			}
+			#showZd{
+				border: 1px solid red;width: 80%;height: auto;margin: 20px auto;display: none;
+			}
+			.sexModel_centernDiv{
+				background-color: gray;
+				margin-top: 20px;
+			}
+			#sexDiv{
+				border: 1px solid red;width: 50%;height: auto;margin: 20px auto;display: none;
+			}
+			#departDiv{
+				border: 1px solid red;width: 50%;height: auto;margin: 20px auto;display: none;
+			}
+			#nationalDiv{
+				border: 1px solid red;width: 50%;height: auto;margin: 20px auto;display: none;
+			}
+			#nplaceDiv{
+				border: 1px solid red;width: 50%;height: auto;margin: 20px auto;display: none;
+			}
+			#educationDiv{
+				border: 1px solid red;width: 50%;height: auto;margin: 20px auto;display: none;
+			}
+			#schoolDiv{
+				border: 1px solid red;width: 50%;height: auto;margin: 20px auto;display: none;
+			}
+			#majorDiv{
+				border: 1px solid red;width: 50%;height: auto;margin: 20px auto;display: none;
+			}
+			#PQDiv{
+				border: 1px solid red;width: 50%;height: auto;margin: 20px auto;display: none;
+			}
+			#bankDiv{
+				border: 1px solid red;width: 50%;height: auto;margin: 20px auto;display: none;
+			}
+			#degreeDiv{
+				border: 1px solid red;width: 50%;height: auto;margin: 20px auto;display: none;
+			}
+			#addStore{
+				border: 1px solid red;width: 80%;height: auto;margin: 20px auto;display: none;
+			}
+			#updateStore{
+				border: 1px solid red;width: 80%;height: auto;margin: 20px auto;display: none;
+			}			
 		</style>
 	</head>
 	<body>
@@ -82,31 +134,34 @@
 				<div class="headDiv_left">组织架构</div>
 				<div class="headDiv_right">
 				<input type="text" class="search" placeholder="匹配工号/姓名/手机"/>
-				<button class="btn btn-info">搜索</button>
+				<button class="btn btn-info" @click="sel">搜索</button>
 				<button class="btn btn-danger">关闭</button>
 				</div>
 			</div>
 			<div class="bodyDiv">
 				<div class="buttonMenus">
-					<button class="btn btn-primary">增加员工</button>
-					<button class="btn btn-danger">修改</button>
-					<button class="btn btn-danger">删除</button>
-					<button class="btn btn-info">查询</button>
-					<button class="btn btn-danger">置空密码</button>
-					<button class="btn btn-success">导出</button>
-					<button class="btn btn-default">导入</button>
-					<button class="btn btn-danger">员工角色</button>
-					<button class="btn btn-info">字段设置</button>
+					<button class="btn btn-primary" @click="addEploy">增加员工</button>
+					<button class="btn btn-danger" @click="updateEploy">修改</button>
+					<button class="btn btn-danger"@click="remove">删除</button>
+					<button class="btn btn-info" @click="openSel">查询</button>
+					<button class="btn btn-danger" @click="clearPwd">置空密码</button>
+					<button class="btn btn-success" @click="daoRu">导出</button>
+					<button class="btn btn-default" @click="daoChu">导入</button>
+					<button class="btn btn-danger" @click="role">员工角色</button>
+					<button class="btn btn-info" @click="openZd">字段设置</button>
+					<button class="btn btn-primary" @click="openNewStore">新增门店</button>
+					<button class="btn btn-danger" @click="openUpdateStore">修改门店</button>
+					<button class="btn btn-danger" @click="remoceStore">删除门店</button>
 				</div>
 				<div class="row">
 					<div class="col-lg-4">
                         <ul>
                             <!-- 直接循环这个li就行了多重循环嵌套 -->
-                            <li v-for="item in clasM"  @click.stop="select_bj($event)" class="select_bj">{{item.storeName}}
+                            <li v-for="item in clasM">{{item.storeName}}
                                 <ul>
-                                    <li @click.stop="select_bj_school($event)" v-for="i in item.children" class="select_bj_school">{{i.storeName}}
-                                        <ul class="no_style">
-                                            <li @click.stop="select_bj_school_class($event,a.classid,a.schoolid)" v-for="a in i.children" class="select_bj_school_class">{{a.dName}}</li>
+                                    <li  v-for="i in item.children">{{i.storeName}}
+                                        <ul>
+                                            <li v-for="a in i.children" >{{a.dName}}</li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -158,32 +213,1476 @@
 					</div>
 				</div>
 			</div>
-			<!--增加员工div -->
-			<div>
+			<!--员工卡片用于增加 -->
+			<div id="addEployDiv">
 				<div>
-					
+					<!--员工卡片头部-->
+					<div class="row" id="addHead">
+						<h3 class="col-lg-offset-1 col-lg-4">员工卡片</h3>
+						<div class="text-right addEployDivHeadButton">
+							<button class="btn btn-success" @click="insertEploy">保存</button>
+							<button class="btn btn-primary" @click="addPrint">打印</button>
+							<button class="btn btn-default">实名验证</button>
+							<button class="btn btn-danger" @click="closeAddEploy">关闭</button>
+						</div>
+					</div>
+					<!--员工卡片内容-->
+					<div style="border: 1px solid blue;height:auto;">
+					    <form class="form-inline">
+							<ul>
+								<li><a href="#tab1" data-toggle = "tab">基本资料</a></li>
+								<li><a href="#tab2" data-toggle = "tab">其他信息</a></li>
+							</ul>
+							<div class="tab-content">
+								<div class="tab-pane fade in active" id="tab1">
+									<table border="0" cellspacing="0" cellpadding="0" width="100%" height="auto">
+										<tr>
+											<td colspan="4">
+												<div class="form-group">
+													<label for="eId" class="control-label">员工编号</label>
+													<input type="text" name="" id="eId" value=""  class="form-control"/>
+												</div>
+											</td>
+											<td colspan="4">
+												<div class="form-group">
+													<label for="eName" class="control-label">员工姓名</label>
+													<input type="text" name="" id="eName" value="" class="form-control"/>
+												</div>
+											</td>
+											<td colspan="4">
+												<div class="form-group"> 
+													<label for="sex" class="control-label">性别:</label>
+													<select name="" id="sex" class="form-control">
+														<option value="男">男</option>
+														<option value="女">女</option>
+													</select>
+													<a class="btn" @click="openSexDiv">进入</a>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td colspan="6">
+												<div class="form-group">
+													<label for="store" class="control-label">所在门店</label>
+													<input type="text" name="" id="store" value="" class="form-control"/>
+												</div>
+											</td>
+											<td colspan="6">
+												<div class="form-group">
+													<label for="depart" class="control-label">所在部门:</label>
+													<select name="" class="form-control" id="depart">
+														<option value="11">管钱部</option>
+														<option value="12">嘻哈部</option>
+														<option value="13">笑死部</option>
+													</select>
+													<a class="btn" @click="opendepartDiv">进入</a>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td colspan="4">
+												<div class="form-group">										
+													<label for="login" class="control-label">登陆账号</label>
+													<input type="text" id="login" value="" class="form-control"/>
+												</div>
+											</td>
+											<td colspan="4">
+												<div class="form-group">
+													<label class="control-label" for="job">岗位</label>
+													<select name="" class="form-control" id="job">
+														<option value="1">总经理</option>
+														<option value="2">副总经理</option>
+														<option value="3">销售顾问</option>
+														<option value="4">内训师</option>
+													</select>
+												</div>
+											</td>
+											<td colspan="4">
+												<div class="form-group">
+													<label class="control-label" for="heath">身体状态</label>
+													<input type="text" name="" id="heath" value="" class="form-control" />
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td colspan="4">
+												<div class="form-group">
+													<label for="height" class="control-label">身高</label>
+													<input type="text" name="" id="height" value="" class="form-control" />
+												</div>
+											</td>
+											<td colspan="4">
+												<div class="form-group">
+													<label for="nplace" class="control-label">籍贯</label>
+													<select name="" id="nplace" class="form-control">
+														<option value="">湖南</option>
+														<option value="">广东</option>
+													</select>
+													<a class="btn" @click="openNplaceDiv">进入</a>
+												</div>
+											</td>
+											<td colspan="4">
+												<div class="form-group">
+													<label for="national" class="control-label">民族</label>
+													<select name="" id="national" class="form-control">
+														<option value="">汉</option>
+														<option value="">苗</option>
+													</select>
+													<a class="btn" @click="openNationalDiv">进入</a>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td colspan="4">
+												<div class="form-group">
+													<label for="marry" class="control-label">婚姻状态</label>
+													<select name="" id="national" class="form-control">
+														<option value="">未婚</option>
+														<option value="">已婚</option>
+													</select>
+												</div>
+											</td>
+											<td colspan="4">
+												<div class="form-group">
+													<label for="education" class="control-label">学历</label>
+													<select name="" class="form-control" id="education">
+														<option value="1">大专</option>
+														<option value="2">本科</option>
+														<option value="3">硕士</option>
+													</select>
+													<a class="btn" @click="openEducationDiv">进入</a>
+												</div>
+											</td>
+											<td colspan="4">
+												<div class="form-group">
+													<label for="school" class="control-label">毕业学校</label>
+													<select name="" class="form-control" id="education">
+														<option value="1">清华大学</option>
+														<option value="2">山东蓝翔</option>
+													</select>
+													<a class="btn" @click="openSchoolDiv">进入</a>
+												</div>		
+											</td>
+										</tr>
+										<tr>
+											<td colspan="3">
+												<div class="form-group">
+													<label class="control-label" for="major">专业</label>
+													<select name="" class="form-control" id="major">
+														<option value="1">计算机科学</option>
+														<option value="2">网络工程</option>
+														<option value="3">物理学</option>
+													</select>
+													<a class="btn" @click="openMajorDiv">进入</a>
+												</div>
+											</td>
+											<td colspan="3">
+												<div class="form-group">
+													<label for="PQ" class="control-label">专业资格</label>
+													<select name="" class="form-control" id="PQ">
+														<option value="1">初级工程师</option>
+														<option value="2">中级工程师</option>
+														<option value="3">高级工程师</option>
+													</select>
+													<a class="btn" @click="openPQDiv">进入</a>
+												</div>
+											</td>
+											<td colspan="3">
+												<div class="form-group">
+													<label class="control-label" for="attr">属性</label>
+													<select name="" class="form-control" id="attr">
+														<option value="1">计考勤计薪</option>
+														<option value="2">不计考勤计薪</option>
+														<option value="3">计考勤不计薪</option>
+														<option value="4">不计考勤不计薪</option>
+													</select>
+												</div>
+											</td>
+											<td colspan="3">
+												<div class="form-group">
+													<label for="degree" class="control-label">学位</label>
+													<select name="" class="form-control" id="degree">
+														<option value="1">工学</option>
+													</select>
+													<a class="btn" @click="openDegreeDiv">进入</a>
+												</div>
+											</td>
+										</tr>
+										 <tr>
+										 	<td colspan="4">
+										 		<div class="form-group">
+										 			<label for="establish" class="control-label">编制</label>
+										 			<input type="text" id="establish" value=""  class="form-control"/>
+										 		</div>
+										 	</td>
+										 	<td colspan="4">
+										 		<div class="form-group">
+										 			<label for="cardId" class="control-label">身份证号</label>
+										 			<input type="text" id="cardId" value=""  class="form-control"/>
+										 		</div>
+										 	</td>
+										 	<td colspan="4">
+										 		<div class="form-group">
+										 			<label for="hAddress" class="control-label">户口地址</label>
+										 			<input type="text" id="hAddress" value=""  class="form-control"/>
+										 		</div>
+										 	</td>
+										 </tr>
+										 <tr>
+										 	<td colspan="4">
+										 		<div class="form-group">
+										 			<label for="nAddress" class="control-label">现住地址</label>
+										 			<input type="text" id="nAddress" value=""  class="form-control"/>
+										 		</div>
+										 	</td>
+										 	<td colspan="4">
+										 		<div class="form-group">
+										 			<label for="tel" class="control-label">联系电话</label>
+										 			<input type="text" id="tel" value=""  class="form-control"/>
+										 		</div>
+										 	</td>
+										 	<td colspan="4">
+										 		<div class="form-group">
+										 			<label for="phone" class="control-label">手机</label>
+										 			<input type="text" id="phone" value=""  class="form-control"/>
+										 		</div>
+										 	</td>
+										 </tr>
+										 <tr>
+										 	<td colspan="4">
+										 		<div class="form-group">
+										 			<label for="email" class="control-label">Email</label>
+										 			<input type="text" id="email" value=""  class="form-control"/>
+										 		</div>
+										 	</td>
+										 	<td colspan="4">
+										 		<div class="form-group">
+										 			<label class="control-label" for="bank">开户银行</label>
+													<select name="" class="form-control" id="bank">
+														<option value="1">浦发银行</option>
+														<option value="2">农业银行</option>
+													</select>
+													<a class="btn" @click="openBankDiv">进入</a>
+										 		</div>
+										 	</td>
+										 	<td colspan="4">
+										 		<div class="form-group">
+										 			<label for="bankAccount" class="control-label">银行账号</label>
+										 			<input type="text" id="bankAccount" value=""  class="form-control"/>
+										 		</div>
+										 	</td>
+										 </tr>
+										 <tr>
+										 	<td colspan="6">
+										 		<div class="form-group">
+										 			<label for="contacts" class="control-label">紧急联系人</label>
+										 			<input type="text" id="contacts" value=""  class="form-control"/>
+										 		</div>
+										 	</td>
+										 	<td colspan="6">
+										 		<div class="form-group">
+										 			<label for="cphone" class="control-label">联系电话</label>
+										 			<input type="text" id="cphone" value=""  class="form-control"/>
+										 		</div>
+										 	</td>
+										 </tr>
+										 <tr>
+										 	<td colspan="3">
+										 		<div class="form-group">
+										 			<label for="entryDate" class="control-label">入职日期</label>
+										 			<input type="date" name="" id="entryDate" value="" class="form-control" />
+										 		</div>
+										 	</td>
+										 	<td colspan="3">
+										 		<div class="form-group">
+										 			<label for="proDate" class="control-label">试用日期</label>
+										 			<input type="date" name="" id="proDate" value="" class="form-control" />
+										 		</div>
+										 	</td>
+										 	<td colspan="3">
+										 		<div class="form-group">
+										 			<label for="birth" class="control-label">生日</label>
+										 			<input type="date" name="" id="birth" value="" class="form-control" />
+										 		</div>
+										 	</td>
+										 	<td colspan="3">
+										 		<div class="form-group">
+										 			<label for="pactBegin" class="control-label">合同开始</label>
+										 			<input type="date" name="" id="pactBegin" value="" class="form-control" />
+										 		</div>
+										 	</td>
+										 </tr>
+										 <tr>
+										 	<td colspan="3">
+										 		<div class="form-group">
+										 			<label for="pactEnd" class="control-label">合同结束</label>
+										 			<input type="date" name="" id="pactEnd" value="" class="form-control" />
+										 		</div>
+										 	</td>
+										 	<td colspan="3">
+										 		<div class="form-group">
+										 			<label for="kzId" class="control-label">卡自编号</label>
+										 			<input type="text" name="" id="kzId" value="" class="form-control" />
+										 		</div>
+										 	</td>
+										 	<td colspan="3">
+										 		<div class="form-group">
+										 			<label for="knId" class="control-label">卡内部号</label>
+										 			<input type="text" name="" id="knId" value="" class="form-control" />
+										 		</div>
+										 	</td>
+										 	<td colspan="3">
+										 		<div class="form-group">
+										 			<label for="referrer" class="control-label">推荐人</label>
+										 			<input type="text" name="" id="referrer" value="" class="form-control" />
+										 		</div>
+										 	</td>
+										 </tr>
+										 <tr>
+										 	<td colspan="3">
+										 		<div class="form-group">
+										 			<label for="billDiscount" class="control-label">整单折扣率</label>
+										 			<input type="text" name="" id="billDiscount" value="" class="form-control" />
+										 		</div>
+										 	</td>
+										 	<td colspan="3">
+										 		<div class="form-group">
+										 			<label for="hourDiscount " class="control-label">工时折扣率</label>
+										 			<input type="text" name="" id="hourDiscount " value="" class="form-control" />
+										 		</div>
+										 	</td>
+										 	<td colspan="3">
+										 		<div class="form-group">
+										 			<label for="shopDiscount" class="control-label">商品折扣率</label>
+										 			<input type="text" name="" id="shopDiscount" value="" class="form-control" />
+										 		</div>
+										 	</td>
+										 	<td colspan="3">
+										 		<div class="form-group">
+										 			<label for="relief" class="control-label">减免权</label>
+										 			<input type="text" name="" id="relief" value="" class="form-control" />
+										 		</div>
+										 	</td>
+										 </tr>
+									</table>
+								</div>
+								<!--其他信息-->
+								<div class="tab-pane fade in" id="tab2">
+									<table border="0" cellspacing="0" cellpadding="0" width="100%" height="auto">
+										<tr>
+											<td colspan="6">
+												<div class="form-group">
+													<label for="resume" class="control-label">工作简历</label>
+													<textarea name="" rows="" cols="" id="resume" class="form-control"></textarea>
+												</div>
+											</td>
+											<td colspan="6">
+												<div class="form-group">
+													<label for="educationBackground" class="control-label">教育经历</label>
+													<textarea name="" rows="" cols="" id="educationBackground" class="form-control"></textarea>
+												</div>
+											</td>
+											
+										</tr>
+										<tr>
+											<td colspan="6">
+												<div class="form-group">
+													<label for="family" class="control-label">家庭成员</label>
+													<textarea name="" rows="" cols="" id="family" class="form-control"></textarea>
+												</div>
+											</td>
+											<td colspan="6">
+												<div class="form-group">
+													<label for="jiangFa" class="control-label">奖罚记录</label>
+													<textarea name="" rows="" cols="" id="jiangFa" class="form-control"></textarea>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td colspan="6">
+												<div class="form-group">
+													<label for="hire" class="control-label">聘用意见</label>
+													<textarea name="" rows="" cols="" id="hire" class="form-control"></textarea>
+												</div>
+											</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</form>
+					</div>
 				</div>
 			</div>
 			<!--修改员工div-->
-			
-		</div>
+			<div id="updateEployDiv">
+				<div>
+					<!--员工卡片头部-->
+					<div class="row" id="updateHead">
+						<h3 class="col-lg-offset-1 col-lg-4">员工卡片</h3>
+						<div class="text-right addEployDivHeadButton">
+							<button class="btn btn-success" @click="xiuEploy">保存</button>
+							<button class="btn btn-primary" @click="updatePrint">打印</button>
+							<button class="btn btn-default">实名验证</button>
+							<button class="btn btn-danger" @click="closeUpdateEploy">关闭</button>
+						</div>
+					</div>
+					<!--员工卡片内容-->
+					<div style="border: 1px solid blue;height:auto">
+					    <form class="form-inline">
+							<ul>
+								<li><a href="#tab3" data-toggle = "tab">基本资料</a></li>
+								<li><a href="#tab4" data-toggle = "tab">其他信息</a></li>
+							</ul>
+							<div class="tab-content">
+								<div class="tab-pane fade in active" id="tab3">
+									<table border="0" cellspacing="0" cellpadding="0" width="100%" height="auto">
+										<tr>
+											<td colspan="4">
+												<div class="form-group">
+													<label for="eId" class="control-label">员工编号</label>
+													<input type="text" name="" id="eId" value="11"  class="form-control"/>
+												</div>
+											</td>
+											<td colspan="4">
+												<div class="form-group">
+													<label for="eName" class="control-label">员工姓名</label>
+													<input type="text" name="" id="eName" value="等比" class="form-control"/>
+												</div>
+											</td>
+											<td colspan="4">
+												<div class="form-group"> 
+													<label for="sex" class="control-label">性别:</label>
+													<select name="" id="sex" class="form-control">
+														<option value="男">男</option>
+														<option value="女">女</option>
+													</select>
+													<a class="btn" @click="openSexDiv">进入</a>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td colspan="6">
+												<div class="form-group">
+													<label for="store" class="control-label">所在门店</label>
+													<input type="text" name="" id="store" value="" class="form-control"/>
+												</div>
+											</td>
+											<td colspan="6">
+												<div class="form-group">
+													<label for="depart" class="control-label">所在部门:</label>
+													<select name="" class="form-control" id="depart">
+														<option value="11">管钱部</option>
+														<option value="12">嘻哈部</option>
+														<option value="13">笑死部</option>
+													</select>
+													<a class="btn" @click="opendepartDiv">进入</a>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td colspan="4">
+												<div class="form-group">										
+													<label for="login" class="control-label">登陆账号</label>
+													<input type="text" id="login" value="" class="form-control"/>
+												</div>
+											</td>
+											<td colspan="4">
+												<div class="form-group">
+													<label class="control-label" for="job">岗位</label>
+													<select name="" class="form-control" id="job">
+														<option value="1">总经理</option>
+														<option value="2">副总经理</option>
+														<option value="3">销售顾问</option>
+														<option value="4">内训师</option>
+													</select>
+												</div>
+											</td>
+											<td colspan="4">
+												<div class="form-group">
+													<label class="control-label" for="heath">身体状态</label>
+													<input type="text" name="" id="heath" value="" class="form-control" />
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td colspan="4">
+												<div class="form-group">
+													<label for="height" class="control-label">身高</label>
+													<input type="text" name="" id="height" value="" class="form-control" />
+												</div>
+											</td>
+											<td colspan="4">
+												<div class="form-group">
+													<label for="nplace" class="control-label">籍贯</label>
+													<select name="" class="form-control" id="nplace">
+														<option value="1">湖南</option>
+														<option value="2">广东</option>
+													</select>
+													<a class="btn" @click="openNplaceDiv">进入</a>
+												</div>
+											</td>
+											<td colspan="4">
+												<div class="form-group">
+													<label for="national" class="control-label">民族</label>
+													<select class="form-control" id="national">
+														<option value="1">汉</option>
+														<option value="2">苗</option>
+													</select>
+													<a class="btn" @click="openNationalDiv">进入</a>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td colspan="4">
+												<div class="form-group">
+													<label for="marry" class="control-label">婚姻状态</label>
+													<select name="" class="form-control" id="marry">
+														<option value="1">已婚</option>
+														<option value="2">未婚</option>
+													</select>
+												</div>
+											</td>
+											<td colspan="4">
+												<div class="form-group">
+													<label for="educartion" class="control-label">学历</label>
+													<select name="" class="form-control" id="education">
+														<option value="1">大专</option>
+														<option value="2">本科</option>
+														<option value="3">硕士</option>
+													</select>
+													<a class="btn" @click="openEducationDiv">进入</a>
+												</div>
+											</td>
+											<td colspan="4">
+												<div class="form-group">
+													<label for="school" class="control-label">毕业学校</label>
+													<select name="" class="form-control" id="school">
+														<option value="1">清华北大</option>
+														<option value="2">山东蓝翔</option>
+													</select>
+													<a class="btn" @click="openSchoolDiv">进入</a>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td colspan="3">
+												<div class="form-group">
+													<label class="control-label" for="major">专业</label>
+													<select name="" class="form-control" id="major">
+														<option value="1">计算机科学</option>
+														<option value="2">网络工程</option>
+														<option value="3">物理学</option>
+													</select>
+													<a class="btn" @click="openMajorDiv">进入</a>
+												</div>
+											</td>
+											<td colspan="3">
+												<div class="form-group">
+													<label for="PQ" class="control-label">专业资格</label>
+													<select name="" class="form-control" id="PQ">
+														<option value="1">初级工程师</option>
+														<option value="2">中级工程师</option>
+														<option value="3">高级工程师</option>
+													</select>
+													<a class="btn" @click="openPQDiv">进入</a>
+												</div>
+											</td>
+											<td colspan="3">
+												<div class="form-group">
+													<label class="control-label" for="attr">属性</label>
+													<select name="" class="form-control" id="attr">
+														<option value="1">计考勤计薪</option>
+														<option value="2">不计考勤计薪</option>
+														<option value="3">计考勤不计薪</option>
+														<option value="4">不计考勤不计薪</option>
+													</select>
+												</div>
+											</td>
+											<td colspan="3">
+												<div class="form-group">
+													<label for="degree" class="control-label">学位</label>
+													<select name="" class="form-control" id="degree">
+														<option value="1">工学</option>
+													</select>
+													<a class="btn" @click="openDegreeDiv">进入</a>
+												</div>
+											</td>
+										</tr>
+										 <tr>
+										 	<td colspan="4">
+										 		<div class="form-group">
+										 			<label for="establish" class="control-label">编制</label>
+										 			<input type="text" id="establish" value=""  class="form-control"/>
+										 		</div>
+										 	</td>
+										 	<td colspan="4">
+										 		<div class="form-group">
+										 			<label for="cardId" class="control-label">身份证号</label>
+										 			<input type="text" id="cardId" value=""  class="form-control"/>
+										 		</div>
+										 	</td>
+										 	<td colspan="4">
+										 		<div class="form-group">
+										 			<label for="hAddress" class="control-label">户口地址</label>
+										 			<input type="text" id="hAddress" value=""  class="form-control"/>
+										 		</div>
+										 	</td>
+										 </tr>
+										 <tr>
+										 	<td colspan="4">
+										 		<div class="form-group">
+										 			<label for="nAddress" class="control-label">现住地址</label>
+										 			<input type="text" id="nAddress" value=""  class="form-control"/>
+										 		</div>
+										 	</td>
+										 	<td colspan="4">
+										 		<div class="form-group">
+										 			<label for="tel" class="control-label">联系电话</label>
+										 			<input type="text" id="tel" value=""  class="form-control"/>
+										 		</div>
+										 	</td>
+										 	<td colspan="4">
+										 		<div class="form-group">
+										 			<label for="phone" class="control-label">手机</label>
+										 			<input type="text" id="phone" value=""  class="form-control"/>
+										 		</div>
+										 	</td>
+										 </tr>
+										 <tr>
+										 	<td colspan="4">
+										 		<div class="form-group">
+										 			<label for="email" class="control-label">Email</label>
+										 			<input type="text" id="email" value=""  class="form-control"/>
+										 		</div>
+										 	</td>
+										 	<td colspan="4">
+										 		<div class="form-group">
+										 			<label class="control-label" for="bank">开户银行</label>
+													<select name="" class="form-control" id="bank">
+														<option value="1">浦发银行</option>
+														<option value="2">农业银行</option>
+													</select>
+													<a class="btn" @click="openBankDiv">进入</a>
+										 		</div>
+										 	</td>
+										 	<td colspan="4">
+										 		<div class="form-group">
+										 			<label for="bankAccount" class="control-label">银行账号</label>
+										 			<input type="text" id="bankAccount" value=""  class="form-control"/>
+										 		</div>
+										 	</td>
+										 </tr>
+										 <tr>
+										 	<td colspan="6">
+										 		<div class="form-group">
+										 			<label for="contacts" class="control-label">紧急联系人</label>
+										 			<input type="text" id="contacts" value=""  class="form-control"/>
+										 		</div>
+										 	</td>
+										 	<td colspan="6">
+										 		<div class="form-group">
+										 			<label for="cphone" class="control-label">联系电话</label>
+										 			<input type="text" id="cphone" value=""  class="form-control"/>
+										 		</div>
+										 	</td>
+										 </tr>
+										 <tr>
+										 	<td colspan="3">
+										 		<div class="form-group">
+										 			<label for="entryDate" class="control-label">入职日期</label>
+										 			<input type="date" name="" id="entryDate" value="" class="form-control" />
+										 		</div>
+										 	</td>
+										 	<td colspan="3">
+										 		<div class="form-group">
+										 			<label for="proDate" class="control-label">试用日期</label>
+										 			<input type="date" name="" id="proDate" value="" class="form-control" />
+										 		</div>
+										 	</td>
+										 	<td colspan="3">
+										 		<div class="form-group">
+										 			<label for="birth" class="control-label">生日</label>
+										 			<input type="date" name="" id="birth" value="" class="form-control" />
+										 		</div>
+										 	</td>
+										 	<td colspan="3">
+										 		<div class="form-group">
+										 			<label for="pactBegin" class="control-label">合同开始</label>
+										 			<input type="date" name="" id="pactBegin" value="" class="form-control" />
+										 		</div>
+										 	</td>
+										 </tr>
+										 <tr>
+										 	<td colspan="3">
+										 		<div class="form-group">
+										 			<label for="pactEnd" class="control-label">合同结束</label>
+										 			<input type="date" name="" id="pactEnd" value="" class="form-control" />
+										 		</div>
+										 	</td>
+										 	<td colspan="3">
+										 		<div class="form-group">
+										 			<label for="kzId" class="control-label">卡自编号</label>
+										 			<input type="text" name="" id="kzId" value="" class="form-control" />
+										 		</div>
+										 	</td>
+										 	<td colspan="3">
+										 		<div class="form-group">
+										 			<label for="knId" class="control-label">卡内部号</label>
+										 			<input type="text" name="" id="knId" value="" class="form-control" />
+										 		</div>
+										 	</td>
+										 	<td colspan="3">
+										 		<div class="form-group">
+										 			<label for="referrer" class="control-label">推荐人</label>
+										 			<input type="text" name="" id="referrer" value="" class="form-control" />
+										 		</div>
+										 	</td>
+										 </tr>
+										 <tr>
+										 	<td colspan="3">
+										 		<div class="form-group">
+										 			<label for="billDiscount" class="control-label">整单折扣率</label>
+										 			<input type="text" name="" id="billDiscount" value="" class="form-control" />
+										 		</div>
+										 	</td>
+										 	<td colspan="3">
+										 		<div class="form-group">
+										 			<label for="hourDiscount " class="control-label">工时折扣率</label>
+										 			<input type="text" name="" id="hourDiscount " value="" class="form-control" />
+										 		</div>
+										 	</td>
+										 	<td colspan="3">
+										 		<div class="form-group">
+										 			<label for="shopDiscount" class="control-label">商品折扣率</label>
+										 			<input type="text" name="" id="shopDiscount" value="" class="form-control" />
+										 		</div>
+										 	</td>
+										 	<td colspan="3">
+										 		<div class="form-group">
+										 			<label for="relief" class="control-label">减免权</label>
+										 			<input type="text" name="" id="relief" value="" class="form-control" />
+										 		</div>
+										 	</td>
+										 </tr>
+									</table>
+								</div>
+								<!--其他信息-->
+								<div class="tab-pane fade in" id="tab4">
+									<table border="0" cellspacing="0" cellpadding="0" width="100%" height="auto">
+										<tr>
+											<td colspan="6">
+												<div class="form-group">
+													<label for="resume" class="control-label">工作简历</label>
+													<textarea name="" rows="" cols="" id="resume" class="form-control"></textarea>
+												</div>
+											</td>
+											<td colspan="6">
+												<div class="form-group">
+													<label for="educationBackground" class="control-label">教育经历</label>
+													<textarea name="" rows="" cols="" id="educationBackground" class="form-control"></textarea>
+												</div>
+											</td>
+											
+										</tr>
+										<tr>
+											<td colspan="6">
+												<div class="form-group">
+													<label for="family" class="control-label">家庭成员</label>
+													<textarea name="" rows="" cols="" id="family" class="form-control"></textarea>
+												</div>
+											</td>
+											<td colspan="6">
+												<div class="form-group">
+													<label for="jiangFa" class="control-label">奖罚记录</label>
+													<textarea name="" rows="" cols="" id="jiangFa" class="form-control"></textarea>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td colspan="6">
+												<div class="form-group">
+													<label for="hire" class="control-label">聘用意见</label>
+													<textarea name="" rows="" cols="" id="hire" class="form-control"></textarea>
+												</div>
+											</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<!--员工角色-->
+			<div id="eployRole">
+				<div>
+					<h3 class="col-lg-offset-1 col-lg-4">员工角色</h3>
+						<div class="text-right addEployDivHeadButton">
+							<button class="btn btn-success" @click="updateRole">保存</button>
+							<button class="btn btn-danger" @click="closeRole">关闭</button>
+						</div>
+				</div>
+				<div>
+					<div class="text-right roleDivHeadButton">						
+						<button  class="btn btn-primary" @click="changeRole(true)">全部选择</button>
+						<button class="btn btn-primary" @click="changeRole(false)">全部取消</button>
+					</div>
+				</div>
+				<!--角色table-->
+				<div>
+					<table border="0" cellspacing="0" cellpadding="0" class="table">
+						<tr>
+							<th></th>
+							<th>角色名称</th>
+							<th>包含</th>
+						</tr>
+						<tr v-for="item in jobList">
+							<td></td>
+							<td>{{item.name}}</td>
+							<td>
+								<input type="checkbox" name="" id="" :value="item.id" v-model="jobChecks" />
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<!--员工查询 -->
+			<div id="selBy">
+				<div> 
+					<h3 class="col-lg-offset-1 col-lg-4">员工查询</h3>
+					<div class="text-right">
+						<button class="btn btn-success" @click="sel">确定</button>
+						<button class="btn btn-danger" @click="closeSelBy">关闭</button>
+					</div>
+				</div>
+				<div>
+					<table border="0" cellspacing="0" cellpadding="0" width="100%" height="auto">
+						<tr>
+							<td colspan="4">
+								<div class="form-group">
+									<label class="control-label">员工编号</label>
+									<input type="text" name="" id="" value="" class="form-control" />
+								</div>
+							</td>
+							<td colspan="4">
+								<div class="form-group">
+									<label class="control-label">员工姓名</label>
+									<input type="text" name="" id="" value="" class="form-control" />
+								</div>
+							</td>
+							<td colspan="4">
+								<div class="form-group">
+									<label for="" class="control-label">性别</label>
+									<input type="text" name="" id="" value="" class="form-control" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="6">
+								<div class="form-group">
+									<label class="control-label">岗位</label>
+									<select class="form-control">
+										<option value="">总经理</option>
+										<option value="">副总经理</option>
+									</select>
+								</div>
+							</td>
+							<td colspan="6">
+								<div class="form-group">
+									<label class="control-label">岗位</label>
+									<select class="form-control">
+										<option value="">总经理</option>
+										<option value="">副总经理</option>
+									</select>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="4">
+								<div class="form-group">
+									<label class="control-label">身体状态</label>
+									<input type="text" id="" value="" class="form-control" />
+								</div>
+							</td>
+							<td colspan="4">
+								<div class="form-group">
+									<label class="control-label">身高</label>
+									<input type="text" id="" value="" class="form-control" />
+								</div>
+							</td>
+							<td colspan="4">
+								<div class="form-group">
+									<label class="control-label">籍贯</label>
+									<input type="text" id="" value="" class="form-control"/>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="4">
+								<div class="form-group">
+									<label class="control-label">民族</label>
+									<input type="text" id="" value=""  class="form-control"/>
+								</div>
+							</td>
+							<td colspan="4">
+								<div class="form-group">
+									<label class="control-label">婚姻状态</label>
+									<input type="text" id="" value="" class="form-control"/>
+								</div>
+							</td>
+							<td colspan="4">
+								<div class="form-group">
+									<label class="control-label">学历</label>
+									<select class="form-control">
+										<option value="">大专</option>
+										<option value="">本科</option>
+									</select>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="4">
+								<div class="form-group">
+									<label class="control-label">毕业学校</label>
+									<input type="text" id="" value="" class="form-control" />
+								</div>
+							</td>
+							<td colspan="4">
+								<div class="form-group">
+									<label class="control-label">专业</label>
+									<select class="form-control">
+										<option value="">计算机科学</option>
+										<option value="">网络工程</option>
+									</select>
+								</div>
+							</td>
+							<td colspan="4">
+								<div>
+									<label class="control-label">专业资格</label>
+									<input type="text" id="" value="" class="form-control"/>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="4">
+								<div class="form-group">
+									<label class="control-label">生日</label>
+									<input type="date" id="" value="" class="form-control"/>
+								</div>
+							</td>
+							<td colspan="4">
+								<div class="form-group">
+									<label class="control-label">学位</label>
+									<input type="text" id="" value="" class="form-control"/>
+								</div>
+							</td>
+							<td colspan="4">
+								<div class="form-group">
+								 	<label class="control-label">编制</label>
+									<input type="text" id="" value="" class="form-control"/>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="6">
+								<div class="form-group">
+									<label class="control-label">身份证号</label>
+									<input type="text" id="" value="" class="form-control"/>
+								</div>
+							</td>
+							<td colspan="6">
+								<div class="form-group">
+									<label class="control-label">入职日期从</label>
+									<input type="date" id="" value="" class="form-control"/>
+									<label class="control-label">至</label>
+									<input type="date" id="" value="" class="form-control"/>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="6">
+								<div class="form-group">
+									<label class="control-label">试用日期从</label>
+									<input type="date" id="" value="" class="form-control"/>
+									<label class="control-label">至</label>
+									<input type="date" id="" value="" class="form-control"/>
+								</div>
+							</td>
+							<td colspan="6">
+								<div class="form-group">
+									<label class="control-label">属性</label>
+									<select class="form-control">
+										<option value="">记考勤计薪</option>
+										<option value="">不记考勤计薪</option>
+										<option value="">记考勤不计薪</option>
+										<option value="">不记考勤不计薪</option>
+									</select>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="6">
+								<div class="form-group">
+									<label class="control-label">合同开始从</label>
+									<input type="date" id="" value="" class="form-control"/>
+									<label class="control-label">至</label>
+									<input type="date" id="" value="" class="form-control"/>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<!--字段设置-->
+            <div id="showZd">
+            	<div>
+            		<h3 class="col-lg-offset-1 col-lg-3">字段设置</h3>
+            		<div class="text-right">            			
+            			<button class="btn btn-danger" @click="closeZd">关闭</button>
+            		</div>
+            	</div>
+            	<div>
+            		<div class="zdButtonDiv">
+            			<button class="btn btn-success" @click="primaryZd()">确定</button>
+            			<button class="btn btn-primary" @click="changeZd(true)">全部选择</button>
+            			<button class="btn btn-primary" @click="changeZd(false)">全部取消</button>
+            		</div>
+            	</div>
+            	<div>
+            		<table border="" cellspacing="" cellpadding="" class="table">
+            			<tr>
+            				<th>显示</th>
+            				<th>字段</th>
+            				<th>字段名称</th>
+            				<th>序号</th>
+            				<th>显示宽度</th>
+            			</tr>
+            			<tr v-for="item in zdList">
+            				<td>
+            					<input type="checkbox" name="" id="" :value="item.id" v-model="zdChecks" />
+            				</td>
+            				<td>{{item.zd}}</td>
+            				<td>{{item.zdName}}</td>
+            				<td>{{item.id}}</td>
+            				<td>100</td>
+            			</tr>
+            		</table>
+            	</div>
+            </div>
+            <!-- 性别框-->
+            <div id="sexDiv">
+            	<div>            		
+            		<h3 class="col-lg-4">请选择内容设置</h3>
+            		<div class="text-right">
+						<button class="btn btn-danger" @click="closeSexDiv">关闭</button>
+            		</div>
+            	</div>
+            	<div class="text-right sexModel_centernDiv">
+            		<button class="btn btn-primary" @click="addSexList">修改</button>
+            		<button class="btn btn-success" @click="saveSexList">保存</button>
+            	</div>
+            	<div>
+            		<table border="" cellspacing="" cellpadding="" class="table table2">
+            			<tr>
+            				<th></th>
+            				<th>序号</th>
+            				<th>性别</th>
+            			</tr>
+            			<tr v-for="item in sexList">
+            				<td></td>
+            				<td>
+            					<input type="text" name="" id="" :value="item.sexId"  class="form-control"/>
+            				</td>
+            				<td>
+            					<input type="text" name="" id="" :value="item.sexName"  class="form-control"/>
+            				</td>
+            			</tr>
+            		</table>
+            	</div>
+            	<div class="text-right">
+            		<button class="btn btn-success" @click="sexOk">选择</button>
+            	</div>
+            </div>
+             <!-- 部门框-->
+            <div id="departDiv">
+            	<div>            		
+            		<h3 class="col-lg-4">部门选择</h3>
+            		<div class="text-right">
+            			<button class="btn btn-success" @click="savedepartList">选择</button>
+						<button class="btn btn-danger" @click="closedepartDiv">关闭</button>
+            		</div>
+            	</div>
+            	<div>
+            		<select name="" class="form-control">
+            			<option value="">0000-总厂</option>
+            			<option value="">0001-成高</option>
+            			<option value="">0002-成高1</option>
+            		</select>
+            	</div>
+            	<div>
+            		<table border="" cellspacing="" cellpadding="" class="table table2">
+            			<tr>
+            				<th></th>
+            				<th>部门编码</th>
+            				<th>部门名称</th>
+            				<th>部门分类</th>
+            			</tr>
+            			<tr v-for="item in departList">
+            				<td></td>
+            				<td>{{item.dId}}</td>
+            				<td>{{item.dName}}</td>
+            				<td>{{item.dTypeName}}</td>
+            			</tr>
+            		</table>
+            	</div>
+            </div>
+            <!-- 民族框-->
+            <div id="nationalDiv">
+            	<div>            		
+            		<h3 class="col-lg-4">请选择内容设置</h3>
+            		<div class="text-right">
+						<button class="btn btn-danger" @click="closeNationalDiv">关闭</button>
+            		</div>
+            	</div>
+            	<div class="text-right sexModel_centernDiv">
+            		<button class="btn btn-primary" @click="addNationalList">修改</button>
+            		<button class="btn btn-success" @click="saveNationList">保存</button>
+            	</div>
+            	<div>
+            		<table border="" cellspacing="" cellpadding="" class="table table2">
+            			<tr>
+            				<th></th>
+            				<th>序号</th>
+            				<th>民族</th>
+            			</tr>
+            			<tr v-for="item in nationalList">
+            				<td></td>
+            				<td>
+            					<input type="text" name="" id="" :value="item.nationalId"  class="form-control"/>
+            				</td>
+            				<td>
+            					<input type="text" name="" id="" :value="item.nationalName"  class="form-control"/>
+            				</td>
+            			</tr>
+            		</table>
+            	</div>
+            	<div class="text-right">
+            		<button class="btn btn-success" @click="nationalOk">选择</button>
+            	</div>
+            </div>
+             <!-- 籍贯框-->
+            <div id="nplaceDiv">
+            	<div>            		
+            		<h3 class="col-lg-4">请选择内容设置</h3>
+            		<div class="text-right">
+						<button class="btn btn-danger" @click="closeNplaceDiv">关闭</button>
+            		</div>
+            	</div>
+            	<div class="text-right sexModel_centernDiv">
+            		<button class="btn btn-primary" @click="addNplaceList">修改</button>
+            		<button class="btn btn-success" @click="saveNplaceList">保存</button>
+            	</div>
+            	<div>
+            		<table border="" cellspacing="" cellpadding="" class="table table2">
+            			<tr>
+            				<th></th>
+            				<th>序号</th>
+            				<th>籍贯</th>
+            			</tr>
+            			<tr v-for="item in nplaceList">
+            				<td></td>
+            				<td>
+            					<input type="text" name="" id="" :value="item.npalceId"  class="form-control"/>
+            				</td>
+            				<td>
+            					<input type="text" name="" id="" :value="item.nplaceName"  class="form-control"/>
+            				</td>
+            			</tr>
+            		</table>
+            	</div>
+            	<div class="text-right">
+            		<button class="btn btn-success" @click="nplaceOk">选择</button>
+            	</div>
+            </div>
+            <!-- 学历框-->
+            <div id="educationDiv">
+            	<div>            		
+            		<h3 class="col-lg-4">请选择内容设置</h3>
+            		<div class="text-right">
+						<button class="btn btn-danger" @click="closeEducationDiv">关闭</button>
+            		</div>
+            	</div>
+            	<div class="text-right sexModel_centernDiv">
+            		<button class="btn btn-primary" @click="addEducationList">修改</button>
+            		<button class="btn btn-success" @click="saveEducationList">保存</button>
+            	</div>
+            	<div>
+            		<table border="" cellspacing="" cellpadding="" class="table table2">
+            			<tr>
+            				<th></th>
+            				<th>序号</th>
+            				<th>学历</th>
+            			</tr>
+            			<tr v-for="item in educationList">
+            				<td></td>
+            				<td>
+            					<input type="text" name="" id="" :value="item.educationId"  class="form-control"/>
+            				</td>
+            				<td>
+            					<input type="text" name="" id="" :value="item.educationName"  class="form-control"/>
+            				</td>
+            			</tr>
+            		</table>
+            	</div>
+            	<div class="text-right">
+            		<button class="btn btn-success" @click="educationOk">选择</button>
+            	</div>
+            </div>
+             <!-- 学校框-->
+            <div id="schoolDiv">
+            	<div>            		
+            		<h3 class="col-lg-4">请选择内容设置</h3>
+            		<div class="text-right">
+						<button class="btn btn-danger" @click="closeSchoolDiv">关闭</button>
+            		</div>
+            	</div>
+            	<div class="text-right sexModel_centernDiv">
+            		<button class="btn btn-primary" @click="addSchoolList">修改</button>
+            		<button class="btn btn-success" @click="saveSchoolList">保存</button>
+            	</div>
+            	<div>
+            		<table border="" cellspacing="" cellpadding="" class="table table2">
+            			<tr>
+            				<th></th>
+            				<th>序号</th>
+            				<th>学校</th>
+            			</tr>
+            			<tr v-for="item in schoolList">
+            				<td></td>
+            				<td>
+            					<input type="text" name="" id="" :value="item.schoolId"  class="form-control"/>
+            				</td>
+            				<td>
+            					<input type="text" name="" id="" :value="item.schoolName"  class="form-control"/>
+            				</td>
+            			</tr>
+            		</table>
+            	</div>
+            	<div class="text-right">
+            		<button class="btn btn-success" @click="schoolOk">选择</button>
+            	</div>
+            </div>
+             <!-- 专业框-->
+            <div id="majorDiv">
+            	<div>            		
+            		<h3 class="col-lg-4">请选择内容设置</h3>
+            		<div class="text-right">
+						<button class="btn btn-danger" @click="closeMajorDiv">关闭</button>
+            		</div>
+            	</div>
+            	<div class="text-right sexModel_centernDiv">
+            		<button class="btn btn-primary" @click="addMajorList">修改</button>
+            		<button class="btn btn-success" @click="saveMajorList">保存</button>
+            	</div>
+            	<div>
+            		<table border="" cellspacing="" cellpadding="" class="table table2">
+            			<tr>
+            				<th></th>
+            				<th>序号</th>
+            				<th>专业</th>
+            			</tr>
+            			<tr v-for="item in majorList">
+            				<td></td>
+            				<td>
+            					<input type="text" name="" id="" :value="item.majorId"  class="form-control"/>
+            				</td>
+            				<td>
+            					<input type="text" name="" id="" :value="item.majorName"  class="form-control"/>
+            				</td>
+            			</tr>
+            		</table>
+            	</div>
+            	<div class="text-right">
+            		<button class="btn btn-success" @click="majorOk">选择</button>
+            	</div>
+            </div>
+            <!-- 专业资格框-->
+            <div id="PQDiv">
+            	<div>            		
+            		<h3 class="col-lg-4">请选择内容设置</h3>
+            		<div class="text-right">
+						<button class="btn btn-danger" @click="closePQDiv">关闭</button>
+            		</div>
+            	</div>
+            	<div class="text-right sexModel_centernDiv">
+            		<button class="btn btn-primary" @click="addPQList">修改</button>
+            		<button class="btn btn-success" @click="savePQList">保存</button>
+            	</div>
+            	<div>
+            		<table border="" cellspacing="" cellpadding="" class="table table2">
+            			<tr>
+            				<th></th>
+            				<th>序号</th>
+            				<th>专业资格</th>
+            			</tr>
+            			<tr v-for="item in PQList">
+            				<td></td>
+            				<td>
+            					<input type="text" name="" id="" :value="item.PQId"  class="form-control"/>
+            				</td>
+            				<td>
+            					<input type="text" name="" id="" :value="item.PQName"  class="form-control"/>
+            				</td>
+            			</tr>
+            		</table>
+            	</div>
+            	<div class="text-right">
+            		<button class="btn btn-success" @click="PQOk">选择</button>
+            	</div>
+            </div>
+            <!-- 学位框-->
+            <div id="degreeDiv">
+            	<div>            		
+            		<h3 class="col-lg-4">请选择内容设置</h3>
+            		<div class="text-right">
+						<button class="btn btn-danger" @click="closeDegreeDiv">关闭</button>
+            		</div>
+            	</div>
+            	<div class="text-right sexModel_centernDiv">
+            		<button class="btn btn-primary" @click="addDegreeList">修改</button>
+            		<button class="btn btn-success" @click="saveDegreeList">保存</button>
+            	</div>
+            	<div>
+            		<table border="" cellspacing="" cellpadding="" class="table table2">
+            			<tr>
+            				<th></th>
+            				<th>序号</th>
+            				<th>学位</th>
+            			</tr>
+            			<tr v-for="item in degreeList">
+            				<td></td>
+            				<td>
+            					<input type="text" name="" id="" :value="item.degreeId"  class="form-control"/>
+            				</td>
+            				<td>
+            					<input type="text" name="" id="" :value="item.degreeName"  class="form-control"/>
+            				</td>
+            			</tr>
+            		</table>
+            	</div>
+            	<div class="text-right">
+            		<button class="btn btn-success" @click="degreeOk">选择</button>
+            	</div>
+            </div>
+            <!-- 银行框-->
+            <div id="bankDiv">
+            	<div>            		
+            		<h3 class="col-lg-4">请选择内容设置</h3>
+            		<div class="text-right">
+						<button class="btn btn-danger" @click="closeBankDiv">关闭</button>
+            		</div>
+            	</div>
+            	<div class="text-right sexModel_centernDiv">
+            		<button class="btn btn-primary" @click="addBankList">修改</button>
+            		<button class="btn btn-success" @click="saveBankList">保存</button>
+            	</div>
+            	<div>
+            		<table border="" cellspacing="" cellpadding="" class="table table2">
+            			<tr>
+            				<th></th>
+            				<th>序号</th>
+            				<th>银行名称</th>
+            			</tr>
+            			<tr v-for="item in bankList">
+            				<td></td>
+            				<td>
+            					<input type="text" name="" id="" :value="item.bankId"  class="form-control"/>
+            				</td>
+            				<td>
+            					<input type="text" name="" id="" :value="item.bankName"  class="form-control"/>
+            				</td>
+            			</tr>
+            		</table>
+            	</div>
+            	<div class="text-right">
+            		<button class="btn btn-success" @click="bankOk">选择</button>
+            	</div>
+            </div>
+            <!--新增门店div-->
+            <div id="addStore">
+            	<div>
+            		<h3 class="col-lg-3">门店编辑</h3>
+            		<div class="text-right">
+            			<button class="btn btn-success" @click="newStore">保存</button>
+            			<button class="btn btn-danger" @click="closeNewStore">关闭</button>
+            		</div>
+            	</div>
+            	<div>
+            		<table border="0" cellspacing="0" cellpadding="0">
+            			<tr>
+            				<td colspan="6">
+            					<div>
+            						<label class="control-label">门店编号</label>
+            						<input type="text" name="" id="" value="" class="form-control" />
+            					</div>
+            				</td>
+            				<td colspan="6">
+            					<label class="control-label">门店名称</label>
+            					<input type="text" name="" id="" value="" class="form-control" />
+            				</td>
+            			</tr>
+            			<tr>
+            				<td colspan="6">
+            					<label class="control-label">父门店编号</label>
+            					<input type="text" name="" id="" value="" class="form-control"/>
+            				</td>
+            			</tr>
+            		</table>
+            	</div>
+            </div>
+             <!--修改门店div-->
+            <div id="updateStore">
+            	<div>
+            		<h3 class="col-lg-3">门店编辑</h3>
+            		<div class="text-right">
+            			<button class="btn btn-success" @click="saveStore">保存</button>
+            			<button class="btn btn-danger" @click="closeUpdateStore">关闭</button>
+            		</div>
+            	</div>
+            	<div>
+            		<table border="0" cellspacing="0" cellpadding="0">
+            			<tr>
+            				<td colspan="6">
+            					<div>
+            						<label class="control-label">门店编号</label>
+            						<input type="text" name="" id="" value="0001" class="form-control" />
+            					</div>
+            				</td>
+            				<td colspan="6">
+            					<label class="control-label">门店名称</label>
+            					<input type="text" name="" id="" value="成高" class="form-control" />
+            				</td>
+            			</tr>
+            			<tr>
+            				<td colspan="6">
+            					<label class="control-label">父门店编号</label>
+            					<input type="text" name="" id="" value="0000" class="form-control"/>
+            				</td>
+            			</tr>
+            		</table>
+            	</div>
+            </div>
+	</div>
 	</body>
+	<script type="text/javascript" src="js/vue.js" ></script>
 	<script type="text/javascript" src="js/jquery-1.12.4.js" ></script>
 	<script type="text/javascript" src="js/bootstrap.min.js" ></script>
-	<script type="text/javascript" src="js/vue.js" ></script>
 	<script>
         var vu = new Vue({
                 el:"#ctx",
                 data:{
-					city:{},
 					clasM:{},
-					classT:{},
-					student:{},
-					grade:{},
-					addStu:{},
-					stuid:[],
-					stu1:{},
-					zd:[],
+					//左侧树状模拟数据
 					gongsi1:[{
 						storeId:1,
 						storeName:"北京卡修",
@@ -219,270 +1718,434 @@
 								sId:3
 							}]
 						}]
-						}]
+					}],
+					jobIscheck:false,
+					jobChecks:[],
+					//职位虚拟数据
+					jobList:[{
+						id:1,
+						name:"总经理"
+					},{
+						id:2,
+						name:"副总经理"
+					},{
+						id:3,
+						name:"采购"
+					}],
+					zdIsCheck:false,
+					zdChecks:[],
+					//字段虚拟数据
+					zdList:[{
+						id:1,
+						zd:"d1",
+						zdName:"小小小"
+					},{
+						id:2,
+						zd:"d2",
+						zdName:"大大大"
+					}],
+					//性别框虚拟数据
+					sexList:[{
+						sexId:1,
+						sexName:"男"
+					},{
+						sexId:2,
+						sexName:"女"
+					}],
+					//部门框虚拟数据
+					departList:[{
+						dId:"10",
+						dName:"总经办",
+						dTypeName:"管理部"
+
+					},{
+						dId:"1010",
+						dName:"11",
+						dTypeName:"管理部"
+					},{
+						dId:"26",
+						dName:"车间",
+						dTypeName:"管理部"
+					},{
+						dId:"2601",
+						dName:"机电组",
+						dTypeName:"销售部门"
+					}],
+					//民族框虚拟数据
+					nationalList:[{
+						nationalId:1,
+						nationalName:"汉"
+					},{
+						nationalId:2,
+						nationalName:"苗"
+					}],
+					//籍贯框虚拟数据
+					nplaceList:[{
+						npalceId:1,
+						nplaceName:"湖南"
+					},{
+						npalceId:2,
+						nplaceName:"广东"
+					}],
+					//学历框虚拟数据
+					educationList:[{
+						educationId:1,
+						educationName:"大专"
+					},{
+						educationId:2,
+						educationName:"本科"
+					}],
+					//学校框虚拟数据
+					schoolList:[{
+						schoolId:1,
+						schoolName:"清华大学"
+					},{
+						schoolId:2,
+						schoolName:"山东蓝翔"
+					}],
+					//专业框虚拟数据
+					majorList:[{
+						majorId:1,
+						majorName:"计算机科学"
+					},{
+						majorId:2,
+						majorName:"通信工程"
+					}],
+					//专业资格框虚拟数据
+					PQList:[{
+						PQId:1,
+						PQName:"初级工程师"
+					},{
+						PQId:2,
+						PQName:"中级工程师"
+					}],
+					//学位框虚拟数据
+					degreeList:[{
+						degreeId:1,
+						degreeName:"工学"
+					}],
+					//专业资格框虚拟数据
+					bankList:[{
+						bankId:1,
+						bankName:"浦发银行"
+					},{
+						bankId:2,
+						bankName:"农业银行"
+					}]
                 },
                 methods:{
+                	//初始化
                     find(){
-                        /*let that = this;
-						$.ajax({
-							url:"http://127.0.0.1:8080/kabht/clzzM/find",
-							data:{},
-							async:false,
-							type:"get",
-							xhrFields: {
-								withCredentials: true
-							},
-							crossDomain: true,
-							dataType:"JSON",
-							success:function(result){
-								console.log(result);
-								console.log(JSON.stringify(result));
-								that.clasM = result;
-							}
-						})*/
 						this.clasM=this.gongsi1;
                     },
-                    select_bj(e){
-                        $(e.target).find("ul").toggleClass("hide");
-                        $(e.target).toggleClass("img_up");
-                        this.classT = {};
-                        this.student = {};
+                    daoRu(){
+                    	alert("导入成功");
                     },
-                    select_bj_school(e){
-                        $(e.target).find("ul").toggleClass("hide");
-                        $(e.target).toggleClass("img_up");
-                        this.classT = {};
-                        this.student = {};
-                        
+                    daoChu(){
+                    	alert("导出成功");
                     },
-                    // 根据这个城市的这个学校的这个班级查询所有
-                    select_bj_school_class(e,classid,schoolid){
-                        var item = $("[class*=select_bj_school_class]");
-                        $.each(item,function(i,item){
-                                var flag = $(item).hasClass("backgroun_color");
-                                if(flag){
-                                    $(item).toggleClass("backgroun_color")
-                                }
-                        })
-                        $(e.target).toggleClass("backgroun_color");
-
-						/*let that = this;
-						$.ajax({
-							url:"http://127.0.0.1:8080/kabht/clzzM/selectClass",
-							async:false,
-							data:{classid:classid},
-							type:"get",
-							xhrFields: {
-								withCredentials: true
-							},
-							crossDomain: true,
-							dataType:"JSON",
-							success:function(result){
-								console.log("classT");
-								console.log(result);
-								that.classT = result;
-							}
-						})
-						$.ajax({
-							url:"http://127.0.0.1:8080/kabht/clzzM/selectStudent",
-							async:false,
-							data:{schoolid:schoolid,classid:classid},
-							type:"get",
-							dataType:"JSON",
-							xhrFields: {
-								withCredentials: true
-							},
-							crossDomain: true,
-							success:function(result){
-								console.log("student");
-								console.log(result);
-								that.student = result;
-							}
-						});*/
-						
+                    remove(){
+                    	alert("删除成功");
                     },
-                    delClas(){
-                        if(JSON.stringify(this.classT) == "{}"){
-							alert("请先选择班级!");
-							return false;
-                        }
-						var msg = "是否删除此班级！";
-						if(confirm(msg)){
-							/*let that = this;
-							$.ajax({
-								url:"http://127.0.0.1:8080/kabht/clzzM/",
-								async:false,
-								data:{classid:that.classT[0].classid},
-								xhrFields: {
-								withCredentials: true
-								},
-								crossDomain: true,
-								type:"get",
-								 dataType:"JSON",
-								success:function(result){
-									alert(result);
-									window.location.href="classManage.html";
-								}
-							})*/
-						}
+                    clearPwd(){
+                    	alert("置空密码成功");
                     },
-                    addstu1(){
-                        this.addStu.classid=this.classT[0].classid;
-                        this.addStu.schoolid=this.classT[0].schoolid;
-                        let that = this;
-                        this.addStu.sex = $(".dm").val();
-                        $("input[name='sex11']").each(function(i,v){
-                            if ($(v).is(":checked"))
-                            {
-                            	that.addStu.sex=$(v).val();
-                            }
-                        });
-                        alert(this.addStu.sex);
-                       /* $.ajax({
-							url:"http://127.0.0.1:8080/kabht/clzzM/addStu",
-							async:false,
-							data:that.addStu,
-							type:"get",
-							xhrFields: {
-								withCredentials: true
-							},
-							crossDomain: true,
-							success:function(result){
-								alert(result);
-								$("#addStudent").modal("hide");
-								window.location.href="classManage.html";
-							}
-						})*/
+                    addEploy(){
+                    	$("#addEployDiv").show();
                     },
-                    updatestu1(){
-                    	let that = this;
-                        this.stu1.sex = $(".dm").val();
-                       /* $("input[name='sex']").each(function(i,v){
-                            if ($(v).is(":checked"))
-                            {
-                            	that.stu1.sex=$(v).val();                      
-                            	}
-                        });
-                    	 $.ajax({
- 							url:"http://127.0.0.1:8080/kabht/clzzM/updateStu1",
- 							async:false,
- 							data:that.stu1,
- 							type:"get",
- 							xhrFields: {
-								withCredentials: true
-							},
-							crossDomain: true,
- 							
- 							success:function(result){
- 								alert(result);
- 								
- 								$("#updateStudent").modal("hide");
- 								window.location.href="classManage.html";
- 							}
- 						})*/
+                    //添加员工方法
+                    insertEploy(){
+                    	alert("添加员工信息成功");
                     },
-                    close(){
-                        $("#addStudent").modal("hide");
-                        
-                        $("#updateStudent").modal("hide");
+                    //修改员工方法
+                    xiuEploy(){
+                    	alert("修改员工信息成功");
                     },
-                    addStu_show(){
-                    	 if(JSON.stringify(this.classT) == "{}"){
- 							alert("请先选择班级!");
- 							return false;
-                         }
-                    	 $("#addStudent").modal("show");
-                       /* $("[class=addStu]").show();*/
-                        this.findGrade();
+                    closeAddEploy(){
+                    	$("#addEployDiv").hide();
                     },
-                    updateStu_show(){
-                    	var a = this.findupdateStu();
-                    	if(!a){
-                        	return;
-                       	}
-                    	this.findGrade();
-                    	$("#updateStudent").modal("show");
-                        /*$("[class=updateStu]").show();*/
-                        
+                    updateEploy(){
+                    	$("#updateEployDiv").show();
                     },
-                    to_updateClass(){
-                    	if(JSON.stringify(this.classT) == "{}"){
-							alert("请先选择班级!");
-							return false;
-                        }
-                        window.location.href="updateClass.html?classid=" + this.classT[0].classid;
+                    closeUpdateEploy(){
+                    	$("#updateEployDiv").hide();
                     },
-                    findupdateStu(){
-                        if(JSON.stringify(this.stuid) == "[]"){
-							alert("请先选择学生");
-							return false;
-                        }
-                        /*let that = this;
-                        var json = JSON.stringify(this.stuid);
-                    	$.ajax({
-    						url:"http://127.0.0.1:8080/kabht/clzzM/findStu1",
-    						type:"post",
-    						contentType:"application/json;charset=utf-8",
-    						async:false,
-    						xhrFields: {
-								withCredentials: true
-							},
-							crossDomain: true,
-    						data:json,
-    						dataType:"JSON",
-    						success:function(result){
-    							that.stu1 = result;
-    						}
-    					})*/
-    					return true;
+                    //打开角色管理
+                    role(){
+                    	$("#eployRole").show();
                     },
-                    delStu(){
-                    	console.log(this.stuid);
-                    	if(this.stuid.length==0){
-                    		alert("请先选择学生!");
-                    		return;
-                    	}
-						var flag = "是否要删除此学生？";
-						if(confirm(flag)){
-							var json = JSON.stringify(this.stuid);
-							/*$.ajax({
-	    						url:"http://127.0.0.1:8080/kabht/clzzM/delStu1",
-	    						type:"post",
-	    						xhrFields: {
-								withCredentials: true
-								},
-								crossDomain: true,
-	    						
-	    						async:false,
-	    						data:{"json":json},
-	    						
-	    						success:function(result){
-	    						  alert(result);
-	    						 window.location.href="classManage.html";
-	    						}
-	    					})*/
-						}
+                    //关闭角色管理
+                    closeRole(){
+                    	$("#eployRole").hide();
                     },
-                    findGrade(){
-                    	/*let that = this;
-    					$.ajax({
-    						url:"http://127.0.0.1:8080/kabht/clzzM/findGrade",
-    						type:"get",
-    						async:false,
-    						xhrFields: {
-								withCredentials: true
-							},
-							crossDomain: true,
-    						dataType:"JSON",
-    						success:function(result){
-    							that.grade = result;
-    						}
-    					})*/
+                    //打开条件查询
+                    openSel(){
+                    	$("#selBy").show();
                     },
+                    //关闭条件查询
+                    closeSelBy(){
+                    	$("#selBy").hide();
+                    },
+                    sel(){
+                    	alert("正在进行条件查询");
+                    },
+                    //修改员工角色
+                    updateRole(){
+                    	alert("修改员工角色成功");
+                    },
+                    //角色管理全部选择与取消
+                    changeRole(a){
+                    	 if(!a){
+						    alert("取消全选");
+								this.jobChecks=[];
+						   }else{
+							   alert("全选");
+								 this.jobChecks= this.jobList.map(item=>item.id);
+							   }
+					 },
+                    //字段显示全部选择与取消
+                     changeZd(b){
+                    	 if(!b){
+						    alert("取消全选");
+								this.zdChecks=[];
+						   }else{
+							   alert("全选");
+								 this.zdChecks= this.zdList.map(item=>item.id);
+							   }
+					 },
+					 closeZd(){
+					 	$("#showZd").hide();
+					 },
+					 openZd(){
+					 	$("#showZd").show();
+					 },
+					 primaryZd(){
+               			alert("设置字段成功");
+               		},
+               		//打开性别框子
+               		openSexDiv(){
+               			$("#sexDiv").show();
+               		},
+               		closeSexDiv(){
+               			$("#sexDiv").hide();
+               		},
+               		//新增性别框一个td
+               		addSexList(){
+               			this.sexList.push({});
+               		},
+               		//对性别框的修改进行保存
+               		saveSexList(){
+               			alert("保存成功");
+               		},
+               		sexOk(){
+               			alert("正在将选择的性别填入");
+               			$("#sexDiv").hide();
+               		},
+               		//打开部门框子
+               		opendepartDiv(){
+               			$("#departDiv").show();
+               		},
+               		closedepartDiv(){
+               			$("#departDiv").hide();
+               		},
+               		//将选择的部门填入
+               		savedepartList(){
+               			alert("正在将选择的部门填入");
+               			$("#sexDiv").hide();
+               		},
+               		//民族
+               		openNationalDiv(){
+               			$("#nationalDiv").show();
+               		},
+               		closeNationalDiv(){
+               			$("#nationalDiv").hide();
+               		},
+               		//新增民族框一个td
+               		addNationalList(){
+               			this.nationalList.push({});
+               		},
+               		//对民族框的修改进行保存
+               		saveNationList(){
+               			alert("保存成功");
+               		},
+               		nationalOk(){
+               			alert("正在将选择的民族填入");
+               			$("#nationalDiv").hide();
+               		},
+               		//籍贯
+               		openNplaceDiv(){
+               			$("#nplaceDiv").show();
+               		},
+               		closeNplaceDiv(){
+               			$("#nplaceDiv").hide();
+               		},
+               		//新增籍贯框一个td
+               		addNplaceList(){
+               			this.nplaceList.push({});
+               		},
+               		//对籍贯框的修改进行保存
+               		saveNplaceList(){
+               			alert("保存成功");
+               		},
+               		nplaceOk(){
+               			alert("正在将选择的籍贯填入");
+               			$("#nplaceDiv").hide();
+               		},
+               		//学历
+               		openEducationDiv(){
+               			$("#educationDiv").show();
+               		},
+               		closeEducationDiv(){
+               			$("#educationDiv").hide();
+               		},
+               		//新增学历框一个td
+               		addEducationList(){
+               			this.educationList.push({});
+               		},
+               		//对学历框的修改进行保存
+               		saveEducationList(){
+               			alert("保存成功");
+               		},
+               		educationOk(){
+               			alert("正在将选择的学历填入");
+               			$("#educationDiv").hide();
+               		},
+               		//学校
+               		openSchoolDiv(){
+               			$("#schoolDiv").show();
+               		},
+               		closeSchoolDiv(){
+               			$("#schoolDiv").hide();
+               		},
+               		//新增学校框一个td
+               		addSchoolList(){
+               			this.schoolList.push({});
+               		},
+               		//对学校框的修改进行保存
+               		saveSchoolList(){
+               			alert("保存成功");
+               		},
+               		schoolOk(){
+               			alert("正在将选择的学校填入");
+               			$("#schoolDiv").hide();
+               		},
+               		//专业
+               		openMajorDiv(){
+               			$("#majorDiv").show();
+               		},
+               		closeMajorDiv(){
+               			$("#majorDiv").hide();
+               		},
+               		//新增专业框一个td
+               		addMajorList(){
+               			this.majorlList.push({});
+               		},
+               		//对专业框的修改进行保存
+               		saveMajorList(){
+               			alert("保存成功");
+               		},
+               		majorOk(){
+               			alert("正在将选择的专业填入");
+               			$("#majorDiv").hide();
+               		},
+               		//专业资格
+               		openPQDiv(){
+               			$("#PQDiv").show();
+               		},
+               		closePQDiv(){
+               			$("#PQDiv").hide();
+               		},
+               		//新增专业资格框一个td
+               		addPQList(){
+               			this.PQList.push({});
+               		},
+               		//对专业资格框的修改进行保存
+               		savePQList(){
+               			alert("保存成功");
+               		},
+               		PQOk(){
+               			alert("正在将选择的专业资格填入");
+               			$("#PQDiv").hide();
+               		},
+               		//学位
+               		openDegreeDiv(){
+               			$("#degreeDiv").show();
+               		},
+               		closeDegreeDiv(){
+               			$("#degreeDiv").hide();
+               		},
+               		//新增学位框一个td
+               		addDegreeList(){
+               			this.degreeList.push({});
+               		},
+               		//对学位框的修改进行保存
+               		saveDegreeList(){
+               			alert("保存成功");
+               		},
+               		degreeOk(){
+               			alert("正在将选择的学位填入");
+               			$("#degreeDiv").hide();
+               		},
+               		//银行
+               		openBankDiv(){
+               			$("#bankDiv").show();
+               		},
+               		closeBankDiv(){
+               			$("#bankDiv").hide();
+               		},
+               		//新增银行框一个td
+               		addBankList(){
+               			this.bankList.push({});
+               		},
+               		//对银行框的修改进行保存
+               		saveBankList(){
+               			alert("保存成功");
+               		},
+               		bankOk(){
+               			alert("正在将选择的银行填入");
+               			$("#bankDiv").hide();
+               		},
+               		//打开新增门店
+               		openNewStore(){
+               			$("#addStore").show();
+               		},
+               		//关闭新增门店
+               		closeNewStore(){
+               			$("#addStore").hide();
+               		},
+               		//新增门店
+               		newStore(){
+               			alert("新增门店成功");
+               			$("#addStore").hide();
+               		},
+               		//打开修改门店
+               		openUpdateStore(){
+               			$("#updateStore").show();
+               		},
+               		closeUpdateStore(){
+               			$("#updateStore").hide();
+               		},
+               		//对修改的门店进行更新
+               		saveStore(){
+               			alert("修改门店成功");
+               			$("#updateStore").hide();
+               		},
+               		remoceStore(){
+               			var flag2=confirm("你确定要删除该门店?可能会造成信息丢失");
+               			if(flag2){
+               				alert("删除门店成功");
+               			}
+               		},
+               		addPrint(){
+               			window.location.href="addPrint.html";
+               		},
+               		updatePrint(){
+               			window.location.href="updatePrint.html";
+               		}
                 },
                 created(){
                 	this.find();
-               	},
+               	}
             });
         </script>
 </html>
