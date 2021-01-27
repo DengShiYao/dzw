@@ -74,9 +74,9 @@
 					
 			
 			<div class="row" style="height: 40px;background-color: rgb(247,247,247);display: flex; align-items: center;">
-				<a href="#" style="font-size: 20px;color: black;margin-left: 20px;"><img src="img/513d2798454719071e0f1ae34102d3fc.jpeg" style="width: 20px;margin-right: 6px;">门店选择</a>
-				<a href="#" style="font-size: 20px;color: black;margin-left: 66.5%;"><img src="img/033bc0f8ab625ceafdcfee32af9fbd67.jpeg" style="width: 20px;margin-right: 6px;">收银</a>
-				<a href="#" style="font-size: 20px;color: black;margin-left: 100px;"><img src="img/9c7fd9b4fd5666dcda308b03c648bcb3.jpeg" style="width: 20px;margin-right:6px;">打开单据</a>
+				<a href="#" style="font-size: 20px;color: black;margin-left: 20px;" @click="mendian()"><img src="img/513d2798454719071e0f1ae34102d3fc.jpeg" style="width: 20px;margin-right: 6px;">门店选择</a>
+				<a href="#" style="font-size: 20px;color: black;margin-left: 66.5%;"  @click="sy()"><img src="img/033bc0f8ab625ceafdcfee32af9fbd67.jpeg" style="width: 20px;margin-right: 6px;">收银</a>
+				<a href="站外救援单.html" style="font-size: 20px;color: black;margin-left: 100px;"><img src="img/9c7fd9b4fd5666dcda308b03c648bcb3.jpeg" style="width: 20px;margin-right:6px;">打开单据</a>
 				<a href="#" style="font-size: 20px;color: black;margin-left: 35px;"><img src="img/9c7fd9b4fd5666dcda308b03c648bcb3.jpeg" style="width: 20px;margin-right: 6px;" >导出</a>
 			</div>
 			
@@ -127,6 +127,104 @@
 					
 				</table>
 			</div>
+			
+			
+			<!--模态框-->
+			<div class="modal" data-backdrop="static" id="mymodal">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<span class="close" data-dismiss="modal">&times;</span>
+							<h3>前台收银</h3>
+						</div>
+						<div class="modal-body" style="display: flex;justify-content: center;">
+								<div>
+									支付方式：<button class="btn btn-default" @click="weixin1()">微信</button><button @click="zhifubao1()" class="btn btn-default" style="margin-left:30px" >支付宝</button>
+									<div v-if="weixin">
+										<img src="img/微信图片_20210126113650.png" >
+									</div>
+									<div v-if="zhifubao">
+										<img src="img/微信图片_20210126113715.png" >
+									</div>
+								</div>
+						</div>
+						<div class="modal-footer">
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
+			<!--模态框-->
+			<div class="modal" data-backdrop="static" id="mymodal2">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<span class="close" data-dismiss="modal">&times;</span>
+							<span style="font-size: 25px;margin-left: 10px;">班组技工</span>
+							<input type="text" placeholder="匹配工号/姓名/手机" style="margin-left: 25%;width: 150px;height: 33px;">
+							<button class="btn btn-primary" style="margin-left: 10px;">搜索</button>
+							<button class="btn"  style="margin-left: 10px;">关闭</button>		
+						</div>
+						<div class="modal-body">
+								<div class="container-fluid">
+									<div class="row">
+										<button class="btn btn-success">确定</button>
+										<button class="btn btn-default" style="margin-left: 60%;">全部选择</button>
+										<button class="btn btn-default">全部取消</button>
+									</div>
+									<div class="row">
+										<table class="table table-bordered table-striped table-hover">
+											<tr style="background-color: rgb(33,182,206); color: white;">
+												<td>选择</td>
+												<td>门店代码</td>
+												<td>门店名称</td>
+												<td>所在城市</td>
+											</tr>
+											<tr>
+												<td><input type="checkbox"></td>
+												<td>00000</td>
+												<td>总厂</td>
+												<td>北京市</td>
+											</tr>
+											<tr>
+												<td><input type="checkbox"></td>
+												<td>00001</td>
+												<td>成高卡修</td>
+												<td>天津市</td>
+											</tr>
+											<tr>
+												<td><input type="checkbox"></td>
+												<td>00002</td>
+												<td>ddm</td>
+												<td>天津市</td>
+											</tr>
+											<tr>
+												<td><input type="checkbox"></td>
+												<td>00003</td>
+												<td>机电组</td>
+												<td></td>
+											</tr>
+											<tr>
+												<td><input type="checkbox"></td>
+												<td>00004</td>
+												<td>11</td>
+												<td></td>
+											</tr>
+										</table>
+									</div>
+								</div>
+								
+						</div>
+						<div class="modal-footer">
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
+			
+			
 		</div>
 		
 		<script src="js/jquery-1.12.4.js"></script>
@@ -136,10 +234,26 @@
 			new Vue({
 				el:"#ctn",
 				data(){
-					return {}
+					return {
+						weixin:true,
+						zhifubao:false
+					}
 				},
 				methods:{
-					
+					sy(){
+						$("#mymodal").modal("show");
+					},
+					weixin1(){
+						this.weixin = true;
+						this.zhifubao = false
+					},
+					zhifubao1(){
+						this.weixin = false;
+						this.zhifubao = true
+					},
+					mendian(){
+						$("#mymodal2").modal("show");
+					}
 				},
 				created(){
 					

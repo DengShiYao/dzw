@@ -5,23 +5,219 @@
 		<title>站外救援单</title>
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
 	</head>
+	<style type="text/css">
+		iframe{
+			height: 900px;
+			width: 100%;
+			border: 0px;
+		}
+	</style>
 	<body>
 		<div class="container-fluid" id="ctn">
 			<div class="row" style="background-color: rgb(247,255,255);height: 50px;display: flex;align-items: center;">
 				<span style="font-size: 25px;margin-left: 20px;">站外救援单</span>
-				<button class="btn" style="margin-left: 86%;">取消</button>
+				<a href="结算中心.html" class="btn btn-default" style="margin-left: 86%;">取消</a>
 			</div>
 			<div class="row" style="background-color: rgb(247,247,247);height: 40px;display: flex;align-items: center;">
 				<span>
 					单号：00000RE210100023
 				</span>
 				<span style="margin-left: 75%;">
-					<button class="btn btn-default">委托书</button>
-					<button class="btn btn-default">结算单</button>
+					<button class="btn btn-default" @click="wts()">委托书</button>
+					<button class="btn btn-default" @click="jsd()">结算单</button>
 					<button class="btn btn-default">附单</button>
 				</span>
 			</div>
-			<div class="row"></div>
+			<div class="row" style="border-top: 1px  solid rgb(33,182,206)">
+				<form class="form-inline" style="margin-top: 5px;">
+				  <div class="form-group">
+				    <label for="exampleInputName2">车牌号码</label>
+				    <input type="text" class="form-control" id="exampleInputName2">
+				  </div>
+				  <div class="form-group">
+				    <label for="exampleInputEmail2">车辆型号</label>
+				    <input type="text" class="form-control" id="exampleInputEmail2">
+				  </div>
+					<div class="form-group">
+					  <label for="exampleInputEmail2">车辆品牌</label>
+					  <input type="text" class="form-control" id="exampleInputEmail2">
+					</div>
+					<div class="form-group">
+					  <label for="exampleInputName2">发动机品牌</label>
+					  <input type="text" class="form-control" id="exampleInputName2">
+					</div>
+					<br><br>
+					<div class="form-group">
+					  <label for="exampleInputEmail2">车架号</label>
+					  <input type="text" class="form-control" id="exampleInputEmail2">
+					</div>
+					<div class="form-group">
+					  <label for="exampleInputEmail2">发动机号</label>
+					  <input type="text" class="form-control" id="exampleInputEmail2">
+					</div>
+					<div class="form-group">
+					  <label for="exampleInputEmail2">服务顾问</label>
+						<select name="" class="form-control" id="exampleInputEmail2" style="width: 110px;">
+							<option value=""></option>
+						</select>
+					</div>
+					<div class="form-group">
+					  <label for="exampleInputName2">车主名称</label>
+					  <input type="text" class="form-control" id="exampleInputName2">
+					</div><br><br>
+					<div class="form-group">
+					  <label for="exampleInputEmail2">驾驶员</label>
+					  <input type="text" class="form-control" id="exampleInputEmail2">
+					</div>
+					<div class="form-group">
+					  <label for="exampleInputEmail2">手机</label>
+					  <input type="text" class="form-control" id="exampleInputEmail2">
+					</div>
+					<div class="form-group">
+					  <label for="exampleInputEmail2">派工时间</label>
+					  <input type="date" class="form-control" id="exampleInputEmail2">
+					</div>
+					<div class="form-group">
+					  <label for="exampleInputName2">业务类别</label>
+					  <input type="text" class="form-control" id="exampleInputName2">
+					</div><br><br>
+					<div class="form-group">
+					  <label for="exampleInputEmail2">施工班次</label>
+						<select name="" class="form-control" id="exampleInputEmail2" style="width: 110px;">
+							<option value=""></option>
+						</select>
+					</div>
+					<div class="form-group">
+					  <label for="exampleInputEmail2">当前里程</label>
+					  <input type="text" class="form-control" id="exampleInputEmail2">
+					</div>
+					<div class="form-group">
+					  <label for="exampleInputEmail2">预计完工</label>
+					  <input type="date" class="form-control" id="exampleInputEmail2">
+					</div>
+					<div class="form-group">
+					  <label for="exampleInputName2">结算方式</label>
+					  <input type="text" class="form-control" id="exampleInputName2">
+					</div><br><br>
+					<div class="form-group">
+					  <label for="exampleInputEmail2">赔款公司</label>
+					  <input type="text" class="form-control" id="exampleInputEmail2">
+					</div>
+					<div class="form-group">
+					  <label for="exampleInputEmail2">派工班组</label>
+						<select name="" class="form-control" id="exampleInputEmail2" style="width: 110px;">
+							<option value=""></option>
+						</select>
+					</div>
+					<div class="form-group">
+					  <label for="exampleInputEmail2">出发时间</label>
+					  <input type="text" class="form-control" id="exampleInputEmail2">
+					</div>
+					<div class="form-group">
+					  <label for="exampleInputName2">出发地址</label>
+					  <input type="text" class="form-control" id="exampleInputName2">
+					</div><br><br>
+					<div class="form-group">
+					  <label for="exampleInputEmail2">驾驶车辆</label>
+					  <input type="text" class="form-control" id="exampleInputEmail2">
+					</div>
+					<div class="form-group">
+					  <label for="exampleInputEmail2">行驶里程</label>
+					  <input type="text" class="form-control" id="exampleInputEmail2">
+					</div>
+					<div class="form-group">
+					  <label for="exampleInputEmail2">施工时间</label>
+					  <input type="text" class="form-control" id="exampleInputEmail2">
+					</div>
+					<div class="form-group">
+					  <label for="exampleInputName2">救援地址</label>
+					  <input type="text" class="form-control" id="exampleInputName2">
+					</div><br><br>
+					<div class="form-group">
+					  <label for="exampleInputEmail2">完工时间</label>
+					  <input type="date" class="form-control" id="exampleInputEmail2">
+					</div>
+					<div class="form-group">
+					  <label for="exampleInputEmail2">预估金额</label>
+					  <input type="text" class="form-control" id="exampleInputEmail2">
+					</div>
+					<div class="form-group">
+					  <label for="exampleInputEmail2">维修备注</label>
+					  <input type="text" class="form-control" id="exampleInputEmail2">
+					</div><br>
+				</form>
+			</div>
+			<div class="row" style="margin-top: 7px;">
+				<div class="row">
+					<div class="col-md-12">
+						<ul class="nav nav-tabs">
+							<li :class="{active:item.active}" v-for="item in tabs"><a :href="'#'+item.ename" data-toggle="tab" @click="activeBool(item)">{{item.name}}</a></li>
+						</ul>
+					</div>			
+				</div>
+				<div class="row">
+					<div class="tab-content">
+						<div v-for="item in tabs" :id="item.ename" :class="['tab-pane',item.active?'active':'']">
+							<iframe :src="item.path"></iframe>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		
+		<!--模态框-->
+		<div class="modal" data-backdrop="static" id="mymodal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<span class="close" data-dismiss="modal">&times;</span>
+						<h3>报表打印</h3>
+					</div>
+					<div class="modal-body" style="display: flex;justify-content: center;">
+						<div style="width: 500px;height: 135px;border: 1px solid rgb(33,182,206);background-color: rgb(247,255,222);display: flex;align-items: center;justify-content: center;">
+							<div>
+								<select name="" class="form-control">
+									<option value="">维修委托书</option>
+								</select><br>
+								<button class="btn btn-success" style="margin-left: 0px;width: 90px;">打印</button>
+								<button class="btn btn-success" style="margin-left: 20px;width: 90px;">预览</button>
+								<button class="btn btn-success" style="margin-left: 20px;width: 90px;">设计</button>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		<!--模态框-->
+		<div class="modal" data-backdrop="static" id="mymodal2">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<span class="close" data-dismiss="modal">&times;</span>
+						<h3>报表打印</h3>
+					</div>
+					<div class="modal-body" style="display: flex;justify-content: center;">
+						<div style="width: 500px;height: 135px;border: 1px solid rgb(33,182,206);background-color: rgb(247,255,222);display: flex;align-items: center;justify-content: center;">
+							<div>
+								<select name="" class="form-control">
+									<option value="">小票</option>
+								</select><br>
+								<button class="btn btn-success" style="margin-left: 0px;width: 90px;">打印</button>
+								<button class="btn btn-success" style="margin-left: 20px;width: 90px;">预览</button>
+								<button class="btn btn-success" style="margin-left: 20px;width: 90px;">设计</button>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+					</div>
+				</div>
+			</div>
 		</div>
 		
 		
@@ -31,13 +227,40 @@
 		<script>
 			new Vue({
 				el:"#ctn",
-				data:(){
+				data(){
 					return {
-						
+						tabs:[{
+							id:0,
+							name:"维修项目",
+							ename:"weixiu",
+							active:false,
+							path:"pages/weixiu.html"
+						},{
+							id:1,
+							name:"领料情况",
+							ename:"ll",
+							active:false,
+							path:"pages/ll.html"
+						},{
+							id:2,
+							name:"结算信息",
+							ename:"jiesuan",
+							active:false,
+							path:"pages/jiesuan.html"
+						}]
 					}
 				},
 				methods:{
-					
+					activeBool(item){
+						this.tabs.forEach(item=>item.active=false);
+						item.active=true;
+					},
+					wts(){
+						$("#mymodal").modal("show");
+					},
+					jsd(){
+						$("#mymodal2").modal("show");
+					}
 				},
 				created(){
 					
