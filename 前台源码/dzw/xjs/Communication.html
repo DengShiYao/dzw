@@ -86,7 +86,7 @@
 				<div>
 					<div class="buttonMenus">
 						<button class="btn btn-success" @click="save">保存</button>
-						<button class="btn btn-info">查询</button>
+						<button class="btn btn-info" @click="openSelBy">查询</button>
 						<button class="btn btn-default" @click="daoChu">导出</button>
 					</div>
 					<div>
@@ -114,6 +114,200 @@
 				</div>
 				<div>
 					合计:<span>{{a}}</span>条记录
+				</div>
+			</div>
+			<!--查询框-->
+			<div class="modal" data-backdrop = "static" id="selByDiv">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h3 class="col-lg-offset-1 col-lg-4">员工查询</h3>
+								<div class="text-right">
+									<button class="btn btn-success" @click="sel">确定</button>
+									<button class="btn btn-danger" @click="closeSelBy">关闭</button>
+								</div>
+						</div>
+						<div class="modal-body">
+							<div>
+								<table border="0" cellspacing="0" cellpadding="0" width="100%" height="auto">
+									<tr>
+										<td colspan="4">
+											<div class="form-group">
+												<label class="control-label">员工编号</label>
+												<input type="text" name="" id="" value="" class="form-control" />
+											</div>
+										</td>
+										<td colspan="4">
+											<div class="form-group">
+												<label class="control-label">员工姓名</label>
+												<input type="text" name="" id="" value="" class="form-control" />
+											</div>
+										</td>
+										<td colspan="4">
+											<div class="form-group">
+												<label for="" class="control-label">性别</label>
+												<input type="text" name="" id="" value="" class="form-control" />
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="6">
+											<div class="form-group">
+												<label class="control-label">岗位</label>
+												<select class="form-control">
+													<option value="">总经理</option>
+													<option value="">副总经理</option>
+												</select>
+											</div>
+										</td>
+										<td colspan="6">
+											<div class="form-group">
+												<label class="control-label">部门</label>
+												<select class="form-control">
+													<option value="">嘻哈部</option>
+													<option value="">hh部</option>
+												</select>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="4">
+											<div class="form-group">
+												<label class="control-label">身体状态</label>
+												<input type="text" id="" value="" class="form-control" />
+											</div>
+										</td>
+										<td colspan="4">
+											<div class="form-group">
+												<label class="control-label">身高</label>
+												<input type="text" id="" value="" class="form-control" />
+											</div>
+										</td>
+										<td colspan="4">
+											<div class="form-group">
+												<label class="control-label">籍贯</label>
+												<input type="text" id="" value="" class="form-control"/>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="4">
+											<div class="form-group">
+												<label class="control-label">民族</label>
+												<input type="text" id="" value=""  class="form-control"/>
+											</div>
+										</td>
+										<td colspan="4">
+											<div class="form-group">
+												<label class="control-label">婚姻状态</label>
+												<input type="text" id="" value="" class="form-control"/>
+											</div>
+										</td>
+										<td colspan="4">
+											<div class="form-group">
+												<label class="control-label">学历</label>
+												<select class="form-control">
+													<option value="">大专</option>
+													<option value="">本科</option>
+												</select>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="4">
+											<div class="form-group">
+												<label class="control-label">毕业学校</label>
+												<input type="text" id="" value="" class="form-control" />
+											</div>
+										</td>
+										<td colspan="4">
+											<div class="form-group">
+												<label class="control-label">专业</label>
+												<select class="form-control">
+													<option value="">计算机科学</option>
+													<option value="">网络工程</option>
+												</select>
+											</div>
+										</td>
+										<td colspan="4">
+											<div>
+												<label class="control-label">专业资格</label>
+												<input type="text" id="" value="" class="form-control"/>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="4">
+											<div class="form-group">
+												<label class="control-label">生日</label>
+												<input type="date" id="" value="" class="form-control"/>
+											</div>
+										</td>
+										<td colspan="4">
+											<div class="form-group">
+												<label class="control-label">学位</label>
+												<input type="text" id="" value="" class="form-control"/>
+											</div>
+										</td>
+										<td colspan="4">
+											<div class="form-group">
+											 	<label class="control-label">编制</label>
+												<input type="text" id="" value="" class="form-control"/>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="6">
+											<div class="form-group">
+												<label class="control-label">身份证号</label>
+												<input type="text" id="" value="" class="form-control"/>
+											</div>
+										</td>
+										<td colspan="6">
+											<div class="form-group">
+												<label class="control-label">入职日期从</label>
+												<input type="date" id="" value="" class="form-control"/>
+												<label class="control-label">至</label>
+												<input type="date" id="" value="" class="form-control"/>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="6">
+											<div class="form-group">
+												<label class="control-label">试用日期从</label>
+												<input type="date" id="" value="" class="form-control"/>
+												<label class="control-label">至</label>
+												<input type="date" id="" value="" class="form-control"/>
+											</div>
+										</td>
+										<td colspan="6">
+											<div class="form-group">
+												<label class="control-label">属性</label>
+												<select class="form-control">
+													<option value="">记考勤计薪</option>
+													<option value="">不记考勤计薪</option>
+													<option value="">记考勤不计薪</option>
+													<option value="">不记考勤不计薪</option>
+												</select>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="6">
+											<div class="form-group">
+												<label class="control-label">合同开始从</label>
+												<input type="date" id="" value="" class="form-control"/>
+												<label class="control-label">至</label>
+												<input type="date" id="" value="" class="form-control"/>
+											</div>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+						<div class="modal-footer"></div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -226,6 +420,17 @@
 				},
 				search(){
 					alert("正在根据条件进行员工通讯名录的查询");
+				},
+				//对查询条件div进行查询
+				sel(){
+					alert("正在对条件div中的内容进行条件查询");
+					$("#selByDiv").modal("hide");
+				},
+				openSelBy(){
+					$("#selByDiv").modal("show");
+				},
+				closeSelBy(){
+					$("#selByDiv").modal("hide");
 				}
 			},
 			created(){
