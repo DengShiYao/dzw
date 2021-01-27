@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>车辆管理</title>
+		<link rel="stylesheet" href="../css/bootstrap.min.css" />
+		<style>
+			* {
+				margin: 0px;
+				padding: 0px;
+			}
+			
+			#lx {
+				width: 1510px;
+				height: 730px;
+			}
+			
+			.wrap {
+				width: 50px;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				overflow: hidden;
+			}
+			
+			#ul li {
+				display: inline-block;
+			}
+			nav{
+				margin-left: 600px;
+			}
+			table tr:nth-child(1) td{
+				background-color: #31B0D5;
+			}
+			#cl{
+				min-height:200px;overflow-y:auto;max-height:300px;
+			}
+			#kh{
+				min-height:50px;overflow-y:auto;max-height:300px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="lx">
+		<div class="row">
+  			<div class="col-md-8"><h1>车辆资料</h1></div>
+  			<div class="col-md-4"><form class="form-inline">
+  			<div class="form-group">
+    		<label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+    		<div class="input-group">
+      		<div class="input-group-addon">搜索</div>
+      		<input type="text" class="form-control" id="exampleInputAmount" placeholder="车辆搜索">
+    		</div>
+  			</div>
+  			<button type="submit" class="btn btn-primary">查询</button>
+			</form></div>
+		</div>
+		<div class="row">
+  		<div class="col-md-8">
+  			
+  			<div class="btn-group" role="group" aria-label="...">
+  		<div style="float: left;width:1490px ;height: 100px;">
+				<div style="float: left;width: 1200px;height: 60px;">
+					<div id="che" style="background-color: #EFF7FF; float: left;width: 1500px;height: 25px; margin-top: 10px;display: none;">
+						<button type="button" @click="s" class="btn btn-default">增加车资料</button>
+						<button type="button" class="btn btn-default">修改车资料</button>
+						<button type="button" class="btn btn-default">删除车资料</button>
+					</div>
+				</div>
+				<div style="float: left;width: 1490px;height: 40px;margin-top: -5px;">
+					<div id="kh" style="background-color: #EFF7FF; float: left;width: 1500px;height: 25px; display: none;">
+						<button type="button" class="btn btn-default">客户编辑</button>
+						<button type="button" @click="showmo3()" class="btn btn-default">增加客户和车</button>
+						<button type="button" @click="showmo4()" class="btn btn-default">增加客户</button>
+						<button type="button" class="btn btn-default">修改客户</button>
+						<button type="button" class="btn btn-default">删除客户</button>
+						<button type="button" @click="ba1" class="btn btn-default">相关证照</button>
+						<button type="button" class="btn btn-default">设置密码</button>
+					</div>
+				</div>
+			</div>
+		</div>
+  		</div>
+
+  		
+  		
+  		<div class="modal" id="mymodal" data-backdrop="static">
+					<div style="width: 900px;" class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<span class="close" data-dismiss="modal">&times;</span>
+								<h5 class="col-xs-10">车辆资料编辑</h5>
+								<button class="btn btn-default col-xs-1" style="background-color:#82D921 ;">保存</button>
+							</div>
+							<div class="modal-body" style="background-color: #F7F7F7;">
+								<table class="table table-hover">
+									<tr>
+										<td>*<label style="margin-left: 10px;">车牌号码</label><input style="width: 120px;margin-left: 7px;" /><img @click="mod" src="img/20210125084610.png" height="23" width="16px" style="margin-top:-2.5px;">*<label style="margin-left: 10px;">车辆品牌</label><input style="width: 120px; margin-left: 10px;"><img @click="mod1" src="img/20210125084610.png" height="23" width="16px" style="margin-top:-2.5px; margin-right: 4px;">*<label style="margin-left: 10px;">车辆型号</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;">*<label style="margin-left: 10px;">驾驶员</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;"></td>
+									</tr>
+
+									<tr>
+										<td>*<label style="margin-left: 10px;">驾驶员电话</label><input style="width: 105px;margin-left: 7px;margin-right: 10px;" /><label style="margin-left: 11px;">出生日期</label><input style="width: 120px; margin-left: 10px;margin-right: 10px;"><label style="margin-left: 11px;">驾驶员地址</label><input style="width: 310px;margin-left: 7px;margin-right: 10px;"></td>
+									</tr>
+									<tr>
+										<td><label style="margin-left: 11px;">车架号</label><input style="width: 170px;margin-left: 7px;margin-right: 10px;" /><label style="margin-left: 11px;">发动机号</label><input style="width: 120px; margin-left: 10px;margin-right: 10px;"><label style="margin-left: 11px;">车辆年款</label><input style="width: 80px;margin-left: 7px;margin-right: 10px;"><label style="margin-left: 11px;">里程</label><input style="width: 155px;margin-left: 7px;margin-right: 10px;">
+									</tr>
+									<tr>
+										<td>*<label style="margin-left: 10px;">发动机品牌</label>
+											<select style="width: 280px;margin-left: 20px;">
+												<option>1-d2</option>
+												<option>阿达-d3</option>
+											</select><label style="margin-left: 11px;">载重</label><input style="width: 180px; margin-left: 10px;margin-right: 10px;"><label style="margin-left: 11px;">购买日期</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;"></td>
+									</tr>
+									<tr>
+										<td><label style="margin-left: 11px;">上牌日期</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;"><label style="margin-left: 11px;">车检到期</label><input style="width: 130px; margin-left: 10px;margin-right: 10px;"><label style="margin-left: 11px;">二维日期</label><input style="width: 130px;margin-left: 7px;margin-right: 10px;"><label style="margin-left: 11px;">车系</label><input style="width: 137px;margin-left: 7px;margin-right: 10px;"></td>
+									</tr>
+									<tr>
+										<td>
+											<span style="color: red;">保险</span>
+											<label style="margin-left: 11px;">交强险保险公司</label>
+											<select style="margin-left: 10px;width: 105px;">
+												<option>阳光保险</option>
+												<option>中华联合保险公司</option>
+											</select><label style="margin-left: 11px;">交强险到期</label><input style="width: 130px; margin-left: 10px;margin-right: 10px;"><input type="checkbox"><label style="margin-left: 3px;margin-right: ;">在我投保投车</label>*<label style="margin-left: 10px;">车辆归属</label>
+											<select style="margin-left: 10px;width: 150px;height: 25px;">
+												<option>个人车</option>
+												<option>公司车</option>
+												<option>租赁车</option>
+											</select>
+											<img @click="mod2" src="img/20210125084610.png" height="25" width="16px" style="margin-top:-4px;margin-left: -3px;" />
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<label style="margin-left: 43px;">商业险保险公司</label>
+											<select style="margin-left: 10px;width: 105px;">
+												<option>阳光保险</option>
+												<option>中华联合保险公司</option>
+											</select><label style="margin-left: 11px;">商业险到期</label><input style="width: 130px; margin-left: 10px;margin-right: 10px;"><label>驾证到期</label><input style="width: 90px;margin-left:7px;margin-right: 10px;"><label>燃油类别</label>
+											<select style="margin-left: 10px;width: 103px;height: 25px;">
+												<option>个人车</option>
+												<option>公司车</option>
+												<option>租赁车</option>
+											</select>
+											<img @click="mod3" src="img/20210125084610.png" height="25" width="16px" style="margin-top:-4px;margin-left: -3px;" />
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<label style="margin-left: 11px;">下次保养里程</label><input style="margin-left: 10px; width: 110px;"><label style="margin-left: 11px;">下次保养日期</label><input style="width: 130px; margin-left: 10px;margin-right: 10px;"><label>客户名称</label><input disabled="disabled" style="width: 295px;margin-left:7px;"><img src="img/20210125084610.png" height="23" width="16px" style="margin-top:-2.5px;" @click="luo">
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal" id="mymodal6" data-backdrop="static">
+					<div style="width: 900px;" class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<span class="close" data-dismiss="modal">&times;</span>
+								<h5 class="col-xs-10">客户资料编辑</h5>
+								<button class="btn btn-default col-xs-1" style="background-color:#82D921 ;">保存</button>
+							</div>
+							<div class="modal-body" style="background-color: #F7F7F7;">
+								<table class="table table-hover">
+									<tr>
+										<td>*<label style="margin-left: 10px;">客户编码</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;" />*<label style="margin-left: 10px;">客户名称</label><input style="width: 120px; margin-left: 10px;"><label style="margin-left: 10px;">联系人</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;">*<label style="margin-left: 10px;">手机号码</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;"></td>
+									</tr>
+
+									<tr>
+										<td><label style="margin-left: 10px;">客户地址</label><input style="width: 340px;margin-left: 7px;margin-right: 10px;" /><label style="margin-left: 11px;">客户生日</label><input type="date" style="width: 120px; margin-left: 10px;margin-right: 10px;"></td>
+									</tr>
+									<tr>
+										<td><label style="margin-left: 11px;">账期</label><input type="number" style="width: 50px;margin-left: 7px;margin-right: 10px;" /><label style="margin-left: 11px;">挂账额度</label><input style="width: 120px; margin-left: 10px;margin-right: 10px;"><label style="margin-left: 11px;">专属顾问</label><input style="width: 80px;margin-left: 7px;margin-right: 10px;"><label style="margin-left: 11px;">顾问电话</label><input style="width: 155px;margin-left: 7px;margin-right: 10px;">
+									</tr>
+									<tr>
+										<td>
+											<label>省</label>
+											<input><img @click="showmo" src="img/20210125084610.png" height="23" width="16px" style="margin-top:-4.5px;margin-left: 0px;"/>
+											<label>市</label>
+											<input /><img @click="showmo1" src="img/20210125084610.png"  height="23" width="16px" style="margin-top:-4.5px;margin-left: 0px;"/>
+											<label>区</label>
+											<input><img @click="showmo2" src="img/20210125084610.png"  height="23" width="16px" style="margin-top:-4.5px;margin-left: 0px;"/>
+										</td>
+									</tr>
+									<tr>
+										<td><label style="margin-left: 11px;">备注</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;"></td>
+									</tr>
+									<tr>
+										<td>*<label style="margin-left: 10px;">车牌号码</label><input style="width: 120px;margin-left: 7px;" /><img @click="mod" src="img/20210125084610.png" height="23" width="16px" style="margin-top:-2.5px;">*<label style="margin-left: 10px;">车辆品牌</label><input style="width: 120px; margin-left: 10px;"><img @click="mod1" src="img/20210125084610.png" height="23" width="16px" style="margin-top:-2.5px; margin-right: 4px;">*<label style="margin-left: 10px;">车辆型号</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;">*<label style="margin-left: 10px;">驾驶员</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;"></td>
+									</tr>
+									<tr>
+										<td>*<label style="margin-left: 10px;">驾驶员电话</label><input style="width: 105px;margin-left: 7px;margin-right: 10px;" /><label style="margin-left: 11px;">出生日期</label><input style="width: 120px; margin-left: 10px;margin-right: 10px;">*<label style="margin-left: 10px;">车辆归属</label>
+											<select style="margin-left: 10px;width: 150px;height: 25px;">
+												<option>个人车</option>
+												<option>公司车</option>
+												<option>租赁车</option>
+											</select>
+											<img @click="mod2" src="img/20210125084610.png" height="25" width="16px" style="margin-top:-4px;margin-left: -3px;" />
+											<label>驾证到期</label>
+											<input type="date"/>
+										</td>
+									</tr>
+									<tr>
+										<td><label style="margin-left: 11px;">车架号</label><input style="width: 170px;margin-left: 7px;margin-right: 10px;" /><label style="margin-left: 11px;">发动机号</label><input style="width: 120px; margin-left: 10px;margin-right: 10px;"><label style="margin-left: 11px;">车辆年款</label><input style="width: 80px;margin-left: 7px;margin-right: 10px;"><label style="margin-left: 11px;">里程</label><input style="width: 155px;margin-left: 7px;margin-right: 10px;">
+									</tr>
+									<tr>
+										<td>*<label style="margin-left: 10px;">发动机品牌</label>
+											<select style="width: 280px;margin-left: 20px;">
+												<option>1-d2</option>
+												<option>阿达-d3</option>
+											</select><label style="margin-left: 11px;">载重</label><input style="width: 180px; margin-left: 10px;margin-right: 10px;"><label style="margin-left: 11px;">购买日期</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;"></td>
+									</tr>
+									<tr>
+										<td>
+											<label style="margin-left: 11px;">上牌日期</label><input type="date" style="margin-left: 10px; width: 110px;"><label style="margin-left: 11px;">车检到期</label>
+											<input type="date" style="margin-left: 10px; width: 110px;">
+											<label>燃油类别</label>
+											<select style="margin-left: 10px;width: 103px;height: 25px;">
+												<option>个人车</option>
+												<option>公司车</option>
+												<option>租赁车</option>
+											</select>
+											<img @click="mod3" src="img/20210125084610.png" height="25" width="16px" style="margin-top:-4px;margin-left: -3px;" />
+											<input type="checkbox"><label style="margin-left: 3px;margin-right: ;">在我投保投车</label>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<span style="color: red;">保险</span>
+											<label style="margin-left: 11px;">交强险保险公司</label>
+											<select style="margin-left: 10px;width: 105px;">
+												<option>阳光保险</option>
+												<option>中华联合保险公司</option>
+											</select><label style="margin-left: 11px;">交强险到期</label><input style="width: 130px; margin-left: 10px;margin-right: 10px;">
+										</td>
+									</tr>
+									<tr>
+										<td>
+											
+											<label style="margin-left: 11px;">商业保险公司</label>
+											<select style="margin-left: 10px;width: 105px;">
+												<option>阳光保险</option>
+												<option>中华联合保险公司</option>
+											</select><label style="margin-left: 11px;">商业险到期</label><input style="width: 130px; margin-left: 10px;margin-right: 10px;">
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal" id="mymodal10" data-backdrop="static">
+					<div style="width: 900px;" class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<span class="close" data-dismiss="modal">&times;</span>
+								<h5 class="col-xs-10">客户资料编辑</h5>
+								<button class="btn btn-default col-xs-1" style="background-color:#82D921 ;">保存</button>
+							</div>
+							<div class="modal-body" style="background-color: #F7F7F7;">
+								<table class="table table-hover">
+									<tr>
+										<td>*<label style="margin-left: 10px;">客户编码</label><input disabled="disabled" style="width: 120px;margin-left: 7px;margin-right: 10px;" />*<label style="margin-left: 10px;">客户名称</label><input style="width: 120px; margin-left: 10px;"><label style="margin-left: 10px;">联系人</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;">*<label style="margin-left: 10px;">手机号码</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;"></td>
+									</tr>
+
+									<tr>
+										<td><label style="margin-left: 10px;">客户地址</label><input style="width: 340px;margin-left: 7px;margin-right: 10px;" /><label style="margin-left: 11px;">客户生日</label><input type="date" style="width: 120px; margin-left: 10px;margin-right: 10px;"></td>
+									</tr>
+									<tr>
+										<td><label style="margin-left: 11px;">账期</label><input type="number" style="width: 50px;margin-left: 7px;margin-right: 10px;" /><label style="margin-left: 11px;">挂账额度</label><input style="width: 120px; margin-left: 10px;margin-right: 10px;"><label style="margin-left: 11px;">专属顾问</label><input style="width: 80px;margin-left: 7px;margin-right: 10px;"><label style="margin-left: 11px;">顾问电话</label><input style="width: 155px;margin-left: 7px;margin-right: 10px;">
+									</tr>
+									<tr>
+										<td>
+											<label>省</label>
+											<input><img @click="showmo" src="img/20210125084610.png" height="23" width="16px" style="margin-top:-4.5px;margin-left: 0px;"/>
+											<label>市</label>
+											<input /><img @click="showmo1" src="img/20210125084610.png"  height="23" width="16px" style="margin-top:-4.5px;margin-left: 0px;"/>
+											<label>区</label>
+											<input><img @click="showmo2" src="img/20210125084610.png"  height="23" width="16px" style="margin-top:-4.5px;margin-left: 0px;"/>
+										</td>
+									</tr>
+									<tr>
+										<td><label style="margin-left: 11px;">备注</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;"></td>
+									</tr>
+									<tr>
+										<td><label style="margin-left: 10px;">纳税人识别号</label><input style="width: 120px;margin-left: 7px;" /><img @click="mod" src="img/20210125084610.png" height="23" width="16px" style="margin-top:-2.5px;"><label style="margin-left: 10px;">注册电话</label><input style="width: 120px; margin-left: 10px;"><img @click="mod1" src="img/20210125084610.png" height="23" width="16px" style="margin-top:-2.5px; margin-right: 4px;"><label style="margin-left: 10px;">开户银行</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;"></td>
+									</tr>
+									<tr>
+										<td>
+											<label style="margin-left: 10px;">银行账号</label><input style="width: 105px;margin-left: 7px;margin-right: 10px;" /><label style="margin-left: 11px;">注册地址</label><input style="width: 120px; margin-left: 10px;margin-right: 10px;">
+										</td>
+									</tr>
+									<tr>
+										<td><label style="margin-left: 11px;">其它一</label><input style="width: 170px;margin-left: 7px;margin-right: 10px;" /><label style="margin-left: 11px;">其它二</label><input style="width: 120px; margin-left: 10px;margin-right: 10px;"><label style="margin-left: 11px;">其它三</label><input style="width: 80px;margin-left: 7px;margin-right: 10px;"><label style="margin-left: 11px;">其它四</label><input style="width: 155px;margin-left: 7px;margin-right: 10px;">
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal" id="mymodal11" data-backdrop="static">
+					<div style="width: 1510px;" class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<span class="close" data-dismiss="modal">&times;</span>
+							</div>
+							<div class="modal-body" style="background-color: #F7F7F7;height: 600px;">
+								
+								<div style="float: left; background-color:#D6D7CE;width: 1509px;line-height:40px;margin-left: -15px;">
+									<div @click="ba" style="float: left;"><img src="img/20210126110220.png" >增加照片</div>
+									<div style="float: left;"><img src="img/20210126110229.png">删除照片</div>
+									<div style="float: left;"><img src="img/20210126110259.jpg">退出</div>
+								</div>
+								<div style="float: left;width: 200px;height: 500px;background-color: #ADAEAD;margin-left: -15px;">
+									<div style="float: left;width:180px;line-height: 25px;background-color: #D6D7CE;margin-top: 1px;">
+										<span style="margin-left: 100px;">照片名称</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal" id="mymodal12" data-backdrop="static">
+					<div style="width: 800px;" class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header" style="">
+								<span class="close" data-dismiss="modal">&times;</span>
+								<h5 class="col-xs-10">客户资料编辑</h5>
+								
+							</div>
+							<div class="modal-body" style="background-color: #F7F7F7;height: 380px;">
+								<div style="background: #F7FFDE;width: 760PX;line-height: 37px;">
+									<button class="btn btn-default col-xs-1" style="background-color:#82D921 ;">确定</button>
+									<img src="img/20210126141619.png" style="margin-left: 520px;">全部选择
+									<img src="img/20210126141636.png">全部取消
+								</div>
+								<div style="width: 760px;height: 300px;overflow-y:scroll;">
+									<table class="table table-bordered" style="width: 760px;">
+										<tr>
+											<td style="width:100px;">显示</td>
+											<td style="width:170px;">字段</td>
+											<td style="width:190px;">字段名称</td>
+											<td style="width:90px;">序号</td>
+											<td>显示宽度</td>
+										</tr>
+										<tr>
+											<td><input type="checkbox" v-model="ss"></td>
+											<td>CustCode</td>
+											<td>客户编码</td>
+											<td>1</td>
+											<td>150</td>
+										</tr>
+										<tr>
+											<td><input type="checkbox" v-model="ss"></td>
+											<td>CustCode</td>
+											<td>客户编码</td>
+											<td>1</td>
+											<td>150</td>
+										</tr>
+										<tr>
+											<td><input type="checkbox" v-model="ss"></td>
+											<td>CustCode</td>
+											<td>客户编码</td>
+											<td>1</td>
+											<td>150</td>
+										</tr>
+										<tr>
+											<td><input type="checkbox" v-model="ss"></td>
+											<td>CustCode</td>
+											<td>客户编码</td>
+											<td>1</td>
+											<td>150</td>
+										</tr>
+										<tr>
+											<td><input type="checkbox" v-model="ss"></td>
+											<td>CustCode</td>
+											<td>客户编码</td>
+											<td>1</td>
+											<td>150</td>
+										</tr>
+										<tr>
+											<td><input type="checkbox" v-model="ss"></td>
+											<td>CustCode</td>
+											<td>客户编码</td>
+											<td>1</td>
+											<td>150</td>
+										</tr>
+										<tr>
+											<td><input type="checkbox" v-model="ss"></td>
+											<td>CustCode</td>
+											<td>客户编码</td>
+											<td>1</td>
+											<td>150</td>
+										</tr>
+										<tr>
+											<td><input type="checkbox" v-model="ss"></td>
+											<td>CustCode</td>
+											<td>客户编码</td>
+											<td>1</td>
+											<td>150</td>
+										</tr>
+										<tr>
+											<td><input type="checkbox" v-model="ss"></td>
+											<td>CustCode</td>
+											<td>客户编码</td>
+											<td>1</td>
+											<td>150</td>
+										</tr>
+										<tr>
+											<td><input type="checkbox" v-model="ss"></td>
+											<td>CustCode</td>
+											<td>客户编码</td>
+											<td>1</td>
+											<td>150</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal" id="mymodal7" data-backdrop="static">
+					<div class="modal-dialog" style="width: 600px;height: 500px;">
+						<div class="modal-content">
+							<div class="modal-header">
+								<span class="close" data-dismiss="modal">&times;</span>
+								<h5 class="col-xs-7">省市选择</h5>
+							</div>
+							<div class="modal-body" style="height: 550px;background-color: #F7F7F7;">
+								<div>
+									<button class="btn btn-default" style="margin-left: 35px; width: 80px;line-height: 25px; background-color:#82D921;">选择</button>
+								</div>
+								<div style="width: 500px;height:420px;overflow-y: scroll; margin-left: 35px; float: left;background-color:white; ">
+									<table class="table table-bordered" style="width: 200px;">
+										<tr>
+											<td style="width:80px;">城市ID</td>
+											<td style="width:110px;">城市名称</td>
+										</tr>
+										<tr>
+											<td>1</td>
+											<td>北京</td>
+										</tr><tr>
+											<td>1</td>
+											<td>北京</td>
+										</tr>
+										<tr>
+											<td>1</td>
+											<td>北京</td>
+										</tr>
+										<tr>
+											<td>1</td>
+											<td>北京</td>
+										</tr>
+										<tr>
+											<td>1</td>
+											<td>北京</td>
+										</tr>
+										<tr>
+											<td>1</td>
+											<td>北京</td>
+										</tr>
+										<tr>
+											<td>1</td>
+											<td>北京</td>
+										</tr>
+										<tr>
+											<td>1</td>
+											<td>北京</td>
+										</tr>
+										<tr>
+											<td>1</td>
+											<td>北京</td>
+										</tr>
+										<tr>
+											<td>1</td>
+											<td>北京</td>
+										</tr>
+										<tr>
+											<td>1</td>
+											<td>北京</td>
+										</tr>
+										<tr>
+											<td>1</td>
+											<td>北京</td>
+										</tr>
+										<tr>
+											<td>1</td>
+											<td>北京</td>
+										</tr>
+										<tr>
+											<td>1</td>
+											<td>北京</td>
+										</tr>
+									</table>
+								</div>
+								<span style="line-height: 50px; margin-left: 20px;">共35条记录</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal" id="mymodal8" data-backdrop="static">
+					<div class="modal-dialog" style="width: 600px;height: 500px;">
+						<div class="modal-content">
+							<div class="modal-header">
+								<span class="close" data-dismiss="modal">&times;</span>
+								<h5 class="col-xs-7">省市选择</h5>
+							</div>
+							<div class="modal-body" style="height: 550px;background-color: #F7F7F7;">
+								<div>
+									<button class="btn btn-default" style="margin-left: 35px; width: 80px;line-height: 25px; background-color:#82D921;">选择</button>
+								</div>
+								<div style="width: 500px;height:420px;overflow-y: scroll; margin-left: 35px; float: left;background-color:white; ">
+									<table class="table table-bordered" style="width: 200px;">
+										<tr>
+											<td style="width:80px;">城市ID</td>
+											<td style="width:110px;">城市名称</td>
+										</tr>
+										<tr>
+											<td>36</td>
+											<td>北京区</td>
+										</tr>
+									</table>
+								</div>
+								<span style="line-height: 50px; margin-left: 20px;">共1条记录</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal" id="mymodal9" data-backdrop="static">
+					<div class="modal-dialog" style="width: 600px;height: 500px;">
+						<div class="modal-content">
+							<div class="modal-header">
+								<span class="close" data-dismiss="modal">&times;</span>
+								<h5 class="col-xs-7">省市选择</h5>
+							</div>
+							<div class="modal-body" style="height: 550px;background-color: #F7F7F7;">
+								<div>
+									<button class="btn btn-default" style="margin-left: 35px; width: 80px;line-height: 25px; background-color:#82D921;">选择</button>
+								</div>
+								<div style="width: 500px;height:420px;overflow-y: scroll; margin-left: 35px; float: left;background-color:white; ">
+									<table class="table table-bordered" style="width: 200px;">
+										<tr>
+											<td style="width:80px;">城市ID</td>
+											<td style="width:110px;">城市名称</td>
+										</tr>
+										<tr>
+											<td>37</td>
+											<td>东城区</td>
+										</tr>
+										<tr>
+											<td>38</td>
+											<td>西城区</td>
+										</tr>
+										<tr>
+											<td>41</td>
+											<td>朝阳区</td>
+										</tr>
+										<tr>
+											<td>42</td>
+											<td>北京</td>
+										</tr>
+										<tr>
+											<td>43</td>
+											<td>北京</td>
+										</tr>
+										<tr>
+											<td>44</td>
+											<td>北京</td>
+										</tr>
+										<tr>
+											<td>45</td>
+											<td>北京</td>
+										</tr>
+										<tr>
+											<td>46</td>
+											<td>北京</td>
+										</tr>
+										<tr>
+											<td>47</td>
+											<td>北京</td>
+										</tr>
+										<tr>
+											<td>48</td>
+											<td>北京</td>
+										</tr>
+										<tr>
+											<td>49</td>
+											<td>北京</td>
+										</tr>
+										<tr>
+											<td>50</td>
+											<td>北京</td>
+										</tr>
+										<tr>
+											<td>51</td>
+											<td>北京</td>
+										</tr>
+										<tr>
+											<td>52</td>
+											<td>北京</td>
+										</tr>
+									</table>
+								</div>
+								<span style="line-height: 50px; margin-left: 20px;">共17条记录</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal" id="mymodal1" data-backdrop="static">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<span class="close" data-dismiss="modal">&times;</span>
+								<h5 class="col-xs-10">车牌字</h5>
+							</div>
+							<div class="modal-body">
+								<div style="width: 380px;margin-left: 100px;height: 300px;  ">
+									<div style="width:46px;box-shadow:0.5px 1px 0px 1px; height: 36px;background-color:#F7F7F7;text-align: center;padding-top: 8px;float: left; margin-left:10px ;">京</div>
+									<div style="width:46px;box-shadow:0.5px 1px 0px 1px; height: 36px;background-color:#F7F7F7;text-align: center;padding-top: 8px;float: left; margin-left:10px ;">沪</div>
+									<div style="width:46px;box-shadow:0.5px 1px 0px 1px; height: 36px;background-color:#F7F7F7;text-align: center;padding-top: 8px;float: left; margin-left:10px ;">津</div>
+									<div style="width:46px;box-shadow:0.5px 1px 0px 1px; height: 36px;background-color:#F7F7F7;text-align: center;padding-top: 8px;float: left; margin-left:10px ;">渝</div>
+									<div style="width:46px;box-shadow:0.5px 1px 0px 1px; height: 36px;background-color:#F7F7F7;text-align: center;padding-top: 8px;float: left; margin-left:10px ;">鲁</div>
+									<div style="width:46px;box-shadow:0.5px 1px 0px 1px; height: 36px;background-color:#F7F7F7;text-align: center;padding-top: 8px;float: left; margin-left:10px ;">冀</div>
+									<div style="width:46px;box-shadow:0.5px 1px 0px 1px; height: 36px;background-color:#F7F7F7;text-align: center;padding-top: 8px;float: left; margin-left:10px ; margin-top:9px;">晋</div>
+									<div style="width:46px;box-shadow:0.5px 1px 0px 1px; height: 36px;background-color:#F7F7F7;text-align: center;padding-top: 8px;float: left; margin-left:10px ; margin-top:9px;">蒙</div>
+									<div style="width:46px;box-shadow:0.5px 1px 0px 1px; height: 36px;background-color:#F7F7F7;text-align: center;padding-top: 8px;float: left; margin-left:10px; margin-top:9px;">辽</div>
+									<div style="width:46px;box-shadow:0.5px 1px 0px 1px; height: 36px;background-color:#F7F7F7;text-align: center;padding-top: 8px;float: left; margin-left:10px; margin-top:9px;">吉</div>
+									<div style="width:46px;box-shadow:0.5px 1px 0px 1px; height: 36px;background-color:#F7F7F7;text-align: center;padding-top: 8px;float: left; margin-left:10px; margin-top:9px;">黑</div>
+									<div style="width:46px;box-shadow:0.5px 1px 0px 1px; height: 36px;background-color:#F7F7F7;text-align: center;padding-top: 8px;float: left; margin-left:10px; margin-top:9px;">苏</div>
+									<div style="width:46px;box-shadow:0.5px 1px 0px 1px; height: 36px;background-color:#F7F7F7;text-align: center;padding-top: 8px;float: left; margin-left:10px; margin-top:9px;">浙</div>
+									<div style="width:46px;box-shadow:0.5px 1px 0px 1px; height: 36px;background-color:#F7F7F7;text-align: center;padding-top: 8px;float: left; margin-left:10px; margin-top:9px;">皖</div>
+									<div style="width:46px;box-shadow:0.5px 1px 0px 1px; height: 36px;background-color:#F7F7F7;text-align: center;padding-top: 8px;float: left; margin-left:10px; margin-top:9px;">闽</div>
+									<div style="width:46px;box-shadow:0.5px 1px 0px 1px; height: 36px;background-color:#F7F7F7;text-align: center;padding-top: 8px;float: left; margin-left:10px; margin-top:9px;">赣</div>
+									<div style="width:46px;box-shadow:0.5px 1px 0px 1px; height: 36px;background-color:#F7F7F7;text-align: center;padding-top: 8px;float: left; margin-left:10px; margin-top:9px;">豫</div>
+									<div style="width:46px;box-shadow:0.5px 1px 0px 1px; height: 36px;background-color:#F7F7F7;text-align: center;padding-top: 8px;float: left; margin-left:10px; margin-top:9px;">鄂</div>
+									<div style="width:46px;box-shadow:0.5px 1px 0px 1px; height: 36px;background-color:#F7F7F7;text-align: center;padding-top: 8px;float: left; margin-left:10px; margin-top:9px;">湘</div>
+									<div style="width:46px;box-shadow:0.5px 1px 0px 1px; height: 36px;background-color:#F7F7F7;text-align: center;padding-top: 8px;float: left; margin-left:10px; margin-top:9px;">粤</div>
+									<div style="width:46px;box-shadow:0.5px 1px 0px 1px; height: 36px;background-color:#F7F7F7;text-align: center;padding-top: 8px;float: left; margin-left:10px; margin-top:9px;">桂</div>
+									<div style="width:46px;box-shadow:0.5px 1px 0px 1px; height: 36px;background-color:#F7F7F7;text-align: center;padding-top: 8px;float: left; margin-left:10px; margin-top:9px;">琼</div>
+									<div style="width:46px;box-shadow:0.5px 1px 0px 1px; height: 36px;background-color:#F7F7F7;text-align: center;padding-top: 8px;float: left; margin-left:10px ; margin-top:9px;">川</div>
+									<div style="width:46px;box-shadow:0.5px 1px 0px 1px; height: 36px;background-color:#F7F7F7;text-align: center;padding-top: 8px;float: left; margin-left:10px; margin-top:9px;">贵</div>
+									<div style="width:46px;box-shadow:0.5px 1px 0px 1px; height: 36px;background-color:#F7F7F7;text-align: center;padding-top: 8px;float: left; margin-left:10px; margin-top:9px;">云</div>
+									<div style="width:46px;box-shadow:0.5px 1px 0px 1px; height: 36px;background-color:#F7F7F7;text-align: center;padding-top: 8px;float: left; margin-left:10px; margin-top:9px;">藏</div>
+									<div style="width:46px;box-shadow:0.5px 1px 0px 1px; height: 36px;background-color:#F7F7F7;text-align: center;padding-top: 8px;float: left; margin-left:10px; margin-top:9px;">陕</div>
+									<div style="width:46px;box-shadow:0.5px 1px 0px 1px; height: 36px;background-color:#F7F7F7;text-align: center;padding-top: 8px;float: left; margin-left:10px; margin-top:9px;">甘</div>
+									<div style="width:46px;box-shadow:0.5px 1px 0px 1px; height: 36px;background-color:#F7F7F7;text-align: center;padding-top: 8px;float: left; margin-left:10px; margin-top:9px;">青</div>
+									<div style="width:46px;box-shadow:0.5px 1px 0px 1px; height: 36px;background-color:#F7F7F7;text-align: center;padding-top: 8px;float: left; margin-left:10px; margin-top:9px;">宁</div>
+									<div style="width:46px;box-shadow:0.5px 1px 0px 1px; height: 36px;background-color:#F7F7F7;text-align: center;padding-top: 8px;float: left; margin-left:10px; margin-top:9px;">新</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal" id="mymodal2" data-backdrop="static">
+					<div class="modal-dialog" style="width: 850px;height: 800px;">
+						<div class="modal-content">
+							<div class="modal-header">
+								<span class="close" data-dismiss="modal">&times;</span>
+								<h5 class="col-xs-7">品牌车型</h5>
+								<button class="btn btn-default" style="background-color:#82D921; width: 70px;margin-left: 80px;">保存</button>
+								<button class="btn btn-default " style="background-color:#F7F7F7 ;">关闭</button>
+							</div>
+							<div class="modal-body" style="height: 500px;background-color: #F7F7F7;">
+								<div>
+									<input placeholder="匹配 品牌编码/品牌名称/首字母" style="height: 30px;width: 200px;" />
+									<button class="btn btn-default" style="background-color: #FAAC23;margin-top: -2px; width: 90px;line-height: 20px;">搜索</button>
+									<input placeholder="匹配 车型编码/车型名称" style="height: 30px;width: 200px;margin-left: 70px;" />
+									<button class="btn btn-default" style="background-color: #FAAC23;margin-top: -2px; width: 90px;line-height: 20px;">搜索</button>
+								</div>
+								<div style="width: 300px;height:400px;float: left;background-color:white; ">
+									<table class="table table-bordered">
+										<tr>
+											<td style="width: 50px;">编码</td>
+											<td>品牌名称</td>
+											<td style="width: 60px;">首字母</td>
+										</tr>
+										<tr>
+											<td>113</td>
+											<td>中国重汽</td>
+											<td>A</td>
+										</tr>
+									</table>
+								</div>
+								<div style="width: 500px;height:400px;float: left;background-color:white;margin-left: 15px;overflow: scroll;">
+									<table class="table table-bordered" style="width:800px; max-width: 820px;">
+										<tr>
+											<td>车型ID</td>
+											<td style="width: 150px;">车型名称</td>
+											<td>参考价格</td>
+											<td>车辆年款</td>
+											<td>排气量</td>
+											<td>进口国产</td>
+											<td>燃油标号</td>
+											<td>四驱类型</td>
+										</tr>
+										<tr>
+											<td>50001</td>
+											<td>重汽汕德卡</td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td>进口s</td>
+											<td></td>
+											<td></td>
+										</tr>
+									</table>
+								</div>
+								<span style="line-height: 50px;">记录条数:</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal" id="mymodal3" data-backdrop="static">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<span class="close" data-dismiss="modal">&times;</span>
+								<h4>选择内容设置</h4></div>
+							<div class="modal-body" style="margin-top: -14px;margin-left: -16px;height: 400px;">
+								<div style="width: 600px;background-color: #D6D6CE;line-height: 30px;">
+									<img style="margin-left: 500px;" src="img/QQ图片20210121164522.png" width="14">修改
+									<img src="img/20210125191943.png" width="14">保存
+								</div>
+								<div style="width:400px;height: 300px;">
+									<table class="table table-bordered">
+										<tr style="background-color: #39CEDE;">
+											<td>序号</td>
+											<td>车辆归属</td>
+										</tr>
+										<tr>
+											<td>1</td>
+											<td>个人车</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+							<div class="modal-footer" style="background-color:#F7F7F7;">
+								<button class="btn btn-default" style="background-color:#82DA23;width: 90px;line-height: 24px;">选择</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal" id="mymodal4" data-backdrop="static">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<span class="close" data-dismiss="modal">&times;</span>
+								<h4>选择内容设置</h4></div>
+							<div class="modal-body" style="margin-top: -14px;margin-left: -16px;height: 400px;">
+								<div style="width: 600px;background-color: #D6D6CE;line-height: 30px;">
+									<img style="margin-left: 500px;" src="img/QQ图片20210121164522.png" width="14">修改
+									<img src="img/20210125191943.png" width="14">保存
+								</div>
+								<div style="width:400px;height: 300px;">
+									<table class="table table-bordered">
+										<tr style="background-color: #39CEDE;">
+											<td>序号</td>
+											<td>燃油类别</td>
+										</tr>
+										<tr>
+											<td>1</td>
+											<td>柴油</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+							<div class="modal-footer" style="background-color:#F7F7F7;">
+								<button class="btn btn-default" style="background-color:#82DA23;width: 90px;line-height: 24px;">选择</button>
+							</div>
+						</div>
+					</div>
+				</div>
+  		
+  		
+  		
+  		
+  		
+  		
+	<div class="col-md-4">
+	<div class="btn-group" role="group" aria-label="...">
+		<button type="button" @click="khbj" class="btn btn-default">客户编辑</button>
+  		<button type="button" @click="czl" class="btn btn-default">车资料</button>
+  		<button type="button" class="btn btn-default">客户分类</button>
+  		<button type="button" class="btn btn-default">查询</button>
+  		<button type="button" class="btn btn-default">导出</button>
+  		<button type="button" class="btn btn-default">字段设置</button>
+		</div>
+	</div>
+		</div>
+		<div style="width: 1500px;height:300px; float: left;overflow: scroll;">
+				<table style=" width: 2910px; max-width: 2920px;height: 300px;max-height: 380px;" class="table table-bordered">
+					<tr style="height: 20px;background-color: #39CEDE;color: white;">
+						<td class="wrap" style="width: 120px;">客户编码</td>
+						<td style="width: 120px">客户名称</td>
+						<td style="width: 120px">详细地址</td>
+						<td style="width: 120px">联系人</td>
+						<td style="width: 120px">手机</td>
+						<td style="width: 90px">客户生日</td>
+						<td style="width: 90px">客户类别</td>
+						<td style="width: 90px">会员卡号</td>
+						<td style="width: 90px">入会日期</td>
+						<td style="width: 90px">会员到期</td>
+						<td style="width: 90px">备注</td>
+						<td style="width: 90px">建档日期</td>
+						<td style="width: 90px">服务顾问</td>
+						<td style="width: 120px">业务员电话</td>
+						<td style="width: 90px">账期(天)</td>
+						<td style="width: 90px">挂账额度</td>
+						<td style="width: 90px">累计积分</td>
+						<td style="width: 90px">订金金额</td>
+						<td style="width: 90px">客户省</td>
+						<td style="width: 90px">客户市</td>
+						<td style="width: 90px">客户区</td>
+						<td style="width:120px">纳税人识别号</td>
+						<td style="width: 90px">注册电话</td>
+						<td style="width: 90px">开户银行</td>
+						<td style="width: 90px">银行账号</td>
+						<td style="width: 90px">注册地址</td>
+						<td style="width: 90px">其它一</td>
+						<td style="width: 90px">其它二</td>
+						<td style="width: 90px">其它三</td>
+						<td style="width: 90px">其它四</td>
+					</tr>
+					<tr style="height: 30px;">
+						<td class="wrap">车牌号码</td>
+						<td>车牌号码</td>
+				
+				
+				<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+					</tr>
+					<tr style="height: 30px;">
+						<td class="wrap">车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+					</tr>
+					<tr style="height: 30px;">
+						<td class="wrap">车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+						<td>车牌号码</td>
+					</tr>
+				</table>
+			</div>
+		
+		
+		
+		
+		<nav aria-label="Page navigation">
+			  <ul class="pagination">
+			    <li>
+			      <a href="#" aria-label="Previous">
+			        <span aria-hidden="true">&laquo;</span>
+			      </a>
+			    </li>
+			    <li><a href="#">1</a></li>
+			    <li><a href="#">2</a></li>
+			    <li><a href="#">3</a></li>
+			    <li><a href="#">4</a></li>
+			    <li><a href="#">5</a></li>
+			    <li>
+			      <a href="#" aria-label="Next">
+			        <span aria-hidden="true">&raquo;</span>
+			      </a>
+			    </li>
+			  </ul>
+		</nav>
+
+
+
+		<ul id="ul">
+					<li>
+						
+						<button type="button" @click="c()" class="btn btn-default">车辆信息</button>
+					</li>
+					<li style="margin-left: -4px;">
+						<button type="button" @click="c1()" class="btn btn-default">历史消费</button>
+						
+					</li>
+					<li style="margin-left: -4px;">
+						<button type="button" @click="c2()" class="btn btn-default">历史回访</button>
+						
+					</li>
+				</ul>
+		<div style="width: 1500px;height:240px; float: left;margin-top: -10px;overflow: scroll;">
+					<table id="clxx" style=" width: 2910px; max-width: 2920px;height: 300px;max-height: 380px;" class="table table-bordered">
+						<tr style="background-color: #39CEDE;height: 30px;">
+							<td>车牌号码</td>
+							<td>车辆品牌</td>
+							<td>车辆型号</td>
+							<td>驾驶员</td>
+							<td>驾驶员电话</td>
+							<td>出生日期</td>
+							<td>驾驶员地址</td>
+							<td>车辆归属</td>
+							<td>驾证到期</td>
+							<td>车架号</td>
+							<td>发动机号</td>
+							<td>发动机品牌号</td>
+							<td>车辆年款</td>
+							<td>里程</td>
+							<td>载重</td>
+							<td>车系</td>
+							<td>购买日期</td>
+							<td>上牌日期</td>
+							<td>车检到期</td>
+							<td>交强险保险公司</td>
+							<td>交强险到期</td>
+							<td>商业保险公司</td>
+							<td>商业险到期</td>
+							<td>在我投保车</td>
+							<td>二维日期</td>
+							<td>燃油类别</td>
+							<td>下次保养里程</td>
+							<td>会员码</td>
+						</tr>
+						<tr>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+						</tr>
+						<tr>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+						</tr>
+						<tr>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+						</tr>
+						<tr>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+						</tr>
+						<tr>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+						</tr>
+						<tr>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+						</tr>
+					</table>
+					<table id="lsxf" class="table table-bordered" style="display: none;">
+						<tr style="background-color: #39CEDE;">
+							<td>单据类型</td>
+							<td>销售单号</td>
+							<td>车牌号</td>
+							<td>维修业务</td>
+							<td>进厂时间</td>
+							<td>完工时间</td>
+							<td>结算时间</td>
+							<td>消费金额</td>
+						</tr>
+						<tr>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+						</tr>
+					</table>
+					<table id="lshf" style="display: none;" class="table table-bordered">
+						<tr style="background-color: #39CEDE;">
+							<td style="width: 130px;">回访时间</td>
+							<td style="width: 130px;">客户编码</td>
+							<td style="width: 130px;">客户名称</td>
+							<td style="width: 90px;">地址</td>
+							<td style="width: 90px;">车牌号</td>
+							<td style="width: 110px;">联系电话</td>
+							<td style="width: 110px;">回访效果</td>
+							<td style="width: 110px;">服务顾问</td>
+							<td style="width: 110px;">详细说明</td>
+							<td style="width: 90px;">开单人</td>
+						</tr>
+						<tr>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+							<td>车牌号码</td>
+						</tr>
+					</table>
+				</div>
+		
+		
+		<nav aria-label="Page navigation">
+			  <ul class="pagination">
+			    <li>
+			      <a href="#" aria-label="Previous">
+			        <span aria-hidden="true">&laquo;</span>
+			      </a>
+			    </li>
+			    <li><a href="#">1</a></li>
+			    <li><a href="#">2</a></li>
+			    <li><a href="#">3</a></li>
+			    <li><a href="#">4</a></li>
+			    <li><a href="#">5</a></li>
+			    <li>
+			      <a href="#" aria-label="Next">
+			        <span aria-hidden="true">&raquo;</span>
+			      </a>
+			    </li>
+			  </ul>
+			</nav>
+		
+		
+		
+			
+			
+			
+			<!--品牌车型-->
+			<div class="modal" data-backdrop="true" id="ppcx">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">品牌车型</div>
+						<div class="modal-body">
+							<div class="editStudent">
+								<div class="row">
+  									<div class="col-md-6">
+  										<form class="form-inline">
+										  <div class="form-group">
+										    <label class="sr-only" for="exampleInputAmount">品牌编码</label>
+										    <div class="input-group">
+										      <div class="input-group-addon">$</div>
+										      <input type="text" class="form-control" id="exampleInputAmount" placeholder="Amount">
+										      <div class="input-group-addon">.00</div>
+										    </div>
+										  </div>
+										  <button type="submit" class="btn btn-primary">Transfer cash</button>
+										</form>
+										<table class="table table-bordered">
+											<tr>
+												<td>车牌号码</td>
+												<td>车牌号码</td>
+												<td>车牌号码</td>
+												<td>车牌号码</td>
+												<td>车牌号码</td>
+												<td>车牌号码</td>
+											</tr>
+										</table>
+  									</div>
+  									<div class="col-md-6">
+  										<form class="form-inline">
+										  <div class="form-group">
+										    <label class="sr-only" for="exampleInputAmount">品牌编码</label>
+										    <div class="input-group">
+										      <div class="input-group-addon">$</div>
+										      <input type="text" class="form-control" id="exampleInputAmount" placeholder="Amount">
+										      <div class="input-group-addon">.00</div>
+										    </div>
+										  </div>
+										  <button type="submit" class="btn btn-primary">Transfer cash</button>
+										</form>
+										<table class="table table-bordered">
+											<tr>
+												<td>车牌号码</td>
+												<td>车牌号码</td>
+												<td>车牌号码</td>
+												<td>车牌号码</td>
+												<td>车牌号码</td>
+												<td>车牌号码</td>
+											</tr>
+										</table>
+  									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button @click="addStudent()">保存</button>
+							<button>关闭</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			</div>
+	</body>
+	<script type="text/javascript" src="../js/jquery.min.js" ></script>
+	<script type="text/javascript" src="../js/vue.js" ></script>
+	<script type="text/javascript" src="../js/bootstrap.min.js" ></script>
+	<script>
+			new Vue({
+				el: "#lx",
+				data: {
+					ss:[]
+				},
+				methods: {
+					khbj() {
+						$("#kh").show();
+					},
+					czl() {
+						$("#che").show();
+					},
+					c() {
+						$("#clxx").show();
+						$("#lsxf").hide();
+						$("#lshf").hide();
+					},
+					c1() {
+						$("#clxx").hide();
+						$("#lsxf").show();
+						$("#lshf").hide();
+					},
+					c2() {
+						$("#clxx").hide();
+						$("#lsxf").hide();
+						$("#lshf").show();
+					},
+					mod() {
+						$("#mymodal1").modal("show");
+					},
+					mod1() {
+						$("#mymodal2").modal("show");
+					},
+					mod2() {
+						$("#mymodal3").modal("show");
+					},
+					mod3() {
+						$("#mymodal4").modal("show");
+					},
+					s(){
+						$("#mymodal").modal("show");
+					},
+					luo(){
+						$("#mymodal5").modal("show");
+					},
+					showmo(){
+						$("#mymodal7").modal("show");
+					},
+					showmo1(){
+						$("#mymodal8").modal("show");
+					},
+					showmo2(){
+						$("#mymodal9").modal("show");
+					},
+					showmo3(){
+						$("#mymodal6").modal("show");
+					},
+					showmo4(){
+						$("#mymodal10").modal("show");
+					},
+					ba(){
+						window.location.href="file.html";
+					},
+					ba1(){
+						$("#mymodal11").modal("show");
+					},
+					xz(){
+						ss=1;
+					},
+					qx(){
+						ss=[];
+					}
+				},
+				created() {
+				}
+			});
+		</script>
+</html>

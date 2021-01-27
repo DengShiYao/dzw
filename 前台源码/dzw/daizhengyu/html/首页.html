@@ -2,13 +2,18 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title></title>
+		<title>德召文首页</title>
 		<link href="../css/bootstrap.min.css" rel="stylesheet" />
 		<style type="text/css">
 			body,html{
 				margin:0px;
 				padding:0px;
 				height: 100%;
+				background-color: #2E6DA4;
+				color: white;
+			}
+			a{
+				color: white;
 			}
 			#ctn{
 				height: 100%;
@@ -18,6 +23,11 @@
 			.hreder{
 				height: 10%;
 				border-bottom: 1px solid #e3e3e3;
+				background-color: #286090;
+				color: white;
+			}
+			iframe{
+				background-color: white;
 			}
 			.nav{
 				margin-left:20px;
@@ -44,6 +54,21 @@
 	<body>
 		<div id="ctn" class="container-fluid">
 			<h2 class="hreder">德召文</h2>
+			<div class="row">
+  			<div class="col-md-1"></div>
+  			<div class="col-md-11">
+	  			<ul class="nav nav-tabs">
+				  <li role="presentation"><a href="#" @click="cl_ick0()">服务接待</a></li>
+				  <li role="presentation"><a href="#" @click="cl_ick1()">备品管理</a></li>
+				  <li role="presentation"><a href="#" @click="cl_ick2()">结算中心</a></li>
+				  <li role="presentation"><a href="#" @click="cl_ick3()">客户档案</a></li>
+				  <li role="presentation"><a href="#" @click="cl_ick4()">基础数据</a></li>
+				  <li role="presentation"><a href="#" @click="cl_ick5()">财务管理</a></li>
+				  <li role="presentation"><a href="#" @click="cl_ick6()">行政人事</a></li>
+				  <li role="presentation"><a href="#" @click="cl_ick7()">行政人事</a></li>
+				</ul>
+			</div>
+			
 			<div class="row">
 				<div class="col-xs-2">
 					<tree :menu="menu" @create-tab="createTab"></tree>
@@ -80,7 +105,7 @@
 				}
 			}
 		})
-		var menu = [
+		var menu1 = [
 		{
 			id:1,
 			name:"首页",
@@ -92,64 +117,331 @@
 			children:[{
 				id:4,
 				name:"维修接车",
-				ename:"role",
+				ename:"wxjc",
 				path:"Select.html"	
 			},{
 				id:5,
 				name:"竣工检验",
-				ename:"user",
+				ename:"jgjy",
+				path:"Select.html"
+			},{
+				id:6,
+				name:"保险对价",
+				ename:"bxdj",
+				path:"Select.html"
+			}]
+		}];
+		
+		
+		var menu2 = [
+		{
+			id:1,
+			name:"首页",
+			ename:"sys"
+		},{
+			id:2,
+			name:"商品入库",
+			ename:"sys",
+			children:[{
+				id:4,
+				name:"入库开单",
+				ename:"rkkd",
+				path:"Select.html"	
+			},{
+				id:5,
+				name:"入库退货",
+				ename:"rkth",
+				path:"Select.html"
+			},{
+				id:6,
+				name:"入库审核",
+				ename:"rksh",
+				path:"Select.html"
+			},
+			{
+				id:7,
+				name:"入库统计",
+				ename:"rktj",
+				path:"Select.html"
+			}]
+		}];
+		
+		var menu3 = [
+		{
+			id:1,
+			name:"首页",
+			ename:"sys"
+		},{
+			id:2,
+			name:"前台结算",
+			ename:"sys",
+			children:[{
+				id:4,
+				name:"结算中心",
+				ename:"jszx",
+				path:"Select.html"	
+			},{
+				id:5,
+				name:"快修通道",
+				ename:"kxtd",
+				path:"Select.html"
+			},{
+				id:6,
+				name:"出厂放行",
+				ename:"ccfx",
+				path:"Select.html"
+			},
+			{
+				id:7,
+				name:"维修退货",
+				ename:"wxth",
+				path:"Select.html"
+			},{
+				id:8,
+				name:"其他收入",
+				ename:"qtsr",
+				path:"Select.html"
+			},{
+				id:9,
+				name:"预收定金",
+				ename:"ysdj",
+				path:"Select.html"
+			}]
+		}];
+		
+		
+		var menu4 = [
+		{
+			id:1,
+			name:"首页",
+			ename:"sys"
+		},{
+			id:2,
+			name:"客户档案",
+			ename:"sys",
+			children:[{
+				id:4,
+				name:"客户资料",
+				ename:"khzl",
+				path:"Select.html"	
+			},{
+				id:5,
+				name:"车辆资料",
+				ename:"clzl",
+				path:"Select.html"
+			}]
+		}];
+		
+		
+		var menu5 = [
+		{
+			id:1,
+			name:"首页",
+			ename:"sys"
+		},{
+			id:2,
+			name:"主数据",
+			ename:"sys",
+			children:[{
+				id:4,
+				name:"发动机品牌",
+				ename:"fdjpp",
+				path:"Select.html"	
+			},{
+				id:5,
+				name:"车型档案",
+				ename:"cxda",
+				path:"Select.html"
+			},
+			{
+				id:6,
+				name:"维修项目",
+				ename:"wxxm",
+				path:"Select.html"
+			},
+			{
+				id:7,
+				name:"商品资料",
+				ename:"spzl",
+				path:"Select.html"
+			},
+			{
+				id:8,
+				name:"供货单位",
+				ename:"ghdw",
+				path:"Select.html"
+			}]
+		}];
+		
+		
+		var menu6 = [
+		{
+			id:1,
+			name:"首页",
+			ename:"sys"
+		},{
+			id:2,
+			name:"财务管理",
+			ename:"sys",
+			children:[{
+				id:4,
+				name:"售价种类",
+				ename:"sjzl",
+				path:"Select.html"	
+			},{
+				id:5,
+				name:"商品售价表",
+				ename:"spsjb",
+				path:"Select.html"
+			},
+			{
+				id:6,
+				name:"商品加价率",
+				ename:"spjjl",
+				path:"Select.html"
+			},
+			{
+				id:7,
+				name:"商品促销设置",
+				ename:"spcx",
+				path:"Select.html"
+			},
+			{
+				id:8,
+				name:"项目促销设置",
+				ename:"xmcx",
+				path:"Select.html"
+			},
+			{
+				id:9,
+				name:"特许售价审批",
+				ename:"txsj",
+				path:"Select.html"
+			}]
+		}];
+		
+		
+		
+		
+		var menu7 = [
+		{
+			id:1,
+			name:"首页",
+			ename:"sys"
+		},{
+			id:2,
+			name:"员工资料",
+			ename:"sys",
+			children:[{
+				id:4,
+				name:"组织机构",
+				ename:"zcjg",
+				path:"Select.html"	
+			},{
+				id:5,
+				name:"岗位定义",
+				ename:"gwdy",
+				path:"Select.html"
+			}
+			,{
+				id:6,
+				name:"离职登记",
+				ename:"lzdj",
+				path:"Select.html"
+			}
+			,{
+				id:7,
+				name:"通讯名录",
+				ename:"txml",
 				path:"Select.html"
 			}]
 		},{
 			id:3,
-			name:"备品管理",
-			ename:"stady",
-			children:[{
-				id:6,
-				name:"学员管理",
-				ename:"student",
-				path:"Select.html"
-			},{
-				id:7,
-				name:"班级管理",
-				ename:"clazz",
-				path:"Select.html"
-				
-			}]
-		},{
-			id:4,
-			name:"维修救援",
+			name:"技工管理",
 			ename:"stady",
 			children:[{
 				id:8,
-				name:"维修接车",
-				ename:"wxjc",
+				name:"技工星级",
+				ename:"jgxj",
 				path:"Select.html"
 			},{
 				id:9,
-				name:"竣工检验",
-				ename:"jgjy",
+				name:"班组技工",
+				ename:"bzjg",
 				path:"Select.html"
 				
-			},{
+			}
+			,{
 				id:10,
-				name:"出厂放行",
-				ename:"ccfx",
+				name:"外勤车辆	",
+				ename:"wqcl",
 				path:"Select.html"
 				
-			},{
+			}
+			,{
 				id:11,
-				name:"施工登记",
-				ename:"sgdj",
+				name:"技工提成比例",
+				ename:"jgtc",
 				path:"Select.html"
 				
 			}]
 		}];
+		
+		
+		
+		var menu8 = [
+		{
+			id:1,
+			name:"首页",
+			ename:"sys"
+		},{
+			id:2,
+			name:"权限管理",
+			ename:"sys",
+			children:[{
+				id:4,
+				name:"员工权限控制",
+				ename:"ygqx",
+				path:"Select.html"	
+			},{
+				id:5,
+				name:"角色权限控制",
+				ename:"jsqx",
+				path:"Select.html"
+			},
+			{
+				id:6,
+				name:"查询项目权限",
+				ename:"xmqx",
+				path:"Select.html"
+			},
+			{
+				id:7,
+				name:"看其他店客户",
+				ename:"qtkh",
+				path:"Select.html"
+			},
+			{
+				id:8,
+				name:"门店查看权",
+				ename:"mdck",
+				path:"Select.html"
+			},
+			{
+				id:9,
+				name:"小程序权限",
+				ename:"cxqx",
+				path:"Select.html"
+			}]
+		}];
+		
+		
+		
 		new Vue({
 			el:"#ctn",
 			data(){
 				return{
-					menu:menu,
+					menu:menu1,
 					tabs:[
 						{id:0,name:"首页",ename:"index",active:true}
 					]
@@ -173,6 +465,30 @@
 						this.tabs[index-1].active=true;
 					}
 					this.tabs.splice(index,1);
+				},
+				cl_ick0(){
+					this.menu=menu1;
+				},
+				cl_ick1(){
+					this.menu=menu2;
+				},
+				cl_ick2(){
+					this.menu=menu3;
+				},
+				cl_ick3(){
+					this.menu=menu4;
+				},
+				cl_ick4(){
+					this.menu=menu5;
+				},
+				cl_ick5(){
+					this.menu=menu6;
+				},
+				cl_ick6(){
+					this.menu=menu7;
+				},
+				cl_ick7(){
+					this.menu=menu8;
 				}
 			}
 		});
