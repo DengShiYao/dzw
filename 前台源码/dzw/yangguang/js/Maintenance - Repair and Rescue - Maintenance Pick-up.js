@@ -1,0 +1,44 @@
+$(function(){
+	$("#table-tou").find(".tou").click(function(){
+		$(this).css({"color":"black"});
+	},function(){
+		$(this).css({"color":"#39cede"});
+		$(this).css({"background-color":"white"});
+		$(this).css({"margin":"5px 5px 5px 5px"});
+	});
+	$("#table-tou").find(".tou").eq(0).click(function(){
+		$(".div-table-biaoge1").show();
+		$(".div-table-biaoge2").hide();
+		$(".div-table-biaoge3").hide();
+		$(".div-table-biaoge4").hide();
+		$(".div-table-biaoge5").hide();
+	});	
+	$("#table-tou").find(".tou").eq(1).click(function(){
+		$(".div-table-biaoge1").hide();
+		$(".div-table-biaoge2").show();
+		$(".div-table-biaoge3").hide();
+		$(".div-table-biaoge4").hide();
+		$(".div-table-biaoge5").hide();
+	});
+	$("#table-tou").find(".tou").eq(2).click(function(){
+		$(".div-table-biaoge1").hide();
+		$(".div-table-biaoge2").hide();
+		$(".div-table-biaoge3").show();
+		$(".div-table-biaoge4").hide();
+		$(".div-table-biaoge5").hide();
+	});
+	$("#table-tou").find(".tou").eq(3).click(function(){
+		$(".div-table-biaoge1").hide();
+		$(".div-table-biaoge2").hide();
+		$(".div-table-biaoge3").hide();
+		$(".div-table-biaoge4").show();
+		$(".div-table-biaoge5").hide();
+	});
+	$("#table-tou").find(".tou").eq(4).click(function(){
+		$(".div-table-biaoge1").hide();
+		$(".div-table-biaoge2").hide();
+		$(".div-table-biaoge3").hide();
+		$(".div-table-biaoge4").hide();
+		$(".div-table-biaoge5").show();
+	});
+});

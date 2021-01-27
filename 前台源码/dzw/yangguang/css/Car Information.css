@@ -1,0 +1,68 @@
+*{
+	
+	margin: 0px;
+	padding: 0px;
+}
+#ctn{
+	width: 1920px;
+	height: 1080px;
+	margin: 0px;
+	padding: 0px;
+}
+.div-modal-tou ul li{
+	display: inline-block;
+	list-style-type: none;
+	margin: 3px 3px 3px 3px;
+	padding-top: 5px;
+}
+.div-modal-tou input{
+	margin-left:60px;
+	border: 2px solid #f0f0f0;
+	height:35px;
+}
+.div-modal-tou .btn-primary{
+	background-color:#fcac26;
+	border: 0px solid white;
+	width:85px;
+	border-radius:0x;
+}
+.div-modal-tou .ul-li-jiechedengji{
+	font-size:25px;
+	margin-left:10px;
+	height: 25px;
+	color:#727272;
+}
+.div-modal-tou .btnz-group{
+	color:white;
+}
+.div-modal-tou .btn-defult{
+	width:100px;
+	background-color:#82d722;
+	color: #F0F0F0;
+	margin-left: 650px;
+}
+.div-background-color{
+	background-color:#f7f7f7;
+	width:1518px;
+	height:1030px;
+	border: 2px solid #eaeaea;
+	font-size: 18px;
+	color:#39cede;
+	padding-left:15px;
+}
+.div-background-color .ul-li-gongnenganniu{
+	color: #979797;
+	padding-left:875px;
+}
+.table-div table{
+	color: #e7e7e7;
+}
+.table-div th{
+	color: white;
+	background-color:#39cede;
+	text-align: center;
+}
+.table-div td{
+	color:#1a1a1a;
+	background-color:white;
+}
