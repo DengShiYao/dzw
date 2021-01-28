@@ -163,3 +163,26 @@ tbody tr td{
   .mytable-scrollbar ::-webkit-scrollbar-corner {
     background-color: #FFFFFF;
   }
+  
+.btn-left{
+    padding: 50px 2.5px;
+    background-color: #606266;
+}
+
+.btn-left i{
+    color:#FFFFFF;
+}
+
+.anniu{
+    background-color: rgb(247, 247, 247) !important;
+    display: flex;
+    flex-direction: column;
+    align-content:center;
+    justify-content: center;
+}
+
+
+.btn-flex{
+    display: flex;
+    justify-content: space-between;
+}
