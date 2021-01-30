@@ -43,10 +43,10 @@ body,html{
 }
 
 thead{
-    background-color: rgb(57, 206, 222) !important;
-    color: #ffffff;
-    font-weight: 500 !important;
-    font-size: 16px !important; 
+    /* background-color: rgb(57, 206, 222) !important; */
+    /* color: #ffffff;
+    font-weight: 500 !important; */
+    /* font-size: 16px !important;  */
 }
 
 thead tr td{
@@ -56,19 +56,19 @@ thead tr td{
 }
 
 tbody tr td{
-    font-weight: 500 !important;
-    font-size: 16px !important;
+    /* font-weight: 500 !important; */
+    /* font-size: 16px !important; */
     color: #606266;
     font-family: -apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Helvetica Neue,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
 }
 
 /* vxe-table */
 .vxe-table .vxe-body--row.row--hover.row--current {
-    background-color: yellow !important;
+    /* background-color: yellow !important; */
 }
 
 .vxe-table .vxe-body--row.row--current {
-    background-color: yellow !important;
+    /* background-color: yellow !important; */
 }	
 .vxe-table{
     line-height: 10px !important;
@@ -79,17 +79,23 @@ tbody tr td{
 /* 列头 */
 .vxe-table .vxe-body--column:not(.col--ellipsis), .vxe-table .vxe-footer--column:not(.col--ellipsis), .vxe-table .vxe-header--column:not(.col--ellipsis) {
     padding: 7px 12px !important;
-    font-weight: 500 !important;
+    /* font-weight: 500 !important; */
  }
 
 .vxe-table .vxe-body--column.col--ellipsis, .vxe-table.vxe-editable .vxe-body--column, .vxe-table .vxe-footer--column.col--ellipsis, .vxe-table .vxe-header--column.col--ellipsis {
-        height: 39px !important;
+        height: 36px !important;
 }
 
 /* 正文 */
 .vxe-body--column{
-    padding: 6px 0px !important;
-    height: 5%;
+    /* padding: 6px 0px !important; */
+    /* height: 5%; */
+    font-size: 14px;
+}
+
+
+.vxe-header--column{
+    /* font-weight: 500 !important; */
 }
 
 /*  *红色 */
@@ -157,7 +163,26 @@ tbody tr td{
   .mytable-scrollbar ::-webkit-scrollbar-corner {
     background-color: #FFFFFF;
   }
+  
+.btn-left{
+    padding: 50px 2.5px;
+    background-color: #606266;
+}
 
-  .vxe-header--column{
-      font-weight: 500 !important;
-  }
+.btn-left i{
+    color:#FFFFFF;
+}
+
+.anniu{
+    background-color: rgb(247, 247, 247) !important;
+    display: flex;
+    flex-direction: column;
+    align-content:center;
+    justify-content: center;
+}
+
+
+.btn-flex{
+    display: flex;
+    justify-content: space-between;
+}

@@ -76,22 +76,16 @@
                     <div style="height: 100%;">
                         <!-- <button v-slot:buttons type="button" @click="getCurrentEvent"> 你好</button> -->
                         <template>
-                            <vxe-table border show-footer highlight-hover-row highlight-current-row resizable
-                                ref="xTable" auto-resize height="100%" round :data="tableData" class="mytable-scrollbar"
+                            <vxe-grid border stripe highlight-hover-row highlight-current-row resizable ref="xTable"
+                                class="mytable-scrollbar" auto-resize height="100%" :data="tableData"
+                                :columns="tableColumn" @current-change="currentChangeEvent" round show-header-overflow
+                                show-overflow>
+                            </vxe-grid>
+                            <!-- <vxe-table border highlight-hover-row highlight-current-row resizable ref="xTable"
+                                auto-resize height="100%" round :data="tableData" class="mytable-scrollbar"
                                 @current-change="currentChangeEvent" show-overflow>
-                                <!-- <vxe-table-column field="id" title="全选" min-width="80"></vxe-table-column> -->
-                                <vxe-table-column field="id" title="项目类别" min-width="150" sortable></vxe-table-column>
-                                <vxe-table-column field="name" min-width="120" title="项目编码"></vxe-table-column>
-                                <vxe-table-column field="sex" title="项目名称" min-width="150"></vxe-table-column>
-                                <vxe-table-column field="sex" title="售价按" min-width="120"></vxe-table-column>
-                                <vxe-table-column field="age" title="收入种类" min-width="120"></vxe-table-column>
-                                <vxe-table-column field="address" title="标准价" min-width="100"></vxe-table-column>
-                                <vxe-table-column field="address" title="会员价" min-width="120"></vxe-table-column>
-                                <vxe-table-column field="address" title="VIP价" min-width="120"></vxe-table-column>
-                                <vxe-table-column field="address" title="协议价" min-width="120"></vxe-table-column>
-                                <vxe-table-column field="address" title="索赔价" min-width="120"></vxe-table-column>
-                                <vxe-table-column field="address" title="保险加" min-width="100"></vxe-table-column>
-                            </vxe-table>
+                               
+                            </vxe-table> -->
                         </template>
                     </div>
                 </div>
@@ -579,6 +573,19 @@
             data() {
                 return {
                     templist: [{ id: 1, name: "test" }, { id: 2, name: "test" }, { id: 3, name: "test" }, { id: 4, name: "test" }],
+                    tableColumn: [
+                        { num: 1, field: 'id', title: '项目类别', sortable: true, showOverflow: true, width: 150, visible: true },
+                        { num: 1, field: 'name', title: '项目编码', sortable: true, showOverflow: true, width: 200, visible: true },
+                        { num: 1, field: 'id', title: '售价按', sortable: true, showOverflow: true, width: 200, visible: true },
+                        { num: 1, field: 'address', title: '收入种类', sortable: true, showOverflow: true, width: 200, visible: true },
+                        { num: 1, field: 'id', title: '标准价', sortable: true, showOverflow: true, width: 200, visible: true },
+                        { num: 1, field: 'id', title: '会员价', sortable: true, showOverflow: true, width: 200, visible: true },
+                        { num: 1, field: 'id', title: 'VIP价', sortable: true, showOverflow: true, width: 200, visible: true },
+                        { num: 1, field: 'id', title: '协议价', sortable: true, showOverflow: true, width: 200, visible: true },
+                        { num: 1, field: 'id', title: '索赔价', sortable: true, showOverflow: true, width: 200, visible: true },
+                        { num: 1, field: 'sex', title: '索赔价', sortable: true, showOverflow: true, width: 200, visible: true },
+                        { num: 1, field: 'address', title: '保险加', sortable: true, showOverflow: true, width: 200, visible: true }
+                    ],
                     tableData: [{
                         id: 10001,
                         name: 'Test1',

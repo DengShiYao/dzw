@@ -81,7 +81,10 @@
 				background-color: ghostwhite
 			}
 			#selByDiv{
-				border: 1px solid red;width: 80%;margin: 20px auto;height: auto;display:none;
+				/*border: 0px solid red;width: 100%;margin: 20px auto;height: auto;display:none;*/
+			}
+			.selByDiv{
+				width: 100%;
 			}
 			.form-inline{
 				width: 80%;
@@ -103,16 +106,16 @@
 			    outline: none;
 			}
 			#lzdj{
-				border: 1px solid red;width: 80%;height: auto;margin: 20px auto;display:none;
+				/*border: 1px solid red;width: 80%;height: auto;margin: 20px auto;display:none;*/
 			}
 			#xzyg{
-				border: 1px solid red;width: 70%;height: auto;margin: 10px auto;display: none;
+				/*border: 1px solid red;width: 70%;height: auto;margin: 10px auto;display: none;*/
 			}
 			#storeLogin{
-				border: 1px solid red;width: 60%;height: auto;margin: 20px auto;display: none;
+				/*border: 1px solid red;width: 60%;height: auto;margin: 20px auto;display: none;*/
 			}
 			.centerButton{
-				margin-left: 120px;
+				/*margin-left: 40px;*/
 				width: 100px;
 				height: 40px;
 				line-height: 40px;
@@ -137,7 +140,18 @@
 				width: 70%;
 			}
 			#jgDiv{
-				border: 1px solid red;width: 80%;height: auto;margin: 20px auto;display: none;
+				/*border: 1px solid red;width: 80%;height: auto;margin: 20px auto;display: none;*/
+			}
+			.modal-dialog{
+				width: 80%;
+			}
+			.modal-dialog1{
+				    -webkit-transform: translate(0,0);
+				    -ms-transform: translate(0,0);
+				    -o-transform: translate(0,0);
+				    transform: translate(0,0);
+				    width: 70%;
+				    margin: 20px auto;
 			}
 		</style>
 	</head>
@@ -211,369 +225,386 @@
 			</div>
 			<!--查询条件div-->
 			<!--员工查询 -->
-			<div id="selByDiv">
-				<div> 
-					<h3 class="col-lg-offset-1 col-lg-4">员工查询</h3>
-					<div class="text-right">
-						<button class="btn btn-success" @click="selByDiv">确定</button>
-						<button class="btn btn-danger" @click="closeSel">关闭</button>
+			<div class="modal" data-backdrop = "static" id="selByDiv">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h3 class="col-lg-offset-1 col-lg-4">员工查询</h3>
+							<div class="text-right">
+								<button class="btn btn-success" @click="selByDiv">确定</button>
+								<button class="btn btn-danger" @click="closeSel">关闭</button>
+							</div>
+						</div>
+						<div class="modal-body">
+							<table border="0" cellspacing="0" cellpadding="0" width="100%" height="auto">
+								<tr>
+									<td colspan="4">
+										<div class="form-group">
+											<label class="control-label">员工编号</label>
+											<input type="text" name="" id="" value="" class="form-control" />
+										</div>
+									</td>
+									<td colspan="4">
+										<div class="form-group">
+											<label class="control-label">员工姓名</label>
+											<input type="text" name="" id="" value="" class="form-control" />
+										</div>
+									</td>
+									<td colspan="4">
+										<div class="form-group">
+											<label for="" class="control-label">性别</label>
+											<input type="text" name="" id="" value="" class="form-control" />
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="6">
+										<div class="form-group">
+											<label class="control-label">岗位</label>
+											<select class="form-control">
+												<option value="">总经理</option>
+												<option value="">副总经理</option>
+											</select>
+										</div>
+									</td>
+									<td colspan="6">
+										<div class="form-group">
+											<label class="control-label">岗位</label>
+											<select class="form-control">
+												<option value="">总经理</option>
+												<option value="">副总经理</option>
+											</select>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="4">
+										<div class="form-group">
+											<label class="control-label">身体状态</label>
+											<input type="text" id="" value="" class="form-control" />
+										</div>
+									</td>
+									<td colspan="4">
+										<div class="form-group">
+											<label class="control-label">身高</label>
+											<input type="text" id="" value="" class="form-control" />
+										</div>
+									</td>
+									<td colspan="4">
+										<div class="form-group">
+											<label class="control-label">籍贯</label>
+											<input type="text" id="" value="" class="form-control"/>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="4">
+										<div class="form-group">
+											<label class="control-label">民族</label>
+											<input type="text" id="" value=""  class="form-control"/>
+										</div>
+									</td>
+									<td colspan="4">
+										<div class="form-group">
+											<label class="control-label">婚姻状态</label>
+											<input type="text" id="" value="" class="form-control"/>
+										</div>
+									</td>
+									<td colspan="4">
+										<div class="form-group">
+											<label class="control-label">学历</label>
+											<select class="form-control">
+												<option value="">大专</option>
+												<option value="">本科</option>
+											</select>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="4">
+										<div class="form-group">
+											<label class="control-label">毕业学校</label>
+											<input type="text" id="" value="" class="form-control" />
+										</div>
+									</td>
+									<td colspan="4">
+										<div class="form-group">
+											<label class="control-label">专业</label>
+											<select class="form-control">
+												<option value="">计算机科学</option>
+												<option value="">网络工程</option>
+											</select>
+										</div>
+									</td>
+									<td colspan="4">
+										<div>
+											<label class="control-label">专业资格</label>
+											<input type="text" id="" value="" class="form-control"/>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="4">
+										<div class="form-group">
+											<label class="control-label">生日</label>
+											<input type="date" id="" value="" class="form-control"/>
+										</div>
+									</td>
+									<td colspan="4">
+										<div class="form-group">
+											<label class="control-label">学位</label>
+											<input type="text" id="" value="" class="form-control"/>
+										</div>
+									</td>
+									<td colspan="4">
+										<div class="form-group">
+										 	<label class="control-label">编制</label>
+											<input type="text" id="" value="" class="form-control"/>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="6">
+										<div class="form-group">
+											<label class="control-label">身份证号</label>
+											<input type="text" id="" value="" class="form-control"/>
+										</div>
+									</td>
+									<td colspan="6">
+										<div class="form-group">
+											<label class="control-label">入职日期从</label>
+											<input type="date" id="" value="" class="form-control"/>
+											<label class="control-label">至</label>
+											<input type="date" id="" value="" class="form-control"/>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="6">
+										<div class="form-group">
+											<label class="control-label">试用日期从</label>
+											<input type="date" id="" value="" class="form-control"/>
+											<label class="control-label">至</label>
+											<input type="date" id="" value="" class="form-control"/>
+										</div>
+									</td>
+									<td colspan="6">
+										<div class="form-group">
+											<label class="control-label">属性</label>
+											<select class="form-control">
+												<option value="">记考勤计薪</option>
+												<option value="">不记考勤计薪</option>
+												<option value="">记考勤不计薪</option>
+												<option value="">不记考勤不计薪</option>
+											</select>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="6">
+										<div class="form-group">
+											<label class="control-label">合同开始从</label>
+											<input type="date" id="" value="" class="form-control"/>
+											<label class="control-label">至</label>
+											<input type="date" id="" value="" class="form-control"/>
+										</div>
+									</td>
+								</tr>
+							</table>
+						</div>
+						<div class="modal-footer"></div>
 					</div>
-				</div>
-				<div>
-					<table border="0" cellspacing="0" cellpadding="0" width="100%" height="auto">
-						<tr>
-							<td colspan="4">
-								<div class="form-group">
-									<label class="control-label">员工编号</label>
-									<input type="text" name="" id="" value="" class="form-control" />
-								</div>
-							</td>
-							<td colspan="4">
-								<div class="form-group">
-									<label class="control-label">员工姓名</label>
-									<input type="text" name="" id="" value="" class="form-control" />
-								</div>
-							</td>
-							<td colspan="4">
-								<div class="form-group">
-									<label for="" class="control-label">性别</label>
-									<input type="text" name="" id="" value="" class="form-control" />
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="6">
-								<div class="form-group">
-									<label class="control-label">岗位</label>
-									<select class="form-control">
-										<option value="">总经理</option>
-										<option value="">副总经理</option>
-									</select>
-								</div>
-							</td>
-							<td colspan="6">
-								<div class="form-group">
-									<label class="control-label">岗位</label>
-									<select class="form-control">
-										<option value="">总经理</option>
-										<option value="">副总经理</option>
-									</select>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="4">
-								<div class="form-group">
-									<label class="control-label">身体状态</label>
-									<input type="text" id="" value="" class="form-control" />
-								</div>
-							</td>
-							<td colspan="4">
-								<div class="form-group">
-									<label class="control-label">身高</label>
-									<input type="text" id="" value="" class="form-control" />
-								</div>
-							</td>
-							<td colspan="4">
-								<div class="form-group">
-									<label class="control-label">籍贯</label>
-									<input type="text" id="" value="" class="form-control"/>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="4">
-								<div class="form-group">
-									<label class="control-label">民族</label>
-									<input type="text" id="" value=""  class="form-control"/>
-								</div>
-							</td>
-							<td colspan="4">
-								<div class="form-group">
-									<label class="control-label">婚姻状态</label>
-									<input type="text" id="" value="" class="form-control"/>
-								</div>
-							</td>
-							<td colspan="4">
-								<div class="form-group">
-									<label class="control-label">学历</label>
-									<select class="form-control">
-										<option value="">大专</option>
-										<option value="">本科</option>
-									</select>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="4">
-								<div class="form-group">
-									<label class="control-label">毕业学校</label>
-									<input type="text" id="" value="" class="form-control" />
-								</div>
-							</td>
-							<td colspan="4">
-								<div class="form-group">
-									<label class="control-label">专业</label>
-									<select class="form-control">
-										<option value="">计算机科学</option>
-										<option value="">网络工程</option>
-									</select>
-								</div>
-							</td>
-							<td colspan="4">
-								<div>
-									<label class="control-label">专业资格</label>
-									<input type="text" id="" value="" class="form-control"/>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="4">
-								<div class="form-group">
-									<label class="control-label">生日</label>
-									<input type="date" id="" value="" class="form-control"/>
-								</div>
-							</td>
-							<td colspan="4">
-								<div class="form-group">
-									<label class="control-label">学位</label>
-									<input type="text" id="" value="" class="form-control"/>
-								</div>
-							</td>
-							<td colspan="4">
-								<div class="form-group">
-								 	<label class="control-label">编制</label>
-									<input type="text" id="" value="" class="form-control"/>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="6">
-								<div class="form-group">
-									<label class="control-label">身份证号</label>
-									<input type="text" id="" value="" class="form-control"/>
-								</div>
-							</td>
-							<td colspan="6">
-								<div class="form-group">
-									<label class="control-label">入职日期从</label>
-									<input type="date" id="" value="" class="form-control"/>
-									<label class="control-label">至</label>
-									<input type="date" id="" value="" class="form-control"/>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="6">
-								<div class="form-group">
-									<label class="control-label">试用日期从</label>
-									<input type="date" id="" value="" class="form-control"/>
-									<label class="control-label">至</label>
-									<input type="date" id="" value="" class="form-control"/>
-								</div>
-							</td>
-							<td colspan="6">
-								<div class="form-group">
-									<label class="control-label">属性</label>
-									<select class="form-control">
-										<option value="">记考勤计薪</option>
-										<option value="">不记考勤计薪</option>
-										<option value="">记考勤不计薪</option>
-										<option value="">不记考勤不计薪</option>
-									</select>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="6">
-								<div class="form-group">
-									<label class="control-label">合同开始从</label>
-									<input type="date" id="" value="" class="form-control"/>
-									<label class="control-label">至</label>
-									<input type="date" id="" value="" class="form-control"/>
-								</div>
-							</td>
-						</tr>
-					</table>
 				</div>
 			</div>
 			<!--离职登记-->
-			<div id="lzdj">
-				<div>
-					<h3 class="col-lg-offset-1 col-lg-3">离职登记</h3>
-					<div class="text-right">
-						<button class="btn btn-success" @click="fireLogin">确定</button>
-						<button class="btn btn-danger" @click="closeFireLogin">关闭</button>
+			 <div class="modal" data-backdrop = "static" id="lzdj">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h3 class="col-lg-offset-1 col-lg-3">离职登记</h3>
+							<div class="text-right">
+								<button class="btn btn-success" @click="fireLogin">确定</button>
+								<button class="btn btn-danger" @click="closeFireLogin">关闭</button>
+							</div>
+						</div>
+						<div class="modal-body">
+							<form class="form-inline">
+								<div class="form-group">
+									<label class="control-label">员工姓名</label>
+									<input type="text" name="" id="" value=""class="form-control"/>
+									<input type="text" name="" id="" value="" class="form-control"/>
+									<a class="btn" @click="openChooseEploy">选择员工</a>
+									<a class="btn" @click="openJgDiv">选择技工</a>
+									<label class="control-label">离职日期</label>
+									<input type="date" name="" id="" value=""class="form-control" />
+								</div>
+								<div class="form-group">
+									<label class="control-label">离职原因</label>
+									<input type="text" name="" id="" value="" class="form-control1" width="85%"/>
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer"></div>
 					</div>
-				</div>
-				<div>
-					<form class="form-inline">
-						<div class="form-group">
-							<label class="control-label">员工姓名</label>
-							<input type="text" name="" id="" value=""class="form-control"/>
-							<input type="text" name="" id="" value="" class="form-control"/>
-							<a class="btn" @click="openChooseEploy">选择员工</a>
-							<a class="btn" @click="openJgDiv">选择技工</a>
-							<label class="control-label">离职日期</label>
-							<input type="date" name="" id="" value=""class="form-control" />
-						</div>
-						<div class="form-group">
-							<label class="control-label">离职原因</label>
-							<input type="text" name="" id="" value="" class="form-control1" />
-						</div>
-						<!--<div>
-							<table border="" cellspacing="" cellpadding="" class="table">
-								<tr>
-									<th></th>
-									<th>选择</th>
-								</tr>
-								<tr>
-									<td></td>
-									<td></td>
-								</tr>
-							</table>
-						</div>-->
-					</form>
 				</div>
 			</div>
 			<!--选择员工-->
-			<div id="xzyg">
-				<div>
-					<h3 class="col-lg-offset-1 col-lg-3">选择员工</h3>
-					<div class="text-right">
-						<button class="btn btn-success" @click="chooseEploy">确定</button>
-						<button class="btn btn-danger" @click="closeChooseEploy">关闭</button>
+			 <div class="modal" data-backdrop id="xzyg">
+				<div class="modal-dialog1">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h3 class="col-lg-offset-1 col-lg-3">选择员工</h3>
+							<div class="text-right">
+								<button class="btn btn-success" @click="chooseEploy">确定</button>
+								<button class="btn btn-danger" @click="closeChooseEploy">关闭</button>
+							</div>
+						</div>
+						<div class="modal-body">
+							<select name="" class="form-control">
+								<option value="">0000-总厂</option>
+								<option value="">0001-成高</option>
+								<option value="">0002-成高1</option>
+							</select>
+							<select class="form-control">
+								<option value="">所有</option>
+								<option value="">前台</option>
+								<option value="">hh部</option>
+								<option value="">管钱部</option>
+							</select>
+							<table border="" cellspacing="" cellpadding="" class="table table1">
+								<tr>
+									<th>部门</th>
+									<th>工号</th>
+									<th>姓名</th>
+								</tr>
+								<tr>
+									<td>前台</td>
+									<td>0EX001</td>
+									<td>程前</td>
+								</tr>
+								<tr>
+									<td>前台</td>
+									<td>0EX001</td>
+									<td>程前</td>
+								</tr>
+								<tr>
+									<td>前台</td>
+									<td>0EX001</td>
+									<td>程前</td>
+								</tr>
+							</table>
+						</div>
+						<div class="modal-footer"></div>
 					</div>
 				</div>
-				<div>
-					<select name="" class="form-control">
-						<option value="">0000-总厂</option>
-						<option value="">0001-成高</option>
-						<option value="">0002-成高1</option>
-					</select>
-					<select class="form-control">
-						<option value="">所有</option>
-						<option value="">前台</option>
-						<option value="">hh部</option>
-						<option value="">管钱部</option>
-					</select>
-					<table border="" cellspacing="" cellpadding="" class="table table1">
-						<tr>
-							<th>部门</th>
-							<th>工号</th>
-							<th>姓名</th>
-						</tr>
-						<tr>
-							<td>前台</td>
-							<td>0EX001</td>
-							<td>程前</td>
-						</tr>
-						<tr>
-							<td>前台</td>
-							<td>0EX001</td>
-							<td>程前</td>
-						</tr>
-						<tr>
-							<td>前台</td>
-							<td>0EX001</td>
-							<td>程前</td>
-						</tr>
-					</table>
-				</div>
-			</div>
+			 </div>
 			<!--门店选择-->
-			<div id="storeLogin">
-				<div>
-					<h3 class="col-lg-offset-1 col-lg-3">门店选择</h3>
-					<div class="text-right">
-						<input type="text" name="" id="search" placeholder="匹配门店编码/门店" class="search"/>
-						<button class="btn btn-success" @click="searchStore">搜索</button>
-						<button class="btn btn-danger" @click="closeStoreChoose">关闭</button>
+			 <div class="modal" data-backdrop = "static" id="storeLogin">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h3 class="col-lg-offset-1 col-lg-3">门店选择</h3>
+							<div class="text-right">
+								<input type="text" name="" id="search" placeholder="匹配门店编码/门店" class="search"/>
+								<button class="btn btn-success" @click="searchStore">搜索</button>
+								<button class="btn btn-danger" @click="closeStoreChoose">关闭</button>
+							</div>
+						</div>
+						<div class="modal-body">
+							<div class="text-right">
+								<button class="btn btn-success" @click="storeChoose">确定</button>
+								<button class="btn btn-primary" @click="checkAllStore(true)">全部选择</button>
+								<button class="btn btn-primary" @click="checkAllStore(false)">全部取消</button>
+							</div>
+							<table border="" cellspacing="" cellpadding="" class="table table1">
+								<tr>
+									<th></th>
+									<th>选择</th>
+									<th>门店代码</th>
+									<th>门店名称</th>
+									<th>所属城市</th>
+								</tr>
+								<tr v-for="item in storeList">
+									<td></td>
+									<td>
+										<input type="checkbox" id="" :value="item.id" v-model="storeChecks" />
+									</td>
+									<td>{{item.id}}</td>
+									<td>{{item.name}}</td>
+									<td>{{item.city}}</td>
+								</tr>
+							</table>
+						</div>
+						<div class="modal-footer"></div>
 					</div>
-					<div class="text-right">
-						<button class="btn btn-success" @click="storeChoose">确定</button>
-						<button class="btn btn-primary" @click="checkAllStore(true)">全部选择</button>
-						<button class="btn btn-primary" @click="checkAllStore(false)">全部取消</button>
-					</div>
-					<table border="" cellspacing="" cellpadding="" class="table table1">
-						<tr>
-							<th></th>
-							<th>选择</th>
-							<th>门店代码</th>
-							<th>门店名称</th>
-							<th>所属城市</th>
-						</tr>
-						<tr v-for="item in storeList">
-							<td></td>
-							<td>
-								<input type="checkbox" id="" :value="item.id" v-model="storeChecks" />
-							</td>
-							<td>{{item.id}}</td>
-							<td>{{item.name}}</td>
-							<td>{{item.city}}</td>
-						</tr>
-					</table>
 				</div>
 			</div>
 			<!--选择技工-->
-			<div id="jgDiv">
-				<div>
-					<h3 class="col-lg-offset-1 col-lg-2">班组技工</h3>
-					<button class="btn btn-success centerButton" @click="chooseJg">确定</button>
-					<input type="text" name="" id="" value="" class="search" placeholder="匹配工号/姓名/手机"/>
-					<button class="btn btn-default" @click="searchWorkMan">搜索</button>
-					<button class="btn btn-danger" @click="closeJgDiv">关闭</button>
-				</div>
-				<div class="jg_centernDiv">
-					<button class="btn btn-info">查询</button>
-				</div>
-				<div class="jg_bottonDiv">
-					<!--左侧树状-->
-					<div class="jg_bottonDiv_div1">
-						<ul>
-							<li v-for="item in bz">{{item.id}}-{{item.name}}
-								<ul>
-									<li v-for="item1 in item.children">{{item1.id}}-{{item1.name}}</li>
-								</ul>
-							</li>
-						</ul>
-					</div>
-					<!--右侧表格-->
-					<div class="jg_bottonDiv_div2">
-						<table border="" cellspacing="" cellpadding="" class="table table1">
-							<tr>
-								<th></th>
-								<th>技工姓名</th>
-								<th>技工编号</th>
-								<th>性别</th>
-								<th>所在班组</th>
-								<th>手机</th>
-							</tr>
-							<tr>
-								<td></td>
-								<td>黄河</td>
-								<td>0EX01212</td>
-								<td>男</td>
-								<td>维修1组</td>
-								<td>1511233</td>
-							</tr>
-							<tr>
-								<td></td>
-								<td>黄河1</td>
-								<td>0EX01221</td>
-								<td>男</td>
-								<td>维修2组</td>
-								<td>1511243</td>
-							</tr>
-							<tr>
-								<td></td>
-								<td>黄河2</td>
-								<td>0EX01232</td>
-								<td>男</td>
-								<td>维修3组</td>
-								<td>1511133</td>
-							</tr>
-						</table>
+			<div class="modal" data-backdrop id="jgDiv">
+				<div class="modal-dialog1">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h3 class="col-lg-offset-1 col-lg-2">班组技工</h3>
+							<button class="btn btn-success centerButton" @click="chooseJg">确定</button>
+							<input type="text" name="" id="" value="" class="search" placeholder="匹配工号/姓名/手机"/>
+							<button class="btn btn-default" @click="searchWorkMan">搜索</button>
+							<button class="btn btn-danger" @click="closeJgDiv">关闭</button>
+						</div>
+						<div class="modal-body">
+							<div class="jg_centernDiv">
+								<button class="btn btn-info">查询</button>
+							</div>
+						<div class="jg_bottonDiv">
+								<!--左侧树状-->
+								<div class="jg_bottonDiv_div1">
+									<ul>
+										<li v-for="item in bz">{{item.id}}-{{item.name}}
+											<ul>
+												<li v-for="item1 in item.children">{{item1.id}}-{{item1.name}}</li>
+											</ul>
+										</li>
+									</ul>
+								</div>
+								<!--右侧表格-->
+								<div class="jg_bottonDiv_div2">
+									<table border="" cellspacing="" cellpadding="" class="table table1">
+										<tr>
+											<th></th>
+											<th>技工姓名</th>
+											<th>技工编号</th>
+											<th>性别</th>
+											<th>所在班组</th>
+											<th>手机</th>
+										</tr>
+										<tr>
+											<td></td>
+											<td>黄河</td>
+											<td>0EX01212</td>
+											<td>男</td>
+											<td>维修1组</td>
+											<td>1511233</td>
+										</tr>
+										<tr>
+											<td></td>
+											<td>黄河1</td>
+											<td>0EX01221</td>
+											<td>男</td>
+											<td>维修2组</td>
+											<td>1511243</td>
+										</tr>
+										<tr>
+											<td></td>
+											<td>黄河2</td>
+											<td>0EX01232</td>
+											<td>男</td>
+											<td>维修3组</td>
+											<td>1511133</td>
+										</tr>
+									</table>
+								</div>
+						</div>
+						</div>
+						<div class="modal-footer"></div>
 					</div>
 				</div>
 			</div>
@@ -656,49 +687,50 @@
 					
 				},
 				openSel(){
-					$("#selByDiv").show()
+					$("#selByDiv").modal("show");
 				},
 				closeSel(){
-					$("#selByDiv").hide();
+					$("#selByDiv").modal("hide");
 				},
 				//查询按钮
 				selByDiv(){
 					alert("正在进行条件div查询");
-					$("#selByDiv").hide();
+					$("#selByDiv").modal("hide");
 				},
 				//打开离职登记
 				openFireLogin(){
-					$("#lzdj").show();
+					$("#lzdj").modal("show");
 				},
 				//关闭离职登记
 				closeFireLogin(){
-					$("#lzdj").hide();
+					$("#lzdj").modal("hide");
 				},
 				fireLogin(){
 					alert("离职登记成功");
-					$("#lzdj").hide();
+					$("#lzdj").modal("hide");
 				},
 				//打开选择员工
 				openChooseEploy(){
-					$("#xzyg").show();
+					$("#xzyg").modal("show");
 				},
 				closeChooseEploy(){
-					$("#xzyg").hide();
+					$("#xzyg").modal("hide");
 				},
 				chooseEploy(){
 					alert("正在将选择的员工填入");
-					$("#xzyg").hide();
+					$("#xzyg").modal("hide");
 				},
+				//门店选择
 				openStoreChoose(){
-					$("#storeLogin").show();
+					$("#storeLogin").modal("show");
 				},
 				closeStoreChoose(){
-					$("#storeLogin").hide();
+					$("#storeLogin").modal("hide");
 				},
 				//选择门店进行门店条件查询
 				storeChoose(){
 					alert("已选中这些门店，将对这些门店作为条件进行离职登记查询");
-					$("#storeLogin").hide();
+					$("#storeLogin").modal("hide");
 				},
 				//全选门店或者全部取消
 				checkAllStore(c){
@@ -716,17 +748,17 @@
 				},
 				//搜索框查询
 				searchWorkMan(){
-					alert("正在根据搜索框内容进行条件查询");
+					alert("正在根据搜索框内容进行员工条件查询");
 				},
 				openJgDiv(){
-					$("#jgDiv").show();
+					$("#jgDiv").modal("show");
 				},
 				closeJgDiv(){
-					$("#jgDiv").hide();
+					$("#jgDiv").modal("hide");
 				},
 				chooseJg(){
 					alert("正在讲该技工进行录入");
-					$("#jgDiv").hide();
+					$("#jgDiv").modal("hide")
 				}
 			},
 			created(){

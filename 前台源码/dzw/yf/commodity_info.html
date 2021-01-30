@@ -109,51 +109,30 @@
                 </div>
             </div>
             <div class="col-sm-12 treefont" style="height: 81%; border: 0px solid red; padding-right: 0px;">
-                <div class="col-sm-3" style=" height: 100%;border: 0px solid red; font-size: 16px; padding-right: 0px;">
+                <div v-show="treeVisble" class="col-sm-2"
+                    style=" height: 100%;border: 0px solid red; font-size: 16px; padding-right: 0px;">
                     <div class="col-sm-12">
                         <div id="treeview12" class=""></div>
                     </div>
                 </div>
-                <div class="col-sm-9" style="height: 100%;border: 0px solid red; padding-right: 00px;">
-                    <div style="height: 100%;">
-                        <!-- <button v-slot:buttons type="button" @click="getCurrentEvent"> 你好</button> -->
-                        <template>
-                            <vxe-grid border stripe highlight-hover-row highlight-current-row resizable ref="xTable"
-                                class="mytable-scrollbar" auto-resize height="100%" :data="tableData"
-                                :columns="tableColumn" @current-change="currentChangeEvent" round show-header-overflow
-                                show-overflow>
-                            </vxe-grid>
-                            <!-- <vxe-grid border stripe resizable height="500" :columns="tableColumn" :data="tableData">
-                            </vxe-grid> -->
-                            <!-- <vxe-table border highlight-hover-row highlight-current-row resizable ref="xTable"
-                                class="mytable-scrollbar" auto-resize height="100%" :data="tableData"
-                                @current-change="currentChangeEvent" round show-header-overflow show-overflow>
-                                <vxe-table-column field="id" title="登记门店" min-width="125" sortable></vxe-table-column>
-                                <vxe-table-column field="name" title="照片名"></vxe-table-column>
-                                <vxe-table-column field="sex" title="商品编码" min-width="150"></vxe-table-column>
-                                <vxe-table-column field="sex" title="商品名称" min-width="150"></vxe-table-column>
-                                <vxe-table-column field="age" title="商品品牌" min-width="150"></vxe-table-column>
-                                <vxe-table-column field="address" title="适用车型" min-width="150"></vxe-table-column>
-                                <vxe-table-column field="address" title="数量单位" min-width="150"></vxe-table-column>
-                                <vxe-table-column field="address" title="商品大类" min-width="120"></vxe-table-column>
-                                <vxe-table-column field="address" title="商品中类" min-width="120"></vxe-table-column>
-                                <vxe-table-column field="address" title="商品小类" min-width="120"></vxe-table-column>
-                                <vxe-table-column field="address" title="收入分类" min-width="120"></vxe-table-column>
-                                <vxe-table-column field="address" title="原厂副厂" min-width="120"></vxe-table-column>
-                                <vxe-table-column field="address" title="商品等级" min-width="120"></vxe-table-column>
-                                <vxe-table-column field="address" title="商品产地" min-width="120"></vxe-table-column>
-                                <vxe-table-column field="address" title="厂商名称" min-width="120"></vxe-table-column>
-                                <vxe-table-column field="address" title="原厂编码" min-width="120"></vxe-table-column>
-                                <vxe-table-column field="address" title="条形码" min-width="120"></vxe-table-column>
-                                <vxe-table-column field="address" title="包装规格" min-width="120"></vxe-table-column>
-                                <vxe-table-column field="address" title="体积" min-width="120"></vxe-table-column>
-                                <vxe-table-column field="address" title="毛重" min-width="120"></vxe-table-column>
-                                <vxe-table-column field="address" title="净重" min-width="120"></vxe-table-column>
-                                <vxe-table-column field="address" title="加价率" min-width="120"></vxe-table-column>
-                                <vxe-table-column field="address" title="互换码" min-width="120"></vxe-table-column>
-                                <vxe-table-column field="address" title="售价按" min-width="120"></vxe-table-column>
-                            </vxe-table> -->
-                        </template>
+                <div :class="[treeVisble?'col-sm-10 btn-flex':'col-sm-12 btn-flex']"
+                    style="height: 100%;border: 0px solid red; padding: 0px !important; ">
+                    <div class="anniu"><button class="btn btn-left" @click="switchTo">
+                            <i v-if="treeVisble" class="fa fa-caret-left"></i>
+                            <i v-else class="fa fa-caret-right"></i>
+                        </button>
+                    </div>
+                    <div style="height: 100%; width: 99%; padding: 0px;">
+                        <div style="height: 100%;">
+                            <!-- <button v-slot:buttons type="button" @click="getCurrentEvent"> 你好</button> -->
+                            <template>
+                                <vxe-grid border stripe highlight-hover-row highlight-current-row resizable ref="xTable"
+                                    class="mytable-scrollbar" auto-resize height="100%" :data="tableData"
+                                    :columns="tableColumn" @current-change="currentChangeEvent" round
+                                    show-header-overflow show-overflow>
+                                </vxe-grid>
+                            </template>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1301,7 +1280,25 @@
                     </div>
                 </div>
             </div>
-
+            <!-- 选中供应商 -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                        </div>
+                        <div class="modal-body">
+                            ...
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <script src="js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
@@ -1316,42 +1313,8 @@
         var Main = {
             data() {
                 return {
-                    obj1: [{
-                        "authList": [],
-                        "enabled": 1,
-                        "id": "b3bae8fcde0d4a50b7fbcbbccf4fe216",
-                        "lastLogin": 1564363725773,
-                        "lastLoginStr": "2019-07-29",
-                        "namePinyin": "chenghua",
-                        "namePinyinFirst": "c",
-                        "rowLocked": 0,
-                        "sex": 2,
-                        "userAccount": "chenghua",
-                        "userName": "lomo"
-                    }, {
-                        "authList": [],
-                        "enabled": 1,
-                        "id": "b3bae8fcde0d4a50b7fbcbbccf4fe216",
-                        "lastLogin": 1564363725773,
-                        "lastLoginStr": "2019-07-29",
-                        "namePinyin": "chenghua",
-                        "namePinyinFirst": "c",
-                        "rowLocked": 0,
-                        "sex": 3,
-                        "userAccount": "chenghua",
-                        "userName": "lomo"
-                    }],
-
-                    obj2: [{
-                        "sex": '',
-                        "userAccount": "",
-                        "userName": ""
-                    }, {
-                        "sex": '',
-                        "userAccount": "",
-                        "userName": ""
-                    }],
                     imgUrl: [],
+                    treeVisble: true,
                     textHide: [false, false, false, false],
                     check_list: [],
                     is_check_all: false,
@@ -1669,6 +1632,10 @@
                             }
                         }
                     }
+                },
+                //左侧tree切换显示
+                switchTo() {
+                    this.treeVisble = this.treeVisble == true ? false : true;
                 },
                 find() {
                     // var that = this;

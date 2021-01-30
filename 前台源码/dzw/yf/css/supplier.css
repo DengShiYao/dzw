@@ -185,3 +185,8 @@
 .context{
     text-align: center;
 }
+
+.btn-flex{
+    display: flex;
+    justify-content: space-between;
+}

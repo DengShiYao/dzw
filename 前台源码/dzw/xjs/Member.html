@@ -50,7 +50,10 @@
 				border: 1px solid black;border-radius: 4px;box-shadow: 2px 2px;display: none;
 			}
 			#rechargeWindow{
-				border: 1px solid red;width: 80%;height: auto;margin: 20px auto;display: none;
+				/*border: 1px solid red;width: 80%;height: auto;margin: 20px auto;display: none;*/
+			}
+			.modal-dialog{
+				width: 80%;
 			}
 		</style>
 	</head>
@@ -60,7 +63,7 @@
 				<div class="headDiv_left">会员卡充值</div>
 				<div class="headDiv_right">
 				<input type="text" class="search" placeholder="匹配会员号/姓名/手机"/>
-				<button class="btn btn-info">搜索</button>
+				<button class="btn btn-info" @click="searchMember">搜索</button>
 				<button class="btn btn-danger">关闭</button>
 				</div>
 			</div>
@@ -86,79 +89,87 @@
 				</table>
 			</div>
 			<!--充值窗口-->
-			<div id="rechargeWindow">
-				<div>
-					<h3 class="col-lg-3">会员卡充值</h3>
-					<div class="text-right">
-						<button class="btn btn-danger" @click="closeRechargeWindow">关闭</button>
+			<div class="modal" data-backdrop = "static" id="rechargeWindow">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<div>
+								<h3 class="col-lg-3">会员卡充值</h3>
+								<div class="text-right">
+									<button class="btn btn-danger" @click="closeRechargeWindow">关闭</button>
+								</div>
+							</div>
+						</div>
+						<div class="modal-body">
+							<div>
+								<table border="0" cellspacing="0" cellpadding="0" width="80%" style="margin: 40px auto;">
+									<tr>
+										<td colspan="6">
+											<div class="form-group">
+												<label class="control-label">会员卡号</label>
+												<input type="text" id="" value="001" readonly="readonly" class="form-control"/>
+											</div>
+										</td>
+										<td colspan="6">
+											<div class="form-group">
+												<label class="control-label">会员姓名</label>
+												<input type="text" id="" value="小黄"  class="form-control" readonly="readonly"/>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="6">
+											<div class="form-group">
+												<label class="control-label">会员余额</label>
+												<input type="text" id="" value="100.00" readonly="readonly" class="form-control"/>
+											</div>
+										</td>
+										<td colspan="6">
+											<button class="btn btn-success" @click="openRecharge">选择金额充值</button>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<!--充值选择-->
+											<div id="chooseRecharge">
+												<h4>充值金额选择</h4>
+												<table border="0" cellspacing="0" cellpadding="0" width="100%">
+													<tr>
+														<td colspan="6">
+															<a class="btn" @click="recharge">200元</a>
+														</td>
+														<td colspan="6">
+															<a class="btn" @click="recharge">100元</a>
+														</td>
+													</tr>
+													<tr>
+														<td colspan="6">
+															<a class="btn" @click="recharge">50元</a>
+														</td>
+														<td colspan="6">
+															<div class="form-group">
+																<label class="control-label">其他金额</label>
+																<input type="text" name="" id="" value=""  class="form-control"/>
+															</div>
+														</td>
+													</tr>
+													<tr>
+														<td>
+															<button class="btn btn-success" @click="recharge">充值</button>
+															<button class="btn btn-danger" @click="closeRecharge">关闭</button>
+														</td>
+													</tr>
+												</table>
+											</div>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+						<div class="modal-footer"></div>
 					</div>
 				</div>
-				<div>
-					<table border="0" cellspacing="0" cellpadding="0" width="80%" style="margin: 40px auto;">
-						<tr>
-							<td colspan="6">
-								<div class="form-group">
-									<label class="control-label">会员卡号</label>
-									<input type="text" id="" value="001" readonly="readonly" class="form-control"/>
-								</div>
-							</td>
-							<td colspan="6">
-								<div class="form-group">
-									<label class="control-label">会员姓名</label>
-									<input type="text" id="" value="小黄"  class="form-control" readonly="readonly"/>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="6">
-								<div class="form-group">
-									<label class="control-label">会员余额</label>
-									<input type="text" id="" value="100.00" readonly="readonly" class="form-control"/>
-								</div>
-							</td>
-							<td colspan="6">
-								<button class="btn btn-success" @click="openRecharge">选择金额充值</button>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<!--充值选择-->
-								<div id="chooseRecharge">
-									<h4>充值金额选择</h4>
-									<table border="0" cellspacing="0" cellpadding="0" width="100%">
-										<tr>
-											<td colspan="6">
-												<a class="btn" @click="recharge">200元</a>
-											</td>
-											<td colspan="6">
-												<a class="btn" @click="recharge">100元</a>
-											</td>
-										</tr>
-										<tr>
-											<td colspan="6">
-												<a class="btn" @click="recharge">50元</a>
-											</td>
-											<td colspan="6">
-												<div class="form-group">
-													<label class="control-label">其他金额</label>
-													<input type="text" name="" id="" value=""  class="form-control"/>
-												</div>
-											</td>
-										</tr>
-										<tr>
-											<td>
-												<button class="btn btn-success" @click="recharge">充值</button>
-												<button class="btn btn-danger" @click="closeRecharge">关闭</button>
-											</td>
-										</tr>
-									</table>
-								</div>
-							</td>
-						</tr>
-					</table>
-				</div>
 			</div>
-			
 		</div>
 	</body>
 	<script src="js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
@@ -199,10 +210,10 @@
 			},
 			methods:{
 				openRechargeWindow(){
-					$("#rechargeWindow").show();
+					$("#rechargeWindow").modal("show");
 				},
 				closeRechargeWindow(){
-					$("#rechargeWindow").hide();
+					$("#rechargeWindow").modal("hide");
 				},
 				openRecharge(){
 					$("#chooseRecharge").show();
@@ -212,8 +223,12 @@
 				},
 				recharge(){
 					alert("充值成功");
-					$("#chooseRecharge").hide();
-					$("#rechargeWindow").hide();
+					/*$("#chooseRecharge").hide();
+					$("#rechargeWindow").hide();*/
+					$("#rechargeWindow").modal("hide");
+				},
+				searchMember(){
+					alert("正在查询符合条件的会员");
 				}
 			},
 			created(){
