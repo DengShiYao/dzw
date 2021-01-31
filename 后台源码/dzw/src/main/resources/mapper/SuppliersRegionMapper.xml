@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.accp.mapper.SuppliersRegionMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.accp.domain.SuppliersRegion">
+        <id column="sid" property="sid" />
+        <result column="ProvCode" property="ProvCode" />
+        <result column="ProvName" property="ProvName" />
+        <result column="Address" property="Address" />
+        <result column="Operation" property="Operation" />
+        <result column="HttpA" property="HttpA" />
+        <result column="KHYH" property="khyh" />
+        <result column="YHZH" property="yhzh" />
+        <result column="pm_id" property="pmId" />
+        <result column="fg_id" property="fgId" />
+        <result column="ZD2" property="zd2" />
+        <result column="ProvType" property="ProvType" />
+        <result column="sc_id" property="scId" />
+        <result column="PreDay" property="PreDay" />
+        <result column="Remark" property="Remark" />
+        <result column="region_id" property="regionId" />
+        <result column="block_up" property="blockUp" />
+        <result column="suppliers_width" property="suppliersWidth" />
+        <result column="suppliers_show" property="suppliersShow" />
+        <result column="booldel" property="booldel" />
+        <result column="column1" property="column1" />
+        <result column="column2" property="column2" />
+        <result column="column3" property="column3" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        sid, ProvCode, ProvName, Address, Operation, HttpA, KHYH, YHZH, pm_id, fg_id, ZD2, ProvType, sc_id, PreDay, Remark, region_id, block_up, suppliers_width, suppliers_show, booldel, column1, column2, column3
+    </sql>
+
+</mapper>

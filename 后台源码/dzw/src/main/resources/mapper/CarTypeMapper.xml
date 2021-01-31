@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.accp.mapper.CarTypeMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.accp.domain.CarType">
+        <id column="car_id" property="carId" />
+        <result column="car_name" property="carName" />
+        <result column="engine_name" property="engineName" />
+        <result column="reference_price" property="referencePrice" />
+        <result column="car_style" property="carStyle" />
+        <result column="power" property="power" />
+        <result column="sid" property="sid" />
+        <result column="import_and_domestic" property="importAndDomestic" />
+        <result column="fuel_number" property="fuelNumber" />
+        <result column="loadbearing" property="loadbearing" />
+        <result column="brand_name" property="brandName" />
+        <result column="column1" property="column1" />
+        <result column="column2" property="column2" />
+        <result column="column3" property="column3" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        car_id, car_name, engine_name, reference_price, car_style, power, sid, import_and_domestic, fuel_number, loadbearing, brand_name, column1, column2, column3
+    </sql>
+
+</mapper>

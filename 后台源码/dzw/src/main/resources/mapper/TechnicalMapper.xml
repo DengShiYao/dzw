@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.accp.mapper.TechnicalMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.accp.domain.Technical">
+        <id column="technical-number" property="technical-number" />
+        <result column="technical-name" property="technical-name" />
+        <result column="technical-sex" property="technical-sex" />
+        <result column="headman" property="headman" />
+        <result column="team-code" property="team-code" />
+        <result column="phone" property="phone" />
+        <result column="account-number" property="account-number" />
+        <result column="address" property="address" />
+        <result column="birthday" property="birthday" />
+        <result column="Microsignal" property="Microsignal" />
+        <result column="id-number" property="id-number" />
+        <result column="address2" property="address2" />
+        <result column="bank" property="bank" />
+        <result column="bank-number" property="bank-number" />
+        <result column="crade-code" property="crade-code" />
+        <result column="Maintenance-type" property="Maintenance-type" />
+        <result column="Maintenance brand" property="Maintenance brand" />
+        <result column="dimission" property="dimission" />
+        <result column="column1" property="column1" />
+        <result column="column2" property="column2" />
+        <result column="column3" property="column3" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        technical-number, technical-name, technical-sex, headman, team-code, phone, account-number, address, birthday, Microsignal, id-number, address2, bank, bank-number, crade-code, Maintenance-type, Maintenance brand, dimission, column1, column2, column3
+    </sql>
+
+</mapper>
