@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.accp.mapper.ListOfSalesMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.accp.domain.ListOfSales">
+        <id column="sales_order" property="salesOrder" />
+        <result column="billsType" property="billsType" />
+        <result column="balance" property="balance" />
+        <result column="billstatus" property="billstatus" />
+        <result column="settlement_status" property="settlementStatus" />
+        <result column="settlement_time" property="settlementTime" />
+        <result column="settlement_user" property="settlementUser" />
+        <result column="settlement_money" property="settlementMoney" />
+        <result column="service_type" property="serviceType" />
+        <result column="username" property="username" />
+        <result column="plate_number" property="plateNumber" />
+        <result column="motorcycle_type" property="motorcycleType" />
+        <result column="frame" property="frame" />
+        <result column="phone" property="phone" />
+        <result column="insurer" property="insurer" />
+        <result column="Indemnity_company" property="indemnityCompany" />
+        <result column="license_plate" property="licensePlate" />
+        <result column="service_Adviser" property="serviceAdviser" />
+        <result column="completion_time" property="completionTime" />
+        <result column="remarks" property="remarks" />
+        <result column="column1" property="column1" />
+        <result column="column2" property="column2" />
+        <result column="column3" property="column3" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        sales_order, billsType, balance, billstatus, settlement_status, settlement_time, settlement_user, settlement_money, service_type, username, plate_number, motorcycle_type, frame, phone, insurer, Indemnity_company, license_plate, service_Adviser, completion_time, remarks, column1, column2, column3
+    </sql>
+
+</mapper>

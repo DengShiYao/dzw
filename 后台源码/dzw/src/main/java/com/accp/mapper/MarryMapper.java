@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author dsy
- * @since 2021-01-31
+ * @since 2021-02-01
  */
 public interface MarryMapper extends BaseMapper<Marry> {
 

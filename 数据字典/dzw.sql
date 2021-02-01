@@ -136,8 +136,8 @@ CREATE TABLE `car_type` (
   PRIMARY KEY (`car_id`),
   KEY `sid` (`sid`),
   KEY `import_and_domestic` (`import_and_domestic`),
-  CONSTRAINT `car_type_ibfk_2` FOREIGN KEY (`import_and_domestic`) REFERENCES `import_and_domestic` (`id`),
-  CONSTRAINT `car_type_ibfk_1` FOREIGN KEY (`sid`) REFERENCES `suppliers_region` (`sid`)
+  CONSTRAINT `car_type_ibfk_1` FOREIGN KEY (`sid`) REFERENCES `suppliers_region` (`sid`),
+  CONSTRAINT `car_type_ibfk_2` FOREIGN KEY (`import_and_domestic`) REFERENCES `import_and_domestic` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `car_type` */
@@ -252,11 +252,11 @@ CREATE TABLE `departure` (
   KEY `registId` (`registId`),
   KEY `dId` (`dId`),
   KEY `jobId` (`jobId`),
-  CONSTRAINT `departure_ibfk_5` FOREIGN KEY (`jobId`) REFERENCES `job` (`jobId`),
   CONSTRAINT `departure_ibfk_1` FOREIGN KEY (`eId`) REFERENCES `employees` (`eId`),
   CONSTRAINT `departure_ibfk_2` FOREIGN KEY (`sId`) REFERENCES `store` (`storeId`),
   CONSTRAINT `departure_ibfk_3` FOREIGN KEY (`registId`) REFERENCES `sys_role` (`role_id`),
-  CONSTRAINT `departure_ibfk_4` FOREIGN KEY (`dId`) REFERENCES `department` (`dId`)
+  CONSTRAINT `departure_ibfk_4` FOREIGN KEY (`dId`) REFERENCES `department` (`dId`),
+  CONSTRAINT `departure_ibfk_5` FOREIGN KEY (`jobId`) REFERENCES `job` (`jobId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `departure` */
@@ -360,23 +360,23 @@ CREATE TABLE `employees` (
 
 /*Data for the table `employees` */
 
-/*Table structure for table `field-vehicles` */
+/*Table structure for table `field_vehicles` */
 
-DROP TABLE IF EXISTS `field-vehicles`;
+DROP TABLE IF EXISTS `field_vehicles`;
 
-CREATE TABLE `field-vehicles` (
-  `plate-number` varchar(255) NOT NULL COMMENT '车牌号',
+CREATE TABLE `field_vehicles` (
+  `plate_number` varchar(255) NOT NULL COMMENT '车牌号',
   `brand` varchar(50) NOT NULL COMMENT '品牌',
-  `motorcycle-type` varchar(50) DEFAULT NULL COMMENT '车型',
-  `current-mileage` varchar(255) DEFAULT NULL COMMENT '当前里程',
-  `attribution-team` varchar(50) DEFAULT NULL COMMENT '归属班组',
+  `motorcycle_type` varchar(50) DEFAULT NULL COMMENT '车型',
+  `current_mileage` varchar(255) DEFAULT NULL COMMENT '当前里程',
+  `attribution_team` varchar(50) DEFAULT NULL COMMENT '归属班组',
   `column1` varchar(200) DEFAULT NULL COMMENT '备用列',
   `column2` varchar(200) DEFAULT NULL COMMENT '备用列',
   `column3` varchar(200) DEFAULT NULL COMMENT '备用列',
-  PRIMARY KEY (`plate-number`)
+  PRIMARY KEY (`plate_number`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Data for the table `field-vehicles` */
+/*Data for the table `field_vehicles` */
 
 /*Table structure for table `firm_grade` */
 
@@ -436,9 +436,9 @@ CREATE TABLE `goods` (
   KEY `gb_id` (`gb_id`),
   KEY `goods_c_id` (`goods_c_id`),
   KEY `pro_id` (`pro_id`),
-  CONSTRAINT `goods_ibfk_3` FOREIGN KEY (`pro_id`) REFERENCES `provinces` (`pro_id`),
   CONSTRAINT `goods_ibfk_1` FOREIGN KEY (`gb_id`) REFERENCES `goods_brand` (`gb_id`),
-  CONSTRAINT `goods_ibfk_2` FOREIGN KEY (`goods_c_id`) REFERENCES `goods_category` (`goods_c_id`)
+  CONSTRAINT `goods_ibfk_2` FOREIGN KEY (`goods_c_id`) REFERENCES `goods_category` (`goods_c_id`),
+  CONSTRAINT `goods_ibfk_3` FOREIGN KEY (`pro_id`) REFERENCES `provinces` (`pro_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `goods` */
@@ -529,13 +529,10 @@ DROP TABLE IF EXISTS `job`;
 CREATE TABLE `job` (
   `jobId` varchar(50) NOT NULL COMMENT '岗位编码',
   `jobName` varchar(200) NOT NULL COMMENT '岗位名称',
-  `dId` varchar(200) NOT NULL COMMENT '所属部门',
   `column1` varchar(200) DEFAULT NULL COMMENT '备用列',
   `column2` varchar(200) DEFAULT NULL COMMENT '备用列',
   `column3` varchar(200) DEFAULT NULL COMMENT '备用列',
-  PRIMARY KEY (`jobId`),
-  KEY `dId` (`dId`),
-  CONSTRAINT `job_ibfk_1` FOREIGN KEY (`dId`) REFERENCES `department` (`dId`)
+  PRIMARY KEY (`jobId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `job` */
@@ -629,38 +626,38 @@ CREATE TABLE `linliao_biao` (
 
 /*Data for the table `linliao_biao` */
 
-/*Table structure for table `list-of-sales` */
+/*Table structure for table `list_of_sales` */
 
-DROP TABLE IF EXISTS `list-of-sales`;
+DROP TABLE IF EXISTS `list_of_sales`;
 
-CREATE TABLE `list-of-sales` (
-  `sales-order` varchar(255) NOT NULL COMMENT '销售单号',
+CREATE TABLE `list_of_sales` (
+  `sales_order` varchar(255) NOT NULL COMMENT '销售单号',
   `billsType` varchar(50) DEFAULT NULL COMMENT '单据类型',
   `balance` varchar(50) DEFAULT NULL COMMENT '结算方式',
   `billstatus` varchar(50) DEFAULT NULL COMMENT '单据状态',
-  `settlement-status` varchar(50) DEFAULT NULL COMMENT '结算状态',
-  `settlement-time` varchar(255) DEFAULT NULL COMMENT '结算时间',
-  `settlement-user` varchar(50) DEFAULT NULL COMMENT '结算人',
-  `settlement-money` int(4) DEFAULT NULL COMMENT '结算金额',
-  `service-type` varchar(50) DEFAULT NULL COMMENT '业务类型',
+  `settlement_status` varchar(50) DEFAULT NULL COMMENT '结算状态',
+  `settlement_time` varchar(255) DEFAULT NULL COMMENT '结算时间',
+  `settlement_user` varchar(50) DEFAULT NULL COMMENT '结算人',
+  `settlement_money` int(4) DEFAULT NULL COMMENT '结算金额',
+  `service_type` varchar(50) DEFAULT NULL COMMENT '业务类型',
   `username` varchar(50) DEFAULT NULL COMMENT '客户名称',
-  `plate-number` varchar(100) DEFAULT NULL COMMENT '车牌号',
-  `motorcycle-type` varchar(50) DEFAULT NULL COMMENT '车型',
+  `plate_number` varchar(100) DEFAULT NULL COMMENT '车牌号',
+  `motorcycle_type` varchar(50) DEFAULT NULL COMMENT '车型',
   `frame` varchar(100) DEFAULT NULL COMMENT '车架号',
   `phone` varchar(100) DEFAULT NULL COMMENT '联系电话',
   `insurer` varchar(100) DEFAULT NULL COMMENT '保险公司',
-  `Indemnity-company` varchar(100) DEFAULT NULL COMMENT '赔款公司',
-  `license-plate` varchar(100) DEFAULT NULL COMMENT '对方车牌',
-  `service-Adviser` varchar(100) DEFAULT NULL COMMENT '服务顾问',
-  `completion-time` varchar(255) DEFAULT NULL COMMENT '完工时间',
+  `Indemnity_company` varchar(100) DEFAULT NULL COMMENT '赔款公司',
+  `license_plate` varchar(100) DEFAULT NULL COMMENT '对方车牌',
+  `service_Adviser` varchar(100) DEFAULT NULL COMMENT '服务顾问',
+  `completion_time` varchar(255) DEFAULT NULL COMMENT '完工时间',
   `remarks` varchar(100) DEFAULT NULL COMMENT '备注',
   `column1` varchar(200) DEFAULT NULL COMMENT '备用列',
   `column2` varchar(200) DEFAULT NULL COMMENT '备用列',
   `column3` varchar(200) DEFAULT NULL COMMENT '备用列',
-  PRIMARY KEY (`sales-order`)
+  PRIMARY KEY (`sales_order`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Data for the table `list-of-sales` */
+/*Data for the table `list_of_sales` */
 
 /*Table structure for table `maintenance` */
 
@@ -712,21 +709,21 @@ CREATE TABLE `marry` (
 
 /*Data for the table `marry` */
 
-/*Table structure for table `mechanicsstar-level` */
+/*Table structure for table `mechanicsstar_level` */
 
-DROP TABLE IF EXISTS `mechanicsstar-level`;
+DROP TABLE IF EXISTS `mechanicsstar_level`;
 
-CREATE TABLE `mechanicsstar-level` (
-  `crade-code` varchar(50) NOT NULL COMMENT '等级编码',
-  `crade-name` varchar(50) NOT NULL COMMENT '等级名称',
-  `full-commission` int(11) NOT NULL COMMENT '提成权重',
+CREATE TABLE `mechanicsstar_level` (
+  `crade_code` varchar(50) NOT NULL COMMENT '等级编码',
+  `crade_name` varchar(50) NOT NULL COMMENT '等级名称',
+  `full_commission` int(11) NOT NULL COMMENT '提成权重',
   `column1` varchar(200) DEFAULT NULL COMMENT '备用列',
   `column2` varchar(200) DEFAULT NULL COMMENT '备用列',
   `column3` varchar(200) DEFAULT NULL COMMENT '备用列',
-  PRIMARY KEY (`crade-code`)
+  PRIMARY KEY (`crade_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Data for the table `mechanicsstar-level` */
+/*Data for the table `mechanicsstar_level` */
 
 /*Table structure for table `member` */
 
@@ -1059,7 +1056,7 @@ CREATE TABLE `sys_menu` (
   `order_num` int(4) DEFAULT NULL COMMENT '显示顺序',
   `url` varchar(200) DEFAULT NULL COMMENT '请求地址',
   `menu_type` char(1) DEFAULT NULL COMMENT '菜单类型',
-  `char` char(1) DEFAULT NULL COMMENT '菜单状态',
+  `char1` char(1) DEFAULT NULL COMMENT '菜单状态',
   `perms` varchar(100) DEFAULT NULL COMMENT '权限标识',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `remark` varchar(500) DEFAULT NULL COMMENT '备注',
@@ -1126,62 +1123,60 @@ CREATE TABLE `sys_user` (
 
 /*Data for the table `sys_user` */
 
-/*Table structure for table `team-form` */
+/*Table structure for table `team_form` */
 
-DROP TABLE IF EXISTS `team-form`;
+DROP TABLE IF EXISTS `team_form`;
 
-CREATE TABLE `team-form` (
-  `team-code` varchar(50) NOT NULL COMMENT '班组编码',
-  `team-name` varchar(50) NOT NULL COMMENT '班组名称',
-  `team-commission` int(11) NOT NULL COMMENT '班组权重',
+CREATE TABLE `team_form` (
+  `team_code` varchar(50) NOT NULL COMMENT '班组编码',
+  `team_name` varchar(50) NOT NULL COMMENT '班组名称',
+  `team_commission` int(11) NOT NULL COMMENT '班组权重',
   `column1` varchar(200) DEFAULT NULL COMMENT '备用列',
   `column2` varchar(200) DEFAULT NULL COMMENT '备用列',
   `column3` varchar(200) DEFAULT NULL COMMENT '备用列',
-  PRIMARY KEY (`team-code`)
+  PRIMARY KEY (`team_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Data for the table `team-form` */
+/*Data for the table `team_form` */
 
 /*Table structure for table `technical` */
 
 DROP TABLE IF EXISTS `technical`;
 
 CREATE TABLE `technical` (
-  `technical-number` varchar(50) NOT NULL COMMENT '技工编号',
-  `technical-name` varchar(50) NOT NULL COMMENT '技工姓名',
-  `technical-sex` char(2) NOT NULL COMMENT '性别',
+  `technical_number` varchar(50) NOT NULL COMMENT '技工编号',
+  `technical_name` varchar(50) NOT NULL COMMENT '技工姓名',
+  `technical_sex` char(2) NOT NULL COMMENT '性别',
   `headman` int(11) NOT NULL COMMENT '是否是组长',
-  `team-code` varchar(50) NOT NULL COMMENT '所在班组',
+  `team_code` varchar(50) NOT NULL COMMENT '所在班组',
   `phone` varchar(255) NOT NULL COMMENT '手机',
-  `account-number` varchar(255) DEFAULT NULL COMMENT '登陆账号',
+  `account_number` varchar(255) DEFAULT NULL COMMENT '登陆账号',
   `address` varchar(255) DEFAULT NULL COMMENT '地址',
   `birthday` varchar(255) DEFAULT NULL COMMENT '出生日期',
   `Microsignal` varchar(255) DEFAULT NULL COMMENT '微信号',
-  `id-number` varchar(255) DEFAULT NULL COMMENT '身份证号',
+  `id_number` varchar(255) DEFAULT NULL COMMENT '身份证号',
   `address2` varchar(255) DEFAULT NULL COMMENT '户口地址',
   `bank` varchar(255) DEFAULT NULL COMMENT '开户银行',
-  `bank-number` varchar(255) DEFAULT NULL COMMENT '银行账号',
-  `crade-code` varchar(50) DEFAULT NULL COMMENT '等级编码',
-  `Maintenance-type` varchar(255) DEFAULT NULL COMMENT '维修工种',
-  `Maintenance brand` varchar(255) DEFAULT NULL COMMENT '维修品牌',
+  `bank_number` varchar(255) DEFAULT NULL COMMENT '银行账号',
+  `crade_code` varchar(50) DEFAULT NULL COMMENT '等级编码',
+  `Maintenance_type` varchar(255) DEFAULT NULL COMMENT '维修工种',
+  `Maintenance_brand` varchar(255) DEFAULT NULL COMMENT '维修品牌',
   `dimission` int(11) DEFAULT NULL COMMENT '是否离职',
   `column1` varchar(200) DEFAULT NULL COMMENT '备用列',
   `column2` varchar(200) DEFAULT NULL COMMENT '备用列',
   `column3` varchar(200) DEFAULT NULL COMMENT '备用列',
-  PRIMARY KEY (`technical-number`),
-  KEY `team-code` (`team-code`),
-  KEY `crade-code` (`crade-code`),
-  CONSTRAINT `technical_ibfk_1` FOREIGN KEY (`team-code`) REFERENCES `team-form` (`team-code`),
-  CONSTRAINT `technical_ibfk_2` FOREIGN KEY (`crade-code`) REFERENCES `mechanicsstar-level` (`crade-code`)
+  PRIMARY KEY (`technical_number`),
+  KEY `team-code` (`team_code`),
+  KEY `crade-code` (`crade_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `technical` */
 
-/*Table structure for table `type-of-vehicle` */
+/*Table structure for table `type_of_vehicle` */
 
-DROP TABLE IF EXISTS `type-of-vehicle`;
+DROP TABLE IF EXISTS `type_of_vehicle`;
 
-CREATE TABLE `type-of-vehicle` (
+CREATE TABLE `type_of_vehicle` (
   `vtypeid` int(11) NOT NULL AUTO_INCREMENT COMMENT '型号序号',
   `enginetypeid` int(11) DEFAULT NULL COMMENT '发动机品牌',
   `vtypeno` varchar(20) DEFAULT NULL COMMENT '型号编号',
@@ -1196,13 +1191,13 @@ CREATE TABLE `type-of-vehicle` (
   PRIMARY KEY (`vtypeid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Data for the table `type-of-vehicle` */
+/*Data for the table `type_of_vehicle` */
 
-/*Table structure for table `user-vehicles` */
+/*Table structure for table `user_vehicles` */
 
-DROP TABLE IF EXISTS `user-vehicles`;
+DROP TABLE IF EXISTS `user_vehicles`;
 
-CREATE TABLE `user-vehicles` (
+CREATE TABLE `user_vehicles` (
   `uvehicleid` int(11) DEFAULT NULL COMMENT '车辆编号',
   `vtypeid` int(11) DEFAULT NULL COMMENT '型号序号',
   `vbrandid` int(11) DEFAULT NULL COMMENT '品牌序号',
@@ -1219,16 +1214,16 @@ CREATE TABLE `user-vehicles` (
   `column2` varchar(200) DEFAULT NULL COMMENT '备用列',
   `column3` varchar(200) DEFAULT NULL COMMENT '备用列',
   KEY `vtypeid` (`vtypeid`),
-  CONSTRAINT `user-vehicles_ibfk_1` FOREIGN KEY (`vtypeid`) REFERENCES `type-of-vehicle` (`vtypeid`)
+  CONSTRAINT `user_vehicles_ibfk_1` FOREIGN KEY (`vtypeid`) REFERENCES `type_of_vehicle` (`vtypeid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Data for the table `user-vehicles` */
+/*Data for the table `user_vehicles` */
 
-/*Table structure for table `vehicle-brand` */
+/*Table structure for table `vehicle_brand` */
 
-DROP TABLE IF EXISTS `vehicle-brand`;
+DROP TABLE IF EXISTS `vehicle_brand`;
 
-CREATE TABLE `vehicle-brand` (
+CREATE TABLE `vehicle_brand` (
   `vbrandid` int(11) NOT NULL AUTO_INCREMENT COMMENT '品牌序号',
   `vbrandno` varchar(20) DEFAULT NULL COMMENT '品牌编号',
   `vbrandname` varchar(20) DEFAULT NULL COMMENT '品牌名称',
@@ -1238,13 +1233,13 @@ CREATE TABLE `vehicle-brand` (
   PRIMARY KEY (`vbrandid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Data for the table `vehicle-brand` */
+/*Data for the table `vehicle_brand` */
 
-/*Table structure for table `vehicle-ownership` */
+/*Table structure for table `vehicle_ownership` */
 
-DROP TABLE IF EXISTS `vehicle-ownership`;
+DROP TABLE IF EXISTS `vehicle_ownership`;
 
-CREATE TABLE `vehicle-ownership` (
+CREATE TABLE `vehicle_ownership` (
   `affiliationid` int(11) NOT NULL AUTO_INCREMENT COMMENT '归属编号',
   `affiliationname` varchar(20) DEFAULT NULL COMMENT '归属名称',
   `column1` varchar(200) DEFAULT NULL COMMENT '备用列',
@@ -1253,7 +1248,7 @@ CREATE TABLE `vehicle-ownership` (
   PRIMARY KEY (`affiliationid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Data for the table `vehicle-ownership` */
+/*Data for the table `vehicle_ownership` */
 
 /*Table structure for table `wei_xiubiao` */
 

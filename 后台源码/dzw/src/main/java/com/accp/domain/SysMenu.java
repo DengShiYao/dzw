@@ -17,7 +17,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author dsy
- * @since 2021-01-31
+ * @since 2021-02-01
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -47,7 +47,7 @@ public class SysMenu extends Model<SysMenu> {
     private String menuType;
 
     @ApiModelProperty(value = "菜单状态")
-    private String char;
+    private String char1;
 
     @ApiModelProperty(value = "权限标识")
     private String perms;
@@ -80,7 +80,7 @@ public class SysMenu extends Model<SysMenu> {
 
     public static final String MENU_TYPE = "menu_type";
 
-    public static final String CHAR = "char";
+    public static final String CHAR1 = "char1";
 
     public static final String PERMS = "perms";
 

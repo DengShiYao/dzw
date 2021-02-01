@@ -15,7 +15,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author dsy
- * @since 2021-01-31
+ * @since 2021-02-01
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -26,25 +26,25 @@ public class Technical extends Model<Technical> {
     private static final long serialVersionUID=1L;
 
     @ApiModelProperty(value = "技工编号")
-    private String technical-number;
+    private String technicalNumber;
 
     @ApiModelProperty(value = "技工姓名")
-    private String technical-name;
+    private String technicalName;
 
     @ApiModelProperty(value = "性别")
-    private String technical-sex;
+    private String technicalSex;
 
     @ApiModelProperty(value = "是否是组长")
     private Integer headman;
 
     @ApiModelProperty(value = "所在班组")
-    private String team-code;
+    private String teamCode;
 
     @ApiModelProperty(value = "手机")
     private String phone;
 
     @ApiModelProperty(value = "登陆账号")
-    private String account-number;
+    private String accountNumber;
 
     @ApiModelProperty(value = "地址")
     private String address;
@@ -57,7 +57,7 @@ public class Technical extends Model<Technical> {
     private String Microsignal;
 
     @ApiModelProperty(value = "身份证号")
-    private String id-number;
+    private String idNumber;
 
     @ApiModelProperty(value = "户口地址")
     private String address2;
@@ -66,18 +66,18 @@ public class Technical extends Model<Technical> {
     private String bank;
 
     @ApiModelProperty(value = "银行账号")
-    private String bank-number;
+    private String bankNumber;
 
     @ApiModelProperty(value = "等级编码")
-    private String crade-code;
+    private String cradeCode;
 
     @ApiModelProperty(value = "维修工种")
-    @TableField("Maintenance-type")
-    private String Maintenance-type;
+    @TableField("Maintenance_type")
+    private String maintenanceType;
 
     @ApiModelProperty(value = "维修品牌")
-    @TableField("Maintenance brand")
-    private String Maintenance brand;
+    @TableField("Maintenance_brand")
+    private String maintenanceBrand;
 
     @ApiModelProperty(value = "是否离职")
     private Integer dimission;
@@ -92,19 +92,19 @@ public class Technical extends Model<Technical> {
     private String column3;
 
 
-    public static final String TECHNICAL-NUMBER = "technical-number";
+    public static final String TECHNICAL_NUMBER = "technical_number";
 
-    public static final String TECHNICAL-NAME = "technical-name";
+    public static final String TECHNICAL_NAME = "technical_name";
 
-    public static final String TECHNICAL-SEX = "technical-sex";
+    public static final String TECHNICAL_SEX = "technical_sex";
 
     public static final String HEADMAN = "headman";
 
-    public static final String TEAM-CODE = "team-code";
+    public static final String TEAM_CODE = "team_code";
 
     public static final String PHONE = "phone";
 
-    public static final String ACCOUNT-NUMBER = "account-number";
+    public static final String ACCOUNT_NUMBER = "account_number";
 
     public static final String ADDRESS = "address";
 
@@ -112,19 +112,19 @@ public class Technical extends Model<Technical> {
 
     public static final String MICROSIGNAL = "Microsignal";
 
-    public static final String ID-NUMBER = "id-number";
+    public static final String ID_NUMBER = "id_number";
 
     public static final String ADDRESS2 = "address2";
 
     public static final String BANK = "bank";
 
-    public static final String BANK-NUMBER = "bank-number";
+    public static final String BANK_NUMBER = "bank_number";
 
-    public static final String CRADE-CODE = "crade-code";
+    public static final String CRADE_CODE = "crade_code";
 
-    public static final String MAINTENANCE-TYPE = "Maintenance-type";
+    public static final String MAINTENANCE_TYPE = "Maintenance_type";
 
-    public static final String MAINTENANCE BRAND = "Maintenance brand";
+    public static final String MAINTENANCE_BRAND = "Maintenance_brand";
 
     public static final String DIMISSION = "dimission";
 
@@ -136,7 +136,7 @@ public class Technical extends Model<Technical> {
 
     @Override
     protected Serializable pkVal() {
-        return this.technical-number;
+        return this.technicalNumber;
     }
 
 }

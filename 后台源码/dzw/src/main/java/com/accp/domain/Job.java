@@ -16,7 +16,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author dsy
- * @since 2021-01-31
+ * @since 2021-02-01
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -34,10 +34,6 @@ public class Job extends Model<Job> {
     @TableField("jobName")
     private String jobName;
 
-    @ApiModelProperty(value = "所属部门")
-    @TableField("dId")
-    private String dId;
-
     @ApiModelProperty(value = "备用列")
     private String column1;
 
@@ -51,8 +47,6 @@ public class Job extends Model<Job> {
     public static final String JOBID = "jobId";
 
     public static final String JOBNAME = "jobName";
-
-    public static final String DID = "dId";
 
     public static final String COLUMN1 = "column1";
 

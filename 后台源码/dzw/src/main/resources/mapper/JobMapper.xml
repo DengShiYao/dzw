@@ -6,7 +6,6 @@
     <resultMap id="BaseResultMap" type="com.accp.domain.Job">
         <id column="jobId" property="jobId" />
         <result column="jobName" property="jobName" />
-        <result column="dId" property="dId" />
         <result column="column1" property="column1" />
         <result column="column2" property="column2" />
         <result column="column3" property="column3" />
@@ -14,7 +13,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        jobId, jobName, dId, column1, column2, column3
+        jobId, jobName, column1, column2, column3
     </sql>
 
 </mapper>
