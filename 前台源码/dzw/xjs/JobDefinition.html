@@ -137,7 +137,7 @@
 						jName:"大大大"
 					}],
 					num:0,
-					a:3,
+					/*a:3,*/
 					gangwei:{
 						jId:"",
 						jName:""
@@ -147,24 +147,100 @@
 				}
 			},
 			methods:{
+				getCount(){
+					let that=this;
+					$.ajax({
+						url:"http://127.0.0.1:8080/dzw1/job/count",
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						type:"get",
+						success:function(result){
+							that.num=result;
+						}
+					});
+				},
 				find(){
-					this.gw=this.list;
-					this.num=this.a;
+					let that=this;
+					$.ajax({
+						url:"http://127.0.0.1:8080/dzw1/job",
+						type:"get",
+						dataType:"json",
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						success:function(result){
+							console.log(result);
+							that.list=result;
+						}
+					});
+					/*this.gw=this.list;*/
+					/*this.num=this.a;*/
 				},
 				add(){
-					this.gw.push(this.gangwei);
+					let that =this;
+					$.ajax({
+						url:"http://127.0.0.1:8080/dzw1/job",
+						type:"post",
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						data:that.gangwei,
+						success:function(result){
+							if(result){
+								alert("成功");
+							}else{
+								alert("失败")
+							}
+						}
+					});
+					/*this.gw.push(this.gangwei);
 					this.num=this.num+1;
-					alert("新增成功");
+					alert("新增成功");*/
+					this.find();
+					this.getCount();
 				},
 				remove(){
-					this.gw.splice(this.index,1);
+					let that=this;
+					$.ajax({
+						url:"http://127.0.0.1:8080/dzw1/job",
+						type:"delete",
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						data:that.gangwei.jId,
+						success:function(result){
+							alert(result);
+						}
+					});
+					this.find();
+					this.getCount();
+					/*this.gw.splice(this.index,1);
 					this.num=this.num-1;
-					alert("删除成功");
+					alert("删除成功");*/
 				},
 				update(){
-					this.gw.splice(this.index,1);
+					$.ajax({
+						url:"",
+						type:"put",
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						data:that.gangwei,
+						success:function(result){
+							alert(result);
+						}
+					});
+					/*this.gw.splice(this.index,1);
 					this.gw.push(this.gangwei);
-					alert("修改成功");
+					alert("修改成功");*/
+					this.find();
+					this.getCount();
 				},
 				daoChu(){
 					alert("导出成功");
@@ -176,6 +252,7 @@
 				}
 			},
 			created(){
+				this.getCount();
 				this.find();
 			}
 		});
