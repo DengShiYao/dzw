@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.accp.mapper.WxDanbiaoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.accp.domain.WxDanbiao">
+        <id column="wx_dan_id" property="wxDanId" />
+        <result column="wx_xmmc" property="wxXmmc" />
+        <result column="wx_sl" property="wxSl" />
+        <result column="wx_dj" property="wxDj" />
+        <result column="wx_je" property="wxJe" />
+        <result column="wx_js_jsj" property="wxJsJsj" />
+        <result column="wx_gzms" property="wxGzms" />
+        <result column="wx_wzyy" property="wxWzyy" />
+        <result column="wx_wx_bz" property="wxWxBz" />
+        <result column="wx_zyry" property="wxZyry" />
+        <result column="wx_gdh" property="wxGdh" />
+        <result column="wx_mdyy" property="wxMdyy" />
+        <result column="column1" property="column1" />
+        <result column="column2" property="column2" />
+        <result column="column3" property="column3" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        wx_dan_id, wx_xmmc, wx_sl, wx_dj, wx_je, wx_js_jsj, wx_gzms, wx_wzyy, wx_wx_bz, wx_zyry, wx_gdh, wx_mdyy, column1, column2, column3
+    </sql>
+
+</mapper>

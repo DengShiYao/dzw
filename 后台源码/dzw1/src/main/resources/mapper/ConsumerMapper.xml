@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.accp.mapper.ConsumerMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.accp.domain.Consumer">
+        <id column="id" property="id" />
+        <result column="khid" property="khid" />
+        <result column="khName" property="khName" />
+        <result column="adress" property="adress" />
+        <result column="lxpeople" property="lxpeople" />
+        <result column="phone" property="phone" />
+        <result column="birthday" property="birthday" />
+        <result column="khcategory" property="khcategory" />
+        <result column="yhnumber" property="yhnumber" />
+        <result column="rhtime" property="rhtime" />
+        <result column="dqtime" property="dqtime" />
+        <result column="remarks" property="remarks" />
+        <result column="jdtime" property="jdtime" />
+        <result column="fwgw" property="fwgw" />
+        <result column="ywphone" property="ywphone" />
+        <result column="zq" property="zq" />
+        <result column="gzmoeny" property="gzmoeny" />
+        <result column="khsheng" property="khsheng" />
+        <result column="khshi" property="khshi" />
+        <result column="khq" property="khq" />
+        <result column="nsr" property="nsr" />
+        <result column="zcdh" property="zcdh" />
+        <result column="khyh" property="khyh" />
+        <result column="zcadress" property="zcadress" />
+        <result column="column1" property="column1" />
+        <result column="column2" property="column2" />
+        <result column="column3" property="column3" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, khid, khName, adress, lxpeople, phone, birthday, khcategory, yhnumber, rhtime, dqtime, remarks, jdtime, fwgw, ywphone, zq, gzmoeny, khsheng, khshi, khq, nsr, zcdh, khyh, zcadress, column1, column2, column3
+    </sql>
+
+</mapper>

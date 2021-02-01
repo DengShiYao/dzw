@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.accp.mapper.UserVehiclesMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.accp.domain.UserVehicles">
+        <result column="uvehicleid" property="uvehicleid" />
+        <result column="vtypeid" property="vtypeid" />
+        <result column="vbrandid" property="vbrandid" />
+        <result column="userid" property="userid" />
+        <result column="affiliationid" property="affiliationid" />
+        <result column="ulicense" property="ulicense" />
+        <result column="resdriver" property="resdriver" />
+        <result column="driverphone" property="driverphone" />
+        <result column="umileage" property="umileage" />
+        <result column="registereddate" property="registereddate" />
+        <result column="buydate" property="buydate" />
+        <result column="khid" property="khid" />
+        <result column="column1" property="column1" />
+        <result column="column2" property="column2" />
+        <result column="column3" property="column3" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        uvehicleid, vtypeid, vbrandid, userid, affiliationid, ulicense, resdriver, driverphone, umileage, registereddate, buydate, khid, column1, column2, column3
+    </sql>
+
+</mapper>

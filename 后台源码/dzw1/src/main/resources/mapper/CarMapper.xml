@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.accp.mapper.CarMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.accp.domain.Car">
+        <id column="car_cph" property="carCph" />
+        <result column="car_clpp" property="carClpp" />
+        <result column="car_type" property="carType" />
+        <result column="car_jsy" property="carJsy" />
+        <result column="car_Phone" property="carPhone" />
+        <result column="car_csrq" property="carCsrq" />
+        <result column="car_clgs" property="carClgs" />
+        <result column="car_jsydz" property="carJsydz" />
+        <result column="car_jzdq" property="carJzdq" />
+        <result column="car_cjh" property="carCjh" />
+        <result column="car_fdjh" property="carFdjh" />
+        <result column="car_fdjpph" property="carFdjpph" />
+        <result column="car_cllk" property="carCllk" />
+        <result column="car_lc" property="carLc" />
+        <result column="car_zz" property="carZz" />
+        <result column="car_cx" property="carCx" />
+        <result column="car_gmrq" property="carGmrq" />
+        <result column="car_sprq" property="carSprq" />
+        <result column="car_cjdq" property="carCjdq" />
+        <result column="carjqxbxgs" property="carjqxbxgs" />
+        <result column="car_jqxdq" property="carJqxdq" />
+        <result column="car_sf" property="carSf" />
+        <result column="car_ewrq" property="carEwrq" />
+        <result column="car_rylb" property="carRylb" />
+        <result column="car_xcbylc" property="carXcbylc" />
+        <result column="car_xcbyrq" property="carXcbyrq" />
+        <result column="car_hym" property="carHym" />
+        <result column="column1" property="column1" />
+        <result column="column2" property="column2" />
+        <result column="column3" property="column3" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        car_cph, car_clpp, car_type, car_jsy, car_Phone, car_csrq, car_clgs, car_jsydz, car_jzdq, car_cjh, car_fdjh, car_fdjpph, car_cllk, car_lc, car_zz, car_cx, car_gmrq, car_sprq, car_cjdq, carjqxbxgs, car_jqxdq, car_sf, car_ewrq, car_rylb, car_xcbylc, car_xcbyrq, car_hym, column1, column2, column3
+    </sql>
+
+</mapper>

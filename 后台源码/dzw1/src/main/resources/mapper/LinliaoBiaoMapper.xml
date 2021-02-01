@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.accp.mapper.LinliaoBiaoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.accp.domain.LinliaoBiao">
+        <id column="Ll_id" property="llId" />
+        <result column="Ll_Time" property="llTime" />
+        <result column="Ll_Name" property="llName" />
+        <result column="Ll_Wl_bm" property="llWlBm" />
+        <result column="Ll_Wl_Name" property="llWlName" />
+        <result column="Ll_Danwei_name" property="llDanweiName" />
+        <result column="Ll_jl" property="llJl" />
+        <result column="Ll_sl" property="llSl" />
+        <result column="Ll_dj" property="llDj" />
+        <result column="Ll_e" property="llE" />
+        <result column="Ll_mdyl" property="llMdyl" />
+        <result column="Ll_hszt" property="llHszt" />
+        <result column="column1" property="column1" />
+        <result column="column2" property="column2" />
+        <result column="column3" property="column3" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        Ll_id, Ll_Time, Ll_Name, Ll_Wl_bm, Ll_Wl_Name, Ll_Danwei_name, Ll_jl, Ll_sl, Ll_dj, Ll_e, Ll_mdyl, Ll_hszt, column1, column2, column3
+    </sql>
+
+</mapper>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.accp.mapper.CarDjMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.accp.domain.CarDj">
+        <id column="car_id" property="carId" />
+        <result column="car_type" property="carType" />
+        <result column="car_name" property="carName" />
+        <result column="car_cph" property="carCph" />
+        <result column="car_sjh" property="carSjh" />
+        <result column="car_hhkh" property="carHhkh" />
+        <result column="car_wxdh" property="carWxdh" />
+        <result column="car_djlx" property="carDjlx" />
+        <result column="car_kdsj" property="carKdsj" />
+        <result column="car_wgsj" property="carWgsj" />
+        <result column="car_jsjsj" property="carJsjsj" />
+        <result column="car_ygjh" property="carYgjh" />
+        <result column="car_whgwmc" property="carWhgwmc" />
+        <result column="car_jcr" property="carJcr" />
+        <result column="column1" property="column1" />
+        <result column="column2" property="column2" />
+        <result column="column3" property="column3" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        car_id, car_type, car_name, car_cph, car_sjh, car_hhkh, car_wxdh, car_djlx, car_kdsj, car_wgsj, car_jsjsj, car_ygjh, car_whgwmc, car_jcr, column1, column2, column3
+    </sql>
+
+</mapper>
