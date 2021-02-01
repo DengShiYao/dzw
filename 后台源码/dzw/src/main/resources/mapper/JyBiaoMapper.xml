@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.accp.mapper.JyBiaoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.accp.domain.JyBiao">
+        <id column="jy_No" property="jyNo" />
+        <result column="jy_djlx" property="jyDjlx" />
+        <result column="jy_ywbc" property="jyYwbc" />
+        <result column="jy_sgbc" property="jySgbc" />
+        <result column="jy_cz_Name" property="jyCzName" />
+        <result column="jy_cph" property="jyCph" />
+        <result column="jy_cx" property="jyCx" />
+        <result column="jy_cjh" property="jyCjh" />
+        <result column="jy_jcsj" property="jyJcsj" />
+        <result column="jy_yjwj" property="jyYjwj" />
+        <result column="jy_wgyy" property="jyWgyy" />
+        <result column="jy_zyr" property="jyZyr" />
+        <result column="jy_cfje" property="jyCfje" />
+        <result column="column1" property="column1" />
+        <result column="column2" property="column2" />
+        <result column="column3" property="column3" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        jy_No, jy_djlx, jy_ywbc, jy_sgbc, jy_cz_Name, jy_cph, jy_cx, jy_cjh, jy_jcsj, jy_yjwj, jy_wgyy, jy_zyr, jy_cfje, column1, column2, column3
+    </sql>
+
+</mapper>
