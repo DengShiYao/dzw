@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.accp.mapper.CarBrandMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.accp.domain.CarBrand">
+        <id column="car_id" property="carId" />
+        <result column="car_name" property="carName" />
+        <result column="initial" property="initial" />
+        <result column="is_delete" property="isDelete" />
+        <result column="column1" property="column1" />
+        <result column="column2" property="column2" />
+        <result column="column3" property="column3" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        car_id, car_name, initial, is_delete, column1, column2, column3
+    </sql>
+
+</mapper>

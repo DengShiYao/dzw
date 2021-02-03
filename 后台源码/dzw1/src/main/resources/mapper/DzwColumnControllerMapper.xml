@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.accp.mapper.DzwColumnControllerMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.accp.domain.DzwColumnController">
+        <id column="column_id" property="columnId" />
+        <result column="table_name" property="tableName" />
+        <result column="column_width" property="columnWidth" />
+        <result column="column_visible" property="columnVisible" />
+        <result column="column_name" property="columnName" />
+        <result column="user_id" property="userId" />
+        <result column="column1" property="column1" />
+        <result column="column2" property="column2" />
+        <result column="column3" property="column3" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        column_id, table_name, column_width, column_visible, column_name, user_id, column1, column2, column3
+    </sql>
+
+</mapper>
