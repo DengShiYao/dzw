@@ -71,6 +71,23 @@ CREATE TABLE `car` (
 
 /*Data for the table `car` */
 
+/*Table structure for table `car_brand` */
+
+DROP TABLE IF EXISTS `car_brand`;
+
+CREATE TABLE `car_brand` (
+  `car_id` varchar(100) NOT NULL COMMENT '汽车品牌id',
+  `car_name` varchar(100) DEFAULT NULL COMMENT '汽车品牌名称',
+  `initial` varchar(100) DEFAULT '' COMMENT '首字母',
+  `is_delete` int(11) DEFAULT '0' COMMENT '逻辑删除 0真/1假',
+  `column1` varchar(200) DEFAULT NULL COMMENT '备用列',
+  `column2` varchar(200) DEFAULT NULL COMMENT '备用列',
+  `column3` varchar(200) DEFAULT NULL COMMENT '备用列',
+  PRIMARY KEY (`car_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `car_brand` */
+
 /*Table structure for table `car_dj` */
 
 DROP TABLE IF EXISTS `car_dj`;
@@ -141,6 +158,22 @@ CREATE TABLE `car_type` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `car_type` */
+
+/*Table structure for table `coin_spray` */
+
+DROP TABLE IF EXISTS `coin_spray`;
+
+CREATE TABLE `coin_spray` (
+  `coin_id` varchar(100) NOT NULL,
+  `coin_name` varchar(100) DEFAULT NULL COMMENT '钣喷名称',
+  `is_delete` int(11) DEFAULT '0' COMMENT '逻辑删除 0真/1假',
+  `column1` varchar(200) DEFAULT NULL COMMENT '备用列',
+  `column2` varchar(200) DEFAULT NULL COMMENT '备用列',
+  `column3` varchar(200) DEFAULT NULL COMMENT '备用列',
+  PRIMARY KEY (`coin_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `coin_spray` */
 
 /*Table structure for table `consumer` */
 
@@ -261,6 +294,42 @@ CREATE TABLE `departure` (
 
 /*Data for the table `departure` */
 
+/*Table structure for table `dzw_column_controller` */
+
+DROP TABLE IF EXISTS `dzw_column_controller`;
+
+CREATE TABLE `dzw_column_controller` (
+  `column_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+  `table_name` varchar(100) DEFAULT NULL COMMENT '表名',
+  `column_width` double DEFAULT '150' COMMENT '字段宽度',
+  `column_visible` int(11) DEFAULT NULL COMMENT '是否显示 0隐藏/1显示',
+  `column_name` varchar(100) DEFAULT NULL COMMENT '字段名',
+  `user_id` int(11) DEFAULT NULL COMMENT '用户id',
+  `column1` varchar(200) DEFAULT NULL COMMENT '备用列',
+  `column2` varchar(200) DEFAULT NULL COMMENT '备用列',
+  `column3` varchar(200) DEFAULT NULL COMMENT '备用列',
+  PRIMARY KEY (`column_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `dzw_column_controller` */
+
+/*Table structure for table `dzw_column_show` */
+
+DROP TABLE IF EXISTS `dzw_column_show`;
+
+CREATE TABLE `dzw_column_show` (
+  `column_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+  `column_name` varchar(100) DEFAULT NULL COMMENT '字段名',
+  `order_num` int(11) DEFAULT NULL COMMENT '序号',
+  `table_name` varchar(100) DEFAULT NULL COMMENT '表名',
+  `column1` varchar(200) DEFAULT NULL COMMENT '备用列',
+  `column2` varchar(200) DEFAULT NULL COMMENT '备用列',
+  `column3` varchar(200) DEFAULT NULL COMMENT '备用列',
+  PRIMARY KEY (`column_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `dzw_column_show` */
+
 /*Table structure for table `education` */
 
 DROP TABLE IF EXISTS `education`;
@@ -360,6 +429,22 @@ CREATE TABLE `employees` (
 
 /*Data for the table `employees` */
 
+/*Table structure for table `engine_brand` */
+
+DROP TABLE IF EXISTS `engine_brand`;
+
+CREATE TABLE `engine_brand` (
+  `engine_id` varchar(100) NOT NULL COMMENT '品牌id',
+  `engine_name` varchar(100) DEFAULT NULL COMMENT '品牌名称',
+  `is_delete` int(11) DEFAULT '0' COMMENT '逻辑删除 0真/1假',
+  `column1` varchar(200) DEFAULT NULL COMMENT '备用列',
+  `column2` varchar(200) DEFAULT NULL COMMENT '备用列',
+  `column3` varchar(200) DEFAULT NULL COMMENT '备用列',
+  PRIMARY KEY (`engine_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `engine_brand` */
+
 /*Table structure for table `field_vehicles` */
 
 DROP TABLE IF EXISTS `field_vehicles`;
@@ -370,10 +455,11 @@ CREATE TABLE `field_vehicles` (
   `motorcycle_type` varchar(50) DEFAULT NULL COMMENT '车型',
   `current_mileage` varchar(255) DEFAULT NULL COMMENT '当前里程',
   `attribution_team` varchar(50) DEFAULT NULL COMMENT '归属班组',
-  `column1` varchar(200) DEFAULT NULL COMMENT '备用列',
-  `column2` varchar(200) DEFAULT NULL COMMENT '备用列',
+  `column1` int(4) NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+  `column2` int(4) NOT NULL COMMENT '班组外键',
   `column3` varchar(200) DEFAULT NULL COMMENT '备用列',
-  PRIMARY KEY (`plate_number`)
+  PRIMARY KEY (`plate_number`,`column1`),
+  KEY `column1` (`column1`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `field_vehicles` */
@@ -408,7 +494,7 @@ CREATE TABLE `goods` (
   `Spec5` varchar(100) DEFAULT NULL COMMENT '原厂副厂',
   `Spec6` varchar(100) DEFAULT NULL COMMENT '商品等级',
   `pro_id` int(11) DEFAULT NULL COMMENT '商品产地',
-  `ProvCode` varchar(200) DEFAULT NULL COMMENT '厂商代码',
+  `ProvCode` varchar(100) DEFAULT NULL COMMENT '厂商代码',
   `ProvName` varchar(200) DEFAULT NULL COMMENT '厂商名称',
   `OldBM` varchar(100) DEFAULT NULL COMMENT '原厂编码',
   `ItemTM` varchar(100) DEFAULT NULL COMMENT '条形码',
@@ -426,9 +512,7 @@ CREATE TABLE `goods` (
   `claim_price` double DEFAULT NULL COMMENT '索赔价',
   `insurance_price` double DEFAULT NULL COMMENT '保险价格',
   `block_up` int(11) DEFAULT '1' COMMENT '0停用/1启用',
-  `good_width` double DEFAULT '200' COMMENT '字段宽度',
-  `good_show` int(11) DEFAULT '1' COMMENT '0隐藏/1显示',
-  `booldel` int(11) DEFAULT NULL COMMENT '真假删除 0假/1真',
+  `is_delete` int(11) DEFAULT NULL COMMENT '真假删除 0假/1真',
   `column1` varchar(200) DEFAULT NULL COMMENT '备用列',
   `column2` varchar(200) DEFAULT NULL COMMENT '备用列',
   `column3` varchar(200) DEFAULT NULL COMMENT '备用列',
@@ -489,23 +573,6 @@ CREATE TABLE `goods_icon` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `goods_icon` */
-
-/*Table structure for table `group_tb` */
-
-DROP TABLE IF EXISTS `group_tb`;
-
-CREATE TABLE `group_tb` (
-  `group_id` varchar(100) NOT NULL COMMENT '组id',
-  `group_name` varchar(100) DEFAULT NULL COMMENT '组名称',
-  `initial` varchar(100) DEFAULT '“”' COMMENT '首字母',
-  `parentid` varchar(100) DEFAULT NULL COMMENT '父级id',
-  `column1` varchar(200) DEFAULT NULL COMMENT '备用列',
-  `column2` varchar(200) DEFAULT NULL COMMENT '备用列',
-  `column3` varchar(200) DEFAULT NULL COMMENT '备用列',
-  PRIMARY KEY (`group_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `group_tb` */
 
 /*Table structure for table `import_and_domestic` */
 
@@ -717,10 +784,10 @@ CREATE TABLE `mechanicsstar_level` (
   `crade_code` varchar(50) NOT NULL COMMENT '等级编码',
   `crade_name` varchar(50) NOT NULL COMMENT '等级名称',
   `full_commission` int(11) NOT NULL COMMENT '提成权重',
-  `column1` varchar(200) DEFAULT NULL COMMENT '备用列',
-  `column2` varchar(200) DEFAULT NULL COMMENT '备用列',
+  `column1` int(4) NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+  `column2` varchar(50) NOT NULL COMMENT '星级',
   `column3` varchar(200) DEFAULT NULL COMMENT '备用列',
-  PRIMARY KEY (`crade_code`)
+  PRIMARY KEY (`column1`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `mechanicsstar_level` */
@@ -742,6 +809,21 @@ CREATE TABLE `member` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `member` */
+
+/*Table structure for table `minor` */
+
+DROP TABLE IF EXISTS `minor`;
+
+CREATE TABLE `minor` (
+  `minor_id` varchar(100) DEFAULT NULL,
+  `minor_name` varchar(100) DEFAULT NULL COMMENT '修炼名称',
+  `is_delete` int(11) DEFAULT '0' COMMENT '逻辑删除 0真/1假',
+  `column1` varchar(200) DEFAULT NULL COMMENT '备用列',
+  `column2` varchar(200) DEFAULT NULL COMMENT '备用列',
+  `column3` varchar(200) DEFAULT NULL COMMENT '备用列'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `minor` */
 
 /*Table structure for table `national` */
 
@@ -914,8 +996,7 @@ CREATE TABLE `serve` (
   `column2` varchar(200) DEFAULT NULL COMMENT '备用列',
   `column3` varchar(200) DEFAULT NULL COMMENT '备用列',
   PRIMARY KEY (`se_id`),
-  KEY `brand_id` (`brand_id`),
-  CONSTRAINT `serve_ibfk_1` FOREIGN KEY (`brand_id`) REFERENCES `group_tb` (`group_id`)
+  KEY `brand_id` (`brand_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `serve` */
@@ -962,7 +1043,7 @@ CREATE TABLE `suppliers_contacts` (
   `sc_phone` varchar(100) DEFAULT NULL COMMENT '联系人手机',
   `sc_telephone` varchar(100) DEFAULT NULL COMMENT '联系人电话',
   `email` varchar(100) DEFAULT NULL COMMENT '邮箱',
-  `column1` varchar(200) DEFAULT NULL COMMENT '备用列',
+  `column1` int(11) DEFAULT NULL COMMENT '供货商表（suppliers_region）',
   `column2` varchar(200) DEFAULT NULL COMMENT '备用列',
   `column3` varchar(200) DEFAULT NULL COMMENT '备用列',
   PRIMARY KEY (`sc_id`)
@@ -1010,10 +1091,7 @@ CREATE TABLE `suppliers_region` (
   `Remark` varchar(200) DEFAULT NULL COMMENT '备注',
   `region_id` varchar(100) DEFAULT NULL COMMENT '所属地区',
   `block_up` int(11) DEFAULT '1' COMMENT '0停用/1启用',
-  `suppliers_width` double DEFAULT '200' COMMENT '字段宽度',
-  `suppliers_show` int(11) DEFAULT '1' COMMENT '0隐藏/1显示',
-  `booldel` int(11) DEFAULT NULL COMMENT '真假删除 0假/1真',
-  `column1` varchar(200) DEFAULT NULL COMMENT '备用列',
+  `column1` varchar(200) DEFAULT NULL COMMENT '逻辑删除 0真/1假',
   `column2` varchar(200) DEFAULT NULL COMMENT '备用列',
   `column3` varchar(200) DEFAULT NULL COMMENT '备用列',
   PRIMARY KEY (`sid`),
@@ -1131,10 +1209,10 @@ CREATE TABLE `team_form` (
   `team_code` varchar(50) NOT NULL COMMENT '班组编码',
   `team_name` varchar(50) NOT NULL COMMENT '班组名称',
   `team_commission` int(11) NOT NULL COMMENT '班组权重',
-  `column1` varchar(200) DEFAULT NULL COMMENT '备用列',
-  `column2` varchar(200) DEFAULT NULL COMMENT '备用列',
+  `column1` int(4) NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+  `column2` int(4) DEFAULT NULL COMMENT '团队id',
   `column3` varchar(200) DEFAULT NULL COMMENT '备用列',
-  PRIMARY KEY (`team_code`)
+  PRIMARY KEY (`column1`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `team_form` */
@@ -1148,7 +1226,6 @@ CREATE TABLE `technical` (
   `technical_name` varchar(50) NOT NULL COMMENT '技工姓名',
   `technical_sex` char(2) NOT NULL COMMENT '性别',
   `headman` int(11) NOT NULL COMMENT '是否是组长',
-  `team_code` varchar(50) NOT NULL COMMENT '所在班组',
   `phone` varchar(255) NOT NULL COMMENT '手机',
   `account_number` varchar(255) DEFAULT NULL COMMENT '登陆账号',
   `address` varchar(255) DEFAULT NULL COMMENT '地址',
@@ -1158,19 +1235,31 @@ CREATE TABLE `technical` (
   `address2` varchar(255) DEFAULT NULL COMMENT '户口地址',
   `bank` varchar(255) DEFAULT NULL COMMENT '开户银行',
   `bank_number` varchar(255) DEFAULT NULL COMMENT '银行账号',
-  `crade_code` varchar(50) DEFAULT NULL COMMENT '等级编码',
   `Maintenance_type` varchar(255) DEFAULT NULL COMMENT '维修工种',
   `Maintenance_brand` varchar(255) DEFAULT NULL COMMENT '维修品牌',
   `dimission` int(11) DEFAULT NULL COMMENT '是否离职',
-  `column1` varchar(200) DEFAULT NULL COMMENT '备用列',
-  `column2` varchar(200) DEFAULT NULL COMMENT '备用列',
+  `column1` int(4) DEFAULT NULL COMMENT '班组id',
+  `column2` int(4) DEFAULT NULL COMMENT '技工星级id',
   `column3` varchar(200) DEFAULT NULL COMMENT '备用列',
-  PRIMARY KEY (`technical_number`),
-  KEY `team-code` (`team_code`),
-  KEY `crade-code` (`crade_code`)
+  PRIMARY KEY (`technical_number`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `technical` */
+
+/*Table structure for table `tuandui` */
+
+DROP TABLE IF EXISTS `tuandui`;
+
+CREATE TABLE `tuandui` (
+  `td_id` int(4) NOT NULL AUTO_INCREMENT,
+  `td_name` varchar(50) DEFAULT NULL COMMENT '团队名称',
+  `column1` varchar(200) DEFAULT NULL COMMENT '备用列',
+  `column2` varchar(200) DEFAULT NULL COMMENT '备用列',
+  `column3` varchar(200) DEFAULT NULL COMMENT '备用列',
+  PRIMARY KEY (`td_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `tuandui` */
 
 /*Table structure for table `type_of_vehicle` */
 
@@ -1192,6 +1281,21 @@ CREATE TABLE `type_of_vehicle` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `type_of_vehicle` */
+
+/*Table structure for table `upkeep` */
+
+DROP TABLE IF EXISTS `upkeep`;
+
+CREATE TABLE `upkeep` (
+  `upkeep_id` varchar(100) DEFAULT NULL COMMENT '保养id',
+  `upkeep_name` varchar(100) DEFAULT NULL COMMENT '保养项目名称',
+  `is_delete` int(11) DEFAULT '0' COMMENT '逻辑删除 0真/1假',
+  `column1` varchar(200) DEFAULT NULL COMMENT '备用列',
+  `column2` varchar(200) DEFAULT NULL COMMENT '备用列',
+  `column3` varchar(200) DEFAULT NULL COMMENT '备用列'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `upkeep` */
 
 /*Table structure for table `user_vehicles` */
 
