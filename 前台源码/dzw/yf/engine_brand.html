@@ -28,9 +28,9 @@
                     <div style="display: inline-block;">
                         <vxe-toolbar>
                             <template v-slot:buttons>
-                                <vxe-button icon="glyphicon glyphicon-plus">增加
+                                <vxe-button icon="glyphicon glyphicon-plus" @click="engine={}">增加
                                 </vxe-button>
-                                <vxe-button icon="glyphicon glyphicon-floppy-disk">保存
+                                <vxe-button icon="glyphicon glyphicon-floppy-disk" @click="toEngineBrandIns">保存
                                 </vxe-button>
                                 <vxe-button icon="glyphicon glyphicon-remove-circle" data-toggle="modal"
                                     data-target="#myModal1">删除</vxe-button>
@@ -43,11 +43,11 @@
                     <form class="form-inline">
                         <div class="form-group">
                             <label for="exampleInputName2" style="color:rgb(51, 206, 222);">分类代码</label>
-                            <input type="text" class="form-control" id="exampleInputName2">
+                            <input type="text" class="form-control" id="exampleInputName2" v-model="engine.engineId">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail2" style="color:rgb(51, 206, 222);">分类名称</label>
-                            <input type="text" class="form-control" id="exampleInputEmail2">
+                            <input type="text" class="form-control" id="exampleInputEmail3" v-model="engine.engineName">
                         </div>
                     </form>
                 </div>
@@ -67,7 +67,7 @@
                 </div>
             </div>
             <div class="col-sm-12 countn" style=" height: 4.6%; border: 0px solid red;">
-                &nbsp;&nbsp;&nbsp;&nbsp;总数据：<span>999</span></div>
+                &nbsp;&nbsp;&nbsp;&nbsp;总数据：<span>{{ engineCount }}</span></div>
         </div>
         <!-- Modal -->
         <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -102,230 +102,81 @@
         var Main = {
             data() {
                 return {
-                    //修改 加载时查询字段及其注释加 然后再查询数据
-                    //先查询加载列表 然后获取列头
-                    columns: [],
+                    engine: {},
+                    engineCount: 0,
                     tableColumn: [
-                        { num: 1, field: 'id', title: '发动机品牌编码', sortable: true, showOverflow: true, visible: true },
-                        { num: 2, field: 'name', title: '发动机品牌名称', sortable: true, showOverflow: true, visible: true }
+                        { field: 'engineId', title: '发动机品牌编码', sortable: true, showOverflow: true, visible: true },
+                        { field: 'engineName', title: '发动机品牌名称', sortable: true, showOverflow: true, visible: true }
                     ],
-                    tableData: [{
-                        id: 10001,
-                        name: 'Test1',
-                        role: 'Develop',
-                        sex: 'Man',
-                        age: 28,
-                        address: '速度和高度是',
-                        wi: 1000
-                    },
-                    {
-                        id: 10002,
-                        name: 'Test2',
-                        role: 'Test',
-                        sex: 'Women',
-                        age: 22,
-                        address: 'Guangzhou'
-                    },
-                    {
-                        id: 10003,
-                        name: 'Test3',
-                        role: 'PM',
-                        sex: 'Man',
-                        age: 32,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10005,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10006,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10007,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10008,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10009,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10010,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10011,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10012,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10013,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10014,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10015,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10016,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10017,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10018,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10019,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10020,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10021,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 100022,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    }
-                    ]
+                    tableData: []
                 }
             },
             methods: {
-                //获取列头
-                gettableColumns() {
-                    // 获取所有列配置
-                    this.$nextTick(() => {
-                        this.columns = this.$refs.xTable.getColumns();
-                        console.log(JSON.stringify(this.$refs.xTable.getColumns()))
-                    })
-                },
                 currentChangeEvent({
                     row
                 }) {
                     console.log('行选中事件')
-                },
-                getCurrentEvent() {
-                    //获取选中行数据
-                    //   alert(typeof JSON.stringify(this.$refs.xTable.getCurrentRecord()))
-                    if (JSON.stringify(this.$refs.xTable.getCurrentRecord()) != "null") {
-                        $("#myModel2").modal("show");
-                    }
-                    //  this.$XModal.alert(JSON.stringify(this.$refs.xTable.getCurrentRecord()));
+                    this.engine = JSON.parse(JSON.stringify(this.$refs.xTable.getCurrentRecord()));
                 },
                 find() {
-                    // var that = this;
-                    // $.ajax({
-                    // 	url:"http://localhost:8080/java37-SpringMVC-1/reststudent",
-                    // 	type:"get",
-                    // 	xhrFields: {
-                    // 		withCredentials: true
-                    // 	},
-                    // 	crossDomain: true,
-                    // 	dataType:"json",
-                    // 	success:function(result){
-                    // 		that.tableData = result;
-                    // 		console.log(result);
-                    // 	},error:function(error){
-                    // 		console.log(error);
-                    // 	}
-                    // });
+                    var that = this;
+                    $.ajax({
+                        url: "http://localhost:8080/engineBrand",
+                        type: "get",
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        dataType: "json",
+                        success: function (result) {
+                            that.tableData = result;
+                        }, error: function (error) {
+                            console.log(error);
+                        }
+                    });
+                },
+                //查询总数据
+                getCount() {
+                    var that = this;
+                    $.ajax({
+                        url: "http://localhost:8080/engineBrand/tocount",
+                        type: "get",
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        success: function (result) {
+                            that.engineCount = result;
+                        }, error: function (error) {
+                            console.log(error);
+                        }
+                    });
+                },
+                //新增
+                toEngineBrandIns() {
+                    var that = this;
+                    $.ajax({
+                        url: "http://localhost:8080/engineBrand",
+                        type: "post",
+                        data: {
+                            json: JSON.stringify(that.engine)
+                        },
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        success: function (result) {
+                            that.find();
+                            that.getCount();
+                        }, error: function (error) {
+                            console.log(error);
+                        }
+                    });
                 }
             },
             created() {
                 this.find();
-                //获取列表可视的列
-                this.gettableColumns();
+                this.getCount();
             }
 
         }

@@ -1,7 +1,11 @@
 package com.accp.domain;
 
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -25,12 +29,14 @@ public class EngineBrand extends Model<EngineBrand> {
     private static final long serialVersionUID=1L;
 
     @ApiModelProperty(value = "品牌id")
+    @TableId("engine_id")
     private String engineId;
 
     @ApiModelProperty(value = "品牌名称")
     private String engineName;
 
     @ApiModelProperty(value = "逻辑删除 0真/1假")
+    @TableLogic
     private Integer isDelete;
 
     @ApiModelProperty(value = "备用列")
