@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="package/lib/style.css">
+</head>
+
+<body>
+
+    <div id="app">
+        <template>
+            <div style="padding: 20px 50px 0 50px">
+                <!--
+            一、空数据提示
+               1. empty-text="没有更多数据了！"
+               2. 末尾加标签
+                <template v-slot:empty>
+                    <span style="color: red;">
+                        <img src="./img/img2.gif">
+                        <p>没有更多数据了！</p>
+                    </span>
+                </template>
+             二、加载中：
+               :loading="loading"
+            -->
+                <vxe-table border highlight-hover-row :loading="loading" height="300" :data="tableData">
+                    <vxe-table-column type="seq" width="60"></vxe-table-column>
+                    <vxe-table-column field="name" title="Name" sortable></vxe-table-column>
+                    <vxe-table-column field="sex" title="Sex"></vxe-table-column>
+                    <vxe-table-column field="age" title="Age"></vxe-table-column>
+                    <vxe-table-column field="address" title="Address" show-overflow></vxe-table-column>
+
+                    <!--                <template v-slot:empty>-->
+                    <!--                    <span style="color: red;">-->
+                    <!--                        <img src="./img/img1.gif">-->
+                    <!--                        <p>没有更多数据了！</p>-->
+                    <!--                    </span>-->
+                    <!--                </template>-->
+                </vxe-table>
+            </div>
+        </template>
+    </div>
+    <script src="js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xe-utils"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vxe-table"></script>
+    <script src="js/bootstrap-treeview.js"></script>
+    <script type="text/javascript">
+
+        var Main = {
+            data() {
+                return {
+                    tableData: [],
+                }
+            },
+            created() {
+                this.loading = true;
+                setTimeout(() => {
+
+                    this.loading = false;
+                }, 5000)
+            },
+            methods: {},
+        };
+
+        var app = new Vue(Main).$mount('#app');
+    </script>
+</body>
+
+</html>

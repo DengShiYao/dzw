@@ -2,19 +2,16 @@ package com.accp.controller;
 
 
 import com.accp.domain.EngineBrand;
+import com.accp.result.ResultCode;
+import com.accp.result.ResultVO;
 import com.accp.service.impl.EngineBrandServiceImpl;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 /**
  * <p>
@@ -37,8 +34,8 @@ public class EngineBrandController {
      * @return
      */
     @GetMapping
-    public List<EngineBrand> engineFind(){
-        return brandService.list();
+    public ResultVO engineFind(){
+        return new ResultVO(ResultCode.SUCCESS, brandService.list());
     }
 
     /**
@@ -46,8 +43,8 @@ public class EngineBrandController {
      * @return
      */
     @GetMapping("/tocount")
-    public int getEngineBrandCount(){
-        return brandService.count();
+    public ResultVO getEngineBrandCount(){
+        return new ResultVO(ResultCode.SUCCESS, brandService.count());
     }
 
     /**
@@ -56,16 +53,21 @@ public class EngineBrandController {
      * @return
      */
     @PostMapping
-    public String toInsert(String json) {
+    public ResultVO toInsert(String json) {
         System.out.println(json);
         try {
-            System.out.println(json);
             EngineBrand engineBrand = objectMapper.readValue(json, EngineBrand.class);
             boolean b = brandService.saveOrUpdate(engineBrand);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
+            return new ResultVO(ResultCode.SUCCESS);
         }
-        return "cg";
+        return new ResultVO(ResultCode.SUCCESS);
+    }
+
+    @PostMapping("/remove")
+    public ResultVO toremove(Integer engineId){
+        return new ResultVO(ResultCode.SUCCESS, brandService.removeById(engineId));
     }
 
 }

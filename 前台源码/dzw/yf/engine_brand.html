@@ -32,8 +32,8 @@
                                 </vxe-button>
                                 <vxe-button icon="glyphicon glyphicon-floppy-disk" @click="toEngineBrandIns">保存
                                 </vxe-button>
-                                <vxe-button icon="glyphicon glyphicon-remove-circle" data-toggle="modal"
-                                    data-target="#myModal1">删除</vxe-button>
+                                <vxe-button icon="glyphicon glyphicon-remove-circle" @click="clickRemove">删除
+                                </vxe-button>
                                 <vxe-button icon="glyphicon glyphicon-export">导出</vxe-button>
                             </template>
                         </vxe-toolbar>
@@ -57,10 +57,10 @@
                     <div style="height: 100%;">
                         <!-- <button v-slot:buttons type="button" @click="getCurrentEvent"> 你好</button> -->
                         <template>
-                            <vxe-grid border stripe highlight-hover-row highlight-current-row resizable ref="xTable"
-                                class="mytable-scrollbar" auto-resize height="100%" :data="tableData"
-                                :columns="tableColumn" @current-change="currentChangeEvent" round show-header-overflow
-                                show-overflow>
+                            <vxe-grid border stripe :loading="loading" highlight-hover-row highlight-current-row
+                                resizable ref="xTable" class="mytable-scrollbar" auto-resize height="100%"
+                                :data="tableData" :columns="tableColumn" @current-change="currentChangeEvent" round
+                                show-header-overflow show-overflow>
                             </vxe-grid>
                         </template>
                     </div>
@@ -83,7 +83,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary">否</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">是</button>
+                        <button type="button" class="btn btn-default" @click="remove">是</button>
                     </div>
                 </div>
             </div>
@@ -96,13 +96,16 @@
     <script src="https://cdn.jsdelivr.net/npm/xe-utils"></script>
     <script src="https://cdn.jsdelivr.net/npm/vxe-table"></script>
     <script src="js/bootstrap-treeview.js"></script>
+    <script src="js/common.js"></script>
     <script type="text/javascript">
+
         //获取字段名和属性名
         // SELECT COLUMN_NAME,column_comment FROM INFORMATION_SCHEMA.Columns WHERE table_name='student' AND table_schema='myschool1913'
         var Main = {
             data() {
                 return {
                     engine: {},
+                    loading: false,
                     engineCount: 0,
                     tableColumn: [
                         { field: 'engineId', title: '发动机品牌编码', sortable: true, showOverflow: true, visible: true },
@@ -119,6 +122,7 @@
                     this.engine = JSON.parse(JSON.stringify(this.$refs.xTable.getCurrentRecord()));
                 },
                 find() {
+                    //this.loading = true;
                     var that = this;
                     $.ajax({
                         url: "http://localhost:8080/engineBrand",
@@ -128,12 +132,21 @@
                         },
                         crossDomain: true,
                         dataType: "json",
+                        beforeSend: function () {
+                            // $("#dd").html("加载zhong ")
+                        },
+                        complete: function (data) {
+                            // $("#dd").html(JSON.stringify(data))
+                            // that.loading = false;
+                        },
                         success: function (result) {
-                            that.tableData = result;
+                            handlerResult(result, () => { that.tableData = result.data; });
+                            // that.tableData = result;
                         }, error: function (error) {
                             console.log(error);
                         }
                     });
+
                 },
                 //查询总数据
                 getCount() {
@@ -146,13 +159,14 @@
                         },
                         crossDomain: true,
                         success: function (result) {
-                            that.engineCount = result;
+                            that.engineCount = handlerResult(result, that.alertModal);
+                            // that.engineCount = result;
                         }, error: function (error) {
                             console.log(error);
                         }
                     });
                 },
-                //新增
+                //新增-修改
                 toEngineBrandIns() {
                     var that = this;
                     $.ajax({
@@ -166,12 +180,49 @@
                         },
                         crossDomain: true,
                         success: function (result) {
-                            that.find();
-                            that.getCount();
+                            handlerResult(result, function () {
+                                that.find();
+                                that.getCount();
+                            });
                         }, error: function (error) {
                             console.log(error);
                         }
                     });
+                    this.engine = {};
+                },
+                clickRemove() {
+                    let json = JSON.stringify(this.$refs.xTable.getCurrentRecord());
+                    if (json != "null") {
+                        $("#myModal1").modal("show");
+                    }
+                },
+                remove() {
+                    let that = this;
+                    $.ajax({
+                        url: "http://localhost:8080/engineBrand/remove",
+                        type: "post",
+                        data: {
+                            engineId: that.$refs.xTable.getCurrentRecord().engineId
+                        },
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        success: function (result) {
+                            handlerResult(result, function () {
+                                that.find();
+                                that.getCount();
+                            });
+                        }, error: function (error) {
+                            console.log(error);
+                        }
+                    });
+                    this.engine = {};
+                    $("#myModal1").modal("hide");
+                },
+                alertModal() {
+                    console.log("==============成功===============")
+
                 }
             },
             created() {

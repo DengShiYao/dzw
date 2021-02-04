@@ -27,11 +27,11 @@
                 <div class="col-sm-3" style="height: 100%; border: 0px solid red;">
                     <div style="height: auto;">
                         <div class="btndiv">
-                            <button class="btn btn-default btn-type" data-toggle="modal" data-target="#myModal5"
-                                type="button" style="margin-left: 0px;"><span class="glyphicon glyphicon-plus"></span>
+                            <button class="btn btn-default btn-type" @click="toInsCarBrand" type="button"
+                                style="margin-left: 0px;"><span class="glyphicon glyphicon-plus"></span>
                                 增加品牌</button>
-                            <button class="btn btn-default btn-type" type="button" data-toggle="modal"
-                                data-target="#myModal6"><span class="glyphicon glyphicon-edit"></span>
+                            <button class="btn btn-default btn-type" type="button" @click="toUpdCarBrand"><span
+                                    class="glyphicon glyphicon-edit"></span>
                                 修改</button>
                             <button class="btn btn-default btn-type" type="button" data-toggle="modal"
                                 data-target="#myModal7" data-target="#myModal"><span
@@ -50,24 +50,13 @@
                     </div>
                     <div
                         style="margin-top: 4.8px; background-color: #ffffff; height:87%;  border: 0px solid rebeccapurple;">
-                        <table class="table table-bordered table-hover table-striped itemtable">
-                            <thead>
-                                <tr
-                                    style="font-weight: 700; height: 33px !important; background-color: rgb(248, 248, 249);">
-                                    <td style="padding: 8.0px 8px !important;">编码</td>
-                                    <td style="padding: 8.0px 8px !important;">品牌名称</td>
-                                    <td style="padding: 8.0px 8px !important;">首字母</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="item,index in templist" @click="clibanck(index)"
-                                    :class="{'clibanck':num==index}">
-                                    <td>{{ item.id }}</td>
-                                    <td>{{ item.name }}</td>
-                                    <td>{{ item.id }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <template>
+                            <vxe-grid border stripe highlight-hover-row highlight-current-row resizable ref="xTable2"
+                                class="mytable-scrollbar" auto-resize height="535" :data="carData"
+                                :columns="tableColumn2" @current-change="carBrandCurrentChangeEvent" round
+                                show-header-overflow show-overflow>
+                            </vxe-grid>
+                        </template>
                     </div>
                 </div>
                 <!-- 车型 -->
@@ -88,18 +77,7 @@
                                     <!-- <vxe-button @click="$refs.xTable.clearCurrentRow()">取消选中</vxe-button> -->
                                 </template>
                             </vxe-toolbar>
-                            <!-- <button class="btn btn-default btn-type" data-toggle="modal" data-target="#myModal1"
-                                type="button" style="margin-left: 0px;"><span class="glyphicon glyphicon-plus"></span>
-                                增加车型</button>
-                            <button class="btn btn-default btn-type " type="button"><span
-                                    class="glyphicon glyphicon-edit" @click="getCurrentEvent"></span>
-                                修改</button>
-                            <button class="btn btn-default btn-type" type="button"><span
-                                    class="glyphicon glyphicon-remove-circle"></span>
-                                删除</button>
-                            <button class="btn btn-default btn-type" type="button"><span
-                                    class="glyphicon glyphicon-picture"></span>
-                                照片</button> -->
+
                         </div>
                         <div style="margin-top: 5px;">
                             <form class="form-inline">
@@ -141,7 +119,6 @@
                                     style="padding-left: 25px; padding-right: 25px; margin-right: 30px;"><span
                                         class="glyphicon glyphicon-ok"></span> 保存</button>
                             </h4>
-
                         </div>
                         <div class="modal-body row">
                             <div class="col-sm-7 " style="padding: 0px 20px !important;">
@@ -526,26 +503,41 @@
                             <h4 class="modal-title" id="myModalLabel">品牌定义</h4>
                         </div>
                         <div class="modal-body" style="padding: 15px 30px;">
+                            <div v-if="tempCarBrand.istrue" class="alert alert-danger" id="alert1">
+                                <a href="#" class="close" data-dismiss="alert">
+                                    &times;
+                                </a>
+                                <strong>错误信息：</strong><span>[{{tempCarBrand.message }}]</span>
+                            </div>
                             <form class="form-horizontal">
-                                <div class="form-group">
-                                    <label for="inputEmail3" class="col-sm-3 control-label"><span
+                                <div class="form-group ">
+                                    <label for="inputEmail3"
+                                        :class="[arrayCar[0]?'col-sm-3  head-font control-label':'col-sm-3 control-label']"><span
                                             class="span1">*</span>&nbsp;品牌编码</label>
-                                    <div class="col-sm-7">
-                                        <input type="text" class="form-control" id="inputEmail3">
+                                    <div class="col-sm-7 ">
+                                        <input type="text"
+                                            :class="[arrayCar[0]?'form-control head-error':'form-control']"
+                                            @click="clickInput(0)" id="inputEmail3" v-model="carBrand.carId">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputPassword3" class="col-sm-3 control-label"><span
+                                    <label for="inputPassword3"
+                                        :class="[arrayCar[1]?'col-sm-3  head-font control-label':'col-sm-3 control-label']"><span
                                             class="span1">*</span>&nbsp;品牌名称</label>
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control" id="inputPassword3">
+                                        <input type="text"
+                                            :class="[arrayCar[1]?'form-control head-error':'form-control']"
+                                            @click="clickInput(1)" id="inputPassword3" v-model="carBrand.carName">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputPassword3" class="col-sm-3 control-label"><span
+                                    <label for="inputPassword3"
+                                        :class="[arrayCar[2]?'col-sm-3  head-font control-label':'col-sm-3 control-label']"><span
                                             class="span1">*</span>&nbsp;首字母</label>
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control" id="inputPassword3">
+                                        <input type="text"
+                                            :class="[arrayCar[2]?'form-control head-error':'form-control']"
+                                            @click="clickInput(2)" id="inputPassword3" v-model="carBrand.initial">
                                     </div>
                                 </div>
                             </form>
@@ -554,7 +546,8 @@
                             <button type="button" class="btn btn-info abtn"
                                 style="padding-left: 25px; padding-right: 25px;" data-dismiss="modal">取消</button>
                             <button type="button" class="btn  btn-success abtn"
-                                style="padding-left: 25px; padding-right: 25px;">保存</button>
+                                style="padding-left: 25px; padding-right: 25px;" ref="btn1"
+                                @click="InsSave(0)">保存</button>
                         </div>
                     </div>
                 </div>
@@ -569,26 +562,41 @@
                             <h4 class="modal-title" id="myModalLabel">品牌定义</h4>
                         </div>
                         <div class="modal-body" style="padding: 15px 30px;">
+                            <div v-if="tempCarBrand.istrue" class="alert alert-danger" id="alert2">
+                                <a href="#" class="close" data-dismiss="alert">
+                                    &times;
+                                </a>
+                                <strong>错误信息：</strong><span>[{{tempCarBrand.message }}]</span>
+                            </div>
                             <form class="form-horizontal">
-                                <div class="form-group">
-                                    <label for="inputEmail3" class="col-sm-3 control-label"><span
+                                <div class="form-group ">
+                                    <label for="inputEmail3"
+                                        :class="[arrayCar[0]?'col-sm-3  head-font control-label':'col-sm-3 control-label']"><span
                                             class="span1">*</span>&nbsp;品牌编码</label>
-                                    <div class="col-sm-7">
-                                        <input type="text" class="form-control" id="inputEmail3">
+                                    <div class="col-sm-7 ">
+                                        <input type="text"
+                                            :class="[arrayCar[0]?'form-control head-error':'form-control']"
+                                            @click="clickInput(0)" id="inputEmail3" v-model="carBrand.carId">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputPassword3" class="col-sm-3 control-label"><span
+                                    <label for="inputPassword3"
+                                        :class="[arrayCar[1]?'col-sm-3  head-font control-label':'col-sm-3 control-label']"><span
                                             class="span1">*</span>&nbsp;品牌名称</label>
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control" id="inputPassword3">
+                                        <input type="text"
+                                            :class="[arrayCar[1]?'form-control head-error':'form-control']"
+                                            @click="clickInput(1)" id="inputPassword3" v-model="carBrand.carName">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputPassword3" class="col-sm-3 control-label"><span
+                                    <label for="inputPassword3"
+                                        :class="[arrayCar[2]?'col-sm-3  head-font control-label':'col-sm-3 control-label']"><span
                                             class="span1">*</span>&nbsp;首字母</label>
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control" id="inputPassword3">
+                                        <input type="text"
+                                            :class="[arrayCar[2]?'form-control head-error':'form-control']"
+                                            @click="clickInput(2)" id="inputPassword3" v-model="carBrand.initial">
                                     </div>
                                 </div>
                             </form>
@@ -597,7 +605,8 @@
                             <button type="button" class="btn btn-info abtn"
                                 style="padding-left: 25px; padding-right: 25px;" data-dismiss="modal">取消</button>
                             <button type="button" class="btn  btn-success abtn"
-                                style="padding-left: 25px; padding-right: 25px;">保存</button>
+                                style="padding-left: 25px; padding-right: 25px;" ref="btn2"
+                                @click="InsSave(1)">保存</button>
                         </div>
                     </div>
                 </div>
@@ -629,24 +638,33 @@
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="https://cdn.jsdelivr.net/npm/xe-utils"></script>
     <script src="https://cdn.jsdelivr.net/npm/vxe-table"></script>
+    <script src="js/common.js"></script>
     <script type="text/javascript">
         var Main = {
             data() {
                 return {
-                    templist: [{ id: 1, name: "test" }, { id: 2, name: "test" }, { id: 3, name: "test" }, { id: 4, name: "test" }],
-                    num: -1,
                     imgUrl: '',
+                    carBrand: {
+                        carId: null,
+                        carName: null,
+                        initial: null
+                    },
+                    tempCarBrand: {
+                        istrue: false,
+                        message: "红色边框内为必填项"
+                    },
+                    arrayCar: [false, false, false],
                     textHide: false,
                     tableColumn: [
-                        { num: 1, type: 'checkbox', width: 50, visible: true },
-                        { num: 1, field: 'id', title: '车型ID', sortable: true, showOverflow: true, width: 200, visible: true },
-                        { num: 1, field: 'id', title: '发动机品牌', sortable: true, showOverflow: true, width: 200, visible: true },
-                        { num: 1, field: 'id', title: '车辆年款', sortable: true, showOverflow: true, width: 200, visible: true },
-                        { num: 1, field: 'id', title: '功率', sortable: true, showOverflow: true, width: 200, visible: true },
-                        { num: 1, field: 'id', title: '索赔厂商', sortable: true, showOverflow: true, width: 200, visible: true },
-                        { num: 1, field: 'id', title: '进口国产', sortable: true, showOverflow: true, width: 200, visible: true },
-                        { num: 1, field: 'id', title: '燃油编号', sortable: true, showOverflow: true, width: 200, visible: true },
-                        { num: 1, field: 'id', title: '载重', sortable: true, showOverflow: true, width: 200, visible: true },
+                        { type: 'checkbox', width: 50, visible: true },
+                        { field: 'id', title: '车型ID', sortable: true, showOverflow: true, width: 200, visible: true },
+                        { field: 'id', title: '发动机品牌', sortable: true, showOverflow: true, width: 200, visible: true },
+                        { field: 'id', title: '车辆年款', sortable: true, showOverflow: true, width: 200, visible: true },
+                        { field: 'id', title: '功率', sortable: true, showOverflow: true, width: 200, visible: true },
+                        { field: 'id', title: '索赔厂商', sortable: true, showOverflow: true, width: 200, visible: true },
+                        { field: 'id', title: '进口国产', sortable: true, showOverflow: true, width: 200, visible: true },
+                        { field: 'id', title: '燃油编号', sortable: true, showOverflow: true, width: 200, visible: true },
+                        { field: 'id', title: '载重', sortable: true, showOverflow: true, width: 200, visible: true },
                     ],
                     tableData: [{
                         id: 10001,
@@ -816,22 +834,29 @@
                         age: 24,
                         address: 'Shanghai'
                     }
-                    ]
+                    ], tableColumn2: [
+                        { field: 'carId', title: '编码', sortable: true, showOverflow: true, visible: true },
+                        { field: 'carName', title: '品牌名称', sortable: true, showOverflow: true, visible: true },
+                        { field: 'initial', title: '首字母', sortable: true, showOverflow: true, visible: true }
+                    ],
+                    carData: []
+
                 }
             },
             methods: {
-                //左侧表格点击更换背景色
-                clibanck(index) {
-                    this.num = index;
+                //车型品牌选中行事件
+                carBrandCurrentChangeEvent({
+                    row
+                }) {
+                    console.log('行选中事件')
                 },
+                //车型选中行
                 currentChangeEvent({
                     row
                 }) {
                     console.log('行选中事件')
                 },
                 getCurrentEvent2() {
-                    console.log("==============")
-
                     //获取选中行数据
                     //   alert(typeof JSON.stringify(this.$refs.xTable.getCurrentRecord()))
                     if (JSON.stringify(this.$refs.xTable.getCurrentRecord()) != "null") {
@@ -877,26 +902,133 @@
                     }
                 },
                 find() {
-                    // var that = this;
-                    // $.ajax({
-                    // 	url:"http://localhost:8080/java37-SpringMVC-1/reststudent",
-                    // 	type:"get",
-                    // 	xhrFields: {
-                    // 		withCredentials: true
-                    // 	},
-                    // 	crossDomain: true,
-                    // 	dataType:"json",
-                    // 	success:function(result){
-                    // 		that.tableData = result;
-                    // 		console.log(result);
-                    // 	},error:function(error){
-                    // 		console.log(error);
-                    // 	}
-                    // });
+                    var that = this;
+                    $.ajax({
+                        url: "http://localhost:8080/carBrand",
+                        type: "get",
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        dataType: "json",
+                        success: function (result) {
+                            handlerResult(result, () => { that.carData = result.data; });
+                            console.log(result);
+                        }
+                    });
+                },
+                //品牌新增
+                brandIns() {
+                    let that = this;
+                    $.ajax({
+                        url: "http://localhost:8080/carBrand",
+                        type: "post",
+                        data: JSON.stringify(that.carBrand),
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        contentType: "application/json;charset=utf-8",
+                        dataType: "json",
+                        success: function (result) {
+                            if (result.code == 3000) {
+                                that.tempCarBrand.message = "品牌编码已经存在，不能重复。";
+                                that.arrayCar[0] = true;
+                                that.tempCarBrand.istrue = true;
+                            } else {
+                                handlerResult(result, () => {
+                                    that.forArr();
+                                    that.find();
+                                });
+                            }
+                        }
+                    });
+                },
+                //修改 
+                brandUpd() {
+                    let that = this;
+                    $.ajax({
+                        url: "http://localhost:8080/carBrand/upd",
+                        type: "post",
+                        data: JSON.stringify(that.carBrand),
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        contentType: "application/json;charset=utf-8",
+                        dataType: "json",
+                        success: function (result) {
+                            if (result.code == 3000) {
+                                that.tempCarBrand.message = "品牌编码已经存在，不能重复。";
+                                that.arrayCar[0] = true;
+                                that.tempCarBrand.istrue = true;
+                            } else {
+                                handlerResult(result, () => {
+                                    that.forArr();
+                                    that.find();
+                                    $("#myModal5").modal("hide");
+                                });
+                            }
+                        }
+                    });
+                },
+                //品牌新增模态框
+                toInsCarBrand() {
+                    this.forArr();
+                    $("#myModal5").modal("show");
+                },
+                //品牌修改
+                toUpdCarBrand() {
+                    this.carBrand.beforeId = null;
+                    this.forArr();
+                    let json = JSON.stringify(this.$refs.xTable2.getCurrentRecord());
+                    if (json != "null" || json.length == 0) {
+                        this.carBrand = JSON.parse(json);
+                        this.carBrand.beforeId = this.carBrand.carId;
+                        $("#myModal6").modal("show");
+                    }
+                },
+                forArr() {
+                    this.tempCarBrand.istrue = false;
+                    this.carBrand.carId = null;
+                    this.carBrand.carName = null;
+                    this.carBrand.initial = null;
+                    this.arrayCar.forEach((value, index) => {
+                        Vue.set(this.arrayCar, index, false) //这样就能被vue监控到，更新视图 
+                    });
+                },
+                //新增时保存
+                InsSave(index) {
+                    this.tempCarBrand.message = "红色边框内为必填项";
+                    let bool = true;
+                    if (this.carBrand.carId == null || this.carBrand.carId == "") {
+                        this.arrayCar[0] = true;
+                        this.tempCarBrand.istrue = true;
+                        bool = false;
+                    }
+                    if (this.carBrand.carName == null || this.carBrand.carName == "") {
+                        this.arrayCar[1] = true;
+                        this.tempCarBrand.istrue = true;
+                        bool = false;
+                    }
+                    if (this.carBrand.initial == null || this.carBrand.initial == "") {
+                        this.arrayCar[2] = true;
+                        this.tempCarBrand.istrue = true;
+                        bool = false;
+                    }
+                    if (bool) {
+                        index == 0 ? this.brandIns() : this.brandUpd();
+                    }
+                },
+                clickInput(index) {
+                    Vue.set(this.arrayCar, index, false) //这样就能被vue监控到，更新视图 
                 }
             },
             created() {
                 this.find();
+            },
+            watch: {
+
             }
         };
         var Ctor = Vue.extend(Main);
