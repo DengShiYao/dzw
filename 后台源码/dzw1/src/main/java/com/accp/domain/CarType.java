@@ -1,12 +1,14 @@
 package com.accp.domain;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
-import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
 
 /**
  * <p>
@@ -66,6 +68,13 @@ public class CarType extends Model<CarType> {
     @ApiModelProperty(value = "备用列")
     private String column3;
 
+    @ApiModelProperty(value = "进口国产")
+    @TableField(exist = false)
+    private String importName;
+
+    @ApiModelProperty(value = "索赔厂商")
+    @TableField(exist = false)
+    private String regionName;
 
     public static final String CAR_ID = "car_id";
 

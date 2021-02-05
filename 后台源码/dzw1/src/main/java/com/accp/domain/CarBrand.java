@@ -1,9 +1,6 @@
 package com.accp.domain;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -32,8 +29,8 @@ public class CarBrand extends Model<CarBrand> {
 
     @ApiModelProperty(value = "汽车品牌id")
     @NotEmpty(message = "品牌编码不能为空")
-    @TableId(value = "car_id")
-    @TableField(fill=FieldFill.INSERT_UPDATE)
+//    @TableId(value = "car_id",type = IdType.INPUT)
+//    @TableField(fill=FieldFill.INSERT_UPDATE)
     private String carId;
 
     @ApiModelProperty(value = "汽车品牌名称")
@@ -43,7 +40,6 @@ public class CarBrand extends Model<CarBrand> {
     private String initial;
 
     @ApiModelProperty(value = "逻辑删除 0真/1假")
-    @TableLogic
     private Integer isDelete;
 
     @ApiModelProperty(value = "备用列")

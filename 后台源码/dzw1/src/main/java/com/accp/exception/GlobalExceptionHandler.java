@@ -41,7 +41,7 @@ public class GlobalExceptionHandler {
     public ResultVO<Object> ArithmeticException(Exception e, HttpServletRequest request) {
         log.error("其他异常");
         Object springEx = request.getAttribute("org.springframework.boot.web.servlet.error.DefaultErrorAttributes.ERROR");
-        System.out.println(springEx);
+        System.out.println(e);
         return  new ResultVO<>(1, e.getClass().getName());
     }
 

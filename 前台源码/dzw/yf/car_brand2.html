@@ -33,8 +33,7 @@
                             <button class="btn btn-default btn-type" type="button" @click="toUpdCarBrand"><span
                                     class="glyphicon glyphicon-edit"></span>
                                 修改</button>
-                            <button class="btn btn-default btn-type" type="button" data-toggle="modal"
-                                data-target="#myModal7" data-target="#myModal"><span
+                            <button class="btn btn-default btn-type" type="button" @click="clickBrandRemove"><span
                                     class="glyphicon glyphicon-remove-circle"></span>
                                 删除</button>
                         </div>
@@ -65,8 +64,7 @@
                         <div class="btndiv" style="background-color: red !important;">
                             <vxe-toolbar>
                                 <template v-slot:buttons>
-                                    <vxe-button icon="glyphicon glyphicon-plus" data-toggle="modal"
-                                        data-target="#myModal1">增加车型</vxe-button>
+                                    <vxe-button icon="glyphicon glyphicon-plus" @click="clickCarType">增加车型</vxe-button>
                                     <vxe-button @click="getCurrentEvent2" icon="glyphicon glyphicon-edit">修改
                                     </vxe-button>
                                     <vxe-button icon="glyphicon glyphicon-remove-circle" data-toggle="modal"
@@ -115,14 +113,15 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                     aria-hidden="true">&times;</span></button>
                             <h4 class="modal-title clearfix" id="myModalLabel">车型定义<button type="button"
-                                    class="btn btn-success pull-right"
+                                    @click="addCarTypeFile" class="btn btn-success pull-right"
                                     style="padding-left: 25px; padding-right: 25px; margin-right: 30px;"><span
                                         class="glyphicon glyphicon-ok"></span> 保存</button>
                             </h4>
                         </div>
                         <div class="modal-body row">
                             <div class="col-sm-7 " style="padding: 0px 20px !important;">
-                                <form class="form-horizontal fordiv1">
+                                <form class="form-horizontal fordiv1" method="post" enctype="multipart/form-data"
+                                    id="formfile1">
                                     <table class="col-sm-12">
                                         <tr>
                                             <td colspan="2">
@@ -131,11 +130,13 @@
                                                             class="span1">*</span>&nbsp;车辆品牌</label>
                                                     <div class="col-sm-4">
                                                         <input type="text" class="form-control" id="inputEmail1"
-                                                            style="border-radius:4px 0px 0px 4px;" disabled>
+                                                            name="brandName" style="border-radius:4px 0px 0px 4px;"
+                                                            v-model="carType.brandName" disabled>
                                                     </div>
                                                     <div class="col-sm-6">
                                                         <input type="text" class="form-control" id="inputEmail1"
-                                                            style="border-radius:0px 4px 4px 0px;" disabled>
+                                                            name="carbrandName" style="border-radius:0px 4px 4px 0px;"
+                                                            v-model="carType.carbrandName" disabled>
                                                     </div>
                                                 </div>
                                             </td>
@@ -146,7 +147,8 @@
                                                     <label for="inputPassword2" class="col-sm-4 control-label"><span
                                                             class="span1">*</span>&nbsp;车型ID</label>
                                                     <div class="col-sm-8">
-                                                        <input type="text" class="form-control" id="inputPassword2">
+                                                        <input type="text" class="form-control" id="inputPassword2"
+                                                            name="carId" v-model="carType.carId">
                                                     </div>
                                                 </div>
                                             </td>
@@ -155,7 +157,8 @@
                                                     <label for="inputPassword3" class="col-sm-4 control-label"><span
                                                             class="span1">*</span>&nbsp;车型名称</label>
                                                     <div class="col-sm-8">
-                                                        <input type="text" class="form-control" id="inputPassword3">
+                                                        <input type="text" class="form-control" id="inputPassword3"
+                                                            name="carName" v-model="carType.carName">
                                                     </div>
                                                 </div>
                                             </td>
@@ -166,13 +169,13 @@
                                                     <label for="inputPassword4"
                                                         class="col-sm-4 control-label">进口国产</label>
                                                     <div class="col-sm-8">
-                                                        <select class="form-control" id="inputPassword4">
-                                                            <option value="">===请选择===</option>
-                                                            <option>1</option>
-                                                            <option>2</option>
-                                                            <option>3</option>
-                                                            <option>4</option>
-                                                            <option>5</option>
+                                                        <select class="form-control" id="inputPassword4"
+                                                            name="importAndDomestic"
+                                                            v-modal="carType.importAndDomestic">
+                                                            <option value="0">===请选择===</option>
+                                                            <option v-for="item in importAndDomestic" :value="item.id">
+                                                                {{ item.name }}
+                                                            </option>
                                                         </select>
                                                         <!-- <input type="text" class="form-control" id="inputPassword4"> -->
                                                     </div>
@@ -183,7 +186,8 @@
                                                     <label for="inputPassword5"
                                                         class="col-sm-4 control-label">参考价格</label>
                                                     <div class="col-sm-8">
-                                                        <input type="text" class="form-control" id="inputPassword5">
+                                                        <input type="text" class="form-control" id="inputPassword5"
+                                                            name="referencePrice" v-modal="carType.referencePrice">
                                                     </div>
                                                 </div>
                                             </td>
@@ -194,7 +198,8 @@
                                                     <label for="inputPassword6"
                                                         class="col-sm-4 control-label">车辆年款</label>
                                                     <div class="col-sm-8">
-                                                        <input type="text" class="form-control" id="inputPassword6">
+                                                        <input type="text" class="form-control" id="inputPassword6"
+                                                            name="carStyle" v-modal="carType.carStyle">
                                                     </div>
                                                 </div>
                                             </td>
@@ -203,7 +208,8 @@
                                                     <label for="inputPassword7"
                                                         class="col-sm-4 control-label">功率</label>
                                                     <div class="col-sm-8">
-                                                        <input type="text" class="form-control" id="inputPassword7">
+                                                        <input type="text" class="form-control" id="inputPassword7"
+                                                            name="power" v-modal="carType.power">
                                                     </div>
                                                 </div>
                                             </td>
@@ -214,7 +220,8 @@
                                                     <label for="inputPassword8"
                                                         class="col-sm-4 control-label">燃油编号</label>
                                                     <div class="col-sm-8">
-                                                        <input type="text" class="form-control" id="inputPassword8">
+                                                        <input type="text" class="form-control" id="inputPassword8"
+                                                            name="fuelNumber" v-modal="carType.fuelNumber">
                                                     </div>
                                                 </div>
                                             </td>
@@ -223,7 +230,8 @@
                                                     <label for="inputPassword9"
                                                         class="col-sm-4 control-label">载重</label>
                                                     <div class="col-sm-8">
-                                                        <input type="text" class="form-control" id="inputPassword9">
+                                                        <input type="text" class="form-control" id="inputPassword9"
+                                                            name="loadbearing" v-modal="carType.loadbearing">
                                                     </div>
                                                 </div>
                                             </td>
@@ -234,7 +242,8 @@
                                                     <label for="inputEmail10" class="col-sm-2 control-label"><span
                                                             class="span1">*</span>&nbsp;索赔厂商</label>
                                                     <div class="col-sm-10">
-                                                        <input type="text" class="form-control" id="inputEmail10">
+                                                        <input type="text" class="form-control" id="inputEmail10"
+                                                            name="sid" v-modal="carType.sid">
                                                     </div>
                                                 </div>
                                             </td>
@@ -245,15 +254,13 @@
                                                     <label for="inputEmail11" class="col-sm-2 control-label"><span
                                                             class="span1">*</span>&nbsp;发动机品牌</label>
                                                     <div class="col-sm-10">
-                                                        <select class="form-control" id="inputEmail11">
-                                                            <option value="">===请选择===</option>
-                                                            <option>1</option>
-                                                            <option>2</option>
-                                                            <option>3</option>
-                                                            <option>4</option>
-                                                            <option>5</option>
+                                                        <select class="form-control" id="inputEmail11" name="engineName"
+                                                            v-model="carType.engineName">
+                                                            <option value="0">===请选择===</option>
+                                                            <option v-for="item in engineBrand"
+                                                                :value="item.engineName">{{ item.engineName }}
+                                                            </option>
                                                         </select>
-                                                        <!-- <input type="text" class="form-control"> -->
                                                     </div>
                                                 </div>
                                             </td>
@@ -265,8 +272,8 @@
                             <div class="col-sm-5 icon-btn">
                                 <div><span v-if="textHide"><img :src="imgUrl" alt=""></span></div>
                                 <div>
-                                    <span style="display: none;"><input type="file" ref="filElem" accept="image/*"
-                                            @change="getFile"></span>
+                                    <span style="display: none;"><input type="file" name="file" ref="filElem"
+                                            accept="image/*" @change="getFile"></span>
                                     <button @click="choiceImg" icon="ios-cloud-upload-outline"
                                         type="primary">照片</button>
                                 </div>
@@ -625,7 +632,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">否</button>
-                            <button type="button" class="btn btn-primary">是</button>
+                            <button type="button" class="btn btn-primary" @click="brandRemove">是</button>
                         </div>
                     </div>
                 </div>
@@ -644,6 +651,12 @@
             data() {
                 return {
                     imgUrl: '',
+                    isLoad: true,       //页面第一次加载时fasle
+                    importAndDomestic: {},   //进口国产,
+                    engineBrand: {},     //发动机品牌
+                    carType: {
+                        engineName: 0
+                    },     //车型
                     carBrand: {
                         carId: null,
                         carName: null,
@@ -657,184 +670,19 @@
                     textHide: false,
                     tableColumn: [
                         { type: 'checkbox', width: 50, visible: true },
-                        { field: 'id', title: '车型ID', sortable: true, showOverflow: true, width: 200, visible: true },
-                        { field: 'id', title: '发动机品牌', sortable: true, showOverflow: true, width: 200, visible: true },
-                        { field: 'id', title: '车辆年款', sortable: true, showOverflow: true, width: 200, visible: true },
-                        { field: 'id', title: '功率', sortable: true, showOverflow: true, width: 200, visible: true },
-                        { field: 'id', title: '索赔厂商', sortable: true, showOverflow: true, width: 200, visible: true },
-                        { field: 'id', title: '进口国产', sortable: true, showOverflow: true, width: 200, visible: true },
-                        { field: 'id', title: '燃油编号', sortable: true, showOverflow: true, width: 200, visible: true },
-                        { field: 'id', title: '载重', sortable: true, showOverflow: true, width: 200, visible: true },
+                        { field: 'carId', title: '车型ID', sortable: true, showOverflow: true, width: 200, visible: true },
+                        { field: 'carName', title: '车型名称', sortable: true, showOverflow: true, width: 200, visible: true },
+                        { field: 'engineName', title: '发动机品牌', sortable: true, showOverflow: true, width: 200, visible: true },
+                        { field: 'referencePrice', title: '参考价格', sortable: true, showOverflow: true, width: 200, visible: true },
+                        { field: 'carStyle', title: '车辆年款', sortable: true, showOverflow: true, width: 200, visible: true },
+                        { field: 'power', title: '功率', sortable: true, showOverflow: true, width: 200, visible: true },
+                        { field: 'regionName', title: '索赔厂商', sortable: true, showOverflow: true, width: 200, visible: true },
+                        { field: 'importName', title: '进口国产', sortable: true, showOverflow: true, width: 200, visible: true },
+                        { field: 'fuelNumber', title: '燃油标号', sortable: true, showOverflow: true, width: 200, visible: true },
+                        { field: 'loadbearing', title: '载重', sortable: true, showOverflow: true, width: 200, visible: true },
                     ],
-                    tableData: [{
-                        id: 10001,
-                        name: 'Test1',
-                        role: 'Develop',
-                        sex: 'Man',
-                        age: 28,
-                        address: '双卡双待大环境是客户交付'
-                    },
-                    {
-                        id: 10002,
-                        name: 'Test2',
-                        role: 'Test',
-                        sex: 'Women',
-                        age: 22,
-                        address: 'Guangzhou'
-                    },
-                    {
-                        id: 10003,
-                        name: 'Test3',
-                        role: 'PM',
-                        sex: 'Man',
-                        age: 32,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10005,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10006,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10007,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10008,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10009,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10010,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10011,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10012,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10013,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10014,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10015,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10016,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10017,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10018,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10019,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10020,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10021,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 100022,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    }
-                    ], tableColumn2: [
+                    tableData: [],
+                    tableColumn2: [
                         { field: 'carId', title: '编码', sortable: true, showOverflow: true, visible: true },
                         { field: 'carName', title: '品牌名称', sortable: true, showOverflow: true, visible: true },
                         { field: 'initial', title: '首字母', sortable: true, showOverflow: true, visible: true }
@@ -848,7 +696,9 @@
                 carBrandCurrentChangeEvent({
                     row
                 }) {
-                    console.log('行选中事件')
+                    console.log('行选中事件');
+                    let carId = this.$refs.xTable2.getCurrentRecord().carId;
+                    this.findCarType(carId)
                 },
                 //车型选中行
                 currentChangeEvent({
@@ -904,7 +754,7 @@
                 find() {
                     var that = this;
                     $.ajax({
-                        url: "http://localhost:8080/carBrand",
+                        url: "http://127.0.0.1:8080/carBrand",
                         type: "get",
                         xhrFields: {
                             withCredentials: true
@@ -912,8 +762,17 @@
                         crossDomain: true,
                         dataType: "json",
                         success: function (result) {
-                            handlerResult(result, () => { that.carData = result.data; });
-                            console.log(result);
+                            handlerResult(result, () => {
+                                that.carData = result.data;
+                                if (that.carData.length > 0 && that.isLoad == true) {
+                                    //只有页面第一次加载运行时
+                                    //设置第一行选中
+                                    that.isLoad = false;
+                                    that.$refs.xTable2.setCurrentRow(that.carData[0]);
+                                    let carId = that.$refs.xTable2.getCurrentRecord().carId;
+                                    that.findCarType(carId);
+                                }
+                            });
                         }
                     });
                 },
@@ -921,34 +780,7 @@
                 brandIns() {
                     let that = this;
                     $.ajax({
-                        url: "http://localhost:8080/carBrand",
-                        type: "post",
-                        data: JSON.stringify(that.carBrand),
-                        xhrFields: {
-                            withCredentials: true
-                        },
-                        crossDomain: true,
-                        contentType: "application/json;charset=utf-8",
-                        dataType: "json",
-                        success: function (result) {
-                            if (result.code == 3000) {
-                                that.tempCarBrand.message = "品牌编码已经存在，不能重复。";
-                                that.arrayCar[0] = true;
-                                that.tempCarBrand.istrue = true;
-                            } else {
-                                handlerResult(result, () => {
-                                    that.forArr();
-                                    that.find();
-                                });
-                            }
-                        }
-                    });
-                },
-                //修改 
-                brandUpd() {
-                    let that = this;
-                    $.ajax({
-                        url: "http://localhost:8080/carBrand/upd",
+                        url: "http://127.0.0.1:8080/carBrand",
                         type: "post",
                         data: JSON.stringify(that.carBrand),
                         xhrFields: {
@@ -972,6 +804,139 @@
                         }
                     });
                 },
+                //车型品牌修改 
+                brandUpd() {
+                    let that = this;
+                    $.ajax({
+                        url: "http://127.0.0.1:8080/carBrand/upd",
+                        type: "post",
+                        data: JSON.stringify(that.carBrand),
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        contentType: "application/json;charset=utf-8",
+                        dataType: "json",
+                        success: function (result) {
+                            if (result.code == 3000) {
+                                that.tempCarBrand.message = "品牌编码已经存在，不能重复。";
+                                that.arrayCar[0] = true;
+                                that.tempCarBrand.istrue = true;
+                            } else {
+                                handlerResult(result, () => {
+                                    that.forArr();
+                                    that.find();
+                                    $("#myModal6").modal("hide");
+                                });
+                            }
+                        }
+                    });
+                },
+                //车型品牌删除
+                brandRemove() {
+                    let id = this.$refs.xTable2.getCurrentRecord().carId;
+                    let that = this;
+                    $.ajax({
+                        url: "http://127.0.0.1:8080/carBrand/remove",
+                        type: "post",
+                        data: { carBrand: id },
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        dataType: "json",
+                        success: function (result) {
+                            handlerResult(result, () => {
+                                that.find();
+                                $("#myModal7").modal("hide");
+                            });
+                        }
+                    });
+                },
+                //点击左侧品牌时查询品牌下的车型
+                findCarType(carId) {
+                    var that = this;
+                    $.ajax({
+                        url: "http://127.0.0.1:8080/carType/" + carId,
+                        type: "get",
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        dataType: "json",
+                        success: function (result) {
+                            handlerResult(result, () => { that.tableData = result.data; });
+                            console.log(result);
+                        }
+                    });
+                },
+                /*
+                    查询进口国产
+                */
+                findDomestic() {
+                    let that = this;
+                    $.ajax({
+                        url: "http://127.0.0.1:8080/importAndDomestic",
+                        type: "get",
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        dataType: "json",
+                        success: function (result) {
+                            handlerResult(result, () => {
+                                that.importAndDomestic = result.data;
+                            });
+                        }
+                    });
+                },
+                /*
+                    查询发动机品牌
+                */
+                findCarBrand() {
+                    let that = this;
+                    $.ajax({
+                        url: "http://127.0.0.1:8080/engineBrand",
+                        type: "get",
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        dataType: "json",
+                        success: function (result) {
+                            handlerResult(result, () => {
+                                that.engineBrand = result.data;
+                            });
+                        }
+                    });
+                },
+                /*
+                    车型新增
+                */
+                addCarTypeFile() {
+                    var form = $("#formfile1").get(0);//将jquery对象转换成dom对象
+                    var formdata = new FormData(form);
+                    formdata.append("file", this.$refs.filElem.files[0])
+                    console.log(formdata);
+                    $.ajax({
+                        url: "http://127.0.0.1:8080/carType/upload",
+                        data: formdata,
+                        type: "post",
+                        processData: false,//不处理参数中的数据
+                        contentType: false,//数据内容不进行定义
+                        dataType: "json",
+                        success: function () {
+
+                        }
+                    });
+                },
+                //车型品牌删除时模态框
+                clickBrandRemove() {
+                    let json = JSON.stringify(this.$refs.xTable2.getCurrentRecord());
+                    if (json != "null" || json.length == 0) {
+                        $("#myModal7").modal("show");
+                    }
+                },
                 //品牌新增模态框
                 toInsCarBrand() {
                     this.forArr();
@@ -988,11 +953,21 @@
                         $("#myModal6").modal("show");
                     }
                 },
+                /*
+                    增加车型
+                */
+                clickCarType() {
+                    this.findDomestic();
+                    this.findCarBrand();
+                    $("#myModal1").modal("show");
+                },
+                //清空品牌对象的内容 初始化
                 forArr() {
                     this.tempCarBrand.istrue = false;
                     this.carBrand.carId = null;
                     this.carBrand.carName = null;
                     this.carBrand.initial = null;
+                    this.carBrand.beforeId = null;
                     this.arrayCar.forEach((value, index) => {
                         Vue.set(this.arrayCar, index, false) //这样就能被vue监控到，更新视图 
                     });
@@ -1026,6 +1001,7 @@
             },
             created() {
                 this.find();
+
             },
             watch: {
 

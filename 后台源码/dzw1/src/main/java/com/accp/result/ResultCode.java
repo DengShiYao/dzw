@@ -15,6 +15,7 @@ public enum ResultCode {
     VALIDATE_FAILED(1002, "参数校验失败"),
     ERROR(1003, "未知错误"),
     OTHER_ERRORS(1004,"转换失败"),
+    ID_NOT_NULL(1005,"ID参数不能为空"),
 
     //2000系列用户错误
     USER_NOT_EXIST(2000,"用户不存在"),
@@ -24,6 +25,7 @@ public enum ResultCode {
 
     //操作错误
     PEY_EXIT(3000,"此数据已经存在");
+
 
     private int code;
     private String msg;

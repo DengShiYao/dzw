@@ -18,11 +18,23 @@
         <result column="column1" property="column1" />
         <result column="column2" property="column2" />
         <result column="column3" property="column3" />
+        <result column="import_name" property="importName" />
+        <result column="region_ame" property="regionName" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         car_id, car_name, engine_name, reference_price, car_style, power, sid, import_and_domestic, fuel_number, loadbearing, brand_name, column1, column2, column3
     </sql>
+
+
+    <select id="find" resultMap="BaseResultMap">
+        SELECT c.*,i.`name` import_name,s.`ProvName` region_ame FROM `car_type` c
+        INNER JOIN `import_and_domestic` i
+        ON c.`import_and_domestic`=i.`id`
+        INNER JOIN `suppliers_region` s
+        ON c.`sid`=s.`sid`
+        ${ew.customSqlSegment}
+    </select>
 
 </mapper>
