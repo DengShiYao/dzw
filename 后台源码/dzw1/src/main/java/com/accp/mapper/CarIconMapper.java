@@ -12,5 +12,4 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2021-02-01
  */
 public interface CarIconMapper extends BaseMapper<CarIcon> {
-
 }

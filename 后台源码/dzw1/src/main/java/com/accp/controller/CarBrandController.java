@@ -2,10 +2,12 @@ package com.accp.controller;
 
 
 import com.accp.domain.CarBrand;
+import com.accp.domain.CarIcon;
 import com.accp.domain.CarType;
 import com.accp.result.ResultCode;
 import com.accp.result.ResultVO;
 import com.accp.service.impl.CarBrandServiceImpl;
+import com.accp.service.impl.CarIconServiceImpl;
 import com.accp.service.impl.CarTypeServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * <p>
@@ -33,6 +36,12 @@ public class CarBrandController {
      */
     @Autowired
     CarTypeServiceImpl carTypeService;
+    /**
+     * 车型图片
+     */
+    @Autowired
+    CarIconServiceImpl carIconService;
+
     @Autowired
     ObjectMapper objectMapper;
 
@@ -91,10 +100,24 @@ public class CarBrandController {
             //如果参数为空返回提示
             return new ResultVO(ResultCode.ID_NOT_NULL);
         }
-        //反之先删除车型 再删除品牌
+        //反之先删除车型图片——车型——再删除品牌
+        //删除车型前先删除其图片
+        //先查询当前品牌下所有车型
+        List<CarType> list = carTypeService.list(new QueryWrapper<CarType>().lambda().eq(CarType::getBrandName, carBrand));
+        //利用循环删除品牌下车型所图片
+        list.forEach(item->{
+            carIconService.remove(new QueryWrapper<CarIcon>().lambda().eq(CarIcon::getCarId,item.getCarId()));
+        });
         carTypeService.remove(new QueryWrapper<CarType>().lambda().eq(CarType::getBrandName,carBrand));
         carBrandService.remove(new QueryWrapper<CarBrand>().lambda().eq(CarBrand::getCarId,carBrand));
         return new ResultVO();
+    }
+
+    @PostMapping("/search")
+        public ResultVO search(String searchBrand){
+            QueryWrapper<CarBrand> queryWrapper = new QueryWrapper<>();
+            queryWrapper.lambda().like(CarBrand::getCarId,searchBrand).or().like(CarBrand::getCarName,searchBrand).or().like(CarBrand::getInitial,searchBrand);
+            return new ResultVO(carBrandService.list(queryWrapper));
     }
 }
 

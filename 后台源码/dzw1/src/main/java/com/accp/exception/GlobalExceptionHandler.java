@@ -65,4 +65,6 @@ public class GlobalExceptionHandler {
         // 然后提取错误提示信息进行返回
         return new ResultVO<>(ResultCode.VALIDATE_FAILED, list);
     }
+
+
 }

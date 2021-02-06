@@ -26,8 +26,9 @@ public enum ResultCode {
     NO_PERMISSION(2003,"权限不足,请联系管理员"),
 
     //操作错误
-    PEY_EXIT(3000,"此数据已经存在");
-
+    PEY_EXIT(3000,"此数据已经存在"),
+    File_TYPE_ERROR(3001,"文件类型错误"),
+    File_SIZE_ERROR(3001,"超出可上传文件大小");
 
     private int code;
     private String msg;

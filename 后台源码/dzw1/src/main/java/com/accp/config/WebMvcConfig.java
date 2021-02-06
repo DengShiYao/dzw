@@ -3,15 +3,15 @@ package com.accp.config;
 import com.accp.interceptor.LoginInterceptor;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-import com.sun.xml.internal.ws.developer.Serialization;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 import java.nio.charset.StandardCharsets;
@@ -21,11 +21,19 @@ import java.util.TimeZone;
 
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurationSupport {
+    @Value("${file.upload.filepath}")
+    String fileUpload;
     @Autowired
     LoginInterceptor loginInterceptor;
     @Override
     protected void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**").allowedOrigins("*").allowedHeaders("*").allowCredentials(true);
+        registry.addMapping("/**").allowedOrigins("*").allowedHeaders("*").allowedMethods("*").allowCredentials(true);
+    }
+    @Override
+    protected void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/**")
+                .addResourceLocations("classpath:/static/")//内部静态资源访问目录
+                .addResourceLocations("file:"+fileUpload);//定义外部路径的静态资源访问目录
     }
 
     @Override

@@ -1,8 +1,10 @@
 package com.accp.service.impl;
 
+import com.accp.domain.CarIcon;
 import com.accp.domain.CarType;
 import com.accp.mapper.CarTypeMapper;
 import com.accp.service.ICarTypeService;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,4 +33,5 @@ public class CarTypeServiceImpl extends ServiceImpl<CarTypeMapper, CarType> impl
         queryWrapper.lambda().eq(CarType::getBrandName,carId);
         return carTypeMapper.find(queryWrapper);
     }
+
 }
