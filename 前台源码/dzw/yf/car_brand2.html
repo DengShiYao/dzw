@@ -113,12 +113,20 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                     aria-hidden="true">&times;</span></button>
                             <h4 class="modal-title clearfix" id="myModalLabel">车型定义<button type="button"
-                                    @click="addCarTypeFile" class="btn btn-success pull-right"
+                                    @click="checkCarTypeForm" class="btn btn-success pull-right"
                                     style="padding-left: 25px; padding-right: 25px; margin-right: 30px;"><span
                                         class="glyphicon glyphicon-ok"></span> 保存</button>
                             </h4>
                         </div>
                         <div class="modal-body row">
+                            <div class="col-sm-12" style="padding-left: 20px; padding-right: 20px;">
+                                <div v-if="tempCarBrand.istrue" class="alert alert-danger" id="alert2">
+                                    <a href="#" class="close" data-dismiss="alert">
+                                        &times;
+                                    </a>
+                                    <strong>错误信息：</strong><span>[{{tempCarBrand.message }}]</span>
+                                </div>
+                            </div>
                             <div class="col-sm-7 " style="padding: 0px 20px !important;">
                                 <form class="form-horizontal fordiv1" method="post" enctype="multipart/form-data"
                                     id="formfile1">
@@ -144,21 +152,30 @@
                                         <tr>
                                             <td class="tdpr">
                                                 <div class="form-group">
-                                                    <label for="inputPassword2" class="col-sm-4 control-label"><span
+                                                    <label for="inputPassword2"
+                                                        :class="[arrayCarType[0] ? 'col-sm-4 head-font control-label':'col-sm-4 control-label']"><span
                                                             class="span1">*</span>&nbsp;车型ID</label>
                                                     <div class="col-sm-8">
-                                                        <input type="text" class="form-control" id="inputPassword2"
-                                                            name="carId" v-model="carType.carId">
+
+                                                        <!-- onkeyup="this.value=this.value.replace(/[, ]/g,'')" -->
+                                                        <input type="text"
+                                                            :class="[arrayCarType[0] ? 'form-control head-error':'form-control']"
+                                                            @click="clickTyepInput(0)" id="inputPassword2" name="carId"
+                                                            v-model="carType.carId">
                                                     </div>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="form-group">
-                                                    <label for="inputPassword3" class="col-sm-4 control-label"><span
+                                                    <label for="inputPassword3"
+                                                        :class="[arrayCarType[1] ? 'col-sm-4 head-font control-label':'col-sm-4 control-label']"><span
                                                             class="span1">*</span>&nbsp;车型名称</label>
                                                     <div class="col-sm-8">
-                                                        <input type="text" class="form-control" id="inputPassword3"
+                                                        <input type="text"
+                                                            :class="[arrayCarType[1] ? 'form-control head-error':'form-control']"
+                                                            id="inputPassword3" @click="clickTyepInput(1)"
                                                             name="carName" v-model="carType.carName">
+                                                        <!-- onkeyup="this.value=this.value.replace(/[, ]/g,'')" -->
                                                     </div>
                                                 </div>
                                             </td>
@@ -172,12 +189,10 @@
                                                         <select class="form-control" id="inputPassword4"
                                                             name="importAndDomestic"
                                                             v-modal="carType.importAndDomestic">
-                                                            <option value="0">===请选择===</option>
                                                             <option v-for="item in importAndDomestic" :value="item.id">
                                                                 {{ item.name }}
                                                             </option>
                                                         </select>
-                                                        <!-- <input type="text" class="form-control" id="inputPassword4"> -->
                                                     </div>
                                                 </div>
                                             </td>
@@ -188,6 +203,7 @@
                                                     <div class="col-sm-8">
                                                         <input type="text" class="form-control" id="inputPassword5"
                                                             name="referencePrice" v-modal="carType.referencePrice">
+                                                        <!-- onkeyup="this.value=this.value.replace(/[, ]/g,'')" -->
                                                     </div>
                                                 </div>
                                             </td>
@@ -200,6 +216,7 @@
                                                     <div class="col-sm-8">
                                                         <input type="text" class="form-control" id="inputPassword6"
                                                             name="carStyle" v-modal="carType.carStyle">
+                                                        <!-- onkeyup="this.value=this.value.replace(/[, ]/g,'')" -->
                                                     </div>
                                                 </div>
                                             </td>
@@ -210,6 +227,7 @@
                                                     <div class="col-sm-8">
                                                         <input type="text" class="form-control" id="inputPassword7"
                                                             name="power" v-modal="carType.power">
+                                                        <!-- onkeyup="this.value=this.value.replace(/[, ]/g,'')" -->
                                                     </div>
                                                 </div>
                                             </td>
@@ -222,6 +240,7 @@
                                                     <div class="col-sm-8">
                                                         <input type="text" class="form-control" id="inputPassword8"
                                                             name="fuelNumber" v-modal="carType.fuelNumber">
+                                                        <!-- onkeyup="this.value=this.value.replace(/[, ]/g,'')" -->
                                                     </div>
                                                 </div>
                                             </td>
@@ -232,6 +251,7 @@
                                                     <div class="col-sm-8">
                                                         <input type="text" class="form-control" id="inputPassword9"
                                                             name="loadbearing" v-modal="carType.loadbearing">
+                                                        <!-- onkeyup="this.value=this.value.replace(/[, ]/g,'')" -->
                                                     </div>
                                                 </div>
                                             </td>
@@ -239,11 +259,25 @@
                                         <tr>
                                             <td colspan="2">
                                                 <div class="form-group">
-                                                    <label for="inputEmail10" class="col-sm-2 control-label"><span
+                                                    <label for="inputEmail10"
+                                                        :class="[arrayCarType[2] ? 'col-sm-2 head-font control-label':'col-sm-2 control-label']"><span
                                                             class="span1">*</span>&nbsp;索赔厂商</label>
                                                     <div class="col-sm-10">
-                                                        <input type="text" class="form-control" id="inputEmail10"
-                                                            name="sid" v-modal="carType.sid">
+                                                        <div class="input-group col-sm-12" style="width: 129.5%;">
+                                                            <input type="text"
+                                                                style="border-radius:4px 0px 0px 4px; width: 70%;"
+                                                                :class="[arrayCarType[2] ? 'form-control head-error':'form-control']"
+                                                                @click="clickTyepInput(2)" id="inputEmail10" name="sid"
+                                                                v-modal="carType.sid">
+                                                            <!-- onkeyup="this.value=this.value.replace(/[, ]/g,'')" -->
+                                                            <span class="input-group-btn"
+                                                                style="display: inline-block;">
+                                                                <button
+                                                                    :class="[arrayCarType[2] ? 'btn btn-default btn-checked':'btn btn-default']"
+                                                                    type="button"><span
+                                                                        class="glyphicon glyphicon-plus"></span></button>
+                                                            </span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </td>
@@ -251,11 +285,14 @@
                                         <tr>
                                             <td colspan="2">
                                                 <div class="form-group">
-                                                    <label for="inputEmail11" class="col-sm-2 control-label"><span
+                                                    <label for="inputEmail11"
+                                                        :class="[arrayCarType[3] ? 'col-sm-2 head-font control-label':'col-sm-2 control-label']"><span
                                                             class="span1">*</span>&nbsp;发动机品牌</label>
                                                     <div class="col-sm-10">
-                                                        <select class="form-control" id="inputEmail11" name="engineName"
-                                                            v-model="carType.engineName">
+                                                        <select
+                                                            :class="[arrayCarType[3] ? 'form-control head-error':'form-control']"
+                                                            @click="clickTyepInput(3)" id="inputEmail11"
+                                                            name="engineName" v-model="carType.engineName">
                                                             <option value="0">===请选择===</option>
                                                             <option v-for="item in engineBrand"
                                                                 :value="item.engineName">{{ item.engineName }}
@@ -655,6 +692,16 @@
                     importAndDomestic: {},   //进口国产,
                     engineBrand: {},     //发动机品牌
                     carType: {
+                        carId: "",
+                        carName: "",
+                        importAndDomestic: 1,
+                        referencePrice: "",
+                        carStyle: "",
+                        power: "",
+                        fuelNumber: "",
+                        loadbearing: "",
+                        fuelNumber: "",
+                        sid: "",
                         engineName: 0
                     },     //车型
                     carBrand: {
@@ -666,7 +713,8 @@
                         istrue: false,
                         message: "红色边框内为必填项"
                     },
-                    arrayCar: [false, false, false],
+                    arrayCar: [false, false, false],    //品牌class
+                    arrayCarType: [false, false, false, false],    //车型 class
                     textHide: false,
                     tableColumn: [
                         { type: 'checkbox', width: 50, visible: true },
@@ -930,6 +978,35 @@
                         }
                     });
                 },
+                /*
+                    车型增加保存按钮 校验表单内输入的内容
+                */
+                checkCarTypeForm() {
+                    let bool = true;
+                    if (this.carType.carId == null || this.carType.carId == "") {
+                        this.arrayCarType[0] = true;
+                        this.tempCarBrand.istrue = true;
+                        bool = false;
+                    }
+                    if (this.carType.carName == null || this.carType.carName == "") {
+                        this.arrayCarType[1] = true;
+                        this.tempCarBrand.istrue = true;
+                        bool = false;
+                    }
+                    if (this.carType.sid == null || this.carType.sid == "") {
+                        this.arrayCarType[2] = true;
+                        this.tempCarBrand.istrue = true;
+                        bool = false;
+                    }
+                    if (this.carType.engineName == 0) {
+                        this.arrayCarType[3] = true;
+                        this.tempCarBrand.istrue = true;
+                        bool = false;
+                    }
+                    console.log(JSON.stringify(this.carType) + "+++++++++")
+                    // if (bool) this.addCarTypeFile();
+                    // //验证通过调用新增方法
+                },
                 //车型品牌删除时模态框
                 clickBrandRemove() {
                     let json = JSON.stringify(this.$refs.xTable2.getCurrentRecord());
@@ -959,6 +1036,13 @@
                 clickCarType() {
                     this.findDomestic();
                     this.findCarBrand();
+                    this.forArrCarType();
+                    //获取车型品牌选中行数据
+                    let json = JSON.parse(JSON.stringify(this.$refs.xTable2.getCurrentRecord()));
+                    this.carType.brandName = json.carId;
+                    this.carType.carbrandName = json.carName;
+                    console.log(JSON.stringify(this.carType) + "-------------");
+
                     $("#myModal1").modal("show");
                 },
                 //清空品牌对象的内容 初始化
@@ -970,6 +1054,24 @@
                     this.carBrand.beforeId = null;
                     this.arrayCar.forEach((value, index) => {
                         Vue.set(this.arrayCar, index, false) //这样就能被vue监控到，更新视图 
+                    });
+                },
+                //循环初始化车型对象
+                forArrCarType() {
+                    console.log(JSON.stringify(this.carType))
+                    this.tempCarBrand.istrue = false;
+                    this.carType.carId = "";
+                    this.carType.carName = "";
+                    this.carType.importAndDomestic = 1;
+                    this.carType.referencePrice = "";
+                    this.carType.carStyle = "";
+                    this.carType.power = "";
+                    this.carType.fuelNumber = "";
+                    this.carType.loadbearing = "";
+                    this.carType.fuelNumber = "";
+                    this.carType.sid = "";
+                    this.arrayCarType.forEach((value, index) => {
+                        Vue.set(this.arrayCarType, index, false) //这样就能被vue监控到，更新视图 
                     });
                 },
                 //新增时保存
@@ -997,6 +1099,9 @@
                 },
                 clickInput(index) {
                     Vue.set(this.arrayCar, index, false) //这样就能被vue监控到，更新视图 
+                },
+                clickTyepInput(index) {
+                    Vue.set(this.arrayCarType, index, false) //这样就能被vue监控到，更新视图 
                 }
             },
             created() {

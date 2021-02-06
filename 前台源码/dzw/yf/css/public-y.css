@@ -193,5 +193,11 @@ tbody tr td{
 }
 
 .head-font{
-    color: rgb(196, 68, 66);
+    color: rgb(196, 68, 66) !important;
+}
+
+.btn-checked{
+    border-top:1px solid rgb(196, 68, 66);
+    border-right: 1px solid rgb(196, 68, 66);
+    border-bottom:1px solid rgb(196, 68, 66);
 }

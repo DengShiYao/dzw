@@ -53,8 +53,6 @@ public class CarBrandController {
     @PostMapping
     public ResultVO brandIns(@Valid  @RequestBody CarBrand carBrand){
         CarBrand byId = carBrandService.getOne(new QueryWrapper<CarBrand>().lambda().eq(CarBrand::getCarId,carBrand.getCarId()));
-        System.out.println(carBrand);
-        System.out.println(byId);
         if (byId == null) {
             return new ResultVO(ResultCode.SUCCESS,carBrandService.save(carBrand));
         }else {
@@ -63,7 +61,7 @@ public class CarBrandController {
     }
 
     /**
-     * 新增车型品牌 主键为空校验失败
+     * 修改车型品牌 主键为空校验失败
      * @param carBrand
      * @return
      */
@@ -72,8 +70,6 @@ public class CarBrandController {
         //如果修改前主键与当前主键不一致
         if(!carBrand.getBeforeId().equals(carBrand.getCarId())){
             CarBrand byId = carBrandService.getOne(new QueryWrapper<CarBrand>().lambda().eq(CarBrand::getCarId,carBrand.getBeforeId()));
-            System.out.println(carBrand);
-            System.out.println(byId);
             if (byId != null) {
                 return new ResultVO(ResultCode.PEY_EXIT);
             }

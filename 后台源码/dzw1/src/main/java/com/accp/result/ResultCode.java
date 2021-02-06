@@ -16,6 +16,8 @@ public enum ResultCode {
     ERROR(1003, "未知错误"),
     OTHER_ERRORS(1004,"转换失败"),
     ID_NOT_NULL(1005,"ID参数不能为空"),
+    File_UPLOAD_ERROR(1006,"文件上传失败"),
+    Failure(1007,"操作失败"),
 
     //2000系列用户错误
     USER_NOT_EXIST(2000,"用户不存在"),

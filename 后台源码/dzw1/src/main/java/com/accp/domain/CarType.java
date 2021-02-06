@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
 /**
@@ -27,6 +28,7 @@ public class CarType extends Model<CarType> {
     private static final long serialVersionUID=1L;
 
     @ApiModelProperty(value = "车型ID")
+    @NotEmpty(message = "cadId参数不能为空")
     private String carId;
 
     @ApiModelProperty(value = "车型名称")
@@ -75,6 +77,10 @@ public class CarType extends Model<CarType> {
     @ApiModelProperty(value = "索赔厂商")
     @TableField(exist = false)
     private String regionName;
+
+    @ApiModelProperty(value = "修改前的id")
+    @TableField(exist = false)
+    private  String beforeId;
 
     public static final String CAR_ID = "car_id";
 
