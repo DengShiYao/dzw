@@ -201,3 +201,10 @@ tbody tr td{
     border-right: 1px solid rgb(196, 68, 66);
     border-bottom:1px solid rgb(196, 68, 66);
 }
+
+.myicon{  
+    width: auto;  
+    height: auto;  
+    max-width: 100%;  
+    max-height: 100%;     
+}  

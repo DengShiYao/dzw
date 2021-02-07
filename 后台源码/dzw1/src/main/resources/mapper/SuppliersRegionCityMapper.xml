@@ -17,4 +17,12 @@
         region_id, region_name, parentid, column1, column2, column3
     </sql>
 
+    <!--  递归查询tree列表  -->
+    <resultMap id="MyResultMap" type="SuppliersRegionCity" extends="BaseResultMap" autoMapping="true">
+        <collection property="children" column="region_id" select="toFind" autoMapping="true"></collection>
+    </resultMap>
+    <select id="toFind" resultMap="MyResultMap">
+       SELECT * FROM `suppliers_region_city` WHERE `parentid`=#{parentId}
+    </select>
+
 </mapper>

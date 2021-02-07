@@ -102,9 +102,16 @@
             <div class="col-sm-12 treefont" style="height: 81%; border: 0px solid red; padding-right: 0px;">
                 <div v-show="treeVisble" class="col-sm-2"
                     style=" height: 100%;border: 0px solid red; font-size: 16px; padding-right: 0px;">
-                    <div class="col-sm-12">
-                        <div id="treeview12" class=""></div>
-                    </div>
+                    <!-- <div class="col-sm-12">
+                        <div id="treeview12" class=""></div> 
+                    </div> -->
+                    <!-- 左侧tree -->
+                    <template>
+                        <vxe-grid resizable show-overflow class="mytable-scrollbar" height="100%" highlight-hover-row
+                            ref="xTree" highlight-current-row :show-header="false" :tree-config="{children: 'children'}"
+                            :data="tableData" :columns="treeColumn">
+                        </vxe-grid>
+                    </template>
                 </div>
                 <div :class="[treeVisble?'col-sm-10 btn-flex':'col-sm-12 btn-flex']"
                     style="height: 100%;border: 0px solid red; padding: 0px !important; ">
@@ -156,14 +163,14 @@
                                     <label for="inputEmail3" class="col-sm-3 control-label"><span
                                             class="span1">*</span>&nbsp;分类编码</label>
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control" id="inputEmail3">
+                                        <input type="text" class="form-control">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputPassword3" class="col-sm-3 control-label"><span
                                             class="span1">*</span>&nbsp;分类名称</label>
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control" id="inputPassword3">
+                                        <input type="text" class="form-control">
                                     </div>
                                 </div>
                             </form>
@@ -184,7 +191,7 @@
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                     aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel">厂商分类</h4>
+                            <h4 class="modal-title" id="myModalLabel2">厂商分类</h4>
                         </div>
                         <div class="modal-body" style="padding: 15px 30px;">
                             <form class="form-horizontal">
@@ -192,14 +199,14 @@
                                     <label for="inputEmail3" class="col-sm-3 control-label"><span
                                             class="span1">*</span>&nbsp;分类编码</label>
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control" id="inputEmail3">
+                                        <input type="text" class="form-control">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputPassword3" class="col-sm-3 control-label"><span
                                             class="span1">*</span>&nbsp;分类名称</label>
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control" id="inputPassword3">
+                                        <input type="text" class="form-control">
                                     </div>
                                 </div>
                             </form>
@@ -220,7 +227,7 @@
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                     aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel">商品分类</h4>
+                            <h4 class="modal-title" id="myModalLabel3">商品分类</h4>
                         </div>
                         <div class="modal-body">
                             <div id="treeview13" class=""></div>
@@ -239,7 +246,7 @@
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                     aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel">商品分类</h4>
+                            <h4 class="modal-title" id="myModalLabel4">商品分类</h4>
                         </div>
                         <div class="modal-body">
                             <h4>删除项目分类时，连同下面的维修项目一起删除？</h4>
@@ -276,7 +283,7 @@
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                     aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title clearfix" id="myModalLabel2">供货单位编辑
+                            <h4 class="modal-title clearfix" id="myModalLabel5">供货单位编辑
                                 <button type="button" class="btn btn-success pull-right"
                                     style="padding-left: 25px; padding-right: 25px; margin-right: 30px;"><span
                                         class="glyphicon glyphicon-ok"></span> 保存</button>
@@ -291,21 +298,20 @@
                                             <div class="form-group col-sm-3" style="margin-right: 15px;">
                                                 <label for="inputEmail1" class="col-sm-4 control-label">厂商代码</label>
                                                 <div class="col-sm-7">
-                                                    <input type="text" class="form-control" id="inputEmail1" disabled>
+                                                    <input type="text" class="form-control" disabled>
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-3" style="margin-right: 15px;">
                                                 <label for="inputEmail1" class="col-sm-4 control-label">厂商名称</label>
                                                 <div class="col-sm-7">
-                                                    <input type="text" class="form-control" id="inputEmail1">
+                                                    <input type="text" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-6">
                                                 <label for="inputEmail1" class="col-sm-4 control-label"><span
                                                         class="span1">*</span>&nbsp;地址</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" id="inputEmail1"
-                                                        style="width: 105.5%;">
+                                                    <input type="text" class="form-control" style="width: 105.5%;">
                                                 </div>
                                             </div>
                                         </div>
@@ -314,21 +320,20 @@
                                             <div class="form-group col-sm-3" style="margin-right: 15px;">
                                                 <label for="inputEmail1" class="col-sm-4 control-label">经营情况</label>
                                                 <div class="col-sm-7">
-                                                    <input type="text" class="form-control" id="inputEmail1">
+                                                    <input type="text" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-3" style="margin-right: 15px;">
                                                 <label for="inputEmail1" class="col-sm-4 control-label">网址</label>
                                                 <div class="col-sm-7">
-                                                    <input type="text" class="form-control" id="inputEmail1">
+                                                    <input type="text" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-6">
                                                 <label for="inputEmail1" class="col-sm-4 control-label"><span
                                                         class="span1">*</span>&nbsp;开户行</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" id="inputEmail1"
-                                                        style="width: 105.5%;">
+                                                    <input type="text" class="form-control" style="width: 105.5%;">
                                                 </div>
                                             </div>
                                         </div>
@@ -338,7 +343,7 @@
                                                 <label for="inputEmail1"
                                                     class="col-sm-4 control-label">&nbsp;银行账号&nbsp;</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="inputEmail1">
+                                                    <input type="text" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-4" style="margin-right: 12px;">
@@ -373,14 +378,14 @@
                                             <div class="form-group col-sm-4" style="margin-right: 15px;">
                                                 <label for="inputEmail1" class="col-sm-4 control-label">经营品牌</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="inputEmail1">
+                                                    <input type="text" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-8">
                                                 <label for="inputEmail1" class="col-sm-4 control-label"
                                                     style="margin-left: 5px !important;">厂商类别</label>
                                                 <div class="col-sm-4">
-                                                    <input type="text" class="form-control" id="inputEmail1" disabled
+                                                    <input type="text" class="form-control" disabled
                                                         style="border-radius:4px 0px 0px 4px;">
                                                 </div>
                                                 <div class="col-lg-5">
@@ -401,22 +406,21 @@
                                                 <label for="inputEmail1"
                                                     class="col-sm-4 control-label">&nbsp;联系人&nbsp;</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="inputEmail1">
+                                                    <input type="text" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-4" style="margin-right: 12px;">
                                                 <label for="inputEmail1"
                                                     class="col-sm-4 control-label">&nbsp;电话&nbsp;</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="inputEmail1">
+                                                    <input type="text" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-4">
                                                 <label for="inputEmail1"
                                                     class="col-sm-4 control-label">&nbsp;手机&nbsp;</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="inputEmail1"
-                                                        style="width: 103%;">
+                                                    <input type="text" class="form-control" style="width: 103%;">
                                                 </div>
                                             </div>
                                         </div>
@@ -425,14 +429,14 @@
                                             <div class="form-group col-sm-4" style="margin-right: 15px;">
                                                 <label for="inputEmail1" class="col-sm-4 control-label">账期(天)</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="inputEmail1">
+                                                    <input type="text" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-8">
                                                 <label for="inputEmail1" class="col-sm-4 control-label"
                                                     style="margin-left: 5px !important;">备注</label>
                                                 <div class="col-sm-4">
-                                                    <input type="text" class="form-control" id="inputEmail1"
+                                                    <input type="text" class="form-control"
                                                         style="border-radius:4px 0px 0px 4px;">
                                                 </div>
                                                 <div class="col-lg-5">
@@ -477,21 +481,20 @@
                                             <div class="form-group col-sm-3" style="margin-right: 15px;">
                                                 <label for="inputEmail1" class="col-sm-4 control-label">厂商代码</label>
                                                 <div class="col-sm-7">
-                                                    <input type="text" class="form-control" id="inputEmail1" disabled>
+                                                    <input type="text" class="form-control" disabled>
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-3" style="margin-right: 15px;">
                                                 <label for="inputEmail1" class="col-sm-4 control-label">厂商名称</label>
                                                 <div class="col-sm-7">
-                                                    <input type="text" class="form-control" id="inputEmail1">
+                                                    <input type="text" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-6">
                                                 <label for="inputEmail1" class="col-sm-4 control-label"><span
                                                         class="span1">*</span>&nbsp;地址</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" id="inputEmail1"
-                                                        style="width: 105.5%;">
+                                                    <input type="text" class="form-control" style="width: 105.5%;">
                                                 </div>
                                             </div>
                                         </div>
@@ -500,21 +503,20 @@
                                             <div class="form-group col-sm-3" style="margin-right: 15px;">
                                                 <label for="inputEmail1" class="col-sm-4 control-label">经营情况</label>
                                                 <div class="col-sm-7">
-                                                    <input type="text" class="form-control" id="inputEmail1">
+                                                    <input type="text" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-3" style="margin-right: 15px;">
                                                 <label for="inputEmail1" class="col-sm-4 control-label">网址</label>
                                                 <div class="col-sm-7">
-                                                    <input type="text" class="form-control" id="inputEmail1">
+                                                    <input type="text" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-6">
                                                 <label for="inputEmail1" class="col-sm-4 control-label"><span
                                                         class="span1">*</span>&nbsp;开户行</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" id="inputEmail1"
-                                                        style="width: 105.5%;">
+                                                    <input type="text" class="form-control" style="width: 105.5%;">
                                                 </div>
                                             </div>
                                         </div>
@@ -524,7 +526,7 @@
                                                 <label for="inputEmail1"
                                                     class="col-sm-4 control-label">&nbsp;银行账号&nbsp;</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="inputEmail1">
+                                                    <input type="text" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-4" style="margin-right: 12px;">
@@ -559,14 +561,14 @@
                                             <div class="form-group col-sm-4" style="margin-right: 15px;">
                                                 <label for="inputEmail1" class="col-sm-4 control-label">经营品牌</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="inputEmail1">
+                                                    <input type="text" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-8">
                                                 <label for="inputEmail1" class="col-sm-4 control-label"
                                                     style="margin-left: 5px !important;">厂商类别</label>
                                                 <div class="col-sm-4">
-                                                    <input type="text" class="form-control" id="inputEmail1" disabled
+                                                    <input type="text" class="form-control" disabled
                                                         style="border-radius:4px 0px 0px 4px;">
                                                 </div>
                                                 <div class="col-lg-5">
@@ -587,22 +589,21 @@
                                                 <label for="inputEmail1"
                                                     class="col-sm-4 control-label">&nbsp;联系人&nbsp;</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="inputEmail1">
+                                                    <input type="text" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-4" style="margin-right: 12px;">
                                                 <label for="inputEmail1"
                                                     class="col-sm-4 control-label">&nbsp;电话&nbsp;</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="inputEmail1">
+                                                    <input type="text" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-4">
                                                 <label for="inputEmail1"
                                                     class="col-sm-4 control-label">&nbsp;手机&nbsp;</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="inputEmail1"
-                                                        style="width: 103%;">
+                                                    <input type="text" class="form-control" style="width: 103%;">
                                                 </div>
                                             </div>
                                         </div>
@@ -611,14 +612,14 @@
                                             <div class="form-group col-sm-4" style="margin-right: 15px;">
                                                 <label for="inputEmail1" class="col-sm-4 control-label">账期(天)</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="inputEmail1">
+                                                    <input type="text" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-8">
                                                 <label for="inputEmail1" class="col-sm-4 control-label"
                                                     style="margin-left: 5px !important;">备注</label>
                                                 <div class="col-sm-4">
-                                                    <input type="text" class="form-control" id="inputEmail1"
+                                                    <input type="text" class="form-control"
                                                         style="border-radius:4px 0px 0px 4px;">
                                                 </div>
                                                 <div class="col-lg-5">
@@ -649,7 +650,7 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                     aria-hidden="true">&times;</span></button>
 
-                            <h4 class="modal-title clearfix" id="myModalLabel2">供货单位查询
+                            <h4 class="modal-title clearfix" id="myModalLabel8">供货单位查询
                                 <div class="pull-right">
                                     <div class="checkbox checcss">
                                         <label>
@@ -672,14 +673,14 @@
                                                 <label for="inputEmail1"
                                                     class="col-sm-4 control-label">&nbsp;厂商代码&nbsp;</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="inputEmail1">
+                                                    <input type="text" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-6" style="margin-right: 12px;">
                                                 <label for="inputEmail1"
                                                     class="col-sm-4 control-label">&nbsp;厂商名称&nbsp;</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="inputEmail1">
+                                                    <input type="text" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -688,7 +689,7 @@
                                                 <label for="inputEmail1"
                                                     class="col-sm-4 control-label">&nbsp;地址&nbsp;</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="inputEmail1">
+                                                    <input type="text" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-6" style="margin-right: 12px;">
@@ -721,7 +722,7 @@
                                             <div class="form-group col-sm-6" style="margin-right: 12px;">
                                                 <label for="inputEmail1" class="col-sm-4 control-label">经营品牌</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="inputEmail1">
+                                                    <input type="text" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -741,7 +742,7 @@
                                             <div class="form-group col-sm-6" style="margin-right: 12px;">
                                                 <label for="inputEmail1" class="col-sm-4 control-label">联系人</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="inputEmail1">
+                                                    <input type="text" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -750,14 +751,14 @@
                                                 <label for="inputEmail1"
                                                     class="col-sm-4 control-label">&nbsp;电话&nbsp;</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="inputEmail1">
+                                                    <input type="text" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-6" style="margin-right: 12px;">
                                                 <label for="inputEmail1"
                                                     class="col-sm-4 control-label">&nbsp;手机&nbsp;</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="inputEmail1">
+                                                    <input type="text" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -766,14 +767,14 @@
                                                 <label for="inputEmail1"
                                                     class="col-sm-4 control-label">&nbsp;经营情况&nbsp;</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="inputEmail1">
+                                                    <input type="text" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-6" style="margin-right: 12px;">
                                                 <label for="inputEmail1"
                                                     class="col-sm-4 control-label">&nbsp;备注&nbsp;</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="inputEmail1">
+                                                    <input type="text" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -791,7 +792,7 @@
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                     aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel">删除确认</h4>
+                            <h4 class="modal-title" id="myModalLabel9">删除确认</h4>
                         </div>
                         <div class="modal-body">
                             <h4>是否确认删除该记录？</h4>
@@ -811,7 +812,7 @@
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                     aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title clearfix" id="myModalLabel2">商品照片
+                            <h4 class="modal-title clearfix" id="myModalLabel10">商品照片
                                 <button type="button" class="btn btn-success pull-right"
                                     style="padding-left: 25px; padding-right: 25px; margin-right: 30px;"><span
                                         class="glyphicon glyphicon-upload"></span>&nbsp;上传图片</button>
@@ -989,20 +990,19 @@
                                                 <label for="inputEmail1" class="col-sm-4 control-label"><span
                                                         class="span1">*</span>&nbsp;联系人</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="inputEmail1">
+                                                    <input type="text" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-4" style="margin-right: 12px;">
                                                 <label for="inputEmail1" class="col-sm-4 control-label">手机</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="inputEmail1">
+                                                    <input type="text" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-4">
                                                 <label for="inputEmail1" class="col-sm-4 control-label">职位</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="inputEmail1"
-                                                        style="width: 103%;">
+                                                    <input type="text" class="form-control" style="width: 103%;">
                                                 </div>
                                             </div>
                                         </div>
@@ -1011,13 +1011,13 @@
                                             <div class="form-group col-sm-4" style="margin-right: 18px;">
                                                 <label for="inputEmail1" class="col-sm-4 control-label">电话</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="inputEmail1">
+                                                    <input type="text" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-4" style="margin-right: 12px;">
                                                 <label for="inputEmail1" class="col-sm-4 control-label">Email</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="inputEmail1">
+                                                    <input type="text" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-4"></div>
@@ -1047,6 +1047,7 @@
     <script src="https://cdn.jsdelivr.net/npm/xe-utils"></script>
     <script src="https://cdn.jsdelivr.net/npm/vxe-table"></script>
     <script src="js/bootstrap-treeview.js"></script>
+    <script src="js/common.js"></script>
     <script type="text/javascript">
         //获取字段名和属性名
         // SELECT COLUMN_NAME,column_comment FROM INFORMATION_SCHEMA.Columns WHERE table_name='student' AND table_schema='myschool1913'
@@ -1259,16 +1260,21 @@
                         address: 'Shanghai'
                     }
                     ],
-                    tableColumn2: [
+                    tableColumn2: [ //
                         { num: 1, field: 'id', title: '联系人', sortable: true, showOverflow: true, width: 200, visible: true },
                         { num: 1, field: 'name', title: '职位', sortable: true, showOverflow: true, width: 200, visible: true },
                         { num: 1, field: 'role', title: '手机', sortable: true, showOverflow: true, width: 200, visible: true },
                         { num: 1, field: 'age', title: '电话', sortable: true, showOverflow: true, width: 200, visible: true },
                         { num: 1, field: 'address', title: 'Email', sortable: true, showOverflow: true, width: 200, visible: true },
-                    ]
+                    ],
+                    treeColumn: [
+                        { field: 'regionName', showOverflow: true, treeNode: true },
+                    ], //左侧树形   
+                    tableTree: []   //左侧树形   
                 }
             },
             methods: {
+
                 //获取焦点时显示文本框
                 td_dbclick(item, index) {
                     item.inputVislble = false;
@@ -1299,14 +1305,12 @@
                         value.visible = obj[key].visible;
                     })
                     this.$refs.xTable.refreshColumn();
-                    console.log(JSON.stringify(this.columns))
                 },
                 //获取列头
                 gettableColumns() {
                     // 获取所有列配置
                     this.$nextTick(() => {
                         this.columns = this.$refs.xTable.getColumns();
-                        console.log(JSON.stringify(this.$refs.xTable.getColumns()))
                     })
                 },
                 //全选
@@ -1389,22 +1393,22 @@
                     this.treeVisble = this.treeVisble == true ? false : true;
                 },
                 find() {
-                    // var that = this;
-                    // $.ajax({
-                    // 	url:"http://localhost:8080/java37-SpringMVC-1/reststudent",
-                    // 	type:"get",
-                    // 	xhrFields: {
-                    // 		withCredentials: true
-                    // 	},
-                    // 	crossDomain: true,
-                    // 	dataType:"json",
-                    // 	success:function(result){
-                    // 		that.tableData = result;
-                    // 		console.log(result);
-                    // 	},error:function(error){
-                    // 		console.log(error);
-                    // 	}
-                    // });
+                    var that = this;
+                    $.ajax({
+                        url: "http://localhost:8080/suppliersRegionCity",
+                        type: "get",
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        dataType: "json",
+                        success: function (result) {
+                            handlerResult(result, () => {
+                                that.tableData = result.data;
+                                console.log(result);
+                            })
+                        }
+                    });
                 }
             },
             created() {

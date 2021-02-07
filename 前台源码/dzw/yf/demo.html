@@ -41,6 +41,9 @@
                     <!--                </template>-->
                 </vxe-table>
             </div>
+            <input type="text" name="" id="" v-if="vid">
+            <button @click="vid=true">显示</button>
+            <button @click="vid=false">隐藏</button>
         </template>
     </div>
     <script src="js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
@@ -55,6 +58,7 @@
             data() {
                 return {
                     tableData: [],
+                    vid: true
                 }
             },
             created() {

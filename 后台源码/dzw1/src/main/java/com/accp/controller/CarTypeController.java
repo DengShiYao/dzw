@@ -10,13 +10,11 @@ import com.accp.service.impl.CarTypeServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
 import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -96,11 +94,110 @@ public class CarTypeController {
         }
     }
 
-
+    /**
+     * 修改车型
+     * @param file
+     * @param carType
+     * @return
+     */
     @PostMapping("/upd")
-    public Object updCarTypeUpload(){
-        return null;
+    public ResultVO updCarTypeUpload(MultipartFile file, @Valid  CarType carType){
+        System.out.println(carType);
+        //先判断此id的合法性
+        if (carType.getBeforeId()==null || carType.getBeforeId()=="" ) {
+            return new ResultVO(ResultCode.ID_NOT_NULL);
+        }
+        //如果相等代表id无变化 否则去数据库中查找有无此id存在
+        if (!carType.getBeforeId().equals(carType.getCarId())){
+            //查询有无此编号存在
+            CarType one = carTypeService.getOne(new QueryWrapper<CarType>().lambda().eq(CarType::getCarId, carType.getCarId()));
+            //nul 代表没有此编号纯在 可以进行修改
+            return one==null ? carIdNotEq(file,carType) : new ResultVO(ResultCode.PEY_EXIT);
+        }else {
+            //编号为修改
+            return carIdEq(file,carType);
+        }
     }
+
+    /**
+     * 如果id没有修改
+     * @param file
+     * @param carType
+     * @return
+     */
+    public ResultVO carIdEq(MultipartFile file, CarType carType){
+        if (file != null) {
+            String uuid = UUID.randomUUID().toString();
+            String fileName = file.getOriginalFilename();
+            String suffix = fileName.substring(fileName.lastIndexOf("."));
+            File f = new File(fileUpload+uuid+suffix);
+            try {
+                file.transferTo(f);
+                //先删除图片表此条记录 然后修改类型iD后新增图片
+                iconService.remove(new QueryWrapper<CarIcon>().lambda().eq(CarIcon::getCarId,carType.getBeforeId()));
+                //修改
+                carTypeService.updateByKey(carType);
+                boolean insert = new CarIcon().setCarId(carType.getCarId()).setIcName(uuid + suffix).insert();
+                if (insert){
+                    return new ResultVO(ResultCode.SUCCESS);
+                }
+                return new ResultVO(ResultCode.Failure);
+            } catch (IllegalStateException | IOException e) {
+                e.printStackTrace();
+                return new ResultVO(ResultCode.File_UPLOAD_ERROR);
+            }
+        }else {
+            //如果没有上传图片,并且主键没有被修改
+            carTypeService.update(carType,new QueryWrapper<CarType>().lambda().eq(CarType::getCarId,carType.getCarId()));
+            return new ResultVO(ResultCode.SUCCESS);
+        }
+    }
+
+    /**
+     * 如果id变化修改
+     * @param file
+     * @param carType
+     * @return
+     */
+    public ResultVO carIdNotEq(MultipartFile file, CarType carType){
+        //如果有上传文件
+        if (file != null) {
+            String uuid = UUID.randomUUID().toString();
+            String fileName = file.getOriginalFilename();
+            String suffix = fileName.substring(fileName.lastIndexOf("."));
+            File f = new File(fileUpload+uuid+suffix);
+            try {
+                file.transferTo(f);
+                //先删除图片表此条记录 然后修改类型iD后新增图片
+                iconService.remove(new QueryWrapper<CarIcon>().lambda().eq(CarIcon::getCarId,carType.getBeforeId()));
+                //修改
+                carTypeService.updateByKey(carType);
+                boolean insert = new CarIcon().setCarId(carType.getCarId()).setIcName(uuid + suffix).insert();
+                if (insert){
+                    return new ResultVO(ResultCode.SUCCESS);
+                }
+                return new ResultVO(ResultCode.Failure);
+            } catch (IllegalStateException | IOException e) {
+                e.printStackTrace();
+                return new ResultVO(ResultCode.File_UPLOAD_ERROR);
+            }
+        }else {
+            //先查询图片
+            CarIcon one1 = iconService.getOne(new QueryWrapper<CarIcon>().lambda().eq(CarIcon::getCarId, carType.getBeforeId()));
+            //如果图片表有这条数据先删除
+            if (one1 != null) {
+                iconService.remove(new QueryWrapper<CarIcon>().lambda().eq(CarIcon::getCarId,carType.getBeforeId()));
+            }
+            carTypeService.updateByKey(carType);
+            CarIcon icon = new CarIcon();
+            icon.setCarId(carType.getCarId());
+            icon.setIcName(one1.getIcName());
+            System.out.println(icon);
+            iconService.save(icon);
+            return new ResultVO(ResultCode.SUCCESS);
+        }
+    }
+
 
     /**
      * 上传单张图片，先删除后新增
@@ -109,23 +206,26 @@ public class CarTypeController {
      * @return
      */
     @PostMapping("/iconUpload")
-    public ResultVO icoUpload(@Validated @NotEmpty(message = "上传文件失败") MultipartFile file, @Valid @RequestBody CarIcon carIcon){
-        //判断文件类型
-        this.checkedIcon(file);
-        String uuid = UUID.randomUUID().toString();
-        String fileName = file.getOriginalFilename();
-        String suffix = fileName.substring(fileName.lastIndexOf("."));
-        File f = new File(fileUpload+uuid+suffix);
-        try {
-            file.transferTo(f);
-            carIcon.setIcName(uuid+suffix);
-            //上传图片时先删除清空
-            iconService.remove(new QueryWrapper<CarIcon>().lambda().eq(CarIcon::getCarId,carIcon.getCarId()));
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new ResultVO(ResultCode.File_UPLOAD_ERROR);
+    public ResultVO icoUpload(MultipartFile file,CarIcon carIcon){
+        if (file!=null){
+            //判断文件类型
+            this.checkedIcon(file);
+            String uuid = UUID.randomUUID().toString();
+            String fileName = file.getOriginalFilename();
+            String suffix = fileName.substring(fileName.lastIndexOf("."));
+            File f = new File(fileUpload+uuid+suffix);
+            try {
+                file.transferTo(f);
+                carIcon.setIcName(uuid+suffix);
+                //上传图片时先删除清空
+                iconService.remove(new QueryWrapper<CarIcon>().lambda().eq(CarIcon::getCarId,carIcon.getCarId()));
+               return new ResultVO(ResultCode.SUCCESS,iconService.save(carIcon));
+            } catch (IOException e) {
+                e.printStackTrace();
+                return new ResultVO(ResultCode.File_UPLOAD_ERROR);
+            }
         }
-        return new ResultVO(ResultCode.SUCCESS,iconService.save(carIcon));
+        return new ResultVO(ResultCode.Failure);
     }
 
     /**

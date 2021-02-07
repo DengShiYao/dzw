@@ -4,7 +4,10 @@ import com.accp.domain.SuppliersRegionCity;
 import com.accp.mapper.SuppliersRegionCityMapper;
 import com.accp.service.ISuppliersRegionCityService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -17,4 +20,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class SuppliersRegionCityServiceImpl extends ServiceImpl<SuppliersRegionCityMapper, SuppliersRegionCity> implements ISuppliersRegionCityService {
 
+    @Autowired
+    SuppliersRegionCityMapper mapper;
+
+    public List<SuppliersRegionCity> toFind(){
+        return mapper.toFind("0");
+    }
 }

@@ -78,12 +78,17 @@ public class CarBrandController {
     public ResultVO brandUpd(@Valid  @RequestBody CarBrand carBrand){
         //如果修改前主键与当前主键不一致
         if(!carBrand.getBeforeId().equals(carBrand.getCarId())){
-            CarBrand byId = carBrandService.getOne(new QueryWrapper<CarBrand>().lambda().eq(CarBrand::getCarId,carBrand.getBeforeId()));
+            CarBrand byId = carBrandService.getOne(new QueryWrapper<CarBrand>().lambda().eq(CarBrand::getCarId,carBrand.getCarId()));
             if (byId != null) {
                 return new ResultVO(ResultCode.PEY_EXIT);
             }
+
         }
-        return new ResultVO(ResultCode.SUCCESS,carBrandService.updateByKey(carBrand));
+        int index = carBrandService.updateByKey(carBrand);
+        CarType carType = new CarType();
+        carType.setBrandName(carBrand.getCarId());
+        carType.update(new QueryWrapper<CarType>().lambda().eq(CarType::getBrandName,carBrand.getBeforeId()));
+        return new ResultVO(ResultCode.SUCCESS);
     }
 
 
@@ -113,6 +118,11 @@ public class CarBrandController {
         return new ResultVO();
     }
 
+    /**
+     * 查询匹配编号首字母等字段
+     * @param searchBrand
+     * @return
+     */
     @PostMapping("/search")
         public ResultVO search(String searchBrand){
             QueryWrapper<CarBrand> queryWrapper = new QueryWrapper<>();

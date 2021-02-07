@@ -12,5 +12,4 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2021-02-01
  */
 public interface ISuppliersRegionCityService extends IService<SuppliersRegionCity> {
-
 }

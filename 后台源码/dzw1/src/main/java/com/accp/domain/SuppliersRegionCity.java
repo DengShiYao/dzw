@@ -1,12 +1,15 @@
 package com.accp.domain;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
-import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>
@@ -41,6 +44,10 @@ public class SuppliersRegionCity extends Model<SuppliersRegionCity> {
 
     @ApiModelProperty(value = "备用列")
     private String column3;
+
+    @ApiModelProperty(value = "子级集合")
+    @TableField(exist = false)
+    private List<SuppliersRegionCity> children;
 
 
     public static final String REGION_ID = "region_id";

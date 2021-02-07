@@ -112,7 +112,7 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                     aria-hidden="true">&times;</span></button>
                             <h4 class="modal-title clearfix" id="myModalLabel">车型定义<button type="button"
-                                    @click="checkCarTypeForm" class="btn btn-success pull-right"
+                                    @click="checkCarTypeForm(0)" class="btn btn-success pull-right"
                                     style="padding-left: 25px; padding-right: 25px; margin-right: 30px;"><span
                                         class="glyphicon glyphicon-ok"></span> 保存</button>
                             </h4>
@@ -308,9 +308,9 @@
                             <div class="col-sm-5 icon-btn">
                                 <div><span v-if="textHide"><img :src="imgUrl" alt=""></span></div>
                                 <div>
-                                    <span style="display: none;"><input type="file" id="fileupload" name="file"
-                                            ref="filElem" accept="image/*" @change="getFile"></span>
-                                    <button @click="choiceImg" icon="ios-cloud-upload-outline"
+                                    <span style="display: none;"><input v-if="visibleFile" type="file" id="fileupload"
+                                            name="file" ref="filElem" accept="image/*" @change="getFile"></span>
+                                    <button @click="choiceImg(0)" icon="ios-cloud-upload-outline"
                                         type="primary">照片</button>
                                 </div>
                             </div>
@@ -328,7 +328,7 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                     aria-hidden="true">&times;</span></button>
                             <h4 class="modal-title clearfix" id="myModalLabel">车型定义<button type="button"
-                                    @click="checkCarTypeForm" class="btn btn-success pull-right"
+                                    @click="checkCarTypeForm(1)" class="btn btn-success pull-right"
                                     style="padding-left: 25px; padding-right: 25px; margin-right: 30px;"><span
                                         class="glyphicon glyphicon-ok"></span> 保存</button>
                             </h4>
@@ -521,11 +521,12 @@
                                 </form>
                             </div>
                             <div class="col-sm-5 icon-btn">
-                                <div><span v-if="textHide"><img :src="imgUrl" alt=""></span></div>
+                                <div><span v-if="textHide"><img :src="imgUrl" alt=""></span>
+                                </div>
                                 <div>
-                                    <span style="display: none;"><input type="file" id="fileupload2" name="file"
-                                            ref="filElem" accept="image/*" @change="getFile"></span>
-                                    <button @click="choiceImg" icon="ios-cloud-upload-outline"
+                                    <span style="display: none;"><input type="file" v-if="visibleFile" id="fileupload"
+                                            name="file" ref="filElem1" accept="image/*" @change="getFile"></span>
+                                    <button @click="choiceImg(1)" icon="ios-cloud-upload-outline"
                                         type="primary">照片</button>
                                 </div>
                             </div>
@@ -547,7 +548,7 @@
                             <h4>是否确认删除该记录？</h4>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary">是</button>
+                            <button type="button" class="btn btn-primary" @click="toremoveCarType">是</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal">否</button>
                         </div>
                     </div>
@@ -562,22 +563,30 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                     aria-hidden="true">&times;</span></button>
                             <h4 class="modal-title clearfix" id="myModalLabel4">车型照片
-                                <button type="button" class="btn btn-success pull-right"
+                                <button type="button" class="btn btn-success pull-right" @click="updateIcon"
                                     style="padding-left: 25px; padding-right: 25px; margin-right: 30px;"><span
                                         class="glyphicon glyphicon-ok"></span> 保存</button>
-                                <button type="button" class="btn btn-warning pull-right" @click="choiceImg"
+                                <button type="button" class="btn btn-warning pull-right" @click="choiceImg(2)"
                                     icon="ios-cloud-upload-outline" type="primary"
                                     style="padding-left: 25px; padding-right: 25px; margin-right: 30px;"><span
                                         class="glyphicon glyphicon-picture"></span> 指定照片</button>
                             </h4>
                         </div>
                         <div class="modal-body">
+                            <!-- <div class="alert alert-danger" id="alert2">
+                                <a href="#" class="close" data-dismiss="alert">
+                                    &times;
+                                </a>
+                                <strong>错误信息：</strong><span>[{{tempCarBrand.message }}]</span>
+                            </div> -->
                             <div class="icon-size">
-                                <span style="display: none;"><input type="file" ref="filElem" accept="image/*"
-                                        @change="getFile"></span>
-                                <span v-if="textHide"><img :src="imgUrl" alt="" class="myicon"></span>
-                                <h5 v-if="textHide==false" style="text-align: center;">暂无图片</h5>
-                                <!-- <img src="../imags/3AA159DD714F65B532595C955DEB5356.jpg" alt=""> -->
+                                <form action="" method="post" id="formfile2" enctype="multipart/form-data">
+                                    <span style="display: none;"><input type="file" v-if="visibleFile" ref="filElem2"
+                                            accept="image/*" @change="getFile"></span>
+                                    <span v-if="textHide"><img :src="imgUrl" alt="" class="myicon"></span>
+                                    <h5 v-if="textHide==false" style="text-align: center;">暂无图片</h5>
+                                    <!-- <img src="../imags/3AA159DD714F65B532595C955DEB5356.jpg" alt=""> -->
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -734,6 +743,7 @@
             data() {
                 return {
                     imgUrl: '',
+                    visibleFile: true,
                     isLoad: true,       //页面第一次加载时fasle
                     importAndDomestic: {},   //进口国产,
                     engineBrand: {},     //发动机品牌
@@ -812,8 +822,14 @@
                     this.searchCarType = "";
                 }
                 //点击出发 file
-                , choiceImg() {
-                    this.$refs.filElem.dispatchEvent(new MouseEvent('click'))
+                , choiceImg(index) {
+                    if (index == 0) {
+                        this.$refs.filElem.dispatchEvent(new MouseEvent('click'));
+                    } else if (index == 1) {
+                        this.$refs.filElem1.dispatchEvent(new MouseEvent('click'));
+                    } else if (index == 2) {
+                        this.$refs.filElem2.dispatchEvent(new MouseEvent('click'));
+                    }
                 },
                 //图片预览
                 getFile(e) {
@@ -907,6 +923,7 @@
                 },
                 //车型品牌修改 
                 brandUpd() {
+                    console.log(JSON.stringify(this.carBrand))
                     let that = this;
                     $.ajax({
                         url: "http://127.0.0.1:8080/carBrand/upd",
@@ -1041,7 +1058,54 @@
                                 that.tempCarBrand.istrue = true;
                             } else if (result.code == 1000) {
                                 //成功 刷新车型列表
+                                that.visibleFile = false;
+                                that.visibleFile = true;
                                 that.findCarType(that.carType.brandName);
+                                $("#myModal1").modal("hide");
+                            } else {
+                                that.tempCarBrand.message = "发生意外错误，请刷新页面重新尝试";
+                                that.tempCarBrand.istrue = true;
+                            }
+                        }
+                    });
+                },
+                /*
+                    车型修改
+                */
+                updCarTypeFile() {
+                    var form = $("#formfile1").get(0);//将jquery对象转换成dom对象
+                    var formdata = new FormData(form);
+                    formdata.append("file", this.$refs.filElem1.files[0]);
+                    formdata.append("brandName", this.carType.brandName);
+                    formdata.append("beforeId", this.carType.beforeId);
+                    console.log(JSON.stringify(this.carType));
+                    let that = this;
+                    $.ajax({
+                        url: "http://127.0.0.1:8080/carType/upd",
+                        data: formdata,
+                        type: "post",
+                        processData: false,//不处理参数中的数据
+                        contentType: false,//数据内容不进行定义
+                        dataType: "json",
+                        success: function (result) {
+                            //id冲突
+                            if (result.code == 3000) {
+                                that.tempCarBrand.message = "车型ID已经存在，不能重复";
+                                that.tempCarBrand.istrue = true;
+                                that.arrayCarType[0] = true;
+                            } else if (result.code == 1002) {
+                                that.tempCarBrand.message = "请检查参数的填写是否正确";
+                                that.tempCarBrand.istrue = true;
+                            } else if (result.code == 1006) {
+                                that.tempCarBrand.message = "文件上传失败，请重新尝试";
+                                that.tempCarBrand.istrue = true;
+                            } else if (result.code == 1000) {
+                                //成功 刷新车型列表
+                                that.visibleFile = false;
+                                that.visibleFile = true;
+                                that.findCarType(that.carType.brandName);
+                                that.forArrCarType();
+                                $("#myModel2").modal("hide");
                             } else {
                                 that.tempCarBrand.message = "发生意外错误，请刷新页面重新尝试";
                                 that.tempCarBrand.istrue = true;
@@ -1097,8 +1161,6 @@
                                     that.$refs.xTable2.setCurrentRow(that.carData[0]);
                                     let carId = that.$refs.xTable2.getCurrentRecord().carId;
                                     that.findCarType(carId);
-                                    console.log("Dbbbb")
-
                                 }
                             });
                         }
@@ -1107,7 +1169,8 @@
                 /*
                     车型增加保存按钮 校验表单内输入的内容
                 */
-                checkCarTypeForm() {
+                checkCarTypeForm(index) {
+                    this.tempCarBrand.message = "红色边框内为必填项";
                     let bool = true;
                     if (this.carType.carId == null || this.carType.carId == "") {
                         this.arrayCarType[0] = true;
@@ -1126,10 +1189,11 @@
                     }
                     if (this.carType.engineName == 0) {
                         this.arrayCarType[3] = true;
+                        console.log("Dbbb");
                         this.tempCarBrand.istrue = true;
                         bool = false;
                     }
-                    if (bool) this.addCarTypeFile();
+                    if (bool) index == 0 ? this.addCarTypeFile() : this.updCarTypeFile();
                     // //验证通过调用新增方法
                 },
                 //车型品牌删除时模态框
@@ -1141,11 +1205,17 @@
                 },
                 //品牌新增模态框
                 toInsCarBrand() {
+                    this.imgUrl = "";
+                    this.visibleFile = false;
+                    this.visibleFile = true;
                     this.forArr();
                     $("#myModal5").modal("show");
                 },
                 //品牌修改
                 toUpdCarBrand() {
+                    this.imgUrl = "";
+                    this.visibleFile = false;
+                    this.visibleFile = true;
                     this.carBrand.beforeId = null;
                     this.forArr();
                     let json = JSON.stringify(this.$refs.xTable2.getCurrentRecord());
@@ -1159,6 +1229,10 @@
                     增加车型
                 */
                 clickCarType() {
+                    var file = document.getElementsByName("file").forEach(item => {
+                        item.value = null;
+                        console.log(item);
+                    });
                     this.findDomestic();
                     this.findCarBrand();
                     this.forArrCarType();
@@ -1172,6 +1246,7 @@
                     修改车型
                 */
                 clickUpdate() {
+                    var file = document.getElementsByName("file").forEach(item => item.value = null);
                     this.findDomestic();
                     this.findCarBrand();
                     this.forArrCarType();
@@ -1195,6 +1270,8 @@
                     查询车型照片                
                 */
                 findCarIcon(carId) {
+                    console.log("DD")
+                    this.imgUrl = "";
                     let that = this;
                     $.ajax({
                         url: "http://127.0.0.1:8080/carIcon/" + carId,
@@ -1208,7 +1285,7 @@
                             if (result.code == 1000) {
                                 if (result.data != null) {
                                     console.log(JSON.stringify(result))
-                                    that.imgUrl = result.data.icName;
+                                    that.imgUrl = "http://127.0.0.1:8080/" + result.data.icName;
                                     that.textHide = true;
                                 }
                             }
@@ -1222,6 +1299,8 @@
                     if (JSON.stringify(this.$refs.xTable.getCurrentRecord()) == "null") {
                         return false;
                     }
+                    var file = document.getElementsByName("file").forEach(item => item.value = null);
+                    this.forArrCarType();
                     $("#myModal4").modal("show");
                     let that = this;
                     $.ajax({
@@ -1236,9 +1315,46 @@
                             if (result.code == 1000) {
                                 if (result.data != null) {
                                     that.carIcon = result.data;
-                                    that.imgUrl = result.data.icName;
+                                    that.imgUrl = 'http://127.0.0.1:8080/' + result.data.icName;
                                     that.textHide = true;
+                                    that.visibleFile = false;
+                                    that.visibleFile = true;
                                 }
+                            }
+                        }
+                    });
+                },
+                /*
+                    修改车型图片
+                */
+                updateIcon() {
+                    var form = $("#formfile1").get(0);//将jquery对象转换成dom对象
+                    var formdata = new FormData();
+                    if (!this.$refs.filElem2.files[0]) {
+                        return false;
+                    }
+                    formdata.append("file", this.$refs.filElem2.files[0]);
+                    formdata.append("carId", this.$refs.xTable.getCurrentRecord().carId);
+                    console.log(JSON.stringify(this.carType));
+                    let that = this;
+                    $.ajax({
+                        url: "http://127.0.0.1:8080/carType/iconUpload",
+                        data: formdata,
+                        type: "post",
+                        processData: false,//不处理参数中的数据
+                        contentType: false,//数据内容不进行定义
+                        dataType: "json",
+                        success: function (result) {
+                            if (result.code == 1006) {
+                                that.tempCarBrand.message = "文件上传失败，请重新尝试";
+                                that.tempCarBrand.istrue = true;
+                            } else if (result.code == 1000) {
+                                //成功 刷新车型列表
+                                that.forArrCarType();
+                                $("#myModal4").modal("hide");
+                            } else {
+                                that.tempCarBrand.message = "发生意外错误，请刷新页面重新尝试";
+                                that.tempCarBrand.istrue = true;
                             }
                         }
                     });
@@ -1248,7 +1364,7 @@
                 */
                 toremoveCarType() {
                     let that = this;
-                    let temp = JSON.parse(that.$refs.xTable.getCurrentRecord());
+                    let temp = JSON.parse(JSON.stringify(that.$refs.xTable.getCurrentRecord()));
                     $.ajax({
                         url: "http://127.0.0.1:8080/carType/remove",
                         type: "post",
@@ -1262,6 +1378,7 @@
                             if (result.code == 1000) {
                                 that.findCarType(temp.carId);
                             }
+                            $("#myModal3").modal("hide");
                         }
                     });
                 },
@@ -1287,7 +1404,9 @@
                 //循环初始化车型对象
                 forArrCarType() {
                     var obj = document.getElementById('fileupload');
-                    obj.outerHTML = obj.outerHTML;
+                    var file = document.getElementsByName("file").forEach(item => item.value = null);
+                    // obj.outerHTML = obj.outerHTML;
+                    obj.value = null;
                     this.textHide = false;
                     this.tempCarBrand.istrue = false;
                     this.carType.carId = "";
