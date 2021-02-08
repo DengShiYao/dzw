@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.List;
 
@@ -28,12 +29,14 @@ public class SuppliersRegionCity extends Model<SuppliersRegionCity> {
     private static final long serialVersionUID=1L;
 
     @ApiModelProperty(value = "分类编号")
+    @NotEmpty(message = "主键编号不能为空")
     private String regionId;
 
     @ApiModelProperty(value = "分类名称")
     private String regionName;
 
     @ApiModelProperty(value = "父级Id")
+    @NotEmpty(message = "请填写父级编号")
     private String parentid;
 
     @ApiModelProperty(value = "备用列")
@@ -48,6 +51,10 @@ public class SuppliersRegionCity extends Model<SuppliersRegionCity> {
     @ApiModelProperty(value = "子级集合")
     @TableField(exist = false)
     private List<SuppliersRegionCity> children;
+
+    @ApiModelProperty(value = "修改前的id")
+    @TableField(exist = false)
+    private String beforeId;
 
 
     public static final String REGION_ID = "region_id";

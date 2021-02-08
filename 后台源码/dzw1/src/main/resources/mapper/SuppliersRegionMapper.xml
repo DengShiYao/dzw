@@ -34,4 +34,12 @@
         sid, ProvCode, ProvName, Address, Operation, HttpA, KHYH, YHZH, pm_id, fg_id, ZD2, ProvType, sc_id, PreDay, Remark, region_id, block_up, suppliers_width, suppliers_show, booldel, column1, column2, column3
     </sql>
 
+    <resultMap id="MyResultMap" type="com.accp.domain.SuppliersRegion" extends="BaseResultMap" autoMapping="true">
+        <association property="frimGrade" column="fg_id" select="com.accp.mapper.FirmGradeMapper.toFind" autoMapping="true"></association>
+        <association property="paymentMethod" column="pm_id" select="com.accp.mapper.PaymentMethodMapper.toFind" autoMapping="true"></association>
+        <collection property="relation" column="sid" select="com.accp.mapper.SuppliersContactsMapper.toFind" autoMapping="true"></collection>
+    </resultMap>
+    <select id="toFind" resultMap="MyResultMap">
+            SELECT * FROM `suppliers_region` ${ew.customSqlSegment}
+    </select>
 </mapper>

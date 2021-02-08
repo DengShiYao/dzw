@@ -47,29 +47,26 @@
                                             data-target="#myModal">
                                             增加同级分类
                                         </vxe-button> -->
-                                        <a role="menuitem" tabindex="-1" data-toggle="modal"
-                                            data-target="#myModal">增加同级</a>
+                                        <a role="menuitem" tabindex="-1" @click="show_insRegionCity">增加同级</a>
                                     </li>
                                     <li role="presentation">
                                         <!-- <vxe-button icon="glyphicon glyphicon-plus" data-toggle="modal"
                                             data-target="#myModal">
                                             增加子级分类
                                         </vxe-button> -->
-                                        <a role="menuitem" tabindex="-1" data-toggle="modal"
-                                            data-target="#myModal">增加子级</a>
+                                        <a role="menuitem" tabindex="-1" @click="show_insRegionCityChildren">增加子级</a>
                                     </li>
                                     <li role="presentation">
                                         <!-- <vxe-button @click="getCurrentEvent" icon="glyphicon glyphicon-edit"
                                             data-toggle="modal" data-target="#myModal2">修改分类
                                         </vxe-button> -->
-                                        <a role="menuitem" tabindex="-1" data-toggle="modal"
-                                            data-target="#myModal2">修改分类</a>
+                                        <a role="menuitem" tabindex="-1" @click="show_updRegionCity">修改分类</a>
                                     </li>
 
                                 </ul>
                             </div>
-                            <vxe-button icon="glyphicon glyphicon-remove-circle" data-toggle="modal"
-                                data-target="#myModal4">删除分类</vxe-button>
+                            <vxe-button icon="glyphicon glyphicon-remove-circle" @click="deleteTreeNode">删除分类
+                            </vxe-button>
                         </template>
                     </vxe-toolbar>
                 </div>
@@ -107,9 +104,15 @@
                     </div> -->
                     <!-- 左侧tree -->
                     <template>
-                        <vxe-grid resizable show-overflow class="mytable-scrollbar" height="100%" highlight-hover-row
-                            ref="xTree" highlight-current-row :show-header="false" :tree-config="{children: 'children'}"
-                            :data="tableData" :columns="treeColumn">
+                        <vxe-grid round resizable show-overflow class="mytable-scrollbar" height="100%"
+                            row-id="regionId" highlight-hover-row ref="xTree" highlight-current-row :show-header="false"
+                            :tree-config="{reserve:'true'}" @current-change="currentChangeEvent"
+                            :tree-config="{children: 'children'}" :data="treeData" :columns="treeColumn">
+                            <!-- 使用自定义插槽来定义显示内容 -->
+                            <template v-slot:user-slot="{ row }">
+                                <span>{{ row.regionId+'-'+row.regionName }}</span>
+                            </template>
+                        </vxe-grid>
                         </vxe-grid>
                     </template>
                 </div>
@@ -163,23 +166,27 @@
                                     <label for="inputEmail3" class="col-sm-3 control-label"><span
                                             class="span1">*</span>&nbsp;分类编码</label>
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control">
+                                        <input type="text" class="form-control"
+                                            onkeyup="this.value=this.value.replace(/[, ]/g,'')"
+                                            v-model="regionCity.regionId">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputPassword3" class="col-sm-3 control-label"><span
                                             class="span1">*</span>&nbsp;分类名称</label>
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control">
+                                        <input type="text" class="form-control"
+                                            onkeyup="this.value=this.value.replace(/[, ]/g,'')"
+                                            v-model="regionCity.regionName">
                                     </div>
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn  abtn" style="padding-left: 25px; padding-right: 25px;"
-                                data-dismiss="modal">取消</button>
-                            <button type="button" class="btn  btn-info abtn"
-                                style="padding-left: 25px; padding-right: 25px;">保存</button>
+                            <button type="button" class="btn btn-info abtn"
+                                style="padding-left: 25px; padding-right: 25px;" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn  btn-success abtn"
+                                style="padding-left: 25px; padding-right: 25px;" @click="insRegionCity">保存</button>
                         </div>
                     </div>
                 </div>
@@ -199,23 +206,27 @@
                                     <label for="inputEmail3" class="col-sm-3 control-label"><span
                                             class="span1">*</span>&nbsp;分类编码</label>
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control">
+                                        <input type="text" class="form-control"
+                                            onkeyup="this.value=this.value.replace(/[, ]/g,'')"
+                                            v-model="regionCity.regionId">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputPassword3" class="col-sm-3 control-label"><span
                                             class="span1">*</span>&nbsp;分类名称</label>
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control">
+                                        <input type="text" class="form-control"
+                                            onkeyup="this.value=this.value.replace(/[, ]/g,'')"
+                                            v-model="regionCity.regionName">
                                     </div>
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn  abtn" style="padding-left: 25px; padding-right: 25px;"
-                                data-dismiss="modal">取消</button>
-                            <button type="button" class="btn  btn-info abtn"
-                                style="padding-left: 25px; padding-right: 25px;">保存</button>
+                            <button type="button" class="btn btn-info abtn"
+                                style="padding-left: 25px; padding-right: 25px;" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn  btn-success abtn"
+                                style="padding-left: 25px; padding-right: 25px;" @click="updRegionCity">保存</button>
                         </div>
                     </div>
                 </div>
@@ -227,53 +238,31 @@
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                     aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel3">商品分类</h4>
+                            <h4 class="modal-title" id="myModalLabel3">卡修智慧系统</h4>
                         </div>
                         <div class="modal-body">
-                            <div id="treeview13" class=""></div>
+                            <h5>确定要删除此分类吗？</h5>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn " data-dismiss="modal">否</button>
-                            <button type="button" class="btn btn-info">是</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- 分类编辑 -->
-            <div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                    aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel4">商品分类</h4>
-                        </div>
-                        <div class="modal-body">
-                            <h4>删除项目分类时，连同下面的维修项目一起删除？</h4>
-                            <div class="col-sm-12">
-                                <div id="treeview13" class=""></div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn " data-dismiss="modal">否</button>
-                            <button type="button" class="btn btn-info">是</button>
+                            <button type="button" class="btn btn-primary" @click="deletebtn">是</button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- 提示语 -->
-            <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal4">卡修智慧系统</button> -->
-            <!-- <div class="modal fade bs-example-modal-sm" tabindex="-1" id="myModal5" role="dialog"
+            <!-- Modal -->
+            <div class="modal fade bs-example-modal-sm" id="myModalalert" tabindex="-1" role="dialog"
                 aria-labelledby="mySmallModalLabel">
                 <div class="modal-dialog modal-sm" role="document">
                     <div class="modal-content">
+
                         <div class="modal-body">
-                            <h4>自能修改子级</h4>
+                            <h5><i class="fa fa-times" style="color: red;"></i> 存在子节点，不能删除！！！</h5>
                         </div>
                     </div>
                 </div>
-            </div> -->
+            </div>
 
             <!-- ====== 供货商资料增加 ====== -->
             <div class="modal fade bs-example-modal-lg" tabindex="-1" id="myModel6" role="dialog"
@@ -1056,9 +1045,11 @@
                 return {
                     imgUrl: [],
                     treeVisble: true,
+                    isLoad: true,    //只在加载使用一次
                     textHide: [false, false, false, false],
                     check_list: [],
                     is_check_all: false,
+                    regionCity: { regionId: "", regionName: "", parentid: "", children: [] },  //分类对象
                     templist: [{ id: 1, name: "test" }, { id: 2, name: "test" }, { id: 3, name: "test" }, { id: 4, name: "test" }],
                     //修改 加载时查询字段及其注释加 然后再查询数据
                     //先查询加载列表 然后获取列头
@@ -1267,14 +1258,14 @@
                         { num: 1, field: 'age', title: '电话', sortable: true, showOverflow: true, width: 200, visible: true },
                         { num: 1, field: 'address', title: 'Email', sortable: true, showOverflow: true, width: 200, visible: true },
                     ],
+                    // 
                     treeColumn: [
-                        { field: 'regionName', showOverflow: true, treeNode: true },
+                        { field: 'regionName', showOverflow: true, treeNode: true, type: { expand: 'true' }, slots: { default: 'user-slot' } },
                     ], //左侧树形   
-                    tableTree: []   //左侧树形   
+                    treeData: []   //左侧树形   
                 }
             },
             methods: {
-
                 //获取焦点时显示文本框
                 td_dbclick(item, index) {
                     item.inputVislble = false;
@@ -1322,10 +1313,11 @@
                     }
                 },
                 currentChangeEvent({
-                    row
+                    row, rowIndex
                 }) {
                     var text = $('#treeview12').treeview('getSelected');
-                    console.log(text);
+                    // console.log(rowIndex)
+
                     console.log('行选中事件')
                 },
                 getCurrentEvent() {
@@ -1392,6 +1384,10 @@
                 switchTo() {
                     this.treeVisble = this.treeVisble == true ? false : true;
                 },
+                //==============================================
+                /*
+                    查询左侧tree分类
+                */
                 find() {
                     var that = this;
                     $.ajax({
@@ -1404,8 +1400,189 @@
                         dataType: "json",
                         success: function (result) {
                             handlerResult(result, () => {
-                                that.tableData = result.data;
-                                console.log(result);
+                                that.treeData = result.data;
+                                if (that.treeData.length > 0 && that.isLoad == true) {
+                                    //只有页面第一次加载运行时
+                                    //设置第一行选中
+                                    that.isLoad = false;
+                                    that.$refs.xTree.setCurrentRow(that.treeData[0]);
+                                }
+                            })
+                        }
+                    });
+                },
+                /*
+                    新增
+                */
+                insRegionCity() {
+                    let that = this;
+                    console.log(JSON.stringify(that.regionCity))
+                    $.ajax({
+                        url: "http://127.0.0.1:8080/suppliersRegionCity/ins",
+                        type: "post",
+                        data: that.regionCity,
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        dataType: "json",
+                        success: function (result) {
+                            if (result.code == 1000) {
+                                that.isLoad = true;
+                                that.find();
+                                $("#myModal").modal("hide");
+                            } else if (result.code == 3000) {
+                                //id存在 主键冲突
+                            } else if (result.code == 1002) {
+                                //参数校验失败
+                            }
+                        }
+                    });
+                },
+                /*
+                    发送请求修改分类
+                */
+                updRegionCity() {
+                    let that = this;
+                    console.log(JSON.stringify(that.regionCity));
+                    $.ajax({
+                        url: "http://127.0.0.1:8080/suppliersRegionCity/upd",
+                        type: "post",
+                        data: that.regionCity,
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        dataType: "json",
+                        success: function (result) {
+                            if (result.code == 1000) {
+                                that.isLoad = true;
+                                that.find();
+                                $("#myModal2").modal("hide");
+                            } else if (result.code == 3000) {
+                                //id存在 主键冲突
+                            } else if (result.code == 1002) {
+                                //参数校验失败
+                            }
+                        }
+                    });
+                },
+                /*
+                    删除分类方法
+                */
+                deletebtn() {
+                    let that = this;
+                    console.log(JSON.stringify(that.regionCity));
+                    $.ajax({
+                        url: "http://127.0.0.1:8080/suppliersRegionCity/del",
+                        type: "post",
+                        data: { regionId: that.$refs.xTree.getCurrentRecord().regionId },
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        dataType: "json",
+                        success: function (result) {
+                            if (result.code == 1000) {
+                                that.isLoad = true;
+                                that.find();
+                                $("#myModal3").modal("hide");
+                            } else if (result.code == 1005) {
+                                //id为空
+
+                            } else if (result.code == 1001) {
+                                //有下层子节点
+                                $("#myModalalert").modal("show");
+                                setTimeout(() => {
+                                    $("#myModalalert").modal("hide");
+                                }, 2500);
+                            }
+                        }
+                    });
+                },
+                /*
+                    删除模态框
+                */
+                deleteTreeNode() {
+                    let json = JSON.stringify(this.$refs.xTree.getCurrentRecord());
+                    if (json != "null" || json.length != 0) {
+                        let children = this.$refs.xTree.getCurrentRecord().children
+                        if (children.length != 0) {
+                            // console.log(children)
+                            $("#myModalalert").modal("show");
+                            setTimeout(() => {
+                                $("#myModalalert").modal("hide");
+                            }, 2500);
+                        } else {
+                            $("#myModal3").modal("show");
+                        }
+                    }
+                },
+                /*
+                    点击显示父级新增分类模态框
+                */
+                show_insRegionCity() {
+                    let json = JSON.parse(JSON.stringify(this.$refs.xTree.getCurrentRecord()));
+                    this.regionCity.regionId = "";
+                    this.regionCity.regionName = "";
+                    this.regionCity.parentid = json.parentid;
+                    $("#myModal").modal("show");
+                },
+                /*
+                    点击增级子级模态框
+                */
+                show_insRegionCityChildren() {
+                    let json = JSON.parse(JSON.stringify(this.$refs.xTree.getCurrentRecord()));
+                    this.regionCity.regionId = "";
+                    this.regionCity.regionName = "";
+                    this.regionCity.children = []
+                    //增加子级的时候父级id为当前选各种行的id
+                    this.regionCity.parentid = json.regionId;
+                    $("#myModal").modal("show");
+                    // this.$refs.xTree.setRowExpand(this.$refs.xTree.getCurrentRecord(), true)
+                },
+                /*
+                    修改分类
+                */
+                show_updRegionCity() {
+                    let json = JSON.stringify(this.$refs.xTree.getCurrentRecord());
+                    if (json != "null" || json.length != 0) {
+                        let bean = JSON.parse(json);
+                        this.regionCity.regionId = bean.regionId;
+                        this.regionCity.regionName = bean.regionName;
+                        this.regionCity.parentid = bean.parentid;
+                        this.regionCity.beforeId = bean.regionId;
+                        this.regionCity.children = []
+                        $("#myModal2").modal("show");
+                    }
+                },
+                //==============================================
+                /*
+                    查询右侧供货商
+                */
+                /*
+                     查询具体供货商
+                */
+                toFind() {
+                    var that = this;
+                    $.ajax({
+                        url: "http://localhost:8080/suppliersRegion",
+                        type: "get",
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        dataType: "json",
+                        success: function (result) {
+                            console.log(JSON.stringify(result.data))
+                            handlerResult(result, () => {
+                                // that.treeData = result.data;
+                                // if (that.treeData.length > 0 && that.isLoad == true) {
+                                //     //只有页面第一次加载运行时
+                                //     //设置第一行选中
+                                //     that.isLoad = false;
+                                //     that.$refs.xTree.setCurrentRow(that.treeData[0]);
+                                // }
                             })
                         }
                     });
@@ -1415,6 +1592,7 @@
                 this.find();
                 //获取列表可视的列
                 this.gettableColumns();
+                this.toFind()
             }
             ,
             watch: {

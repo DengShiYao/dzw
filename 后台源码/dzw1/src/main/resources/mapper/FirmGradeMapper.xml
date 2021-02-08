@@ -16,4 +16,8 @@
         fg_id, fgrade, column1, column2, column3
     </sql>
 
+    <select id="toFind" resultMap="BaseResultMap">
+        SELECT * FROM `firm_grade` WHERE `fg_id`=#{fgId}
+    </select>
+
 </mapper>

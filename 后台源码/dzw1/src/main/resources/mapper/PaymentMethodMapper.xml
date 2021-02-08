@@ -16,4 +16,8 @@
         pm_id, pmethod, column1, column2, column3
     </sql>
 
+    <select id="toFind" resultMap="BaseResultMap">
+        SELECT * FROM `payment_method` WHERE `pm_id`=#{pmId}
+    </select>
+
 </mapper>

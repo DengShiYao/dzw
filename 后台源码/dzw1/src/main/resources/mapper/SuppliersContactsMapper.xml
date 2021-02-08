@@ -20,4 +20,8 @@
         sc_id, sc_name, sc_post, sc_phone, sc_telephone, email, column1, column2, column3
     </sql>
 
+    <select id="toFind" resultMap="BaseResultMap">
+        SELECT *FROM `suppliers_contacts` WHERE column1=#{sid}
+    </select>
+
 </mapper>

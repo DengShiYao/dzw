@@ -1,15 +1,17 @@
 package com.accp.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>
@@ -91,12 +93,15 @@ public class SuppliersRegion extends Model<SuppliersRegion> {
     private Integer blockUp;
 
     @ApiModelProperty(value = "字段宽度")
+    @TableField(exist = false)
     private Double suppliersWidth;
 
     @ApiModelProperty(value = "0隐藏/1显示")
+    @TableField(exist = false)
     private Integer suppliersShow;
 
     @ApiModelProperty(value = "真假删除 0假/1真")
+    @TableField(exist = false)
     private Integer booldel;
 
     @ApiModelProperty(value = "备用列")
@@ -108,6 +113,17 @@ public class SuppliersRegion extends Model<SuppliersRegion> {
     @ApiModelProperty(value = "备用列")
     private String column3;
 
+    @ApiModelProperty(value = "供货商等级")
+    @TableField(exist = false)
+    private FirmGrade frimGrade;
+
+    @ApiModelProperty(value = "付款方式")
+    @TableField(exist = false)
+    private PaymentMethod paymentMethod;
+
+    @ApiModelProperty(value = "联系人")
+    @TableField(exist = false)
+    private List<SuppliersContacts> relation;
 
     public static final String SID = "sid";
 
