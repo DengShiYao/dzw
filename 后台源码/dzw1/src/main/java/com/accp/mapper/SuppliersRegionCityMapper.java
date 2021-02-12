@@ -19,4 +19,11 @@ public interface SuppliersRegionCityMapper extends BaseMapper<SuppliersRegionCit
      * @return
      */
     List<SuppliersRegionCity> toFind(String parentId);
+
+    /**
+     * 根据id查询厂商类别
+     * @param regionId
+     * @return
+     */
+    SuppliersRegionCity selById(String regionId);
 }

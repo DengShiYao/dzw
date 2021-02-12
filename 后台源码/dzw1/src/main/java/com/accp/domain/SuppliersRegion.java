@@ -3,6 +3,7 @@ package com.accp.domain;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -10,6 +11,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.List;
 
@@ -35,13 +37,16 @@ public class SuppliersRegion extends Model<SuppliersRegion> {
 
     @ApiModelProperty(value = "厂商代码")
     @TableField("ProvCode")
+    @NotEmpty(message = "厂商代码不能为空")
     private String ProvCode;
 
     @ApiModelProperty(value = "厂商名称")
+    @NotEmpty(message = "厂商名称参数为空")
     @TableField("ProvName")
     private String ProvName;
 
     @ApiModelProperty(value = "地址")
+    @NotEmpty(message = "厂商地址参数为空")
     @TableField("Address")
     private String Address;
 
@@ -104,7 +109,8 @@ public class SuppliersRegion extends Model<SuppliersRegion> {
     @TableField(exist = false)
     private Integer booldel;
 
-    @ApiModelProperty(value = "备用列")
+    @ApiModelProperty(value = "备用列：逻辑删除")
+    @TableLogic
     private String column1;
 
     @ApiModelProperty(value = "备用列")
@@ -124,6 +130,14 @@ public class SuppliersRegion extends Model<SuppliersRegion> {
     @ApiModelProperty(value = "联系人")
     @TableField(exist = false)
     private List<SuppliersContacts> relation;
+
+    @ApiModelProperty(value = "联系人实体")
+    @TableField(exist = false)
+    private SuppliersContacts contacts;
+
+    @ApiModelProperty(value = "厂商类别")
+    @TableField(exist = false)
+    private SuppliersRegionCity regionCity;
 
     public static final String SID = "sid";
 

@@ -25,4 +25,7 @@
        SELECT * FROM `suppliers_region_city` WHERE `parentid`=#{parentId}
     </select>
 
+    <select id="selById"  resultMap="MyResultMap">
+        SELECT * FROM `suppliers_region_city` WHERE `region_id`=#{regionId}
+    </select>
 </mapper>

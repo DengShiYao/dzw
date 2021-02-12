@@ -37,9 +37,16 @@
     <resultMap id="MyResultMap" type="com.accp.domain.SuppliersRegion" extends="BaseResultMap" autoMapping="true">
         <association property="frimGrade" column="fg_id" select="com.accp.mapper.FirmGradeMapper.toFind" autoMapping="true"></association>
         <association property="paymentMethod" column="pm_id" select="com.accp.mapper.PaymentMethodMapper.toFind" autoMapping="true"></association>
+        <association property="regionCity" column="ProvType" select="com.accp.mapper.SuppliersRegionCityMapper.selById" autoMapping="true"></association>
         <collection property="relation" column="sid" select="com.accp.mapper.SuppliersContactsMapper.toFind" autoMapping="true"></collection>
     </resultMap>
     <select id="toFind" resultMap="MyResultMap">
-            SELECT * FROM `suppliers_region` ${ew.customSqlSegment}
+            SELECT * FROM suppliers_region s
+            INNER JOIN `suppliers_region_city` c
+            ON s.`ProvType`=c.`region_id`
+            WHERE s.`column1`=0 AND (c.`region_id`
+                IN
+            (SELECT region_id FROM `suppliers_region_city` WHERE FIND_IN_SET(`region_id`, getChildLst2(#{regionId}))))
+
     </select>
 </mapper>

@@ -190,3 +190,11 @@
     display: flex;
     justify-content: space-between;
 }
+
+.tempTable table{
+    width: 537px !important;
+}
+
+.tempTable .vxe-cell{
+    width: 100% !important;
+}

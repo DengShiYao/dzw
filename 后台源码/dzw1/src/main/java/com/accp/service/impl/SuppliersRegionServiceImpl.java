@@ -3,7 +3,6 @@ package com.accp.service.impl;
 import com.accp.domain.SuppliersRegion;
 import com.accp.mapper.SuppliersRegionMapper;
 import com.accp.service.ISuppliersRegionService;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,8 +24,6 @@ public class SuppliersRegionServiceImpl extends ServiceImpl<SuppliersRegionMappe
     SuppliersRegionMapper mapper;
 
     public List<SuppliersRegion> toFind(String regionId){
-        QueryWrapper<SuppliersRegion> wrapper = new QueryWrapper<>();
-        wrapper.lambda().eq(SuppliersRegion::getRegionId,regionId);
-        return mapper.toFind(wrapper);
+        return mapper.toFind(regionId);
     }
 }

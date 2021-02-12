@@ -75,20 +75,19 @@
                         <template v-slot:buttons>
                             <vxe-button icon="glyphicon glyphicon-search" data-toggle="modal" data-target="#myModel8">查询
                             </vxe-button>
-                            <vxe-button icon="glyphicon glyphicon-plus" data-toggle="modal" data-target="#myModel6">
+                            <vxe-button icon="glyphicon glyphicon-plus" @click="openInsSupplier">
                                 增加
                             </vxe-button>
-                            <vxe-button @click="getCurrentEvent" icon="glyphicon glyphicon-edit" data-toggle="modal"
-                                data-target="#myModel7">修改
+                            <vxe-button icon="glyphicon glyphicon-edit" @click="openUpdSupplier">修改
                             </vxe-button>
-                            <vxe-button icon="glyphicon glyphicon-remove-circle" data-toggle="modal" class="btn-danger"
-                                data-target="#myModal9">删除</vxe-button>
+                            <vxe-button icon="glyphicon glyphicon-remove-circle" class="btn-danger"
+                                @click="delSupplier">删除</vxe-button>
                             <vxe-button icon="glyphicon glyphicon-export">导出</vxe-button>
                             <vxe-button icon="glyphicon glyphicon-picture" data-toggle="modal" data-target="#myModel9">
                                 照片</vxe-button>
                             <vxe-button icon="
-                            glyphicon glyphicon-user" data-toggle="modal" data-target="#myModel11">联系人</vxe-button>
-                            <vxe-button icon="fa fa-cog" data-toggle="modal" data-target="#myModel10">字段设置
+                            glyphicon glyphicon-user" @click="openContactsModal">联系人</vxe-button>
+                            <vxe-button icon="fa fa-cog" @click="columnModal">字段设置
                             </vxe-button>
                             <!-- <vxe-button @click="$refs.xTable.setCurrentRow(tableData[1])">设置第二行选中</vxe-button> -->
                             <!-- <vxe-button @click="$refs.xTable.clearCurrentRow()">取消选中</vxe-button> -->
@@ -104,15 +103,16 @@
                     </div> -->
                     <!-- 左侧tree -->
                     <template>
+                        <!-- :tree-config="{children: 'children',expandAll:'true'}" -->
+                        <!-- :tree-config="{children: 'children',reserve:'true'}" -->
                         <vxe-grid round resizable show-overflow class="mytable-scrollbar" height="100%"
                             row-id="regionId" highlight-hover-row ref="xTree" highlight-current-row :show-header="false"
-                            :tree-config="{reserve:'true'}" @current-change="currentChangeEvent"
-                            :tree-config="{children: 'children'}" :data="treeData" :columns="treeColumn">
+                            @current-change="currentChangeEventTree"
+                            :tree-config="{children: 'children',reserve:'true'}" :data="treeData" :columns="treeColumn">
                             <!-- 使用自定义插槽来定义显示内容 -->
                             <template v-slot:user-slot="{ row }">
                                 <span>{{ row.regionId+'-'+row.regionName }}</span>
                             </template>
-                        </vxe-grid>
                         </vxe-grid>
                     </template>
                 </div>
@@ -139,9 +139,9 @@
                             <!-- <button v-slot:buttons type="button" @click="getCurrentEvent"> 你好</button> -->
                             <template>
                                 <vxe-grid border stripe highlight-hover-row highlight-current-row resizable
-                                    ref="xTable2" class="mytable-scrollbar" auto-resize height="100%" :data="tableData"
-                                    :columns="tableColumn2" @current-change="currentChangeEvent" round
-                                    show-header-overflow show-overflow>
+                                    ref="xTable2" class="mytable-scrollbar" auto-resize height="100%"
+                                    :data="tableDataPhone" :columns="tableColumn2" @current-change="currentChangeEvent"
+                                    round show-header-overflow show-overflow>
                                 </vxe-grid>
                             </template>
                         </div>
@@ -273,7 +273,7 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                     aria-hidden="true">&times;</span></button>
                             <h4 class="modal-title clearfix" id="myModalLabel5">供货单位编辑
-                                <button type="button" class="btn btn-success pull-right"
+                                <button type="button" class="btn btn-success pull-right" @click="toInsSupplier"
                                     style="padding-left: 25px; padding-right: 25px; margin-right: 30px;"><span
                                         class="glyphicon glyphicon-ok"></span> 保存</button>
                             </h4>
@@ -285,22 +285,28 @@
                                         <!-- = -->
                                         <div class="form-fiex col-sm-12">
                                             <div class="form-group col-sm-3" style="margin-right: 15px;">
-                                                <label for="inputEmail1" class="col-sm-4 control-label">厂商代码</label>
+                                                <label for="inputEmail1" class="col-sm-4 control-label"><span
+                                                        class="span1">*</span>&nbsp;厂商代码</label>
                                                 <div class="col-sm-7">
-                                                    <input type="text" class="form-control" disabled>
+                                                    <input type="text" class="form-control" v-model="supplier.provCode">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-3" style="margin-right: 15px;">
-                                                <label for="inputEmail1" class="col-sm-4 control-label">厂商名称</label>
+                                                <label for="inputEmail1" class="col-sm-4 control-label"><span
+                                                        class="span1">*</span>&nbsp;厂商名称</label>
                                                 <div class="col-sm-7">
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control"
+                                                        onkeyup="this.value=this.value.replace(/[, ]/g,'')"
+                                                        v-model="supplier.provName">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-6">
                                                 <label for="inputEmail1" class="col-sm-4 control-label"><span
                                                         class="span1">*</span>&nbsp;地址</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" style="width: 105.5%;">
+                                                    <input type="text" class="form-control"
+                                                        onkeyup="this.value=this.value.replace(/[, ]/g,'')"
+                                                        v-model="supplier.address" style="width: 105.5%;">
                                                 </div>
                                             </div>
                                         </div>
@@ -309,20 +315,25 @@
                                             <div class="form-group col-sm-3" style="margin-right: 15px;">
                                                 <label for="inputEmail1" class="col-sm-4 control-label">经营情况</label>
                                                 <div class="col-sm-7">
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control"
+                                                        onkeyup="this.value=this.value.replace(/[, ]/g,'')"
+                                                        v-model="supplier.operation">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-3" style="margin-right: 15px;">
                                                 <label for="inputEmail1" class="col-sm-4 control-label">网址</label>
                                                 <div class="col-sm-7">
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control"
+                                                        onkeyup="this.value=this.value.replace(/[, ]/g,'')"
+                                                        v-model="supplier.httpA">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-6">
-                                                <label for="inputEmail1" class="col-sm-4 control-label"><span
-                                                        class="span1">*</span>&nbsp;开户行</label>
+                                                <label for="inputEmail1" class="col-sm-4 control-label">开户行</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" style="width: 105.5%;">
+                                                    <input type="text" class="form-control"
+                                                        onkeyup="this.value=this.value.replace(/[, ]/g,'')"
+                                                        v-model="supplier.khyh" style="width: 105.5%;">
                                                 </div>
                                             </div>
                                         </div>
@@ -332,19 +343,20 @@
                                                 <label for="inputEmail1"
                                                     class="col-sm-4 control-label">&nbsp;银行账号&nbsp;</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control"
+                                                        oninput="value=value.replace(/[^\d]/g,'')"
+                                                        v-model="supplier.yhzh">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-4" style="margin-right: 12px;">
                                                 <label for="inputEmail1"
                                                     class="col-sm-4 control-label">&nbsp;付款方式&nbsp;</label>
                                                 <div class="col-sm-8">
-                                                    <select class="form-control">
-                                                        <option>1</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                        <option>5</option>
+                                                    <select class="form-control" v-model="supplier.pmId">
+                                                        <option value="0">=== 请选择 ===</option>
+                                                        <option v-for="item in pasymentMethod" :value="item.pmId">{{
+                                                            item.pmethod }}</option>
+
                                                     </select>
                                                 </div>
                                             </div>
@@ -352,12 +364,11 @@
                                                 <label for="inputEmail1"
                                                     class="col-sm-4 control-label">&nbsp;厂商等级&nbsp;</label>
                                                 <div class="col-sm-8">
-                                                    <select class="form-control" style="width: 103%;">
-                                                        <option>1</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                        <option>5</option>
+                                                    <select class="form-control" style="width: 103%;"
+                                                        v-model="supplier.fgId">
+                                                        <option value="0">=== 请选择 ===</option>
+                                                        <option v-for="item in firmGradeList" :value="item.fgId">{{
+                                                            item.fgrade }}</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -367,7 +378,9 @@
                                             <div class="form-group col-sm-4" style="margin-right: 15px;">
                                                 <label for="inputEmail1" class="col-sm-4 control-label">经营品牌</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control"
+                                                        onkeyup="this.value=this.value.replace(/[, ]/g,'')"
+                                                        v-model="supplier.zd2">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-8">
@@ -375,41 +388,52 @@
                                                     style="margin-left: 5px !important;">厂商类别</label>
                                                 <div class="col-sm-4">
                                                     <input type="text" class="form-control" disabled
-                                                        style="border-radius:4px 0px 0px 4px;">
+                                                        style="border-radius:4px 0px 0px 4px;"
+                                                        onkeyup="this.value=this.value.replace(/[, ]/g,'')"
+                                                        v-model="supplier.provType">
                                                 </div>
                                                 <div class="col-lg-5">
                                                     <div class="input-group" style="width: 121%;">
                                                         <input type="text" class="form-control" disabled
-                                                            style="border-radius:0px 0px 0px 0px;">
+                                                            onkeyup="this.value=this.value.replace(/[, ]/g,'')"
+                                                            style="border-radius:0px 0px 0px 0px;"
+                                                            v-model="supplier.regionName">
                                                         <span class="input-group-btn">
-                                                            <button class="btn btn-default" type="button"><span
+                                                            <button class="btn btn-default" @click="btnselection"
+                                                                type="button"><span
                                                                     class="glyphicon glyphicon-plus"></span></button>
                                                         </span>
                                                     </div><!-- /input-group -->
                                                 </div><!-- /.col-lg-6 -->
                                             </div>
                                         </div>
-                                        <!-- = -->
+                                        <!-- =联系人= -->
                                         <div class="form-fiex col-sm-12">
                                             <div class="form-group col-sm-4" style="margin-right: 18px;">
                                                 <label for="inputEmail1"
                                                     class="col-sm-4 control-label">&nbsp;联系人&nbsp;</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control"
+                                                        onkeyup="this.value=this.value.replace(/[, ]/g,'')"
+                                                        v-model="supplier.contacts.scName">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-4" style="margin-right: 12px;">
                                                 <label for="inputEmail1"
                                                     class="col-sm-4 control-label">&nbsp;电话&nbsp;</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control"
+                                                        onkeyup="this.value=this.value.replace(/[, ]/g,'')"
+                                                        v-model="supplier.contacts.scTelephone">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-4">
                                                 <label for="inputEmail1"
                                                     class="col-sm-4 control-label">&nbsp;手机&nbsp;</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control" style="width: 103%;">
+                                                    <input type="text" class="form-control" style="width: 103%;"
+                                                        oninput="value=value.replace(/[^\d]/g,'')"
+                                                        v-model="supplier.contacts.scPhone">
                                                 </div>
                                             </div>
                                         </div>
@@ -418,26 +442,19 @@
                                             <div class="form-group col-sm-4" style="margin-right: 15px;">
                                                 <label for="inputEmail1" class="col-sm-4 control-label">账期(天)</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control">
+                                                    <input type="number" class="form-control"
+                                                        oninput="value=value.replace(/[^\d]/g,'')"
+                                                        v-model="supplier.preDay">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-8">
                                                 <label for="inputEmail1" class="col-sm-4 control-label"
-                                                    style="margin-left: 5px !important;">备注</label>
-                                                <div class="col-sm-4">
-                                                    <input type="text" class="form-control"
-                                                        style="border-radius:4px 0px 0px 4px;">
+                                                    style="margin-left: 2px !important;">备注</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" style="width: 101%;"
+                                                        onkeyup="this.value=this.value.replace(/[, ]/g,'')"
+                                                        v-model="supplier.remark">
                                                 </div>
-                                                <div class="col-lg-5">
-                                                    <div class="input-group" style="width: 121%;">
-                                                        <input type="text" class="form-control" disabled
-                                                            style="border-radius:0px 0px 0px 0px;">
-                                                        <span class="input-group-btn">
-                                                            <button class="btn btn-default" type="button"><span
-                                                                    class="glyphicon glyphicon-plus"></span></button>
-                                                        </span>
-                                                    </div><!-- /input-group -->
-                                                </div><!-- /.col-lg-6 -->
                                             </div>
                                         </div>
                                     </div>
@@ -455,8 +472,8 @@
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                     aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title clearfix" id="myModalLabel2">供货单位编辑
-                                <button type="button" class="btn btn-success pull-right"
+                            <h4 class="modal-title clearfix" id="myModalLabel5">供货单位编辑
+                                <button type="button" class="btn btn-success pull-right" @click="toUpdSupplier"
                                     style="padding-left: 25px; padding-right: 25px; margin-right: 30px;"><span
                                         class="glyphicon glyphicon-ok"></span> 保存</button>
                             </h4>
@@ -468,22 +485,28 @@
                                         <!-- = -->
                                         <div class="form-fiex col-sm-12">
                                             <div class="form-group col-sm-3" style="margin-right: 15px;">
-                                                <label for="inputEmail1" class="col-sm-4 control-label">厂商代码</label>
+                                                <label for="inputEmail1" class="col-sm-4 control-label"><span
+                                                        class="span1">*</span>&nbsp;厂商代码</label>
                                                 <div class="col-sm-7">
-                                                    <input type="text" class="form-control" disabled>
+                                                    <input type="text" class="form-control" v-model="supplier.provCode">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-3" style="margin-right: 15px;">
-                                                <label for="inputEmail1" class="col-sm-4 control-label">厂商名称</label>
+                                                <label for="inputEmail1" class="col-sm-4 control-label"><span
+                                                        class="span1">*</span>&nbsp;厂商名称</label>
                                                 <div class="col-sm-7">
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control"
+                                                        onkeyup="this.value=this.value.replace(/[, ]/g,'')"
+                                                        v-model="supplier.provName">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-6">
                                                 <label for="inputEmail1" class="col-sm-4 control-label"><span
                                                         class="span1">*</span>&nbsp;地址</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" style="width: 105.5%;">
+                                                    <input type="text" class="form-control"
+                                                        onkeyup="this.value=this.value.replace(/[, ]/g,'')"
+                                                        v-model="supplier.address" style="width: 105.5%;">
                                                 </div>
                                             </div>
                                         </div>
@@ -492,20 +515,25 @@
                                             <div class="form-group col-sm-3" style="margin-right: 15px;">
                                                 <label for="inputEmail1" class="col-sm-4 control-label">经营情况</label>
                                                 <div class="col-sm-7">
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control"
+                                                        onkeyup="this.value=this.value.replace(/[, ]/g,'')"
+                                                        v-model="supplier.operation">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-3" style="margin-right: 15px;">
                                                 <label for="inputEmail1" class="col-sm-4 control-label">网址</label>
                                                 <div class="col-sm-7">
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control"
+                                                        onkeyup="this.value=this.value.replace(/[, ]/g,'')"
+                                                        v-model="supplier.httpA">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-6">
-                                                <label for="inputEmail1" class="col-sm-4 control-label"><span
-                                                        class="span1">*</span>&nbsp;开户行</label>
+                                                <label for="inputEmail1" class="col-sm-4 control-label">开户行</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" style="width: 105.5%;">
+                                                    <input type="text" class="form-control"
+                                                        onkeyup="this.value=this.value.replace(/[, ]/g,'')"
+                                                        v-model="supplier.khyh" style="width: 105.5%;">
                                                 </div>
                                             </div>
                                         </div>
@@ -515,19 +543,20 @@
                                                 <label for="inputEmail1"
                                                     class="col-sm-4 control-label">&nbsp;银行账号&nbsp;</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control"
+                                                        oninput="value=value.replace(/[^\d]/g,'')"
+                                                        v-model="supplier.yhzh">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-4" style="margin-right: 12px;">
                                                 <label for="inputEmail1"
                                                     class="col-sm-4 control-label">&nbsp;付款方式&nbsp;</label>
                                                 <div class="col-sm-8">
-                                                    <select class="form-control">
-                                                        <option>1</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                        <option>5</option>
+                                                    <select class="form-control" v-model="supplier.pmId">
+                                                        <option value="0">=== 请选择 ===</option>
+                                                        <option v-for="item in pasymentMethod" :value="item.pmId">{{
+                                                            item.pmethod }}</option>
+
                                                     </select>
                                                 </div>
                                             </div>
@@ -535,12 +564,11 @@
                                                 <label for="inputEmail1"
                                                     class="col-sm-4 control-label">&nbsp;厂商等级&nbsp;</label>
                                                 <div class="col-sm-8">
-                                                    <select class="form-control" style="width: 103%;">
-                                                        <option>1</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                        <option>5</option>
+                                                    <select class="form-control" style="width: 103%;"
+                                                        v-model="supplier.fgId">
+                                                        <option value="0">=== 请选择 ===</option>
+                                                        <option v-for="item in firmGradeList" :value="item.fgId">{{
+                                                            item.fgrade }}</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -550,7 +578,9 @@
                                             <div class="form-group col-sm-4" style="margin-right: 15px;">
                                                 <label for="inputEmail1" class="col-sm-4 control-label">经营品牌</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control"
+                                                        onkeyup="this.value=this.value.replace(/[, ]/g,'')"
+                                                        v-model="supplier.zd2">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-8">
@@ -558,41 +588,52 @@
                                                     style="margin-left: 5px !important;">厂商类别</label>
                                                 <div class="col-sm-4">
                                                     <input type="text" class="form-control" disabled
-                                                        style="border-radius:4px 0px 0px 4px;">
+                                                        style="border-radius:4px 0px 0px 4px;"
+                                                        onkeyup="this.value=this.value.replace(/[, ]/g,'')"
+                                                        v-model="supplier.provType">
                                                 </div>
                                                 <div class="col-lg-5">
                                                     <div class="input-group" style="width: 121%;">
                                                         <input type="text" class="form-control" disabled
-                                                            style="border-radius:0px 0px 0px 0px;">
+                                                            onkeyup="this.value=this.value.replace(/[, ]/g,'')"
+                                                            style="border-radius:0px 0px 0px 0px;"
+                                                            v-model="supplier.regionName">
                                                         <span class="input-group-btn">
-                                                            <button class="btn btn-default" type="button"><span
+                                                            <button class="btn btn-default" @click="btnselection"
+                                                                type="button"><span
                                                                     class="glyphicon glyphicon-plus"></span></button>
                                                         </span>
                                                     </div><!-- /input-group -->
                                                 </div><!-- /.col-lg-6 -->
                                             </div>
                                         </div>
-                                        <!-- = -->
+                                        <!-- =联系人= -->
                                         <div class="form-fiex col-sm-12">
                                             <div class="form-group col-sm-4" style="margin-right: 18px;">
                                                 <label for="inputEmail1"
                                                     class="col-sm-4 control-label">&nbsp;联系人&nbsp;</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control"
+                                                        onkeyup="this.value=this.value.replace(/[, ]/g,'')"
+                                                        v-model="supplier.contacts.scName">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-4" style="margin-right: 12px;">
                                                 <label for="inputEmail1"
                                                     class="col-sm-4 control-label">&nbsp;电话&nbsp;</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control"
+                                                        onkeyup="this.value=this.value.replace(/[, ]/g,'')"
+                                                        v-model="supplier.contacts.scTelephone">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-4">
                                                 <label for="inputEmail1"
                                                     class="col-sm-4 control-label">&nbsp;手机&nbsp;</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control" style="width: 103%;">
+                                                    <input type="text" class="form-control" style="width: 103%;"
+                                                        oninput="value=value.replace(/[^\d]/g,'')"
+                                                        v-model="supplier.contacts.scPhone">
                                                 </div>
                                             </div>
                                         </div>
@@ -601,26 +642,19 @@
                                             <div class="form-group col-sm-4" style="margin-right: 15px;">
                                                 <label for="inputEmail1" class="col-sm-4 control-label">账期(天)</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control">
+                                                    <input type="number" class="form-control"
+                                                        oninput="value=value.replace(/[^\d]/g,'')"
+                                                        v-model="supplier.preDay">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-8">
                                                 <label for="inputEmail1" class="col-sm-4 control-label"
-                                                    style="margin-left: 5px !important;">备注</label>
-                                                <div class="col-sm-4">
-                                                    <input type="text" class="form-control"
-                                                        style="border-radius:4px 0px 0px 4px;">
+                                                    style="margin-left: 2px !important;">备注</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" style="width: 101%;"
+                                                        onkeyup="this.value=this.value.replace(/[, ]/g,'')"
+                                                        v-model="supplier.remark">
                                                 </div>
-                                                <div class="col-lg-5">
-                                                    <div class="input-group" style="width: 121%;">
-                                                        <input type="text" class="form-control" disabled
-                                                            style="border-radius:0px 0px 0px 0px;">
-                                                        <span class="input-group-btn">
-                                                            <button class="btn btn-default" type="button"><span
-                                                                    class="glyphicon glyphicon-plus"></span></button>
-                                                        </span>
-                                                    </div><!-- /input-group -->
-                                                </div><!-- /.col-lg-6 -->
                                             </div>
                                         </div>
                                     </div>
@@ -648,7 +682,7 @@
                                     </div>
                                     <button type="button" class="btn btn-success"
                                         style="padding-left: 25px; padding-right: 25px; margin-right: 30px;"><span
-                                            class="glyphicon glyphicon-ok"></span> 保存</button>
+                                            class="glyphicon glyphicon-search"></span> 查询</button>
                                 </div>
                             </h4>
                         </div>
@@ -693,7 +727,7 @@
                                                         <option>5</option>
                                                     </select>
                                                 </div>
-                                            </div>
+                                            </div>-
                                         </div>
                                         <div class="form-fiex col-sm-12">
                                             <div class="form-group col-sm-6" style="margin-right: 18px;">
@@ -788,7 +822,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">否</button>
-                            <button type="button" class="btn btn-primary">是</button>
+                            <button type="button" @click="delSupplierRequest" class="btn btn-primary">是</button>
                         </div>
                     </div>
                 </div>
@@ -889,7 +923,7 @@
                 </div>
             </div>
             <!-- 字段设置 -->
-            <div class="modal fade bs-example-modal-lg" tabindex="-1" id="myModel10" role="dialog"
+            <div class="modal fade bs-example-modal-lg mytable-scrollbar" tabindex="-1" id="myModel10" role="dialog"
                 aria-labelledby="myLargeModalLabel">
                 <div class="modal-dialog modal-lg" role="document" style="width: 900px;">
                     <div class="modal-content">
@@ -918,7 +952,7 @@
                                             <td style="width: 25%;"><span>字段名称</span></td>
                                             <td style="width: 25%;"><span>显示宽度</span></td>
                                         </tr>
-                                        <tr v-for="item,index in tableColumn">
+                                        <tr v-for="item,index in settableColumn">
                                             <td class="context">
                                                 <span><input type="checkbox" v-model="check_list"
                                                         :value="item.num"></span>
@@ -942,8 +976,8 @@
                                 </div>
                             </div>
                             <div class="col-sm-12" style="text-align: right;padding-top: 10px;padding-right: 30px;">
-                                <button type="button" class="btn"
-                                    style="padding-right: 25px; padding-left: 25px;">取消</button>
+                                <button type="button" class="btn" style="padding-right: 25px; padding-left: 25px;"
+                                    data-dismiss="modal">取消</button>
                                 <button type=" button" class="btn btn-info" @click="updshow"
                                     style="padding-right: 25px; padding-left: 25px;">保存</button>
                             </div>
@@ -952,23 +986,25 @@
                 </div>
             </div>
             <!-- 联系人 -->
-            <div class="modal fade bs-example-modal-lg" data-backdrop="false" tabindex="-1" id="myModel11" role="dialog"
+            <div class="modal fade bs-example-modal-lg" tabindex="-1" id="myModel11" role="dialog"
                 aria-labelledby="myLargeModalLabel">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                     aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title clearfix" id="myModalLabel2">XXX&nbsp;的联系人
+                            <h4 class="modal-title clearfix" id="myModalLabel2">{{ supplierName }}&nbsp;的联系人
                             </h4>
                         </div>
                         <div class="modal-body row" style="padding-top: 0px; padding-right: 40px !important;">
                             <div class="coml-sm-12 clearfix" style="padding: 0px 20px 0px 30px;">
                                 <div class="coml-sm-12 pull-right" style="padding: 10px 0px;">
-                                    <vxe-button icon="glyphicon glyphicon-plus">增加</vxe-button>
-                                    <vxe-button icon="glyphicon glyphicon-remove-circle" data-toggle="modal"
-                                        class="btn-danger" data-target="#myModal9">删除</vxe-button>
-                                    <vxe-button icon="glyphicon glyphicon-remove-circle" class="btn-danger">保存
+                                    <vxe-button icon="glyphicon glyphicon-plus" @click=" initContactsPojo">增加
+                                    </vxe-button>
+                                    <vxe-button icon="glyphicon glyphicon-remove-circle" class="btn-danger"
+                                        @click="opDelContacts">删除</vxe-button>
+                                    <vxe-button icon="glyphicon glyphicon-remove-circle" @click="saveContacts"
+                                        class="btn-danger">保存
                                     </vxe-button>
                                 </div>
                                 <form class="form-horizontal fordiv1">
@@ -979,19 +1015,25 @@
                                                 <label for="inputEmail1" class="col-sm-4 control-label"><span
                                                         class="span1">*</span>&nbsp;联系人</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control"
+                                                        onkeyup="this.value=this.value.replace(/[, ]/g,'')"
+                                                        v-model="contactsPojo.scName">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-4" style="margin-right: 12px;">
                                                 <label for="inputEmail1" class="col-sm-4 control-label">手机</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control"
+                                                        onkeyup="this.value=this.value.replace(/[, ]/g,'')"
+                                                        v-model="contactsPojo.scPhone">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-4">
                                                 <label for="inputEmail1" class="col-sm-4 control-label">职位</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control" style="width: 103%;">
+                                                    <input type="text" class="form-control" style="width: 103%;"
+                                                        onkeyup="this.value=this.value.replace(/[, ]/g,'')"
+                                                        v-model="contactsPojo.scPost">
                                                 </div>
                                             </div>
                                         </div>
@@ -1000,13 +1042,17 @@
                                             <div class="form-group col-sm-4" style="margin-right: 18px;">
                                                 <label for="inputEmail1" class="col-sm-4 control-label">电话</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control"
+                                                        onkeyup="this.value=this.value.replace(/[, ]/g,'')"
+                                                        v-model="contactsPojo.scTelephone">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-4" style="margin-right: 12px;">
                                                 <label for="inputEmail1" class="col-sm-4 control-label">Email</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control"
+                                                        onkeyup="this.value=this.value.replace(/[, ]/g,'')"
+                                                        v-model="contactsPojo.email">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-4"></div>
@@ -1017,8 +1063,8 @@
                                     <template>
                                         <vxe-grid border stripe highlight-hover-row highlight-current-row resizable
                                             ref="xTable3" class="mytable-scrollbar" auto-resize height="100%"
-                                            :data="tableData" :columns="tableColumn3"
-                                            @current-change="currentChangeEvent" round show-header-overflow
+                                            :data="tableContactsData" :columns="tableColumn3"
+                                            @current-change="currentChangeEventXTable3" round show-header-overflow
                                             show-overflow>
                                         </vxe-grid>
                                     </template>
@@ -1028,7 +1074,60 @@
                     </div>
                 </div>
             </div>
+
+            <!-- 分类选择 -->
+            <div class="modal fade" id="myModel12" tabindex="-1" role="dialog" data-backdrop="false"
+                aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title clearfix" id="myModalLabel10">厂商分类选择
+                                <button type="button" class="btn btn-success pull-right" @click="optionTreeDataT"
+                                    style="padding-left: 25px; padding-right: 25px; margin-right: 30px;"><span
+                                        class="glyphicon glyphicon-ok"></span>&nbsp;选择</button>
+                            </h4>
+                        </div>
+                        <div class="modal-body row " style="padding-top: 0px; ">
+                            <div class="coml-sm-12 tempTable" style="padding: 0px 30px 0px 30px;">
+                                <div style="height: 400px;padding-right: 0px; ">
+                                    <vxe-grid round border="none" resizable show-overflow class="mytable-scrollbar"
+                                        height="100%" row-id="regionId" highlight-hover-row ref="xTree2"
+                                        highlight-current-row :show-header="false"
+                                        @current-change="currentChangeEventTree2"
+                                        :tree-config="{children: 'children',expandAll:'true',line: true}"
+                                        :data="treeData" :columns="treeColumn">
+                                        <template v-slot:user-slot="{ row }">
+                                            <span>{{ row.regionId+'-'+row.regionName }}</span>
+                                        </template>
+                                    </vxe-grid>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="myModal13" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel9">删除确认</h4>
+                        </div>
+                        <div class="modal-body">
+                            <h5>是否确认删除该记录？</h5>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">否</button>
+                            <button type="button" @click="delContacts" class="btn btn-primary">是</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+
     </div>
     <script src="js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
     <script src="js/bootstrap.js"></script>
@@ -1049,214 +1148,40 @@
                     textHide: [false, false, false, false],
                     check_list: [],
                     is_check_all: false,
+                    pasymentMethod: [],    //付款方式
+                    firmGradeList: [],       //厂商等级
+                    tempRegionCity: {},  //选择分类
+                    //联系人实体
+                    contactsPojo: { scId: "", scName: "", scPost: "", scTelephone: "", scPhone: "", email: "", column1: "" },
+                    //供货商名称
+                    supplierName: "",
+                    supplier: {  //供货商实体
+                        contacts: { scId: "", scName: "", scTelephone: "", scPhone: "" }, //联系人实体
+                        sid: "", regionName: "", provCode: "", provName: "", address: "", operation: "", httpA: "", khyh: "", yhzh: "", pmId: "", fgId: "", zd2: "", provType: "", preDay: "0", remark: ""
+                    },
                     regionCity: { regionId: "", regionName: "", parentid: "", children: [] },  //分类对象
-                    templist: [{ id: 1, name: "test" }, { id: 2, name: "test" }, { id: 3, name: "test" }, { id: 4, name: "test" }],
                     //修改 加载时查询字段及其注释加 然后再查询数据
                     //先查询加载列表 然后获取列头
                     columns: [],
-                    tableColumn: [
-                        { num: 1, field: 'id', title: '厂商代码', sortable: true, showOverflow: true, width: 200, visible: true, inputVislble: true, widthtemp: 150, tfocus: 'itemName' },
-                        { num: 2, field: 'name', title: '厂商名称', sortable: true, showOverflow: true, width: 200, visible: true, inputVislble: true, widthtemp: 150, tfocus: 'itemName' },
-                        { num: 3, field: 'sex', title: '地址', sortable: true, showOverflow: true, width: 200, visible: true, inputVislble: true, widthtemp: 150, tfocus: 'itemName' },
-                        { num: 4, field: 'age', title: '经营情况', sortable: true, showOverflow: true, width: 200, visible: true, inputVislble: true, widthtemp: 150, tfocus: 'itemName' },
-                        { num: 5, field: 'address', title: '网址', sortable: true, showOverflow: true, width: 120, visible: true, inputVislble: true, widthtemp: 150, tfocus: 'itemName' },
-                        { num: 6, field: 'sex', title: '开户行', sortable: true, showOverflow: true, width: 200, visible: true, inputVislble: true, widthtemp: 150, tfocus: 'itemName' },
-                        { num: 7, field: 'sex', title: '银行账号', sortable: true, showOverflow: true, width: 200, visible: true, inputVislble: true, widthtemp: 150, tfocus: 'itemName' },
-                        { num: 8, field: 'sex', title: '付款方式', sortable: true, showOverflow: true, width: 200, visible: true, inputVislble: true, widthtemp: 150, tfocus: 'itemName' },
-                        { num: 9, field: 'sex', title: '厂商等级', sortable: true, showOverflow: true, width: 200, visible: true, inputVislble: true, widthtemp: 150, tfocus: 'itemName' },
-                        { num: 10, field: 'sex', title: '经营品牌', sortable: true, showOverflow: true, width: 200, visible: true, inputVislble: true, widthtemp: 150, tfocus: 'itemName' },
-                        { num: 11, field: 'sex', title: '商品等级', sortable: true, showOverflow: true, width: 200, visible: true, inputVislble: true, widthtemp: 150, tfocus: 'itemName' },
-                        { num: 12, field: 'sex', title: '厂商类别', sortable: true, showOverflow: true, width: 200, visible: true, inputVislble: true, widthtemp: 150, tfocus: 'itemName' },
-                        { num: 13, field: 'sex', title: '联系人', sortable: true, showOverflow: true, width: 200, visible: true, inputVislble: true, widthtemp: 150, tfocus: 'itemName' },
-                        { num: 14, field: 'sex', title: '电话', sortable: true, showOverflow: true, width: 200, visible: true, inputVislble: true, widthtemp: 150, tfocus: 'itemName' },
-                        { num: 15, field: 'sex', title: '手机', sortable: true, showOverflow: true, width: 200, visible: true, inputVislble: true, widthtemp: 150, tfocus: 'itemName' },
-                        { num: 16, field: 'sex', title: 'Email', sortable: true, showOverflow: true, width: 200, visible: true, inputVislble: true, widthtemp: 150, tfocus: 'itemName' },
-                        { num: 17, field: 'sex', title: '账期（天）', sortable: true, showOverflow: true, width: 200, visible: true, inputVislble: true, widthtemp: 150, tfocus: 'itemName' },
-                        { num: 18, field: 'sex', title: '备注', sortable: true, showOverflow: true, width: 200, visible: true, inputVislble: true, widthtemp: 150, tfocus: 'itemName' }
-                    ],
+                    tableColumn: [],    //显示的列
+                    settableColumn: [],  //字段设置的数据源
+                    setShowtableColumn: [], //提交数据库修改的数据
                     tableColumn3: [
-                        { num: 1, field: 'id', title: '联系人', sortable: true, showOverflow: true, visible: true },
-                        { num: 1, field: 'id', title: '职位', sortable: true, showOverflow: true, visible: true },
-                        { num: 1, field: 'id', title: '手机', sortable: true, showOverflow: true, visible: true },
-                        { num: 1, field: 'id', title: '电话', sortable: true, showOverflow: true, visible: true },
-                        { num: 1, field: 'id', title: 'Email', sortable: true, showOverflow: true, visible: true }
+                        { num: 1, field: 'scName', title: '联系人', sortable: true, showOverflow: true, visible: true },
+                        { num: 1, field: 'scPost', title: '职位', sortable: true, showOverflow: true, visible: true },
+                        { num: 1, field: 'scPhone', title: '手机', sortable: true, showOverflow: true, visible: true },
+                        { num: 1, field: 'scTelephone', title: '电话', sortable: true, showOverflow: true, visible: true },
+                        { num: 1, field: 'email', title: 'Email', sortable: true, showOverflow: true, visible: true }
                     ],
-                    tableData: [{
-                        id: 10001,
-                        name: 'Test1',
-                        role: 'Develop',
-                        sex: 'Man',
-                        age: 28,
-                        address: '合适的几个客户是客户',
-                        wi: 1000
-                    },
-                    {
-                        id: 10002,
-                        name: 'Test2',
-                        role: 'Test',
-                        sex: 'Women',
-                        age: 22,
-                        address: 'Guangzhou'
-                    },
-                    {
-                        id: 10003,
-                        name: 'Test3',
-                        role: 'PM',
-                        sex: 'Man',
-                        age: 32,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10005,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10006,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10007,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10008,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10009,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10010,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10011,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10012,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10013,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10014,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10015,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10016,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10017,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10018,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10019,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10020,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 10021,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    },
-                    {
-                        id: 100022,
-                        name: 'Test4',
-                        role: 'Designer',
-                        sex: 'Women ',
-                        age: 24,
-                        address: 'Shanghai'
-                    }
-                    ],
+                    tableContactsData: [], //联系人集合数据
+                    tableDataPhone: [],
+                    tableData: [],
                     tableColumn2: [ //
-                        { num: 1, field: 'id', title: '联系人', sortable: true, showOverflow: true, width: 200, visible: true },
-                        { num: 1, field: 'name', title: '职位', sortable: true, showOverflow: true, width: 200, visible: true },
-                        { num: 1, field: 'role', title: '手机', sortable: true, showOverflow: true, width: 200, visible: true },
-                        { num: 1, field: 'age', title: '电话', sortable: true, showOverflow: true, width: 200, visible: true },
-                        { num: 1, field: 'address', title: 'Email', sortable: true, showOverflow: true, width: 200, visible: true },
+                        { num: 1, field: 'scName', title: '联系人', sortable: true, showOverflow: true, width: 200, visible: true },
+                        { num: 1, field: 'scPost', title: '职位', sortable: true, showOverflow: true, width: 200, visible: true },
+                        { num: 1, field: 'scPhone', title: '手机', sortable: true, showOverflow: true, width: 200, visible: true },
+                        { num: 1, field: 'scTelephone', title: '电话', sortable: true, showOverflow: true, width: 200, visible: true },
+                        { num: 1, field: 'email', title: 'Email', sortable: true, showOverflow: true, width: 200, visible: true },
                     ],
                     // 
                     treeColumn: [
@@ -1280,22 +1205,27 @@
                 //字段设置 - 点击保存
                 updshow() {
                     //设置所有false
-                    this.tableColumn.forEach(item => item.visible = false);
+                    this.settableColumn.forEach(item => item.visible = false);
                     //遍历checklist 选中的为true
-                    this.tableColumn.forEach((item) => {
+                    this.settableColumn.forEach((item) => {
                         this.check_list.forEach(arr => {
                             if (arr == item.num) { item.visible = true; }
                         })
                         item.width = item.widthtemp;
                     });
-                    //循环进行修改页面 table 配置信息
-                    let obj = JSON.parse(JSON.stringify(this.tableColumn))
-                    //循环tbale配置对象 将tableColumn相同的属性值赋值给columns
-                    this.columns.forEach((value, key) => {
-                        value.width = obj[key].width;
-                        value.visible = obj[key].visible;
-                    })
-                    this.$refs.xTable.refreshColumn();
+                    this.setShowtableColumn = [];
+                    this.settableColumn.forEach((item) => {
+                        this.setShowtableColumn.push({
+                            columnWidth: item.width,
+                            columnVisible: item.visible == true ? 1 : 0,
+                            columnId: item.params.columnId
+                        })
+                    });
+
+                    // console.log(this.setShowtableColumn);
+                    //调用方法更新配置
+                    this.updateTableColumn();
+
                 },
                 //获取列头
                 gettableColumns() {
@@ -1306,30 +1236,42 @@
                 },
                 //全选
                 checkAll() {
-                    if (this.tableColumn.length == this.check_list.length) {
+                    if (this.settableColumn.length == this.check_list.length) {
                         this.check_list = [];
                     } else {
-                        this.check_list = this.tableColumn.map(item => item.num)
+                        this.check_list = this.settableColumn.map(item => item.num)
                     }
                 },
                 currentChangeEvent({
                     row, rowIndex
                 }) {
-                    var text = $('#treeview12').treeview('getSelected');
-                    // console.log(rowIndex)
-
-                    console.log('行选中事件')
-                },
-                getCurrentEvent() {
                     //获取选中行数据
-                    //   alert(typeof JSON.stringify(this.$refs.xTable.getCurrentRecord()))
-                    if (JSON.stringify(this.$refs.xTable.getCurrentRecord()) != "null") {
-                        $("#myModel2").modal("show");
+                    try {
+                        this.tableDataPhone = this.$refs.xTable.getCurrentRecord().relation;
+                    } catch (err) {
+                        this.tableDataPhone = [];
                     }
-                    //  this.$XModal.alert(JSON.stringify(this.$refs.xTable.getCurrentRecord()));
+
+                },
+                currentChangeEventXTable3({ row }) {
+                    let json = JSON.parse(JSON.stringify(this.$refs.xTable3.getCurrentRecord()));
+                    this.contactsPojo = json;
+                    let json2 = JSON.parse(JSON.stringify(this.$refs.xTable.getCurrentRecord()));
+                    this.contactsPojo.column1 = json2.sid;
+                },
+                currentChangeEventTree({
+                    row, rowIndex
+                }) {
+                    this.toFind()
+                },
+                currentChangeEventTree2({
+                    row, rowIndex
+                }) {
+
                 }
                 //点击触发 file
-                , choiceImg(index) {
+                ,
+                choiceImg(index) {
                     if (index == 0) {
                         this.$refs.filElem.dispatchEvent(new MouseEvent('click'));
                     } else if (index == 1) {
@@ -1339,7 +1281,8 @@
                     } else if (index == 3) {
                         this.$refs.filElem3.dispatchEvent(new MouseEvent('click'));
                     }
-                }, getFile(index, e) {
+                },
+                getFile(index, e) {
                     console.log("成功");
                     let _this = this;
                     var files = e.target.files[0];
@@ -1406,6 +1349,7 @@
                                     //设置第一行选中
                                     that.isLoad = false;
                                     that.$refs.xTree.setCurrentRow(that.treeData[0]);
+                                    that.toFind();
                                 }
                             })
                         }
@@ -1416,7 +1360,6 @@
                 */
                 insRegionCity() {
                     let that = this;
-                    console.log(JSON.stringify(that.regionCity))
                     $.ajax({
                         url: "http://127.0.0.1:8080/suppliersRegionCity/ins",
                         type: "post",
@@ -1430,6 +1373,7 @@
                             if (result.code == 1000) {
                                 that.isLoad = true;
                                 that.find();
+                                that.toFind()
                                 $("#myModal").modal("hide");
                             } else if (result.code == 3000) {
                                 //id存在 主键冲突
@@ -1444,7 +1388,6 @@
                 */
                 updRegionCity() {
                     let that = this;
-                    console.log(JSON.stringify(that.regionCity));
                     $.ajax({
                         url: "http://127.0.0.1:8080/suppliersRegionCity/upd",
                         type: "post",
@@ -1458,6 +1401,7 @@
                             if (result.code == 1000) {
                                 that.isLoad = true;
                                 that.find();
+                                that.toFind()
                                 $("#myModal2").modal("hide");
                             } else if (result.code == 3000) {
                                 //id存在 主键冲突
@@ -1472,7 +1416,6 @@
                 */
                 deletebtn() {
                     let that = this;
-                    console.log(JSON.stringify(that.regionCity));
                     $.ajax({
                         url: "http://127.0.0.1:8080/suppliersRegionCity/del",
                         type: "post",
@@ -1486,6 +1429,7 @@
                             if (result.code == 1000) {
                                 that.isLoad = true;
                                 that.find();
+                                that.toFind()
                                 $("#myModal3").modal("hide");
                             } else if (result.code == 1005) {
                                 //id为空
@@ -1564,9 +1508,10 @@
                      查询具体供货商
                 */
                 toFind() {
+                    let regionId = this.$refs.xTree.getCurrentRecord().regionId
                     var that = this;
                     $.ajax({
-                        url: "http://localhost:8080/suppliersRegion",
+                        url: "http://localhost:8080/suppliersRegion/" + regionId,
                         type: "get",
                         xhrFields: {
                             withCredentials: true
@@ -1574,30 +1519,502 @@
                         crossDomain: true,
                         dataType: "json",
                         success: function (result) {
-                            console.log(JSON.stringify(result.data))
                             handlerResult(result, () => {
-                                // that.treeData = result.data;
-                                // if (that.treeData.length > 0 && that.isLoad == true) {
-                                //     //只有页面第一次加载运行时
-                                //     //设置第一行选中
-                                //     that.isLoad = false;
-                                //     that.$refs.xTree.setCurrentRow(that.treeData[0]);
-                                // }
+                                that.tableData = result.data;
+                                that.$refs.xTable.setCurrentRow(that.tableData[0]);
+                                try {
+                                    that.tableDataPhone = that.tableData[0].relation;
+                                } catch (err) {
+                                    that.tableDataPhone = [];
+                                }
                             })
+                        }
+                    });
+                },
+                /*
+                    点击供货商查询联系人
+                */
+                findRelation() {
+                    let sid = this.$refs.xTable.getCurrentRecord().sid
+                    let that = this;
+                    $.ajax({
+                        url: "http://localhost:8080/suppliersContacts/" + sid,
+                        type: "get",
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        dataType: "json",
+                        success: function (result) {
+                            handlerResult(result, () => {
+                                that.$refs.xTable.getCurrentRecord().relation = result.data;
+                                that.tableDataPhone = that.$refs.xTable.getCurrentRecord().relation;
+                                try {
+                                    that.tableContactsData = result.data;
+                                } catch (error) {
+                                    that.tableContactsData = [];
+                                }
+                            })
+                        }
+                    });
+                },
+                /*
+                    查询数据库显示字段
+                */
+                findShowColumn() {
+                    this.check_list = [];
+                    var that = this;
+                    $.ajax({
+                        url: "http://localhost:8080/dzwColumnController/showColumn",
+                        type: "get",
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        dataType: "json",
+                        success: function (result) {
+                            that.tableColumn = [];
+                            handlerResult(result, () => {
+                                result.data.forEach((item, index) => {
+                                    that.tableColumn.push({
+                                        num: index + 1,
+                                        field: item.columnName,
+                                        title: item.column1,
+                                        sortable: true,
+                                        showOverflow: true,
+                                        width: item.columnWidth,
+                                        visible: item.columnVisible == 1 ? true : false,
+                                        inputVislble: true,
+                                        widthtemp: item.columnWidth,
+                                        tfocus: 'itemName',
+                                        params: item,
+                                    })
+                                })
+                            })
+                            // console.log(JSON.stringify(that.tableColumn));
+                        }
+                    });
+                },
+                /*
+                    查询显示字段
+                */
+                find_ShowColumn() {
+                    var that = this;
+                    $.ajax({
+                        url: "http://localhost:8080/dzwColumnController/showColumn",
+                        type: "get",
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        dataType: "json",
+                        success: function (result) {
+                            handlerResult(result, () => {
+                                that.check_list = [];
+                                that.settableColumn = [];
+                                result.data.forEach((item, index) => {
+                                    that.settableColumn.push({
+                                        num: index + 1,
+                                        field: item.columnName,
+                                        title: item.column1,
+                                        sortable: true,
+                                        showOverflow: true,
+                                        width: item.columnWidth,
+                                        visible: item.columnVisible == 1 ? true : false,
+                                        inputVislble: true,
+                                        widthtemp: item.columnWidth,
+                                        tfocus: 'itemName',
+                                        params: item
+                                    })
+                                });
+                                that.settableColumn.forEach(item => {
+                                    if (item.visible == true) {
+                                        that.check_list.push(item.num);;
+                                    }
+                                })
+                            })
+                        }
+                    });
+                },
+                /*
+                    修改列配置
+                */
+                updateTableColumn() {
+                    var that = this;
+                    $.ajax({
+                        url: "http://localhost:8080/dzwColumnController/upd",
+                        type: "post",
+                        data: JSON.stringify(that.setShowtableColumn),
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        contentType: "application/json;charset=utf-8",
+                        dataType: "json",
+                        success: function (result) {
+                            if (result.code == 1000) {
+                                //成功
+                                that.findShowColumn();
+                                //查询查询配置列信息
+                                // this.findShowColumn();
+                                //循环进行修改页面 table 配置信息
+                                let obj = JSON.parse(JSON.stringify(that.tableColumn))
+                                //循环tbale配置对象 将tableColumn相同的属性值赋值给columns
+                                that.columns.forEach((value, key) => {
+                                    value.width = obj[key].width;
+                                    value.visible = obj[key].visible;
+                                })
+                                that.$refs.xTable.refreshColumn();
+                                $("#myModel10").modal("hide");
+                            }
+                        }
+                    });
+                },
+                /*
+                    字段设置模态框
+                */
+                columnModal() {
+                    this.find_ShowColumn();
+                    $("#myModel10").modal("show");
+                },
+                /*-----------------供货商资料增加----------------*/
+                openInsSupplier() {
+                    let json = JSON.stringify(this.$refs.xTree.getCurrentRecord());
+                    if (json != "null" || json.length != 0) {
+                        this.initSupplierAndcontactsPojo();
+                        this.selPaymentMethod();
+                        this.sekFrimGrade();
+                        $("#myModel6").modal("show")
+                    }
+                },
+                /*
+                    查询付款方式
+                */
+                selPaymentMethod() {
+                    let that = this;
+                    $.ajax({
+                        url: "http://localhost:8080/paymentMethod",
+                        type: "get",
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        dataType: "json",
+                        success: function (result) {
+                            handlerResult(result, () => {
+                                that.pasymentMethod = result.data;
+                            })
+                        }
+                    })
+                },
+                /*
+                     查询厂商等级
+                */
+                sekFrimGrade() {
+                    let that = this;
+                    $.ajax({
+                        url: "http://localhost:8080/firmGrade",
+                        type: "get",
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        dataType: "json",
+                        success: function (result) {
+                            handlerResult(result, () => {
+                                that.firmGradeList = result.data;
+                            })
+                        }
+                    })
+                },
+                /*
+                    初始化供货商实体与联系人实体
+                */
+                initSupplierAndcontactsPojo() {
+                    //联系人实体
+                    this.supplier.contacts.scId = "";
+                    this.supplier.contacts.scName = "";
+                    this.supplier.contacts.scTelephone = "";
+                    this.supplier.contacts.scPhone = "";
+                    //供货商实体
+                    this.supplier.sid = "";
+                    this.supplier.provCode = "";
+                    this.supplier.provName = "";
+                    this.supplier.address = "";
+                    this.supplier.operation = "";
+                    this.supplier.httpA = "";
+                    this.supplier.khyh = "";
+                    this.supplier.yhzh = "";
+                    this.supplier.pmId = "1";
+                    this.supplier.fgId = "1";
+                    this.supplier.zd2 = "";
+                    let json = JSON.parse(JSON.stringify(this.$refs.xTree.getCurrentRecord()));
+                    this.supplier.provType = json.regionId;
+                    this.supplier.regionName = json.regionName;
+                    this.supplier.preDay = 0;
+                    this.supplier.remark = "";
+                },
+                /*
+                    新增供货商资料
+                */
+                toInsSupplier() {
+                    var that = this;
+                    $.ajax({
+                        url: "http://localhost:8080/suppliersRegion/ins",
+                        type: "post",
+                        data: JSON.stringify(that.supplier),
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        contentType: "application/json;charset=utf-8",
+                        dataType: "json",
+                        success: function (result) {
+                            if (result.code == 1000) {
+                                that.toFind();
+                                $("#myModel6").modal("hide");
+                            } else if (result.code == 3000) {
+                                console.log("编号已经存在")
+                            } else if (result.code == 1002) {
+                                console.log("参数校验失败，红色框必填")
+                            } else {
+                                console.log("发生意外错误，刷新重试");
+                            }
+                        }
+                    });
+                },
+                /*
+                    修改供货商资料模态框
+                */
+                openUpdSupplier() {
+                    let json = JSON.stringify(this.$refs.xTable.getCurrentRecord());
+                    try {
+                        if (json != "null" || json.length != 0) {
+                            this.initSupplierAndcontactsPojo();
+                            this.selPaymentMethod();
+                            this.sekFrimGrade();
+                            let pojo = JSON.parse(json);
+                            try {
+                                this.supplier.contacts.scId = pojo.relation[0].scId;
+                                this.supplier.contacts.scName = pojo.relation[0].scName;
+                                this.supplier.contacts.scTelephone = pojo.relation[0].scTelephone;
+                                this.supplier.contacts.scPhone = pojo.relation[0].scPhone;
+                            } catch (error) {
+                                this.supplier.contacts.scId = "";
+                                this.supplier.contacts.scName = "";
+                                this.supplier.contacts.scTelephone = "";
+                                this.supplier.contacts.scPhone = "";
+                            }
+                            //供货商实体
+                            this.supplier.sid = pojo.sid;
+                            this.supplier.provCode = pojo.provCode;
+                            this.supplier.provName = pojo.provName;
+                            this.supplier.address = pojo.address;
+                            this.supplier.operation = pojo.operation
+                            this.supplier.httpA = pojo.httpA
+                            this.supplier.khyh = pojo.khyh
+                            this.supplier.yhzh = pojo.yhzh
+                            this.supplier.pmId = pojo.pmId
+                            this.supplier.fgId = pojo.fgId;
+                            this.supplier.zd2 = pojo.zd2;
+                            this.supplier.provType = pojo.provType;
+                            this.supplier.regionName = pojo.regionCity.provName;
+                            this.supplier.preDay = pojo.preDay;
+                            this.supplier.remark = pojo.remark;
+                            $("#myModel7").modal("show");
+                        }
+                    } catch (error) {
+
+                    }
+                },
+                /*
+                    修改供货商资料
+                */
+                toUpdSupplier() {
+                    var that = this;
+                    $.ajax({
+                        url: "http://localhost:8080/suppliersRegion/upd",
+                        type: "post",
+                        data: JSON.stringify(that.supplier),
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        contentType: "application/json;charset=utf-8",
+                        dataType: "json",
+                        success: function (result) {
+                            if (result.code == 1000) {
+                                that.toFind();
+                                $("#myModel7").modal("hide");
+                            } else if (result.code == 1002) {
+                                console.log("参数校验失败，红色框必填")
+                            } else {
+                                console.log("发生意外错误，刷新重试");
+                            }
+                        }
+                    });
+                },
+                /*
+                    新增修改时 选择分类
+                */
+                btnselection() {
+                    try {
+                        this.$refs.xTree2.setCurrentRow(this.treeData[0]);
+                    } catch (error) {
+
+                    }
+                    $("#myModel12").modal("show");
+                },
+                optionTreeDataT() {
+                    let json = JSON.parse(JSON.stringify(this.$refs.xTree2.getCurrentRecord()));
+                    this.supplier.provType = json.regionId;
+                    this.supplier.regionName = json.regionName;
+                    $("#myModel12").modal("hide");
+                },
+                /*
+                    唤醒删除模态框
+                */
+                delSupplier() {
+                    let json = JSON.stringify(this.$refs.xTable.getCurrentRecord());
+                    if (json != "null" && json != undefined) {
+                        $("#myModal9").modal("show");
+                    }
+                },
+                /*
+                    发送请求删除
+                */
+                delSupplierRequest() {
+                    let that = this;
+                    let json = this.$refs.xTable.getCurrentRecord();
+                    $.ajax({
+                        url: "http://localhost:8080/suppliersRegion/del/" + json.sid,
+                        type: "post",
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        contentType: "application/json;charset=utf-8",
+                        dataType: "json",
+                        success: function (result) {
+                            if (result.code == 1000) {
+                                that.toFind();
+                            } else if (result.code == 1005) {
+                                console.log("请选择要删除的数据")
+                            } else {
+                                console.log("发生意外错误，刷新重试");
+                            }
+                            $("#myModal9").modal("hide");
+                        }
+                    });
+                },
+                /*
+                    唤起联系人模态框
+                */
+                openContactsModal() {
+                    //初始化联系人对象实体
+                    this.initContactsPojo();
+                    this.tableContactsData = [];
+                    let json = JSON.stringify(this.$refs.xTable.getCurrentRecord());
+                    if (json != "null" && json != undefined) {
+                        try {
+                            let pojo = JSON.parse(json);
+                            this.supplierName = pojo.provName;
+                            this.tableContactsData = pojo.relation;
+
+                        } catch (error) {
+                            this.tableContactsData = [];
+                        }
+                        $("#myModel11").modal("show");
+                    }
+                },
+                /*
+                    联系人实体初始化
+                */
+                initContactsPojo() {
+                    this.contactsPojo.scId = "";
+                    this.contactsPojo.scName = "";
+                    this.contactsPojo.scPost = "";
+                    this.contactsPojo.scTelephone = "";
+                    this.contactsPojo.scPhone = "";
+                    this.contactsPojo.email = "";
+                    this.contactsPojo.column1 = "";
+                    let json2 = JSON.parse(JSON.stringify(this.$refs.xTable.getCurrentRecord()));
+                    this.contactsPojo.column1 = json2.sid;
+                },
+                /*
+                    发送请求提交联系人
+                */
+                saveContacts() {
+                    let that = this;
+                    let json = this.$refs.xTable.getCurrentRecord();
+                    $.ajax({
+                        url: "http://localhost:8080/suppliersContacts/save",
+                        type: "post",
+                        data: JSON.stringify(that.contactsPojo),
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        contentType: "application/json;charset=utf-8",
+                        dataType: "json",
+                        success: function (result) {
+                            if (result.code == 1000) {
+                                //初始化联系人实体
+                                that.initContactsPojo();
+                                that.findRelation();
+                            } else if (result.code == 1002) {
+                                console.log("参数校验失败")
+                            } else {
+                                console.log("发生意外错误，刷新重试");
+                            }
+                        }
+                    });
+                },
+                /*
+                    唤醒删除联系人模态框
+                */
+                opDelContacts() {
+                    let json = JSON.stringify(this.$refs.xTable3.getCurrentRecord());
+                    if (json != "null" && json != undefined) {
+                        $("#myModal13").modal("show")
+                    }
+                },
+                delContacts() {
+                    let that = this;
+                    $.ajax({
+                        url: "http://localhost:8080/suppliersContacts/del/" + that.$refs.xTable3.getCurrentRecord().scId,
+                        type: "post",
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        contentType: "application/json;charset=utf-8",
+                        dataType: "json",
+                        success: function (result) {
+                            if (result.code == 1000) {
+                                that.initContactsPojo();
+                                that.findRelation();
+                            } else if (result.code == 1005) {
+                                console.log("参数校验失败,ID不能为空")
+                            } else {
+                                console.log("发生意外错误，刷新重试");
+                            }
+                            $("#myModal13").modal("hide");
                         }
                     });
                 }
             },
             created() {
                 this.find();
+                //查询显示列
+                this.findShowColumn()
                 //获取列表可视的列
                 this.gettableColumns();
-                this.toFind()
             }
             ,
             watch: {
                 check_list() {
-                    if (this.tableColumn.length == this.check_list.length) {
+                    if (this.settableColumn.length == this.check_list.length) {
                         this.is_check_all = true;
                     } else {
                         this.is_check_all = false;
@@ -1607,31 +2024,8 @@
         }
         var Ctor = Vue.extend(Main);
         new Ctor().$mount('.container-fluid');
-
-
-
-        var json = [{ text: 11, tags: ["你好呀"], nodes: [{ text: 2 }] }, { text: 2 }, { text: 3 },]
-        var json2 = [{ text: 1, nodes: [{ text: 2, nodes: [{ text: 3 }, { text: 4, nodes: [{ text: 5 }] },] }] }, { text: 1, nodes: [{ text: 2, nodes: [{ text: 3 }, { text: 4, nodes: [{ text: 5 }] },] }] }, { text: 6 }, { text: 7 }, { text: 8 }, { text: 9 }, { text: 10 }, { text: 11 }, { text: 12 }, { text: 13 }]
-
-        var $tree = $('#treeview12').treeview({
-            data: json,
-            color: "#606266;",// 文本颜色
-            levels: 1,// 展开层级,
-            // expandIcon: "fa fa-taxi",   //下面有子节点的图标
-            // collapseIcon: "fa fa-ambulance",//可收缩的节点图标
-            // emptyIcon: "fa fa-motorcycle",//设置列表树中没有子节点的节点的图标
-        });
-        var $tree2 = $('#treeview13').treeview({
-            data: json2,
-            color: "#606266;",// 文本颜色
-            levels: 3,// 展开层级,
-            // expandIcon: "fa fa-taxi",   //下面有子节点的图标
-            // collapseIcon: "fa fa-ambulance",//可收缩的节点图标
-            // emptyIcon: "fa fa-motorcycle",//设置列表树中没有子节点的节点的图标
-        });
         // bootstarp下拉框
         $('.dropdown-toggle').dropdown()
-
         //控制模态框层级
         $(document).ready(function () {
             // 通过该方法来为每次弹出的模态框设置最新的zIndex值，从而使最新的modal显示在最前面

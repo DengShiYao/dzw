@@ -1,14 +1,16 @@
 package com.accp.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
 
 /**
  * <p>
@@ -31,6 +33,7 @@ public class SuppliersContacts extends Model<SuppliersContacts> {
     private Integer scId;
 
     @ApiModelProperty(value = "联系人名称")
+    @NotEmpty(message = "联系人名称不能为空")
     private String scName;
 
     @ApiModelProperty(value = "联系人职位")

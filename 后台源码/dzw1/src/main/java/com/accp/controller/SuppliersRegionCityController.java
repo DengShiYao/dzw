@@ -96,7 +96,7 @@ public class SuppliersRegionCityController {
         if (regionId == null || regionId == "") {
             return new ResultVO(ResultCode.ID_NOT_NULL);
         }
-        SuppliersRegion one = regionService.getOne(new QueryWrapper<SuppliersRegion>().lambda().eq(SuppliersRegion::getRegionId, regionId));
+        SuppliersRegion one = regionService.getOne(new QueryWrapper<SuppliersRegion>().lambda().eq(SuppliersRegion::getProvType, regionId));
         if (one != null) {
             return new ResultVO(ResultCode.FAILED);
         }
