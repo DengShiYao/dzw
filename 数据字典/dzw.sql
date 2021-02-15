@@ -27,9 +27,11 @@ CREATE TABLE `bank` (
   `column2` varchar(200) DEFAULT NULL COMMENT '备用列',
   `column3` varchar(200) DEFAULT NULL COMMENT '备用列',
   PRIMARY KEY (`bankId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `bank` */
+
+insert  into `bank`(`bankId`,`bankName`,`column1`,`column2`,`column3`) values (1,'浦发',NULL,NULL,NULL),(2,'农业',NULL,NULL,NULL);
 
 /*Table structure for table `car` */
 
@@ -223,9 +225,11 @@ CREATE TABLE `degree` (
   `column2` varchar(200) DEFAULT NULL COMMENT '备用列',
   `column3` varchar(200) DEFAULT NULL COMMENT '备用列',
   PRIMARY KEY (`degreeId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `degree` */
+
+insert  into `degree`(`degreeId`,`degreeName`,`column1`,`column2`,`column3`) values (1,'工学',NULL,NULL,NULL);
 
 /*Table structure for table `department` */
 
@@ -241,10 +245,14 @@ CREATE TABLE `department` (
   `column3` varchar(200) DEFAULT NULL COMMENT '备用列',
   PRIMARY KEY (`dId`),
   KEY `sId` (`sId`),
+  KEY `tId` (`tId`),
+  CONSTRAINT `department_ibfk_2` FOREIGN KEY (`tId`) REFERENCES `departmenttype` (`tId`),
   CONSTRAINT `department_ibfk_1` FOREIGN KEY (`sId`) REFERENCES `store` (`storeId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `department` */
+
+insert  into `department`(`dId`,`dName`,`tId`,`sId`,`column1`,`column2`,`column3`) values ('1','aaa',1,1,NULL,NULL,NULL),('2','bbbb',2,1,NULL,NULL,NULL),('3','aaaa',1,2,NULL,NULL,NULL),('4','bbbbb',1,3,NULL,NULL,NULL);
 
 /*Table structure for table `departmenttype` */
 
@@ -260,6 +268,8 @@ CREATE TABLE `departmenttype` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `departmenttype` */
+
+insert  into `departmenttype`(`tId`,`tName`,`column1`,`column2`,`column3`) values (1,'管理',NULL,NULL,NULL),(2,'维修',NULL,NULL,NULL);
 
 /*Table structure for table `departure` */
 
@@ -341,9 +351,11 @@ CREATE TABLE `education` (
   `column2` varchar(200) DEFAULT NULL COMMENT '备用列',
   `column3` varchar(200) DEFAULT NULL COMMENT '备用列',
   PRIMARY KEY (`educationId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `education` */
+
+insert  into `education`(`educationId`,`educationName`,`column1`,`column2`,`column3`) values (1,'高中',NULL,NULL,NULL),(2,'本科',NULL,NULL,NULL);
 
 /*Table structure for table `employees` */
 
@@ -415,8 +427,14 @@ CREATE TABLE `employees` (
   KEY `PQId` (`PQId`),
   KEY `attId` (`attId`),
   KEY `degreeId` (`degreeId`),
+  KEY `mId` (`mId`),
+  KEY `dId` (`dId`),
+  KEY `bankId` (`bankId`),
+  CONSTRAINT `employees_ibfk_13` FOREIGN KEY (`bankId`) REFERENCES `bank` (`bankId`),
   CONSTRAINT `employees_ibfk_1` FOREIGN KEY (`sexId`) REFERENCES `sex` (`sexId`),
   CONSTRAINT `employees_ibfk_10` FOREIGN KEY (`degreeId`) REFERENCES `degree` (`degreeId`),
+  CONSTRAINT `employees_ibfk_11` FOREIGN KEY (`mId`) REFERENCES `store` (`storeId`),
+  CONSTRAINT `employees_ibfk_12` FOREIGN KEY (`dId`) REFERENCES `department` (`dId`),
   CONSTRAINT `employees_ibfk_2` FOREIGN KEY (`nplaceId`) REFERENCES `nativeplace` (`nplaceId`),
   CONSTRAINT `employees_ibfk_3` FOREIGN KEY (`nationalId`) REFERENCES `national` (`nationalId`),
   CONSTRAINT `employees_ibfk_4` FOREIGN KEY (`marryId`) REFERENCES `marry` (`marryId`),
@@ -428,6 +446,8 @@ CREATE TABLE `employees` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `employees` */
+
+insert  into `employees`(`eId`,`eName`,`sexId`,`mId`,`dId`,`login`,`jId`,`health`,`height`,`nplaceId`,`nationalId`,`marryId`,`educationId`,`schoolId`,`majorId`,`PQId`,`attId`,`degreeId`,`establish`,`cardId`,`hAddress`,`nAddress`,`tel`,`phone`,`email`,`bankId`,`bankAccount`,`contacts`,`cphone`,`entryDate`,`proDate`,`birth`,`pactBegin`,`pactEnd`,`kzId`,`knId`,`referrer`,`billDiscount`,`hourDiscount`,`shopDiscount`,`relief`,`dismission`,`pwd`,`img`,`educationBackground`,`jiangFa`,`hire`,`resume`,`family`,`extension`,`direct`,`column1`,`column2`,`column3`) values ('OEM001','小黑',1,1,'2',NULL,'1','健康',1.6,1,1,1,1,2,1,1,1,1,'无','121123','株洲','测试','1111','2222','1223@.com',1,NULL,'111','111','2021-02-15','2021-02-14','2012-06-06','2021-02-03','2021-06-06',NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,'111111',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('OEM002','小黄',2,1,'1',NULL,'2','健康',1.7,2,1,2,2,1,2,2,3,1,NULL,'1111','舒适','打算的撒','112','2221','1223@361.com',2,NULL,'22','22','2021-01-05','2021-01-08','2008-09-08','2021-01-02','2021-06-06',NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `engine_brand` */
 
@@ -605,6 +625,8 @@ CREATE TABLE `job` (
 
 /*Data for the table `job` */
 
+insert  into `job`(`jobId`,`jobName`,`column1`,`column2`,`column3`) values ('100','大堂经理',NULL,NULL,NULL),('101','总经理',NULL,NULL,NULL),('102','总监',NULL,NULL,NULL);
+
 /*Table structure for table `jy_biao` */
 
 DROP TABLE IF EXISTS `jy_biao`;
@@ -758,9 +780,11 @@ CREATE TABLE `major` (
   `column2` varchar(200) DEFAULT NULL COMMENT '备用列',
   `column3` varchar(200) DEFAULT NULL COMMENT '备用列',
   PRIMARY KEY (`majorId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `major` */
+
+insert  into `major`(`majorId`,`majorName`,`column1`,`column2`,`column3`) values (1,'计算机',NULL,NULL,NULL),(2,'土木',NULL,NULL,NULL);
 
 /*Table structure for table `marry` */
 
@@ -773,9 +797,11 @@ CREATE TABLE `marry` (
   `column2` varchar(200) DEFAULT NULL COMMENT '备用列',
   `column3` varchar(200) DEFAULT NULL COMMENT '备用列',
   PRIMARY KEY (`marryId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `marry` */
+
+insert  into `marry`(`marryId`,`marryName`,`column1`,`column2`,`column3`) values (1,'已婚',NULL,NULL,NULL),(2,'未婚',NULL,NULL,NULL);
 
 /*Table structure for table `mechanicsstar_level` */
 
@@ -811,6 +837,8 @@ CREATE TABLE `member` (
 
 /*Data for the table `member` */
 
+insert  into `member`(`mId`,`mName`,`mPrice`,`createDate`,`mPwd`,`column1`,`column2`,`column3`) values (1,'小黄',100,'2012-02-03','11111',NULL,NULL,NULL),(2,'小黑',250,'2012-03-06','2222',NULL,NULL,NULL);
+
 /*Table structure for table `minor` */
 
 DROP TABLE IF EXISTS `minor`;
@@ -837,9 +865,11 @@ CREATE TABLE `national` (
   `column2` varchar(200) DEFAULT NULL COMMENT '备用列',
   `column3` varchar(200) DEFAULT NULL COMMENT '备用列',
   PRIMARY KEY (`nationalId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `national` */
+
+insert  into `national`(`nationalId`,`nationalName`,`column1`,`column2`,`column3`) values (1,'汉',NULL,NULL,NULL);
 
 /*Table structure for table `nativeplace` */
 
@@ -852,9 +882,11 @@ CREATE TABLE `nativeplace` (
   `column2` varchar(200) DEFAULT NULL COMMENT '备用列',
   `column3` varchar(200) DEFAULT NULL COMMENT '备用列',
   PRIMARY KEY (`nplaceId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `nativeplace` */
+
+insert  into `nativeplace`(`nplaceId`,`nplaceName`,`column1`,`column2`,`column3`) values (1,'湖南',NULL,NULL,NULL),(2,'广东',NULL,NULL,NULL);
 
 /*Table structure for table `nature` */
 
@@ -867,9 +899,11 @@ CREATE TABLE `nature` (
   `column2` varchar(200) DEFAULT NULL COMMENT '备用列',
   `column3` varchar(200) DEFAULT NULL COMMENT '备用列',
   PRIMARY KEY (`attId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 /*Data for the table `nature` */
+
+insert  into `nature`(`attId`,`attName`,`column1`,`column2`,`column3`) values (1,'计考勤计薪',NULL,NULL,NULL),(2,'不计考勤计薪',NULL,NULL,NULL),(3,'计薪不计考勤',NULL,NULL,NULL),(4,'不计考勤不计薪',NULL,NULL,NULL);
 
 /*Table structure for table `payment_method` */
 
@@ -897,9 +931,11 @@ CREATE TABLE `pq` (
   `column2` varchar(200) DEFAULT NULL COMMENT '备用列',
   `column3` varchar(200) DEFAULT NULL COMMENT '备用列',
   PRIMARY KEY (`PQId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `pq` */
+
+insert  into `pq`(`PQId`,`PQName`,`column1`,`column2`,`column3`) values (1,'初级工程师',NULL,NULL,NULL),(2,'中级工程师',NULL,NULL,NULL);
 
 /*Table structure for table `provinces` */
 
@@ -972,9 +1008,11 @@ CREATE TABLE `school` (
   `column2` varchar(200) DEFAULT NULL COMMENT '备用列',
   `column3` varchar(200) DEFAULT NULL COMMENT '备用列',
   PRIMARY KEY (`schoolId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `school` */
+
+insert  into `school`(`schoolId`,`schoolName`,`column1`,`column2`,`column3`) values (1,'清华大学',NULL,NULL,NULL),(2,'山东蓝翔',NULL,NULL,NULL);
 
 /*Table structure for table `serve` */
 
@@ -1013,9 +1051,11 @@ CREATE TABLE `sex` (
   `column2` varchar(200) DEFAULT NULL COMMENT '备用列',
   `column3` varchar(200) DEFAULT NULL COMMENT '备用列',
   PRIMARY KEY (`sexId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `sex` */
+
+insert  into `sex`(`sexId`,`sexName`,`column1`,`column2`,`column3`) values (1,'男',NULL,NULL,NULL),(2,'女',NULL,NULL,NULL);
 
 /*Table structure for table `store` */
 
@@ -1029,9 +1069,11 @@ CREATE TABLE `store` (
   `column2` varchar(200) DEFAULT NULL COMMENT '备用列',
   `column3` varchar(200) DEFAULT NULL COMMENT '备用列',
   PRIMARY KEY (`storeId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 /*Data for the table `store` */
+
+insert  into `store`(`storeId`,`storeName`,`pstoreId`,`column1`,`column2`,`column3`) values (1,'总厂',0,NULL,NULL,NULL),(2,'乐高',1,NULL,NULL,NULL),(3,'乐高1',0,NULL,NULL,NULL),(4,'乐高2',2,NULL,NULL,NULL);
 
 /*Table structure for table `suppliers_contacts` */
 
