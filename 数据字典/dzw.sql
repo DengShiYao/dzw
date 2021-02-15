@@ -489,13 +489,12 @@ CREATE TABLE `goods` (
   `gb_id` int(11) DEFAULT NULL COMMENT '商品品牌',
   `engine_type` varchar(100) DEFAULT NULL COMMENT '适用车型',
   `Unit` varchar(100) DEFAULT NULL COMMENT '数量单位',
-  `goods_c_id` varchar(100) DEFAULT NULL COMMENT '商品类别',
+  `goods_c_id` int(10) DEFAULT NULL COMMENT '商品类别',
   `i_id` int(11) DEFAULT NULL COMMENT '收入分类',
   `Spec5` varchar(100) DEFAULT NULL COMMENT '原厂副厂',
   `Spec6` varchar(100) DEFAULT NULL COMMENT '商品等级',
   `pro_id` int(11) DEFAULT NULL COMMENT '商品产地',
-  `ProvCode` varchar(100) DEFAULT NULL COMMENT '厂商代码',
-  `ProvName` varchar(200) DEFAULT NULL COMMENT '厂商名称',
+  `sId` int(10) DEFAULT NULL COMMENT '厂商代码',
   `OldBM` varchar(100) DEFAULT NULL COMMENT '原厂编码',
   `ItemTM` varchar(100) DEFAULT NULL COMMENT '条形码',
   `PackSpec` varchar(100) DEFAULT NULL COMMENT '包装规格',
@@ -512,7 +511,7 @@ CREATE TABLE `goods` (
   `claim_price` double DEFAULT NULL COMMENT '索赔价',
   `insurance_price` double DEFAULT NULL COMMENT '保险价格',
   `block_up` int(11) DEFAULT '1' COMMENT '0停用/1启用',
-  `is_delete` int(11) DEFAULT NULL COMMENT '真假删除 0假/1真',
+  `is_delete` int(11) DEFAULT '0' COMMENT '真假删除 0假/1真',
   `column1` varchar(200) DEFAULT NULL COMMENT '备用列',
   `column2` varchar(200) DEFAULT NULL COMMENT '备用列',
   `column3` varchar(200) DEFAULT NULL COMMENT '备用列',
@@ -520,9 +519,11 @@ CREATE TABLE `goods` (
   KEY `gb_id` (`gb_id`),
   KEY `goods_c_id` (`goods_c_id`),
   KEY `pro_id` (`pro_id`),
+  KEY `sId` (`sId`),
+  CONSTRAINT `goods_ibfk_5` FOREIGN KEY (`goods_c_id`) REFERENCES `goods_category` (`column1`),
   CONSTRAINT `goods_ibfk_1` FOREIGN KEY (`gb_id`) REFERENCES `goods_brand` (`gb_id`),
-  CONSTRAINT `goods_ibfk_2` FOREIGN KEY (`goods_c_id`) REFERENCES `goods_category` (`goods_c_id`),
-  CONSTRAINT `goods_ibfk_3` FOREIGN KEY (`pro_id`) REFERENCES `provinces` (`pro_id`)
+  CONSTRAINT `goods_ibfk_3` FOREIGN KEY (`pro_id`) REFERENCES `provinces` (`pro_id`),
+  CONSTRAINT `goods_ibfk_4` FOREIGN KEY (`sId`) REFERENCES `suppliers_region` (`sid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `goods` */
@@ -532,7 +533,7 @@ CREATE TABLE `goods` (
 DROP TABLE IF EXISTS `goods_brand`;
 
 CREATE TABLE `goods_brand` (
-  `gb_id` int(11) NOT NULL COMMENT '品牌id',
+  `gb_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '品牌id',
   `gb_name` varchar(100) NOT NULL COMMENT '品牌名称',
   `column1` varchar(200) DEFAULT NULL COMMENT '备用列',
   `column2` varchar(200) DEFAULT NULL COMMENT '备用列',
@@ -549,11 +550,11 @@ DROP TABLE IF EXISTS `goods_category`;
 CREATE TABLE `goods_category` (
   `goods_c_id` varchar(100) NOT NULL COMMENT '分类编码',
   `goods_name` varchar(100) NOT NULL COMMENT '分类名称',
-  `parentid` varchar(100) NOT NULL COMMENT '父级Id',
-  `column1` varchar(200) DEFAULT NULL COMMENT '备用列',
+  `parentid` int(10) NOT NULL DEFAULT '0' COMMENT '父级Id',
+  `column1` int(10) NOT NULL AUTO_INCREMENT COMMENT '备用列',
   `column2` varchar(200) DEFAULT NULL COMMENT '备用列',
   `column3` varchar(200) DEFAULT NULL COMMENT '备用列',
-  PRIMARY KEY (`goods_c_id`)
+  PRIMARY KEY (`column1`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `goods_category` */
@@ -565,7 +566,7 @@ DROP TABLE IF EXISTS `goods_icon`;
 CREATE TABLE `goods_icon` (
   `ic_id` int(11) NOT NULL AUTO_INCREMENT,
   `ic_name` varchar(200) NOT NULL COMMENT '图片名',
-  `goods_id` varchar(100) NOT NULL COMMENT '商品ID',
+  `goods_id` int(10) NOT NULL COMMENT '商品ID',
   `column1` varchar(200) DEFAULT NULL COMMENT '备用列',
   `column2` varchar(200) DEFAULT NULL COMMENT '备用列',
   `column3` varchar(200) DEFAULT NULL COMMENT '备用列',
