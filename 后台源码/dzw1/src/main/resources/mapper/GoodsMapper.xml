@@ -4,7 +4,8 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.accp.domain.Goods">
-        <id column="goods_id" property="goodsId" />
+        <id column="good_auto_id" property="goodsAutoId" />
+        <result column="goods_id" property="goodsId" />
         <result column="goods_name" property="goodsName" />
         <result column="gb_id" property="gbId" />
         <result column="engine_type" property="engineType" />
@@ -14,8 +15,9 @@
         <result column="Spec5" property="Spec5" />
         <result column="Spec6" property="Spec6" />
         <result column="pro_id" property="proId" />
-        <result column="ProvCode" property="ProvCode" />
-        <result column="ProvName" property="ProvName" />
+        <result column="sid" property="sId" />
+        <!--        <result column="ProvCode" property="ProvCode" />-->
+<!--        <result column="ProvName" property="ProvName" />-->
         <result column="OldBM" property="OldBM" />
         <result column="ItemTM" property="ItemTM" />
         <result column="PackSpec" property="PackSpec" />
@@ -32,9 +34,9 @@
         <result column="claim_price" property="claimPrice" />
         <result column="insurance_price" property="insurancePrice" />
         <result column="block_up" property="blockUp" />
-        <result column="good_width" property="goodWidth" />
-        <result column="good_show" property="goodShow" />
-        <result column="booldel" property="booldel" />
+<!--        <result column="good_width" property="goodWidth" />-->
+<!--        <result column="good_show" property="goodShow" />-->
+<!--        <result column="booldel" property="booldel" />-->
         <result column="column1" property="column1" />
         <result column="column2" property="column2" />
         <result column="column3" property="column3" />
@@ -44,5 +46,27 @@
     <sql id="Base_Column_List">
         goods_id, goods_name, gb_id, engine_type, Unit, goods_c_id, i_id, Spec5, Spec6, pro_id, ProvCode, ProvName, OldBM, ItemTM, PackSpec, Spec, GrossWeight, NetWeight, MZScale, InterchangeNo, ZD3, price, member_price, vip_price, protocol_price, claim_price, insurance_price, block_up, good_width, good_show, booldel, column1, column2, column3
     </sql>
+
+    <resultMap id="MyResultMap" extends="BaseResultMap"  autoMapping="true" type="com.accp.domain.Goods">
+        <association property="goodsBrand" column="gb_id" autoMapping="true" select="com.accp.mapper.GoodsBrandMapper.selGoodsBrandById"></association>
+        <association property="goodsCategory" column="goods_c_id" autoMapping="true" select="com.accp.mapper.GoodsCategoryMapper.selGdCategoryById"></association>
+        <association property="suppliersRegion" column="sid" autoMapping="true" select="com.accp.mapper.SuppliersRegionMapper.selSupplier"></association>
+        <association property="provinces" column="pro_id" autoMapping="true" select="com.accp.mapper.ProvincesMapper.selProvinces"></association>
+    </resultMap>
+    <select id="goodsList" resultMap="MyResultMap">
+    SELECT * FROM `goods` WHERE `is_delete`=0 AND `block_up`=#{blockUp} AND
+    `goods_c_id` IN (SELECT `column1` FROM `goods_category` WHERE FIND_IN_SET(`column1`, getChildLst(#{column1})))
+    </select>
+
+    <resultMap id="MyResultMap2" extends="BaseResultMap"  autoMapping="true" type="com.accp.domain.Goods">
+        <association property="goodsBrand" column="gb_id" autoMapping="true" select="com.accp.mapper.GoodsBrandMapper.selGoodsBrandById"></association>
+        <association property="goodsCategory" column="goods_c_id" autoMapping="true" select="com.accp.mapper.GoodsCategoryMapper.selGdCategoryById"></association>
+        <association property="suppliersRegion" column="sid" autoMapping="true" select="com.accp.mapper.SuppliersRegionMapper.selSupplier"></association>
+        <association property="provinces" column="pro_id" autoMapping="true" select="com.accp.mapper.ProvincesMapper.selProvinces"></association>
+    </resultMap>
+    <select id="selGoodsPage" resultMap="MyResultMap2">
+    SELECT * FROM `goods` WHERE `is_delete`=0 AND `block_up`=#{blockUp} AND
+    `goods_c_id` IN (SELECT `column1` FROM `goods_category` WHERE FIND_IN_SET(`column1`, getChildLst(#{column1})))
+    </select>
 
 </mapper>

@@ -4,10 +4,10 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.accp.domain.GoodsCategory">
-        <id column="goods_c_id" property="goodsCId" />
+        <id column="column1" property="column1" />
+        <result column="goods_c_id" property="goodsCId" />
         <result column="goods_name" property="goodsName" />
         <result column="parentid" property="parentid" />
-        <result column="column1" property="column1" />
         <result column="column2" property="column2" />
         <result column="column3" property="column3" />
     </resultMap>
@@ -16,5 +16,19 @@
     <sql id="Base_Column_List">
         goods_c_id, goods_name, parentid, column1, column2, column3
     </sql>
+
+    <resultMap id="MyResultMap" type="com.accp.domain.GoodsCategory" autoMapping="true" extends="BaseResultMap">
+        <collection property="children"
+                    column="column1" autoMapping="true"
+                    select="com.accp.mapper.GoodsCategoryMapper.selByPrent">
+        </collection>
+    </resultMap>
+    <select id="selByPrent" resultMap="MyResultMap">
+        SELECT * FROM `goods_category` WHERE `parentid`=#{prentId}
+    </select>
+
+    <select id="selGdCategoryById" resultMap="BaseResultMap">
+        SELECT * FROM `goods_category` WHERE`column1`=#{column1}
+    </select>
 
 </mapper>

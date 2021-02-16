@@ -1,12 +1,18 @@
 package com.accp.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
-import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>
@@ -25,22 +31,33 @@ public class GoodsCategory extends Model<GoodsCategory> {
     private static final long serialVersionUID=1L;
 
     @ApiModelProperty(value = "分类编码")
+    @NotEmpty(message = "分类编码不能为空")
     private String goodsCId;
 
     @ApiModelProperty(value = "分类名称")
+    @NotEmpty(message = "分类名称不能为空")
     private String goodsName;
 
     @ApiModelProperty(value = "父级Id")
-    private String parentid;
+    private Integer parentid;
 
-    @ApiModelProperty(value = "备用列")
-    private String column1;
+    @ApiModelProperty(value = "主键")
+    @TableId(value = "column1", type = IdType.AUTO)
+    private Integer column1;
 
     @ApiModelProperty(value = "备用列")
     private String column2;
 
     @ApiModelProperty(value = "备用列")
     private String column3;
+
+    @ApiModelProperty(value = "子级集合")
+    @TableField(exist = false)
+    private List<GoodsCategory> children;
+
+    @ApiModelProperty(value = "修改前的id")
+    @TableField(exist = false)
+    private String beforeId;
 
 
     public static final String GOODS_C_ID = "goods_c_id";

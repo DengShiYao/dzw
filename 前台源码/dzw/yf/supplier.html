@@ -18,10 +18,13 @@
         <div class="row" style="height: 100%;padding: 0px 0px !important;">
             <div style=" border: 0px solid red; padding: 0px 0px !important;" class="col-sm-12">
                 <div class="col-sm-12 clearfix nav-div" style="border: 0px solid rebeccapurple;">
-                    <h3 class="clearfix" style="margin-top: 10px;">供货单位
+                    <h3 class="clearfix" style="margin-top: 10px;"><span v-if="iframBtnVisible">供货单位</span>
                         <button class="btn btn-default pull-right btnexit" type="button">关闭</button>
                         <div class="pull-right" style="margin-right: 10px !important;">
                             <form class="form-inline">
+                                <button v-if="iframBtnVisible===false" type="button" class="btn btn-success selbtn"
+                                    @click="iframePrams" style="margin-right: 50px;"><span class="
+                                    glyphicon glyphicon-ok"></span> 选择</button>
                                 <div class="form-group">
                                     <input type="text" class="form-control" style="width: 300px;"
                                         placeholder="匹配编码/名称/名称简写">
@@ -75,13 +78,14 @@
                         <template v-slot:buttons>
                             <vxe-button icon="glyphicon glyphicon-search" data-toggle="modal" data-target="#myModel8">查询
                             </vxe-button>
-                            <vxe-button icon="glyphicon glyphicon-plus" @click="openInsSupplier">
+                            <vxe-button icon="glyphicon glyphicon-plus" v-if="iframBtnVisible" @click="openInsSupplier">
                                 增加
                             </vxe-button>
-                            <vxe-button icon="glyphicon glyphicon-edit" @click="openUpdSupplier">修改
+                            <vxe-button icon="glyphicon glyphicon-edit" v-if="iframBtnVisible" @click="openUpdSupplier">
+                                修改
                             </vxe-button>
                             <vxe-button icon="glyphicon glyphicon-remove-circle" class="btn-danger"
-                                @click="delSupplier">删除</vxe-button>
+                                v-if="iframBtnVisible" @click="delSupplier">删除</vxe-button>
                             <vxe-button icon="glyphicon glyphicon-export">导出</vxe-button>
                             <vxe-button icon="glyphicon glyphicon-picture" data-toggle="modal" data-target="#myModel9">
                                 照片</vxe-button>
@@ -105,9 +109,9 @@
                     <template>
                         <!-- :tree-config="{children: 'children',expandAll:'true'}" -->
                         <!-- :tree-config="{children: 'children',reserve:'true'}" -->
-                        <vxe-grid round resizable show-overflow class="mytable-scrollbar" height="100%"
-                            row-id="regionId" highlight-hover-row ref="xTree" highlight-current-row :show-header="false"
-                            @current-change="currentChangeEventTree"
+                        <vxe-grid round :loading="loading" resizable show-overflow class="mytable-scrollbar"
+                            height="100%" row-id="regionId" highlight-hover-row ref="xTree" highlight-current-row
+                            :show-header="false" @current-change="currentChangeEventTree"
                             :tree-config="{children: 'children',reserve:'true'}" :data="treeData" :columns="treeColumn">
                             <!-- 使用自定义插槽来定义显示内容 -->
                             <template v-slot:user-slot="{ row }">
@@ -123,7 +127,7 @@
                             <i v-else class="fa fa-caret-right"></i>
                         </button>
                     </div>
-                    <div style="height: 100%; width: 99%; padding: 0px;">
+                    <div style="height: 100%; padding: 0px; width: 99%;">
                         <div style="height: 57%;">
                             <!-- <button v-slot:buttons type="button" @click="getCurrentEvent"> 你好</button> -->
                             <template>
@@ -976,9 +980,9 @@
                                 </div>
                             </div>
                             <div class="col-sm-12" style="text-align: right;padding-top: 10px;padding-right: 30px;">
-                                <button type="button" class="btn" style="padding-right: 25px; padding-left: 25px;"
-                                    data-dismiss="modal">取消</button>
-                                <button type=" button" class="btn btn-info" @click="updshow"
+                                <button type="button" class="btn btn-info"
+                                    style="padding-right: 25px; padding-left: 25px;" data-dismiss="modal">取消</button>
+                                <button type=" button" class="btn btn-success " @click="updshow"
                                     style="padding-right: 25px; padding-left: 25px;">保存</button>
                             </div>
                         </div>
@@ -1143,6 +1147,7 @@
             data() {
                 return {
                     imgUrl: [],
+                    iframBtnVisible: true,   //是否再ifram重
                     treeVisble: true,
                     isLoad: true,    //只在加载使用一次
                     textHide: [false, false, false, false],
@@ -1157,7 +1162,7 @@
                     supplierName: "",
                     supplier: {  //供货商实体
                         contacts: { scId: "", scName: "", scTelephone: "", scPhone: "" }, //联系人实体
-                        sid: "", regionName: "", provCode: "", provName: "", address: "", operation: "", httpA: "", khyh: "", yhzh: "", pmId: "", fgId: "", zd2: "", provType: "", preDay: "0", remark: ""
+                        sid: "", regionName: "", provCode: "", provName: "", address: "", operation: "", httpA: "", khyh: "", yhzh: "", pmId: "", fgId: "", zd2: "", provType: "", preDay: "0", remark: "", breforeId: ""
                     },
                     regionCity: { regionId: "", regionName: "", parentid: "", children: [] },  //分类对象
                     //修改 加载时查询字段及其注释加 然后再查询数据
@@ -1187,8 +1192,20 @@
                     treeColumn: [
                         { field: 'regionName', showOverflow: true, treeNode: true, type: { expand: 'true' }, slots: { default: 'user-slot' } },
                     ], //左侧树形   
-                    treeData: []   //左侧树形   
+                    treeData: [], //左侧树形   
+                    iframeVal: null,    // 为了接受vue传过来的值
                 }
+            },
+            mounted() {
+                let that = this;
+                window.addEventListener('message', function (e) {
+                    console.log()
+                    if (typeof e.data === 'string') {
+                        that.iframBtnVisible = true;
+                    } else {
+                        that.iframBtnVisible = e.data;
+                    }
+                })
             },
             methods: {
                 //获取焦点时显示文本框
@@ -1332,7 +1349,8 @@
                     查询左侧tree分类
                 */
                 find() {
-                    var that = this;
+                    let that = this;
+                    this.loading = true
                     $.ajax({
                         url: "http://localhost:8080/suppliersRegionCity",
                         type: "get",
@@ -1343,6 +1361,7 @@
                         dataType: "json",
                         success: function (result) {
                             handlerResult(result, () => {
+                                that.loading = false;
                                 that.treeData = result.data;
                                 if (that.treeData.length > 0 && that.isLoad == true) {
                                     //只有页面第一次加载运行时
@@ -1748,6 +1767,7 @@
                     this.supplier.pmId = "1";
                     this.supplier.fgId = "1";
                     this.supplier.zd2 = "";
+                    this.supplier.breforeId = "";
                     let json = JSON.parse(JSON.stringify(this.$refs.xTree.getCurrentRecord()));
                     this.supplier.provType = json.regionId;
                     this.supplier.regionName = json.regionName;
@@ -1808,6 +1828,7 @@
                             //供货商实体
                             this.supplier.sid = pojo.sid;
                             this.supplier.provCode = pojo.provCode;
+                            this.supplier.breforeId = pojo.provCode;
                             this.supplier.provName = pojo.provName;
                             this.supplier.address = pojo.address;
                             this.supplier.operation = pojo.operation
@@ -1848,6 +1869,8 @@
                                 $("#myModel7").modal("hide");
                             } else if (result.code == 1002) {
                                 console.log("参数校验失败，红色框必填")
+                            } else if (result.code == 3000) {
+                                console.log("主键冲突")
                             } else {
                                 console.log("发生意外错误，刷新重试");
                             }
@@ -2002,6 +2025,12 @@
                             $("#myModal13").modal("hide");
                         }
                     });
+                },
+                //像父页面中传值调用父页面的方法
+                iframePrams() {
+                    let code = this.$refs.xTable.getCurrentRecord();
+                    window.parent.postMessage(code, "*");
+
                 }
             },
             created() {

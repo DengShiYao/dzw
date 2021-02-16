@@ -1,78 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="height: 100%;">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="package/lib/style.css">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>测试damo</title>
+    <script src="js/vue-2.6.js"></script>
 </head>
 
 <body>
-
-    <div id="app">
-        <template>
-            <div style="padding: 20px 50px 0 50px">
-                <!--
-            一、空数据提示
-               1. empty-text="没有更多数据了！"
-               2. 末尾加标签
-                <template v-slot:empty>
-                    <span style="color: red;">
-                        <img src="./img/img2.gif">
-                        <p>没有更多数据了！</p>
-                    </span>
-                </template>
-             二、加载中：
-               :loading="loading"
-            -->
-                <vxe-table border highlight-hover-row :loading="loading" height="300" :data="tableData">
-                    <vxe-table-column type="seq" width="60"></vxe-table-column>
-                    <vxe-table-column field="name" title="Name" sortable></vxe-table-column>
-                    <vxe-table-column field="sex" title="Sex"></vxe-table-column>
-                    <vxe-table-column field="age" title="Age"></vxe-table-column>
-                    <vxe-table-column field="address" title="Address" show-overflow></vxe-table-column>
-
-                    <!--                <template v-slot:empty>-->
-                    <!--                    <span style="color: red;">-->
-                    <!--                        <img src="./img/img1.gif">-->
-                    <!--                        <p>没有更多数据了！</p>-->
-                    <!--                    </span>-->
-                    <!--                </template>-->
-                </vxe-table>
-            </div>
-            <input type="text" name="" id="" v-if="vid">
-            <button @click="vid=true">显示</button>
-            <button @click="vid=false">隐藏</button>
-        </template>
-    </div>
-    <script src="js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
-    <script src="js/bootstrap.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    <script src="https://cdn.jsdelivr.net/npm/xe-utils"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vxe-table"></script>
-    <script src="js/bootstrap-treeview.js"></script>
-    <script type="text/javascript">
-
-        var Main = {
-            data() {
-                return {
-                    tableData: [],
-                    vid: true
-                }
-            },
-            created() {
-                this.loading = true;
-                setTimeout(() => {
-
-                    this.loading = false;
-                }, 5000)
-            },
-            methods: {},
-        };
-
-        var app = new Vue(Main).$mount('#app');
-    </script>
+    <noscript>
+        <strong>请使用支持javascript的浏览器</strong>
+    </noscript>
+    <div id="app">1213123111220980980</div>
+    <button onclick="setData()">打印本地的值</button>
+    <button onclick="getData()">点击获取值vue的值</button>
 </body>
+<script>
+    var wpsData;
+    window.addEventListener('message', function (messageEvent) {
+        var data = messageEvent.data;
+        console.log('收到vue的数据：', data);
+        wpsData = data
+        console.log('wpsData：', wpsData); var aaaaa = '22222'
+        function setData() {
+            alert(aaaaa)
+        }
+        function getData() {
+            alert(wpsData)
+        }
+    })
+
+</script>
 
 </html>

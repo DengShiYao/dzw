@@ -52,9 +52,23 @@ public class DzwColumnControllerController {
      */
     @PostMapping("/upd")
     public ResultVO updShowTableColumn(@RequestBody List<DzwColumnController> list){
-        System.out.println(list);
         service.updateBatchById(list);
         return new ResultVO(ResultCode.SUCCESS);
+    }
+
+    /**
+     * 查询表 —— goods 显示字段
+     * @param session
+     * @return
+     */
+    @GetMapping("/showcolumngoods")
+    public ResultVO toFindGoods(HttpSession session){
+        SysUser user = (SysUser)session.getAttribute("user");
+        if (user == null){ return new ResultVO(ResultCode.USER_NOT_LOGIN);}
+        List<DzwColumnController> goodsColumnList = service.list(new QueryWrapper<DzwColumnController>().lambda()
+                .eq(DzwColumnController::getTableName, "goods")
+                .eq(DzwColumnController::getUserId, user.getUserId()));
+        return new ResultVO(ResultCode.SUCCESS,goodsColumnList);
     }
 }
 

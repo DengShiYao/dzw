@@ -74,7 +74,13 @@ public class SuppliersRegionController {
      */
     @PostMapping("/upd")
     public ResultVO updSupplier(@RequestBody SuppliersRegion supplier){
-        System.out.println(supplier);
+        if (!supplier.getBeforeId().equals(supplier.getProvCode())){
+            SuppliersRegion byId = service.getOne(new QueryWrapper<SuppliersRegion>().lambda()
+            .eq(SuppliersRegion::getProvCode,supplier.getProvCode()));
+            if (byId!=null){
+                return new ResultVO(ResultCode.PEY_EXIT);
+            }
+        }
         boolean save = service.updateById(supplier);
         if (supplier.getContacts().getScId()!=null) {
             contactsService.updateById(supplier.getContacts());

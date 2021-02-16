@@ -78,6 +78,10 @@ public class CarType extends Model<CarType> {
     @TableField(exist = false)
     private String regionName;
 
+    @ApiModelProperty(value = "索赔厂商编码")
+    @TableField(exist = false)
+    private String provCode;
+
     @ApiModelProperty(value = "修改前的id")
     @TableField(exist = false)
     private  String beforeId;

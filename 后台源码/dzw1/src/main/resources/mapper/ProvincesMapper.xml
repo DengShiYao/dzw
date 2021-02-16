@@ -17,4 +17,8 @@
         pro_id, provinceid, province, column1, column2, column3
     </sql>
 
+    <select id="selProvinces" resultMap="BaseResultMap">
+        SELECT * FROM `provinces` WHERE `pro_id`=#{proId}
+    </select>
+
 </mapper>

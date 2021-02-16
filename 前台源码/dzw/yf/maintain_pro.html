@@ -60,8 +60,6 @@
                                 调价</vxe-button>
                             <vxe-button icon="glyphicon glyphicon-floppy-disk">保存</vxe-button>
                             <vxe-button icon="glyphicon glyphicon-export">导出</vxe-button>
-                            <!-- <vxe-button @click="$refs.xTable.setCurrentRow(tableData[1])">设置第二行选中</vxe-button> -->
-                            <!-- <vxe-button @click="$refs.xTable.clearCurrentRow()">取消选中</vxe-button> -->
                         </template>
                     </vxe-toolbar>
                 </div>
@@ -74,18 +72,13 @@
                 </div>
                 <div class="col-sm-10" style="height: 100%;border: 0px solid red; padding-right: 0px;">
                     <div style="height: 100%;">
-                        <!-- <button v-slot:buttons type="button" @click="getCurrentEvent"> 你好</button> -->
                         <template>
                             <vxe-grid border stripe highlight-hover-row highlight-current-row resizable ref="xTable"
                                 class="mytable-scrollbar" auto-resize height="100%" :data="tableData"
                                 :columns="tableColumn" @current-change="currentChangeEvent" round show-header-overflow
                                 show-overflow>
                             </vxe-grid>
-                            <!-- <vxe-table border highlight-hover-row highlight-current-row resizable ref="xTable"
-                                auto-resize height="100%" round :data="tableData" class="mytable-scrollbar"
-                                @current-change="currentChangeEvent" show-overflow>
-                               
-                            </vxe-table> -->
+
                         </template>
                     </div>
                 </div>

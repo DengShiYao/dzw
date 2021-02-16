@@ -1,14 +1,15 @@
 package com.accp.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
 
 /**
  * <p>
@@ -33,7 +34,7 @@ public class GoodsIcon extends Model<GoodsIcon> {
     private String icName;
 
     @ApiModelProperty(value = "商品ID")
-    private String goodsId;
+    private Integer goodsId;
 
     @ApiModelProperty(value = "备用列")
     private String column1;

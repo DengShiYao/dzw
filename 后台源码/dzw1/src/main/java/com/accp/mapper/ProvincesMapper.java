@@ -13,4 +13,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface ProvincesMapper extends BaseMapper<Provinces> {
 
+    Provinces selProvinces(Integer proId);
 }

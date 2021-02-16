@@ -49,4 +49,8 @@
             (SELECT region_id FROM `suppliers_region_city` WHERE FIND_IN_SET(`region_id`, getChildLst2(#{regionId}))))
 
     </select>
+
+    <select id="selSupplier" resultMap="BaseResultMap">
+        SELECT * FROM `suppliers_region` WHERE `sid`=#{sid}
+    </select>
 </mapper>

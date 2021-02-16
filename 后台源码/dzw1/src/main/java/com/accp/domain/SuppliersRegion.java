@@ -139,6 +139,10 @@ public class SuppliersRegion extends Model<SuppliersRegion> {
     @TableField(exist = false)
     private SuppliersRegionCity regionCity;
 
+    @ApiModelProperty(value = "修改前的id")
+    @TableField(exist = false)
+    private String beforeId;
+
     public static final String SID = "sid";
 
     public static final String PROVCODE = "ProvCode";

@@ -71,14 +71,16 @@ public class SuppliersRegionCityController {
     @PostMapping("/upd")
     public ResultVO updClassify(@Valid  SuppliersRegionCity regionCity){
         if (!regionCity.getBeforeId().equals(regionCity.getRegionId())){
-            SuppliersRegionCity one = regionCityService.getOne(new QueryWrapper<SuppliersRegionCity>().lambda().eq(SuppliersRegionCity::getRegionId, regionCity.getBeforeId()));
+            SuppliersRegionCity one = regionCityService.getOne(new QueryWrapper<SuppliersRegionCity>().lambda()
+                    .eq(SuppliersRegionCity::getRegionId, regionCity.getRegionId()));
             if(one==null){
                 //修改修改主键和父级Id
-                regionCityService.update(regionCity,new QueryWrapper<SuppliersRegionCity>().lambda().eq(SuppliersRegionCity::getRegionId,regionCity.getBeforeId()));
+                regionCityService.update(regionCity,new QueryWrapper<SuppliersRegionCity>().lambda().
+                        eq(SuppliersRegionCity::getRegionId,regionCity.getBeforeId()));
                 //修改供货商信息
-                SuppliersRegion region = new SuppliersRegion();
-                region.setRegionId(regionCity.getRegionId());
-                regionService.update(new QueryWrapper<SuppliersRegion>().lambda().eq(SuppliersRegion::getRegionId,regionCity.getBeforeId()));
+                SuppliersRegion region = new SuppliersRegion().setProvType(regionCity.getRegionId());
+                region.update(new QueryWrapper<SuppliersRegion>().lambda()
+                        .eq(SuppliersRegion::getProvType,regionCity.getBeforeId()));
                 return new ResultVO(ResultCode.SUCCESS);
             }
             return new ResultVO(ResultCode.PEY_EXIT);
@@ -96,11 +98,13 @@ public class SuppliersRegionCityController {
         if (regionId == null || regionId == "") {
             return new ResultVO(ResultCode.ID_NOT_NULL);
         }
-        SuppliersRegion one = regionService.getOne(new QueryWrapper<SuppliersRegion>().lambda().eq(SuppliersRegion::getProvType, regionId));
+        SuppliersRegion one = regionService.getOne(new QueryWrapper<SuppliersRegion>().lambda().
+                eq(SuppliersRegion::getProvType, regionId));
         if (one != null) {
             return new ResultVO(ResultCode.FAILED);
         }
-        return new ResultVO(ResultCode.SUCCESS,regionCityService.remove(new QueryWrapper<SuppliersRegionCity>().lambda().eq(SuppliersRegionCity::getRegionId,regionId)));
+        return new ResultVO(ResultCode.SUCCESS,regionCityService.remove(new QueryWrapper<SuppliersRegionCity>().lambda()
+                .eq(SuppliersRegionCity::getRegionId,regionId)));
     }
 }
 

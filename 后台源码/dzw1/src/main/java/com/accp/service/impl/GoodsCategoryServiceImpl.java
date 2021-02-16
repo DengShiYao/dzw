@@ -4,7 +4,10 @@ import com.accp.domain.GoodsCategory;
 import com.accp.mapper.GoodsCategoryMapper;
 import com.accp.service.IGoodsCategoryService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -17,4 +20,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class GoodsCategoryServiceImpl extends ServiceImpl<GoodsCategoryMapper, GoodsCategory> implements IGoodsCategoryService {
 
+    @Autowired
+    GoodsCategoryMapper mapper;
+
+    public List<GoodsCategory> selByPrent(Integer prentId){
+        return mapper.selByPrent(prentId);
+    }
 }

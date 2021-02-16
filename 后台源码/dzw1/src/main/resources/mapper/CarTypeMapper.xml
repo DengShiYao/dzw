@@ -29,7 +29,7 @@
 
 
     <select id="find" resultMap="BaseResultMap">
-        SELECT c.*,i.`name` import_name,s.`ProvName` region_ame FROM `car_type` c
+        SELECT c.*,i.`name` import_name,s.`ProvCode` provCode,s.`ProvName` region_ame FROM `car_type` c
         INNER JOIN `import_and_domestic` i
         ON c.`import_and_domestic`=i.`id`
         INNER JOIN `suppliers_region` s

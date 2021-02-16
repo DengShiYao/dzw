@@ -15,4 +15,6 @@ import java.util.List;
  */
 public interface SuppliersRegionMapper extends BaseMapper<SuppliersRegion> {
     List<SuppliersRegion> toFind(String regionId);
+
+    SuppliersRegion selSupplier(Integer sid);
 }
