@@ -5,6 +5,7 @@ import com.accp.domain.EngineBrand;
 import com.accp.result.ResultCode;
 import com.accp.result.ResultVO;
 import com.accp.service.impl.EngineBrandServiceImpl;
+import com.accp.service.impl.ServeServiceImpl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,10 @@ public class EngineBrandController {
     EngineBrandServiceImpl brandService;
     @Autowired
     ObjectMapper objectMapper;
+    @Autowired
+    ServeServiceImpl serveService;
+
+
 
     /**
      * 查询发动机品牌
@@ -58,6 +63,9 @@ public class EngineBrandController {
         try {
             EngineBrand engineBrand = objectMapper.readValue(json, EngineBrand.class);
             boolean b = brandService.saveOrUpdate(engineBrand);
+//            Serve serve = new Serve().setBrandId(engineBrand.getEngineId()).setColumn1(engineBrand.getEngineName());
+//            //修改维修项目
+//            serve.update(new QueryWrapper<Serve>().lambda().eq(Serve::getBrandId,engineBrand.getEngineId()));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             return new ResultVO(ResultCode.SUCCESS);

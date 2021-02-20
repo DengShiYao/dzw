@@ -1,12 +1,14 @@
 package com.accp.domain;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
-import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
 
 /**
  * <p>
@@ -68,6 +70,10 @@ public class Serve extends Model<Serve> {
 
     @ApiModelProperty(value = "备用列")
     private String column3;
+
+    @ApiModelProperty(value = "修改前的ID")
+    @TableField(exist = false)
+    private String beforeId;
 
 
     public static final String SE_ID = "se_id";

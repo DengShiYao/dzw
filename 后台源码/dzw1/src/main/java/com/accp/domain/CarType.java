@@ -10,6 +10,7 @@ import lombok.experimental.Accessors;
 
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>
@@ -85,6 +86,9 @@ public class CarType extends Model<CarType> {
     @ApiModelProperty(value = "修改前的id")
     @TableField(exist = false)
     private  String beforeId;
+
+    @TableField(exist = false)
+    private List<CarType> children;
 
     public static final String CAR_ID = "car_id";
 

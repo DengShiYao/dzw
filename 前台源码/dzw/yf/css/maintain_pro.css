@@ -24,3 +24,55 @@
     line-height: 35px;
     width: 85px !important;
 }
+
+
+/* .xtable .treefont>div:nth-of-type(1)>div{
+    height: auto !important;
+}
+
+.xtable  .body--wrapper{
+    height: auto !important;
+}
+
+.xtable .is--round{
+    height: auto !important;
+} */
+
+
+.scrollContent::-webkit-scrollbar-track-piece {
+    background-color: #FFFFFF;
+}
+
+/*滚动条整体部分*/
+.scrollContent::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+/*滚动条里面的小方块，能向上向下移动*/
+.scrollContent::-webkit-scrollbar-thumb {
+    background-color: #bfbfbf;
+    border-radius: 5px;
+    border: 1px solid #F1F1F1;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+}
+
+/*滚动条的轨道*/
+.scrollContent::-webkit-scrollbar-track {
+    /* -webhit-box-shadow: inset 0 0 5px transparent; */
+    background-color: transparent !important;
+    background-color: #FFFFFF;
+}
+
+.scrollContent::-webkit-scrollbar-thumb:hover {
+    background-color: #A8A8A8;
+}
+
+.scrollContent::-webkit-scrollbar-thumb:active {
+    background-color: #787878;
+}
+
+/*边角，即两个滚动条的交汇处*/
+.scrollContent::-webkit-scrollbar-corner {
+    background-color: #FFFFFF;
+}

@@ -4,11 +4,13 @@ package com.accp.controller;
 import com.accp.domain.CarBrand;
 import com.accp.domain.CarIcon;
 import com.accp.domain.CarType;
+import com.accp.domain.Serve;
 import com.accp.result.ResultCode;
 import com.accp.result.ResultVO;
 import com.accp.service.impl.CarBrandServiceImpl;
 import com.accp.service.impl.CarIconServiceImpl;
 import com.accp.service.impl.CarTypeServiceImpl;
+import com.accp.service.impl.ServeServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +46,9 @@ public class CarBrandController {
 
     @Autowired
     ObjectMapper objectMapper;
+
+    @Autowired
+    ServeServiceImpl serveService;
 
     /**
      * 查询车型
@@ -82,12 +87,14 @@ public class CarBrandController {
             if (byId != null) {
                 return new ResultVO(ResultCode.PEY_EXIT);
             }
-
         }
         int index = carBrandService.updateByKey(carBrand);
         CarType carType = new CarType();
         carType.setBrandName(carBrand.getCarId());
         carType.update(new QueryWrapper<CarType>().lambda().eq(CarType::getBrandName,carBrand.getBeforeId()));
+        Serve serve = new Serve().setBrandId(carBrand.getCarId()).setColumn1(carBrand.getCarName());
+        //修改维修项目
+        serve.update(new QueryWrapper<Serve>().lambda().eq(Serve::getBrandId,carBrand.getBeforeId()));
         return new ResultVO(ResultCode.SUCCESS);
     }
 
@@ -99,8 +106,6 @@ public class CarBrandController {
      */
     @PostMapping("/remove")
     public ResultVO toRemove(String carBrand){
-
-        System.out.println(carBrand);
         if (carBrand==null || carBrand==""){
             //如果参数为空返回提示
             return new ResultVO(ResultCode.ID_NOT_NULL);
