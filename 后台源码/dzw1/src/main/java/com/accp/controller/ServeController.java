@@ -104,7 +104,8 @@ public class ServeController {
      */
     @PostMapping("/ins")
     public ResultVO saveInsServe(@RequestBody Serve serve){
-        if (serve.getSeId()=="" || serve.getSeName()=="" || serve.getBeforeId()=="" || serve.getIId()==null){
+        System.out.println(serve);
+        if (serve.getSeId()=="" || serve.getSeName()=="" || serve.getIId()==null){
             return new ResultVO(ResultCode.VALIDATE_FAILED);
         }
         Serve one = serveService.getOne(new QueryWrapper<Serve>().lambda().eq(Serve::getSeId, serve.getSeId()));
@@ -121,7 +122,7 @@ public class ServeController {
      */
     @PostMapping("/upd")
     public ResultVO saveUpdServe(@RequestBody Serve serve){
-        if (serve.getSeId()=="" || serve.getSeName()=="" || serve.getBeforeId()=="" || serve.getIId()==null){
+        if (serve.getSeId()=="" || serve.getSeName()==""  || serve.getIId()==null){
             return new ResultVO(ResultCode.VALIDATE_FAILED);
         }
         if (!serve.getBeforeId().equals(serve.getSeId())){

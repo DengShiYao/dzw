@@ -1,6 +1,7 @@
 package com.accp.domain;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -60,6 +61,7 @@ public class Serve extends Model<Serve> {
     private Double insurancePrice;
 
     @ApiModelProperty(value = "真假删除 0假/1真")
+    @TableLogic
     private Integer booldel;
 
     @ApiModelProperty(value = "备用列")
