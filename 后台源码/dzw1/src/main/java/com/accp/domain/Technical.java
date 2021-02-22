@@ -1,5 +1,6 @@
 package com.accp.domain;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
@@ -25,6 +26,13 @@ public class Technical extends Model<Technical> {
 
     private static final long serialVersionUID=1L;
 
+    @TableField(exist = false)
+    private String core;
+
+    @TableField(exist = false)
+    private String name;
+
+    @TableId
     @ApiModelProperty(value = "技工编号")
     private String technicalNumber;
 
@@ -35,10 +43,7 @@ public class Technical extends Model<Technical> {
     private String technicalSex;
 
     @ApiModelProperty(value = "是否是组长")
-    private Integer headman;
-
-    @ApiModelProperty(value = "所在班组")
-    private String teamCode;
+    private Boolean headman;
 
     @ApiModelProperty(value = "手机")
     private String phone;
@@ -53,8 +58,8 @@ public class Technical extends Model<Technical> {
     private String birthday;
 
     @ApiModelProperty(value = "微信号")
-    @TableField("Microsignal")
-    private String Microsignal;
+    //@TableField("Microsignal")
+    private String microsignal;
 
     @ApiModelProperty(value = "身份证号")
     private String idNumber;
@@ -68,25 +73,22 @@ public class Technical extends Model<Technical> {
     @ApiModelProperty(value = "银行账号")
     private String bankNumber;
 
-    @ApiModelProperty(value = "等级编码")
-    private String cradeCode;
-
     @ApiModelProperty(value = "维修工种")
-    @TableField("Maintenance_type")
+    //@TableField("Maintenance_type")
     private String maintenanceType;
 
     @ApiModelProperty(value = "维修品牌")
-    @TableField("Maintenance_brand")
+    //@TableField("Maintenance_brand")
     private String maintenanceBrand;
 
     @ApiModelProperty(value = "是否离职")
     private Integer dimission;
 
-    @ApiModelProperty(value = "备用列")
-    private String column1;
+    @ApiModelProperty(value = "班组id")
+    private Integer column1;
 
-    @ApiModelProperty(value = "备用列")
-    private String column2;
+    @ApiModelProperty(value = "技工星级id")
+    private Integer column2;
 
     @ApiModelProperty(value = "备用列")
     private String column3;
@@ -99,8 +101,6 @@ public class Technical extends Model<Technical> {
     public static final String TECHNICAL_SEX = "technical_sex";
 
     public static final String HEADMAN = "headman";
-
-    public static final String TEAM_CODE = "team_code";
 
     public static final String PHONE = "phone";
 
@@ -119,8 +119,6 @@ public class Technical extends Model<Technical> {
     public static final String BANK = "bank";
 
     public static final String BANK_NUMBER = "bank_number";
-
-    public static final String CRADE_CODE = "crade_code";
 
     public static final String MAINTENANCE_TYPE = "Maintenance_type";
 

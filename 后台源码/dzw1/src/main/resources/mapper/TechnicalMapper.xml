@@ -32,4 +32,11 @@
         technical_number, technical_name, technical_sex, headman, team_code, phone, account_number, address, birthday, Microsignal, id_number, address2, bank, bank_number, crade_code, Maintenance_type, Maintenance_brand, dimission, column1, column2, column3
     </sql>
 
+    <update id="madeFire">
+        UPDATE technical SET dimission = 1 WHERE technical_number = #{technicalNumber}
+    </update>
+
+    <update id="madeAssume">
+        UPDATE technical SET dimission = 0 WHERE technical_number = #{technicalNumber}
+    </update>
 </mapper>
