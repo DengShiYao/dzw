@@ -147,7 +147,7 @@ public class EmployeesController {
         return employeesService.selEmployByMidAndDid(employees);
     }
     /**
-     *导出excel
+     *导出员工excel
      */
     @RequestMapping("/downLoadExportExcel")
     public ResponseEntity<byte []> downLoadExportExcel() throws IOException {
@@ -271,6 +271,63 @@ public class EmployeesController {
         //设置响应文件名称
         headers.setContentDispositionFormData("attachment",flieName);
         return new ResponseEntity(bytes,headers, HttpStatus.OK);
+    }
+    /**
+     *导出通讯名录excel
+     */
+    @RequestMapping("/downLoadCommunicationExportExcel")
+    public ResponseEntity<byte []> downLoadCommunicationExportExcel() throws IOException {
+        List<Employees> list = employeesService.selInfo();
+        Workbook book = new XSSFWorkbook();
+        Sheet sheet= book.createSheet();
+        System.out.println("进入导出");
+        //导出excel头部
+        Row row= sheet.createRow(0);
+        Cell emplpyDepartmentNameTitle =row.createCell(0);
+        Cell employEidTitle =row.createCell(1);
+        Cell employEnameTitle =row.createCell(2);
+        Cell employExtensionTitle =row.createCell(3);
+        Cell employDirectTitle =row.createCell(4);
+        Cell employPhoneTitle =row.createCell(5);
+        Cell employEmailTitle =row.createCell(6);
+        emplpyDepartmentNameTitle.setCellValue("部门");
+        employEidTitle.setCellValue("员工编号");
+        employEnameTitle.setCellValue("姓名");
+        employExtensionTitle.setCellValue("分机/短号");
+        employDirectTitle.setCellValue("直拨");
+        employPhoneTitle.setCellValue("手机");
+        employEmailTitle.setCellValue("邮箱");
+        //组装导出数据
+        if (list!=null) {
+            for (int i = 0; i <list.size() ; i++) {
+                Employees employees = list.get(i);
+                Row rowValue= sheet.createRow(i+1);
+                Cell emplpyDepartmentNameValue =rowValue.createCell(0);
+                Cell employEidValue =rowValue.createCell(1);
+                Cell employEnameValue =rowValue.createCell(2);
+                Cell employExtensionValue =rowValue.createCell(3);
+                Cell employDirectValue =rowValue.createCell(4);
+                Cell employPhoneValue =rowValue.createCell(5);
+                Cell employEmailValue =rowValue.createCell(6);
+                emplpyDepartmentNameValue.setCellValue(employees.getDepartment().getDName());
+                employEidValue.setCellValue(employees.getEId());
+                employEnameValue.setCellValue(employees.getEName());
+                employExtensionValue.setCellValue(employees.getExtension());
+                employDirectValue.setCellValue(employees.getDirect());
+                employPhoneValue.setCellValue(employees.getPhone());
+                employEmailValue.setCellValue(employees.getEmail());
+            }
+        }
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        book.write(byteArrayOutputStream);
+
+        HttpHeaders headers = new HttpHeaders();
+        //设置响应内容为文件流格式
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        String flieName= new String("通讯导出数据.xlsx".getBytes("utf-8"));
+        //设置响应文件名称
+        headers.setContentDispositionFormData("attachment",flieName);
+        return new ResponseEntity(byteArrayOutputStream.toByteArray(),headers, HttpStatus.OK);
     }
 }
 

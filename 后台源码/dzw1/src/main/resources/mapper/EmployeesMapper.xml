@@ -83,7 +83,7 @@
     </resultMap>
     <!--查询全部员工-->
     <select id="selInfo" resultMap="BaseResultMap1">
-        SELECT * FROM employees
+        SELECT * FROM employees where dismission=0
     </select>
     <!--多条件查询员工-->
     <select id="selByManyConditions" resultMap="BaseResultMap1" parameterType="com.accp.domain.EmployeesQuery">
@@ -164,11 +164,12 @@
              <if test="pactEnd!=null and pactEnd!=''">
                 and pactEnd=#{pactEnd}
              </if>
+             and dismission=0
          </where>
     </select>
     <!--匹配工号/姓名/手机-->
     <select id="selByParse" resultMap="BaseResultMap1">
-        SELECT * FROM employees WHERE eId like concat( '%',#{parse},'%') OR eName like concat( '%',#{parse},'%') OR phone like concat( '%',#{parse},'%')
+        SELECT * FROM employees WHERE  dismission=0 and (eId like concat( '%',#{parse},'%') OR eName like concat( '%',#{parse},'%') OR phone like concat( '%',#{parse},'%'))
     </select>
     <!--置空员工密码-->
     <update id="clearEmployeePwd">
@@ -176,7 +177,7 @@
     </update>
     <!--根据不同门店查询该门店下的员工-->
     <select id="selByMid" resultMap="BaseResultMap1">
-        SELECT * FROM employees WHERE `mId`=#{mId}
+        SELECT * FROM employees WHERE `mId`=#{mId} and  dismission=0
     </select>
     <!--根据不同门店查询该门店下不同部门的员工-->
     <select id="selEmployByMidAndDid" parameterType="com.accp.domain.Employees" resultMap="BaseResultMap1">
@@ -188,6 +189,7 @@
             <if test="dId!=null and dId!=''">
                 and dId=#{dId}
             </if>
+            and  dismission=0
         </where>
     </select>
     <!--员工离职登记-->
