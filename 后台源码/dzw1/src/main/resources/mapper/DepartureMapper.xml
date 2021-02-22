@@ -24,4 +24,48 @@
         id, eId, dismissDate, dismissReason, registId, sex, dId, sId, name, jobId, column1, column2, column3
     </sql>
 
+    <!--查询所有离职记录-->
+    <resultMap id="BaseResultMap1" type="com.accp.domain.Departure" extends="BaseResultMap">
+        <association property="store" select="com.accp.mapper.StoreMapper.selById" column="sId"></association>
+        <association property="department" select="com.accp.mapper.DepartmentMapper.selById" column="dId"></association>
+        <association property="job" select="com.accp.mapper.JobMapper.selById" column="jobId"></association>
+    </resultMap>
+    <select id="selAllDeparture" resultMap="BaseResultMap1">
+            SELECT * FROM departure
+    </select>
+    <!--根据门店筛选-->
+    <select id="selBySid" resultMap="BaseResultMap1">
+            SELECT * FROM departure
+            <where>
+                sId in
+                <foreach collection="array" open="(" close=")" separator="," item="item">
+                    #{item}
+                </foreach>
+            </where>
+    </select>
+    <!--根据工号或者姓名模糊查询-->
+    <select id="selectByEidOrName" resultMap="BaseResultMap1">
+        SELECT * FROM departure WHERE eId LIKE concat( '%',#{parse},'%') OR `name` LIKE concat( '%',#{parse},'%')
+    </select>
+    <!--查询搜索model查询-->
+    <select id="selBySearch" resultMap="BaseResultMap1" parameterType="com.accp.domain.Departure">
+            SELECT * FROM departure
+            <where>
+                <if test="eId!=null and eId!=''">
+                    eId=#{eId}
+                </if>
+                <if test="name!=null and name!=''">
+                    name=#{name}
+                </if>
+                <if test="sex!=null and sex!=''">
+                    sex=#{sex}
+                </if>
+                <if test="dId!=null and dId!=''">
+                    dId=#{dId}
+                </if>
+                <if test="jobId!=null and jobId!=''">
+                    jobId=#{jobId}
+                </if>
+            </where>
+    </select>
 </mapper>

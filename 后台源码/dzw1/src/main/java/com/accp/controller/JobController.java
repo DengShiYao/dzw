@@ -22,25 +22,24 @@ public class JobController {
     @Autowired
     IJobService jobService;
     @PostMapping
-    public boolean addJob(@PathVariable Job job){
+    public boolean addJob(@RequestBody Job job){
         return jobService.save(job);
     }
     @GetMapping
     public List<Job> selAll(){
-        System.out.println("进入");
         return  jobService.list();
     }
     @PutMapping
-    public  boolean updateJob(@PathVariable Job job){
+    public  boolean updateJob(@RequestBody Job job){
         return  jobService.updateById(job);
     }
-    @DeleteMapping
-    public boolean removeJob(String jobId){
+    @DeleteMapping("/remove/{jobId}")
+    public boolean removeJob(@PathVariable  String jobId){
         return jobService.removeById(jobId);
     }
     @GetMapping("/count")
     public int getCount(){
-        return jobService.count();
+       return jobService.count();
     }
 }
 

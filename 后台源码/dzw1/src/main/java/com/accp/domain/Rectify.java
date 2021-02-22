@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -29,21 +31,26 @@ public class Rectify extends Model<Rectify> {
 
     @ApiModelProperty(value = "编号,自增，主键")
     @TableId(value = "id", type = IdType.AUTO)
+    @JsonProperty(value = "id")
     private Integer id;
 
     @ApiModelProperty(value = "会员号，外键会员表")
     @TableField("mId")
+    @JsonProperty(value = "mId")
     private Integer mId;
 
     @ApiModelProperty(value = "操作人,外键员工表")
     @TableField("eId")
+    @JsonProperty(value = "eId")
     private String eId;
 
     @ApiModelProperty(value = "矫正时间")
     @TableField("rectifyDate")
+    @JsonProperty(value = "rectifyDate")
     private String rectifyDate;
 
     @ApiModelProperty(value = "矫正金额")
+    @JsonProperty(value = "money")
     private Double money;
 
     @ApiModelProperty(value = "备用列")

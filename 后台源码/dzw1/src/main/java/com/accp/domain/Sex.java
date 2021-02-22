@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -29,10 +31,12 @@ public class Sex extends Model<Sex> {
 
     @ApiModelProperty(value = "性别id,主键，自增")
     @TableId(value = "sexId", type = IdType.AUTO)
+    @JsonProperty(value = "sexId")
     private Integer sexId;
 
     @ApiModelProperty(value = "性别名称")
     @TableField("sexName")
+    @JsonProperty(value = "sexName")
     private String sexName;
 
     @ApiModelProperty(value = "备用列")

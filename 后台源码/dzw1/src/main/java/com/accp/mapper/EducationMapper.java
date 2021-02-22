@@ -12,5 +12,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2021-02-01
  */
 public interface EducationMapper extends BaseMapper<Education> {
-
+    public Education selById(Integer educationId);
 }

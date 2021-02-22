@@ -12,5 +12,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2021-02-01
  */
 public interface NativeplaceMapper extends BaseMapper<Nativeplace> {
-
+    public Nativeplace selById(Integer nplaceId);
 }

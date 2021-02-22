@@ -15,5 +15,7 @@
     <sql id="Base_Column_List">
         tId, tName, column1, column2, column3
     </sql>
-
+    <select id="selById" resultMap="BaseResultMap">
+        SELECT * FROM departmenttype WHERE tId=#{tId}
+    </select>
 </mapper>

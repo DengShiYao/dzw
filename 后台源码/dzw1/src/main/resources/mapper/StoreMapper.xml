@@ -16,5 +16,18 @@
     <sql id="Base_Column_List">
         storeId, storeName, pstoreId, column1, column2, column3
     </sql>
-
+    <select id="selById" resultMap="BaseResultMap">
+        SELECT * FROM store WHERE storeId=#{storeId}
+    </select>
+    <!--级联查询-->
+    <resultMap id="BaseResultMap1" type="com.accp.domain.Store" extends="BaseResultMap">
+        <collection property="list" column="storeId" select="com.accp.mapper.StoreMapper.selBySelf"></collection>
+    </resultMap>
+    <select id="selBySelf" resultMap="BaseResultMap1">
+         SELECT * FROM store WHERE pstoreId=#{pstoreId}
+    </select>
+    <!--模糊查询门店-->
+    <select id="selStoreFuzzy" resultMap="BaseResultMap1">
+       SELECT * FROM store WHERE storeId LIKE concat('%',#{parse},'%') OR `storeName` LIKE concat('%',#{parse},'%')
+    </select>
 </mapper>

@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -28,18 +30,22 @@ public class Member extends Model<Member> {
 
     @ApiModelProperty(value = "会员编号")
     @TableId("mId")
+    @JsonProperty(value = "mId")
     private Integer mId;
 
     @ApiModelProperty(value = "会员姓名")
     @TableField("mName")
+    @JsonProperty(value = "mName")
     private String mName;
 
     @ApiModelProperty(value = "会员余额")
     @TableField("mPrice")
+    @JsonProperty(value = "mPrice")
     private Double mPrice;
 
     @ApiModelProperty(value = "注册时间")
     @TableField("createDate")
+    @JsonProperty(value = "createDate")
     private String createDate;
 
     @ApiModelProperty(value = "会员密码")

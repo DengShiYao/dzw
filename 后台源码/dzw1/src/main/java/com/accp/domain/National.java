@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -29,10 +31,12 @@ public class National extends Model<National> {
 
     @ApiModelProperty(value = "民族id,主键，自增")
     @TableId(value = "nationalId", type = IdType.AUTO)
+    @JsonProperty(value = "nationalId")
     private Integer nationalId;
 
     @ApiModelProperty(value = "民族名称")
     @TableField("nationalName")
+    @JsonProperty(value = "nationalName")
     private String nationalName;
 
     @ApiModelProperty(value = "备用列")

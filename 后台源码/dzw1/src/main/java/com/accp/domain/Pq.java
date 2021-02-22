@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -29,10 +31,12 @@ public class Pq extends Model<Pq> {
 
     @ApiModelProperty(value = "专业资格id,主键自增")
     @TableId(value = "PQId", type = IdType.AUTO)
+    @JsonProperty(value = "PQId")
     private Integer PQId;
 
     @ApiModelProperty(value = "专业资格")
     @TableField("PQName")
+    @JsonProperty(value = "PQName")
     private String PQName;
 
     @ApiModelProperty(value = "备用列")

@@ -15,5 +15,7 @@
     <sql id="Base_Column_List">
         degreeId, degreeName, column1, column2, column3
     </sql>
-
+    <select id="selById" resultMap="BaseResultMap">
+        SELECT * FROM degree WHERE degreeId=#{degreeId}
+    </select>
 </mapper>

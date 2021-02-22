@@ -65,4 +65,137 @@
         eId, eName, sexId, mId, dId, login, jId, health, height, nplaceId, nationalId, marryId, educationId, schoolId, majorId, PQId, attId, degreeId, establish, cardId, hAddress, nAddress, tel, phone, email, bankId, bankAccount, contacts, cphone, entryDate, proDate, birth, pactBegin, pactEnd, kzId, knId, referrer, billDiscount, hourDiscount, shopDiscount, relief, dismission, pwd, img, educationBackground, jiangFa, hire, resume, family, extension, direct, column1, column2, column3
     </sql>
 
+    <resultMap id="BaseResultMap1" type="com.accp.domain.Employees" extends="BaseResultMap">
+        <association property="sex" column="sexId" select="com.accp.mapper.SexMapper.selById"></association>
+        <association property="store" column="mId" select="com.accp.mapper.StoreMapper.selById"></association>
+        <association property="department" column="dId" select="com.accp.mapper.DepartmentMapper.selById"></association>
+        <association property="job" column="jId" select="com.accp.mapper.JobMapper.selById"></association>
+        <association property="nativeplace" column="nplaceId" select="com.accp.mapper.NativeplaceMapper.selById"></association>
+        <association property="national" column="nationalId" select="com.accp.mapper.NationalMapper.selById"></association>
+        <association property="marry" column="marryId" select="com.accp.mapper.MarryMapper.selById"></association>
+        <association property="education" column="educationId" select="com.accp.mapper.EducationMapper.selById"></association>
+        <association property="school" column="schoolId" select="com.accp.mapper.SchoolMapper.selById"></association>
+        <association property="major" column="majorId" select="com.accp.mapper.MajorMapper.selById"></association>
+        <association property="pq" column="PQId" select="com.accp.mapper.PqMapper.selById"></association>
+        <association property="nature" column="attId" select="com.accp.mapper.NatureMapper.selById"></association>
+        <association property="degree" column="degreeId" select="com.accp.mapper.DegreeMapper.selById"></association>
+        <association property="bank" column="bankId" select="com.accp.mapper.BankMapper.selById"></association>
+    </resultMap>
+    <!--查询全部员工-->
+    <select id="selInfo" resultMap="BaseResultMap1">
+        SELECT * FROM employees
+    </select>
+    <!--多条件查询员工-->
+    <select id="selByManyConditions" resultMap="BaseResultMap1" parameterType="com.accp.domain.EmployeesQuery">
+         SELECT * FROM employees
+         <where>
+             <if test="eId!=null and eId!=''">
+                 and eId=#{eId}
+             </if>
+             <if test="eName!=null and eName!=''">
+                and eName concat('%',#{eName},'%')
+             </if>
+             <if test="sexId!=null and sexId!=''">
+                and sexId=#{sexId}
+             </if>
+             <if test="jId!=null and jId!=''">
+                and jId=#{jId}
+             </if>
+             <if test="dId!=null and dId!=''">
+                and dId=#{dId}
+             </if>
+             <if test="health!=null and health!=''">
+                and health=#{health}
+             </if>
+             <if test="height!=null and height!=''">
+                 and height=#{height}
+             </if>
+             <if test="nplaceId!=null and nplaceId!=''">
+                 and nplaceId=#{nplaceId}
+             </if>
+             <if test="nationalId!=null and nationalId!=''">
+                and nationalId=#{nationalId}
+             </if>
+             <if test="marryId!=null and marryId!=''">
+                and marryId=#{marryId}
+             </if>
+             <if test="educationId!=null and educationId!=''">
+                and educationId=#{educationId}
+             </if>
+             <if test="schoolId!=null and schoolId !=''">
+                and schoolId=#{schoolId}
+             </if>
+             <if test="majorId!=null and majorId!=''">
+                and majorId=#{majorId}
+             </if>
+             <if test="PQId!=null and PQId!=''">
+                and PQId=#{PQId}
+             </if>
+             <if test="birth!=null and birth!=''">
+                and birth=#{birth}
+             </if>
+             <if test="degreeId!=null and degreeId!=''">
+                and degreeId=#{degreeId}
+             </if>
+             <if test="establish!=null and establish!=''">
+                and establish=#{establish}
+             </if>
+             <if test="cardId!=null and cardId!=''">
+                and cardId=#{cardId}
+             </if>
+             <if test="entryDateStart!=null and entryDateStart!=''">
+                and entryDate &gt;=#{entryDateStart}
+             </if>
+             <if test="entryDateEnd!=null and entryDateEnd!=''">
+                and entryDate &lt;=#{entryDateEnd}
+             </if>
+             <if test="proDateStart!=null and proDateStart!=''">
+                and proDate &gt;=#{proDateStart}
+             </if>
+             <if test="proDateEnd!=null and proDateEnd!=''">
+                 and proDate &lt;=#{proDateEnd}
+             </if>
+             <if test="attId!=null and attId!=''">
+                 and attId=#{attId}
+             </if>
+             <if test="pactBegin!=null and pactBegin!=''">
+                and pactBegin=#{pactBegin}
+             </if>
+             <if test="pactEnd!=null and pactEnd!=''">
+                and pactEnd=#{pactEnd}
+             </if>
+         </where>
+    </select>
+    <!--匹配工号/姓名/手机-->
+    <select id="selByParse" resultMap="BaseResultMap1">
+        SELECT * FROM employees WHERE eId like concat( '%',#{parse},'%') OR eName like concat( '%',#{parse},'%') OR phone like concat( '%',#{parse},'%')
+    </select>
+    <!--置空员工密码-->
+    <update id="clearEmployeePwd">
+        UPDATE employees SET pwd=NULL WHERE eId=#{eId}
+    </update>
+    <!--根据不同门店查询该门店下的员工-->
+    <select id="selByMid" resultMap="BaseResultMap1">
+        SELECT * FROM employees WHERE `mId`=#{mId}
+    </select>
+    <!--根据不同门店查询该门店下不同部门的员工-->
+    <select id="selEmployByMidAndDid" parameterType="com.accp.domain.Employees" resultMap="BaseResultMap1">
+        SELECT * FROM employees
+        <where>
+            <if test="mId!=null and mId!=''">
+                and mId=#{mId}
+            </if>
+            <if test="dId!=null and dId!=''">
+                and dId=#{dId}
+            </if>
+        </where>
+    </select>
+    <!--员工离职登记-->
+    <update id="madeFire">
+        UPDATE employees SET dismission =1 WHERE eId=#{eId}
+    </update>
+    <!--员工离职回滚-->
+    <update id="madeAssume">
+        UPDATE employees SET dismission =0 WHERE eId=#{eId}
+    </update>
 </mapper>

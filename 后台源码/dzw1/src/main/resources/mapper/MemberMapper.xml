@@ -18,5 +18,18 @@
     <sql id="Base_Column_List">
         mId, mName, mPrice, createDate, mPwd, column1, column2, column3
     </sql>
-
+    <!--会员充值-->
+    <update id="addMemberPrice">
+        UPDATE member SET mPrice=mPrice+#{mPrice} WHERE `mId`=#{mId}
+    </update>
+    <!--校正会员余额-->
+    <update id="checkMemberPrice">
+        UPDATE member SET mPrice=mPrice+#{checkPrice} WHERE `mId`=#{mId}
+    </update>
+    <select id="selByMidOrMname" resultMap="BaseResultMap">
+        SELECT * FROM member WHERE `mid` LIKE concat('%',#{str},'%') OR mName LIKE concat('%',#{str},'%')
+    </select>
+    <select id="selByMid" resultMap="BaseResultMap">
+        SELECT * FROM member WHERE `mId`=#{mId}
+    </select>
 </mapper>

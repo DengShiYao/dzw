@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -27,15 +29,18 @@ public class Department extends Model<Department> {
     private static final long serialVersionUID=1L;
 
     @ApiModelProperty(value = "部门编号")
+    @JsonProperty(value = "dId")
     @TableId("dId")
     private String dId;
 
     @ApiModelProperty(value = "部门名称")
     @TableField("dName")
+    @JsonProperty(value = "dName")
     private String dName;
 
     @ApiModelProperty(value = "部门类型编号")
     @TableField("tId")
+    @JsonProperty(value = "tId")
     private Integer tId;
 
     @ApiModelProperty(value = "所属门店")
@@ -50,6 +55,10 @@ public class Department extends Model<Department> {
 
     @ApiModelProperty(value = "备用列")
     private String column3;
+
+    @ApiModelProperty(value = "部门类型实体")
+    @JsonProperty(value = "departmentType")
+    private Departmenttype departmentType;
 
 
     public static final String DID = "dId";
