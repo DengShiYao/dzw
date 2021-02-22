@@ -42,7 +42,7 @@
 				margin: 20px 30px;
 			}
 			.search{
-				width: 450px;
+				width: 350px;
 				height: 40px;
 				line-height: 40px;
 				outline: none;
@@ -153,6 +153,9 @@
 				    width: 70%;
 				    margin: 20px auto;
 			}
+			.bg{
+				background: orchid;
+			}
 		</style>
 	</head>
 	<body>
@@ -187,41 +190,21 @@
 							<th>离职日期</th>
 							<th>离职原因</th>
 						</tr>
-						<tr>
+						<tr v-for="item,index in list" :class='{bg:index==isactive}' @click="fn(index)">
 							<td></td>
-							<td>管钱部</td>
-							<td>0EM0001</td>
-							<td>曾傻狗</td>
-							<td>男</td>
-							<td></td>
-							<td>2019-12-24</td>
-							<td>老子就想走</td>
-						</tr>
-						<tr>
-							<td></td>
-							<td>管钱部</td>
-							<td>0EM0008</td>
-							<td>水水水</td>
-							<td>男</td>
-							<td>销售总监</td>
-							<td>2019-12-25</td>
-							<td>老子想走就走</td>
-						</tr>
-						<tr>
-							<td></td>
-							<td>管钱部</td>
-							<td>0EM0010</td>
-							<td>李瑞瑞</td>
-							<td>男</td>
-							<td></td>
-							<td>2019-12-25</td>
-							<td>钱太少</td>
+							<td @click="chooseYgTr(item)">{{item.department.dName}}</td>
+							<td @click="chooseYgTr(item)">{{item.eId}}</td>
+							<td @click="chooseYgTr(item)">{{item.name}}</td>
+							<td @click="chooseYgTr(item)">{{item.sex}}</td>
+							<td @click="chooseYgTr(item)">{{item.job.jobName}}</td>
+							<td @click="chooseYgTr(item)">{{item.dismissDate}}</td>
+							<td @click="chooseYgTr(item)">{{item.dismissReason}}</td>
 						</tr>
 					</table>
 				</div>
 			</div>
 			<div>
-				合计:<span>3</span>条记录
+				合计:<span>{{a}}</span>条记录
 			</div>
 			<!--查询条件div-->
 			<!--员工查询 -->
@@ -241,19 +224,19 @@
 									<td colspan="4">
 										<div class="form-group">
 											<label class="control-label">员工编号</label>
-											<input type="text" name="" id="" value="" class="form-control" />
+											<input type="text" name="" id="" value="" class="form-control" v-model="departrueQw.eId"/>
 										</div>
 									</td>
 									<td colspan="4">
 										<div class="form-group">
 											<label class="control-label">员工姓名</label>
-											<input type="text" name="" id="" value="" class="form-control" />
+											<input type="text" name="" id="" value="" class="form-control" v-model="departrueQw.name"/>
 										</div>
 									</td>
 									<td colspan="4">
 										<div class="form-group">
 											<label for="" class="control-label">性别</label>
-											<input type="text" name="" id="" value="" class="form-control" />
+											<input type="text" name="" id="" value="" class="form-control" v-model="departrueQw.sex" />
 										</div>
 									</td>
 								</tr>
@@ -261,7 +244,7 @@
 									<td colspan="6">
 										<div class="form-group">
 											<label class="control-label">岗位</label>
-											<select class="form-control">
+											<select class="form-control" v-model="departrueQw.jobId">
 												<option value="">总经理</option>
 												<option value="">副总经理</option>
 											</select>
@@ -269,8 +252,8 @@
 									</td>
 									<td colspan="6">
 										<div class="form-group">
-											<label class="control-label">岗位</label>
-											<select class="form-control">
+											<label class="control-label">部门</label>
+											<select class="form-control" v-model="departrueQw.dId">
 												<option value="">总经理</option>
 												<option value="">副总经理</option>
 											</select>
@@ -431,16 +414,16 @@
 							<form class="form-inline">
 								<div class="form-group">
 									<label class="control-label">员工姓名</label>
-									<input type="text" name="" id="" value=""class="form-control"/>
-									<input type="text" name="" id="" value="" class="form-control"/>
+									<input type="text" name="" id="" class="form-control"  readonly="readonly" v-model="checkedEclos.eId"/>
+									<input type="text" name="" id="" value="" class="form-control" readonly="readonly" v-model="checkedEclos.eName"/>
 									<a class="btn" @click="openChooseEploy">选择员工</a>
 									<a class="btn" @click="openJgDiv">选择技工</a>
 									<label class="control-label">离职日期</label>
-									<input type="date" name="" id="" value=""class="form-control" />
+									<input type="date" name="" id="" value=""class="form-control" v-model="exit.dismissDate" />
 								</div>
 								<div class="form-group">
 									<label class="control-label">离职原因</label>
-									<input type="text" name="" id="" value="" class="form-control1" width="85%"/>
+									<input type="text" name="" id="" value="" class="form-control1" width="85%" v-model="exit.dismissReason"/>
 								</div>
 							</form>
 						</div>
@@ -460,16 +443,13 @@
 							</div>
 						</div>
 						<div class="modal-body">
-							<select name="" class="form-control">
-								<option value="">0000-总厂</option>
-								<option value="">0001-成高</option>
-								<option value="">0002-成高1</option>
+							<select name="" class="form-control" v-model="employ.mId" @change="selEmply" @blur="selAllDepartment">
+								<option value=""></option>
+								<option v-for="item in storeList" :value="item.storeId">{{item.storeName}}</option>
 							</select>
-							<select class="form-control">
+							<select class="form-control" v-model="employ.dId" @change="selEmply">
 								<option value="">所有</option>
-								<option value="">前台</option>
-								<option value="">hh部</option>
-								<option value="">管钱部</option>
+								<option v-for="item in departmentList" :value="item.dId">{{item.dName}}</option>
 							</select>
 							<table border="" cellspacing="" cellpadding="" class="table table1">
 								<tr>
@@ -477,20 +457,10 @@
 									<th>工号</th>
 									<th>姓名</th>
 								</tr>
-								<tr>
-									<td>前台</td>
-									<td>0EX001</td>
-									<td>程前</td>
-								</tr>
-								<tr>
-									<td>前台</td>
-									<td>0EX001</td>
-									<td>程前</td>
-								</tr>
-								<tr>
-									<td>前台</td>
-									<td>0EX001</td>
-									<td>程前</td>
+								<tr v-for="(item,index) in yg"  :class='{bg:index==isactive}' @click="fn(index)">
+									<td  @click="chooseEmployTableTr(item)">{{item.department.dName}}</td>
+									<td  @click="chooseEmployTableTr(item)">{{item.eId}}</td>
+									<td  @click="chooseEmployTableTr(item)">{{item.eName}}</td>
 								</tr>
 							</table>
 						</div>
@@ -505,7 +475,7 @@
 						<div class="modal-header">
 							<h3 class="col-lg-offset-1 col-lg-3">门店选择</h3>
 							<div class="text-right">
-								<input type="text" name="" id="search" placeholder="匹配门店编码/门店" class="search"/>
+								<input type="text" name="" id="searchStore" placeholder="匹配门店编码/门店" class="search"/>
 								<button class="btn btn-success" @click="searchStore">搜索</button>
 								<button class="btn btn-danger" @click="closeStoreChoose">关闭</button>
 							</div>
@@ -527,11 +497,11 @@
 								<tr v-for="item in storeList">
 									<td></td>
 									<td>
-										<input type="checkbox" id="" :value="item.id" v-model="storeChecks" />
+										<input type="checkbox" id="" :value="item.storeId" v-model="storeChecks" />
 									</td>
-									<td>{{item.id}}</td>
-									<td>{{item.name}}</td>
-									<td>{{item.city}}</td>
+									<td>{{item.storeId}}</td>
+									<td>{{item.storeName}}</td>
+									<td></td>
 								</tr>
 							</table>
 						</div>
@@ -546,7 +516,7 @@
 						<div class="modal-header">
 							<h3 class="col-lg-offset-1 col-lg-2">班组技工</h3>
 							<button class="btn btn-success centerButton" @click="chooseJg">确定</button>
-							<input type="text" name="" id="" value="" class="search" placeholder="匹配工号/姓名/手机"/>
+							<input type="text" name="" id="searchJg" value="" class="search" placeholder="匹配工号/姓名/手机"/>
 							<button class="btn btn-default" @click="searchWorkMan">搜索</button>
 							<button class="btn btn-danger" @click="closeJgDiv">关闭</button>
 						</div>
@@ -558,10 +528,10 @@
 								<!--左侧树状-->
 								<div class="jg_bottonDiv_div1">
 									<ul>
-										<li v-for="item in bz">{{item.id}}-{{item.name}}
-											<ul>
-												<li v-for="item1 in item.children">{{item1.id}}-{{item1.name}}</li>
-											</ul>
+										<li v-for="item in tuandui"  @click.stop="select_bj($event)">{{item.tdName}}
+												<ul>
+													<li @click.stop="select_bj_school($event)" v-for="i in item.tfList" @click="bz(i.jgList,i.teamCode,i.teamName,i)">{{i.teamName}}</li>
+												</ul>
 										</li>
 									</ul>
 								</div>
@@ -570,35 +540,25 @@
 									<table border="" cellspacing="" cellpadding="" class="table table1">
 										<tr>
 											<th></th>
-											<th>技工姓名</th>
-											<th>技工编号</th>
-											<th>性别</th>
-											<th>所在班组</th>
-											<th>手机</th>
+											<td>班组编号</td>
+											<td>班组名称</td>
+											<td>技工编号</td>
+											<td>技工姓名</td>
+											<td>性别</td>
+											<td>是否是组长</td>
+											<td>手机</td>
 										</tr>
-										<tr>
-											<td></td>
-											<td>黄河</td>
-											<td>0EX01212</td>
-											<td>男</td>
-											<td>维修1组</td>
-											<td>1511233</td>
-										</tr>
-										<tr>
-											<td></td>
-											<td>黄河1</td>
-											<td>0EX01221</td>
-											<td>男</td>
-											<td>维修2组</td>
-											<td>1511243</td>
-										</tr>
-										<tr>
-											<td></td>
-											<td>黄河2</td>
-											<td>0EX01232</td>
-											<td>男</td>
-											<td>维修3组</td>
-											<td>1511133</td>
+										<tr v-for="item in jgList">
+											<td v-if="item.core != null">{{item.core}}</td>
+											<td v-else >{{jgList.core}}</td>
+											<td v-if="item.name != null">{{item.name}}</td>
+											<td v-else >{{jgList.name}}</td>
+											<td>{{item.technicalNumber}}</td>
+											<td>{{item.technicalName}}</td>
+											<td>{{item.technicalSex}}</td>
+											<td v-if="item.headman === true">是</td>
+											<td v-if="item.headman === false">否</td>
+											<td>{{item.phone}}</td>
 										</tr>
 									</table>
 								</div>
@@ -618,8 +578,9 @@
 			el:"#ctx",
 			data(){
 				return{
-					yg:{},
-					list:{},
+					//员工list
+					yg:[],
+					list:[],
 					storeChecks:[],
 					//门店假数据
 					storeList:[{
@@ -632,7 +593,7 @@
 						city:"北京市"
 					}],
 					//班组模拟数据
-					bz:[{
+					/*bz:[{
 						id:10,
 						name:"自建",
 						children:[{
@@ -659,32 +620,133 @@
 							id:1003,
 							name:"武昌队"
 						}]
-					}],
+					}],*/
+					//门店部门条件对象
+					employ:{},
+					//部门list
+					departmentList:[],
+					//离职登记对象
+					exit:{},
+					//操作的员工行
+					checkedEclos:{},
+					isactive:0,
+					//统计表格个数
+					a:0,
+					//操作离职的员工或者技工编号
+					changeEid:"",
+					//离职查询条件对象
+					departrueQw:{},
+					//团队(班组)
+					tuandui:[],
+					//技工list
+					jgList:[],
+					//
+					xgjgVisble:false,
+					//
+					updatejg:{}
 				}
 			},
 			methods:{
 				//条件查询方法
 				sel(){
+					var parse = $("#search").val();
+					if(parse==null||parse==""){
+						this.find();
+						return;
+					}
+					console.log(parse);
+					$.ajax({
+						url:"http://127.0.0.1:8080/departure/selByEidOrName/"+parse,
+						dataType:"json",
+						type:"get",
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						async:false,
+						success:function(result){
+							that.list=result;
+							that.a=that.list.length;
+						}
+					});
 					alert("正在进行条件查询");
 				},
-				huiGun(id){
+				huiGun(){
 					var flag=window.confirm("你确定要将该员工复职么?");
-					if(flag){					
-						alert("回滚成功");
+					if(flag){
+						if(this.changeEid==null||this.changeEid==""){
+							alert("请先选择要操作的列");
+							return;
+						}
+						let that=this;
+						$.ajax({
+							url:"http://127.0.0.1:8080/departure/employBack/"+that.changeEid,
+							type:"put",
+							xhrFields: {
+								withCredentials: true
+							},
+							crossDomain: true,
+							async:false,
+							success:function(result){
+								if(result){
+									alert("回滚成功");
+								}else{
+									alert("回滚失败");
+								}
+							}
+						});
 					}
+					this.find();
 				},
-				remove(id){
+				remove(){
 					var flag1 =window.confirm("你确定要将该员工删除么？该员工所有信息都将被删除");
-					if(flag1){					
-						alert("删除成功");
+					if(flag1){
+						if(this.changeEid==null||this.changeEid==""){
+							alert("请先选择要操作的列");
+							return;
+						}
+						let that=this;
+						$.ajax({
+							url:"http://127.0.0.1:8080/departure/remove/"+that.changeEid,
+							type:"delete",
+							xhrFields: {
+								withCredentials: true
+							},
+							crossDomain: true,
+							async:false,
+							success:function(result){
+								if(result){
+									alert("删除成功");
+								}else{
+									alert("删除失败");
+								}
+							}
+						});
 					}
+					this.find();
 				},
 				daoChu(){
-					alert("导出成功");
+					window.location.href="http://127.0.0.1:8080/departure/downLoadExportExcel";
+					/*alert("导出成功");*/
 				},
 				//查询所有离职人员
 				find(){
-					
+					let that =this;
+					$.ajax({
+						url:"http://127.0.0.1:8080/departure/selAll",
+						dataType:"json",
+						type:"get",
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						async:false,
+						success:function(result){
+							console.log(result);
+							that.list=result;
+							that.a=that.list.length;
+						}
+					});
 				},
 				openSel(){
 					$("#selByDiv").modal("show");
@@ -694,7 +756,31 @@
 				},
 				//查询按钮
 				selByDiv(){
-					alert("正在进行条件div查询");
+					let that=this;
+					if(that.departrueQw==null){
+						alert("123");
+						this.find();
+						return;
+					}
+					/*alert("正在进行条件div查询");*/
+					var json=JSON.stringify(that.departrueQw);
+					console.log(json);
+					$.ajax({
+						url:"http://127.0.0.1:8080/departure/selBySearch",
+						data:json,
+						dataType:"json",
+						type:"post",
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						async:false,
+						contentType:"application/json;charset=utf-8",
+						success:function(result){
+							that.list=result;
+							that.a=that.list.length;
+						}
+					});
 					$("#selByDiv").modal("hide");
 				},
 				//打开离职登记
@@ -706,22 +792,60 @@
 					$("#lzdj").modal("hide");
 				},
 				fireLogin(){
-					alert("离职登记成功");
+					if(this.exit.eId==null||this.exit.eId==""){
+						alert("离职员工编号不能为空!");
+						return;
+					}
+					var json=JSON.stringify(this.exit);
+					console.log(json);
+					$.ajax({
+						url:"http://127.0.0.1:8080/departure",
+						data:json,
+						type:"post",
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						async:false,
+						contentType:"application/json;charset=utf-8",
+						success:function(result){
+							if(result){
+								alert("离职登记成功");
+							}else{
+								alert("离职登记失败");
+							}
+						}
+					});
 					$("#lzdj").modal("hide");
+					this.find();
 				},
 				//打开选择员工
 				openChooseEploy(){
+					this.selAllStore();
+					this.selEmply();
 					$("#xzyg").modal("show");
 				},
 				closeChooseEploy(){
 					$("#xzyg").modal("hide");
 				},
+				//将选中的员进行录入
 				chooseEploy(){
+					if(this.checkedEclos==""||this.checkedEclos==null){
+						alert("请先选择员工");
+					}
+					this.exit.eId=this.checkedEclos.eId;
+					this.exit.name=this.checkedEclos.eName;
+					this.exit.sex=this.checkedEclos.sex.sexName;
+					this.exit.dId=this.checkedEclos.dId;
+					this.exit.sId=this.checkedEclos.mId;
+					this.exit.jobId=this.checkedEclos.jId;
 					alert("正在将选择的员工填入");
 					$("#xzyg").modal("hide");
+					this.openFireLogin();
 				},
 				//门店选择
 				openStoreChoose(){
+					this.selAllStore();
 					$("#storeLogin").modal("show");
 				},
 				closeStoreChoose(){
@@ -730,6 +854,7 @@
 				//选择门店进行门店条件查询
 				storeChoose(){
 					alert("已选中这些门店，将对这些门店作为条件进行离职登记查询");
+					this.selBySid();
 					$("#storeLogin").modal("hide");
 				},
 				//全选门店或者全部取消
@@ -739,18 +864,44 @@
 						 this.storeChecks=[];
 					}else{
 						alert("全选");
-						this.storeChecks= this.storeList.map(item=>item.id);
+						this.storeChecks= this.storeList.map(item=>item.storeId);
 					}
 				},
 				//对门店进行查询
 				searchStore(){
+					var parse = $("#searchStore").val();
+					if(parse==null||parse==''){
+						this.selAllStore();
+						return;
+					}
+					let that=this;
+					$.ajax({
+						url:"http://127.0.0.1:8080/store/selStoreFuzzy/"+parse,
+						dataType:"json",
+						type:"get",
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						async:false,
+						success:function(result){
+							console.log(result);
+							that.storeList=result;
+							console.log(that.storeList);
+						}
+					});
+					alert("1122");
+					/*$("#storeLogin").modal("hide");
+					$("#storeLogin").modal("show");*/
 					alert("正在按条件查询门店");
 				},
 				//搜索框查询
 				searchWorkMan(){
+					
 					alert("正在根据搜索框内容进行员工条件查询");
 				},
 				openJgDiv(){
+					this.findTuanDui();
 					$("#jgDiv").modal("show");
 				},
 				closeJgDiv(){
@@ -758,10 +909,153 @@
 				},
 				chooseJg(){
 					alert("正在讲该技工进行录入");
-					$("#jgDiv").modal("hide")
+					$("#jgDiv").modal("hide");
+				},
+				//根据门店和部门查询员工
+				selEmply(){
+					let that=this;
+					var json=JSON.stringify(this.employ);
+					console.log(json);
+					$.ajax({
+						url:"http://127.0.0.1:8080/employees/selByMidAndDid",
+						type:"post",
+						data:json,
+						dataType:"json",
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						async:false,
+						contentType:"application/json;charset=utf-8",
+						success:function(result){
+							console.log(result);
+							that.yg=result;
+						}
+					});
+				},
+				selAllStore(){
+					let that=this;
+					$.ajax({
+						url:"http://127.0.0.1:8080/store",
+						type:"get",
+						dataType:"json",
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						async:false,
+						success:function(result){
+							console.log(result);
+							that.storeList=result;
+						}
+					});
+				},
+				//根据门店查询所有部门
+				selAllDepartment(){
+					var sId=this.employ.mId;
+					if(sId==""||sId==null){
+						sId=1;
+					}
+					let that=this;
+					console.log(sId);
+					$.ajax({
+						url:"http://127.0.0.1:8080/department/findBySid/"+sId,
+						type:"get",
+						dataType:"json",
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						async:false,
+						success:function(result){
+							console.log(result);
+							that.departmentList=result;
+						}
+					});
+				},
+				//选中元工行
+				chooseEmployTableTr(item){
+					this.checkedEclos=item;
+					console.log(this.checkedEclos);
+				},
+				  //点击tr背景变色
+                fn (index) {
+					      //点击切换 变量的值 赋值为 index
+					      this.isactive=index;
+				},
+				//门店筛选查询
+				selBySid(){
+					let that =this;
+					console.log(that.storeChecks);
+					$.ajax({
+						url:"http://127.0.0.1:8080/departure/selBySid",
+						type:"post",
+						data:JSON.stringify(that.storeChecks),
+						dataType:"json",
+						contentType: "application/json;charset=UTF-8",
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						async:false,
+						success:function(result){
+							console.log(result);
+							that.list=result;
+							that.a=that.list.length;
+						}
+					});
+				},
+				//将选择的离职员工编号录入用于回滚及删除
+				chooseYgTr(item){
+					this.changeEid=item.eId;
+					console.log(this.changeEid);
+					
+				},
+				//团队list填充
+				findTuanDui(){
+					let that=this;
+					$.ajax({
+						url:"http://127.0.0.1:8080/tuandui/find",
+						success:function(result){
+							that.tuandui=result;
+						}
+					});
+				},
+				//
+				bz(list,code,name,TeamForm){
+						this.updateTeamFrom = TeamForm;
+						this.jgVisble = true;
+						this.bzVisble = true;
+						let that = this;
+						list.core = code;
+						list.name = name;
+						console.log(this.jgList);
+						this.jgList = list;
+				},
+				//
+				findByLike(){
+						let that = this;
+						$.ajax({
+							url:"http://127.0.0.1:8080/tuandui/findByLike",
+							data:{
+								condition:that.findLike
+							},
+							type:"post",
+							success:function(result){
+								console.log(result);
+								that.jgList = result;
+							}
+						}) 
+				},
+				//
+				xgjgUpdate(item){
+						this.xgjgVisble = true;
+						this.updatejg = item;
 				}
 			},
 			created(){
+				this.employ={};
+				this.yg=[];
 				this.find();
 			}
 		});

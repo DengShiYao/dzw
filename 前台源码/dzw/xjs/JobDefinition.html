@@ -91,11 +91,11 @@
 					<div class="row">
 						<div class="col-lg-3">
 							<label for="jid" class="labcolor">岗位编码</label>
-							<input type="text" name="" id="jid" value="" v-model="gangwei.jId" />
+							<input type="text" name="" id="jid" value="" v-model="gangwei.jobId" />
 						</div>									
 						<div class="col-lg-3">
 							<label for="jname" class="labcolor">岗位名称</label>
-							<input type="text" name="" id="jname" value="" v-model="gangwei.jName"/>
+							<input type="text" name="" id="jname" value="" v-model="gangwei.jobName"/>
 						</div>									
 					</div>
 					<div>
@@ -104,9 +104,9 @@
 								<th>岗位编号</th>
 								<th>岗位名称</th>
 							</tr>
-							<tr v-for="item,index in gw" @click="tc(item,index)">
-								<td>{{item.jId}}</td>
-								<td>{{item.jName}}</td>
+							<tr v-for="item,index in list" @click="tc(item,index)">
+								<td>{{item.jobId}}</td>
+								<td>{{item.jobName}}</td>
 							</tr>
 						</table>
 					</div>
@@ -125,22 +125,14 @@
 			data(){
 				return{
 					gw:[],
-					//初始化状态岗位模拟数据
-					list:[{
-						jId:152,
-						jName:"大客户专员"
-					},{
-						jId:161,
-						jName:"按揭经理"
-					},{
-						jId:199,
-						jName:"大大大"
-					}],
+					list:[],
 					num:0,
-					/*a:3,*/
 					gangwei:{
-						jId:"",
-						jName:""
+						jobId:"",
+						jobName:"",
+						column1:null,
+						column2:null,
+						column3:null
 					},
 					//删除用的index
 					index:0
@@ -150,7 +142,7 @@
 				getCount(){
 					let that=this;
 					$.ajax({
-						url:"http://127.0.0.1:8080/dzw1/job/count",
+						url:"http://127.0.0.1:8080/job/count",
 						xhrFields: {
 							withCredentials: true
 						},
@@ -164,7 +156,7 @@
 				find(){
 					let that=this;
 					$.ajax({
-						url:"http://127.0.0.1:8080/dzw1/job",
+						url:"http://127.0.0.1:8080/job",
 						type:"get",
 						dataType:"json",
 						xhrFields: {
@@ -181,64 +173,64 @@
 				},
 				add(){
 					let that =this;
-					$.ajax({
-						url:"http://127.0.0.1:8080/dzw1/job",
-						type:"post",
-						xhrFields: {
-							withCredentials: true
-						},
-						crossDomain: true,
-						data:that.gangwei,
-						success:function(result){
-							if(result){
-								alert("成功");
-							}else{
-								alert("失败")
+					if(that.gangwei.jobId.trim()!=""&&that.gangwei.jobName.trim()!=""){
+							var json =JSON.stringify(that.gangwei);
+						$.ajax({
+							url:"http://127.0.0.1:8080/job",
+							type:"post",
+							contentType:"application/json;charset=utf-8",
+							xhrFields: {
+								withCredentials: true
+							},
+							crossDomain: true,
+							data:json,
+							success:function(result){
+								if(result){
+									alert("成功");
+								}else{
+									alert("失败")
+								}
 							}
-						}
-					});
-					/*this.gw.push(this.gangwei);
-					this.num=this.num+1;
-					alert("新增成功");*/
+						});
+					}
 					this.find();
 					this.getCount();
 				},
 				remove(){
 					let that=this;
+					console.log(that.gangwei);
 					$.ajax({
-						url:"http://127.0.0.1:8080/dzw1/job",
+						url:"http://127.0.0.1:8080/job/remove/"+that.gangwei.jobId,
 						type:"delete",
 						xhrFields: {
 							withCredentials: true
 						},
 						crossDomain: true,
-						data:that.gangwei.jId,
 						success:function(result){
 							alert(result);
 						}
 					});
 					this.find();
 					this.getCount();
-					/*this.gw.splice(this.index,1);
-					this.num=this.num-1;
-					alert("删除成功");*/
 				},
 				update(){
-					$.ajax({
-						url:"",
-						type:"put",
-						xhrFields: {
-							withCredentials: true
-						},
-						crossDomain: true,
-						data:that.gangwei,
-						success:function(result){
-							alert(result);
-						}
-					});
-					/*this.gw.splice(this.index,1);
-					this.gw.push(this.gangwei);
-					alert("修改成功");*/
+					let that =this;
+					if(that.gangwei.jobId.trim()!=""&&that.gangwei.jobName.trim()!=""){
+						var json=JSON.stringify(that.gangwei);
+						$.ajax({
+							url:"http://127.0.0.1:8080/job",
+							contentType:"application/json;charset=utf-8",
+							type:"put",
+							xhrFields: {
+								withCredentials: true
+							},
+							crossDomain: true,
+							data:json,
+							success:function(result){
+								alert(result);
+							}
+						});
+					}
 					this.find();
 					this.getCount();
 				},
@@ -246,9 +238,9 @@
 					alert("导出成功");
 				},
 				tc(item,index){
-					this.gangwei.jId=item.jId;
-					this.gangwei.jName=item.jName;
-					this.index=index;
+					this.gangwei.jobId=item.jobId;
+					this.gangwei.jobName=item.jobName;
+					/*this.index=index;*/
 				}
 			},
 			created(){
