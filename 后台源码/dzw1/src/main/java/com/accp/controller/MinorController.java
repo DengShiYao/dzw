@@ -9,10 +9,7 @@ import com.accp.service.impl.MinorServiceImpl;
 import com.accp.service.impl.ServeServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -82,8 +79,8 @@ public class MinorController {
      * @param minorId
      * @return
      */
-    @PostMapping("/del")
-    public ResultVO delMinor(String minorId){
+    @PostMapping("/del/{minorId}")
+    public ResultVO delMinor(@PathVariable  String minorId){
         serveService.remove(new QueryWrapper<Serve>().lambda().eq(Serve::getBrandId,minorId));
         return new ResultVO(ResultCode.SUCCESS,service.remove(new QueryWrapper<Minor>().lambda()
                 .eq(Minor::getMinorId, minorId)));

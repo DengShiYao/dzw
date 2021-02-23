@@ -3,10 +3,12 @@ package com.accp.controller;
 
 import com.accp.domain.CarIcon;
 import com.accp.domain.CarType;
+import com.accp.domain.Serve;
 import com.accp.result.ResultCode;
 import com.accp.result.ResultVO;
 import com.accp.service.impl.CarIconServiceImpl;
 import com.accp.service.impl.CarTypeServiceImpl;
+import com.accp.service.impl.ServeServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,6 +41,8 @@ public class CarTypeController {
     CarTypeServiceImpl carTypeService;
     @Autowired
     CarIconServiceImpl iconService;
+    @Autowired
+    ServeServiceImpl serveService;
 
 
     /**
@@ -56,7 +60,12 @@ public class CarTypeController {
     }
 
 
-
+    /**
+     * 新增
+     * @param file
+     * @param carType
+     * @return
+     */
     @PostMapping("/upload")
     public ResultVO addCarTypeUpload(MultipartFile file, @Valid  CarType carType){
         System.out.println(carType);
@@ -102,7 +111,6 @@ public class CarTypeController {
      */
     @PostMapping("/upd")
     public ResultVO updCarTypeUpload(MultipartFile file, @Valid  CarType carType){
-        System.out.println(carType);
         //先判断此id的合法性
         if (carType.getBeforeId()==null || carType.getBeforeId()=="" ) {
             return new ResultVO(ResultCode.ID_NOT_NULL);
@@ -114,7 +122,7 @@ public class CarTypeController {
             //nul 代表没有此编号纯在 可以进行修改
             return one==null ? carIdNotEq(file,carType) : new ResultVO(ResultCode.PEY_EXIT);
         }else {
-            //编号为修改
+            //编号未修改
             return carIdEq(file,carType);
         }
     }
@@ -137,6 +145,9 @@ public class CarTypeController {
                 iconService.remove(new QueryWrapper<CarIcon>().lambda().eq(CarIcon::getCarId,carType.getBeforeId()));
                 //修改
                 carTypeService.updateByKey(carType);
+                //修改维修服务内信息
+                Serve serve = new Serve().setBrandId(carType.getCarId()).setColumn1(carType.getCarName());
+                serveService.update(serve,new QueryWrapper<Serve>().lambda().eq(Serve::getBrandId,carType.getCarId()).eq(Serve::getColumn2,"1"));
                 boolean insert = new CarIcon().setCarId(carType.getCarId()).setIcName(uuid + suffix).insert();
                 if (insert){
                     return new ResultVO(ResultCode.SUCCESS);
@@ -149,12 +160,15 @@ public class CarTypeController {
         }else {
             //如果没有上传图片,并且主键没有被修改
             carTypeService.update(carType,new QueryWrapper<CarType>().lambda().eq(CarType::getCarId,carType.getCarId()));
+            //修改维修服务内信息
+            Serve serve = new Serve().setBrandId(carType.getCarId()).setColumn1(carType.getCarName());
+            serveService.update(serve,new QueryWrapper<Serve>().lambda().eq(Serve::getBrandId,carType.getCarId()).eq(Serve::getColumn2,"1"));
             return new ResultVO(ResultCode.SUCCESS);
         }
     }
 
     /**
-     * 如果id变化修改
+     * 如果id变化 修改
      * @param file
      * @param carType
      * @return
@@ -172,6 +186,9 @@ public class CarTypeController {
                 iconService.remove(new QueryWrapper<CarIcon>().lambda().eq(CarIcon::getCarId,carType.getBeforeId()));
                 //修改
                 carTypeService.updateByKey(carType);
+                //修改维修服务内信息
+                Serve serve = new Serve().setBrandId(carType.getCarId()).setColumn1(carType.getCarName());
+                serveService.update(serve,new QueryWrapper<Serve>().lambda().eq(Serve::getBrandId,carType.getBeforeId()).eq(Serve::getColumn2,"1"));
                 boolean insert = new CarIcon().setCarId(carType.getCarId()).setIcName(uuid + suffix).insert();
                 if (insert){
                     return new ResultVO(ResultCode.SUCCESS);
@@ -189,6 +206,9 @@ public class CarTypeController {
                 iconService.remove(new QueryWrapper<CarIcon>().lambda().eq(CarIcon::getCarId,carType.getBeforeId()));
             }
             carTypeService.updateByKey(carType);
+            //修改维修服务内信息
+            Serve serve = new Serve().setBrandId(carType.getCarId()).setColumn1(carType.getCarName());
+            serveService.update(serve,new QueryWrapper<Serve>().lambda().eq(Serve::getBrandId,carType.getCarId()).eq(Serve::getColumn2,"1"));
             CarIcon icon = new CarIcon();
             icon.setCarId(carType.getCarId());
             icon.setIcName(one1.getIcName());

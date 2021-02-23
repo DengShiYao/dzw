@@ -9,10 +9,7 @@ import com.accp.service.impl.ServeServiceImpl;
 import com.accp.service.impl.UpkeepServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -81,8 +78,8 @@ public class UpkeepController {
      * @param upkeepId
      * @return
      */
-    @PostMapping("/del")
-    public ResultVO delUpkepp(Integer upkeepId){
+    @PostMapping("/del/{upkeepId}")
+    public ResultVO delUpkepp(@PathVariable String upkeepId){
         serveService.remove(
                 new QueryWrapper<Serve>().lambda().eq(Serve::getBrandId,upkeepId));
         return new ResultVO(ResultCode.SUCCESS,service.remove(new QueryWrapper<Upkeep>().lambda()

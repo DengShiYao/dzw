@@ -87,21 +87,18 @@
                         </div>
                     </div>
                     <div style="margin-top: 5px; ">
-                        <!-- <button v-slot:buttons type="button" @click="getCurrentEvent"> 你好</button> -->
                         <template>
                             <vxe-grid border stripe highlight-hover-row highlight-current-row resizable ref="xTable"
                                 class="mytable-scrollbar" auto-resize height="535" :data="tableData"
                                 :columns="tableColumn" @current-change="currentChangeEvent" round show-header-overflow
                                 show-overflow>
                             </vxe-grid>
-                            <!-- <vxe-table border highlight-hover-row highlight-current-row resizable ref="xTable"
-             auto-resize :data="tableData" @current-change="currentChangeEvent"
-             class="mytable-scrollbar" show-overflow> -->
                         </template>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-12 countn" style="border: 0px solid red;">&nbsp;&nbsp;&nbsp;记录条数：<span>999</span></div>
+            <div class="col-sm-12 countn" style="border: 0px solid red;">&nbsp;&nbsp;&nbsp;记录条数：<span
+                    v-text="tableData.length"></span></div>
             <!-- 模态框 -->
             <!-- 车型新增 -->
             <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="myModal1"
@@ -297,11 +294,11 @@
                                                     <div class="col-sm-10">
                                                         <select
                                                             :class="[arrayCarType[3] ? 'form-control head-error':'form-control']"
-                                                            @click="clickTyepInput(3)" id="inputEmail11"
-                                                            name="engineName" v-model="carType.engineName">
+                                                            @click="clickTyepInput(3)" id="inputEmail11" name="column1"
+                                                            v-model="carType.column1">
                                                             <option value="0">===请选择===</option>
-                                                            <option v-for="item in engineBrand"
-                                                                :value="item.engineName">{{ item.engineName }}
+                                                            <option v-for="item in engineBrand" :value="item.engineId">
+                                                                {{ item.engineName }}
                                                             </option>
                                                         </select>
                                                     </div>
@@ -480,28 +477,6 @@
                                         </tr>
                                         <tr>
                                             <td colspan="2">
-                                                <!-- <div class="form-group">
-                                                    <label for="inputEmail10"
-                                                        :class="[arrayCarType[2] ? 'col-sm-2 head-font control-label':'col-sm-2 control-label']"><span
-                                                            class="span1">*</span>&nbsp;索赔厂商</label>
-                                                    <div class="col-sm-10">
-                                                        <div class="input-group col-sm-12" style="width: 129.5%;">
-                                                            <input type="text"
-                                                                style="border-radius:4px 0px 0px 4px; width: 70%;"
-                                                                :class="[arrayCarType[2] ? 'form-control head-error':'form-control']"
-                                                                @click="clickTyepInput(2)" id="inputEmail10" name="sid"
-                                                                onkeyup="this.value=this.value.replace(/[, ]/g,'')"
-                                                                v-model="carType.sid">
-                                                            <span class="input-group-btn"
-                                                                style="display: inline-block;">
-                                                                <button
-                                                                    :class="[arrayCarType[2] ? 'btn btn-default btn-checked':'btn btn-default']"
-                                                                    type="button"><span
-                                                                        class="glyphicon glyphicon-plus"></span></button>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div> -->
                                                 <!-- == -->
                                                 <div class="form-group">
                                                     <label for="inputEmail10"
@@ -544,11 +519,11 @@
                                                     <div class="col-sm-10">
                                                         <select
                                                             :class="[arrayCarType[3] ? 'form-control head-error':'form-control']"
-                                                            @click="clickTyepInput(3)" id="inputEmail11"
-                                                            name="engineName" v-model="carType.engineName">
+                                                            @click="clickTyepInput(3)" id="inputEmail11" name="column1"
+                                                            v-model="carType.column1">
                                                             <option value="0">===请选择===</option>
-                                                            <option v-for="item in engineBrand"
-                                                                :value="item.engineName">{{ item.engineName }}
+                                                            <option v-for="item in engineBrand" :value="item.engineId">
+                                                                {{ item.engineName }}
                                                             </option>
                                                         </select>
                                                     </div>
@@ -853,16 +828,16 @@
                     textHide: false,
                     tableColumn: [
                         // { type: 'checkbox', width: 50, visible: true },
-                        { field: 'carId', title: '车型ID', sortable: true, showOverflow: true, width: 200, visible: true },
-                        { field: 'carName', title: '车型名称', sortable: true, showOverflow: true, width: 200, visible: true },
-                        { field: 'engineName', title: '发动机品牌', sortable: true, showOverflow: true, width: 200, visible: true },
-                        { field: 'referencePrice', title: '参考价格', sortable: true, showOverflow: true, width: 200, visible: true },
-                        { field: 'carStyle', title: '车辆年款', sortable: true, showOverflow: true, width: 200, visible: true },
-                        { field: 'power', title: '功率', sortable: true, showOverflow: true, width: 200, visible: true },
-                        { field: 'regionName', title: '索赔厂商', sortable: true, showOverflow: true, width: 200, visible: true },
-                        { field: 'importName', title: '进口国产', sortable: true, showOverflow: true, width: 200, visible: true },
-                        { field: 'fuelNumber', title: '燃油标号', sortable: true, showOverflow: true, width: 200, visible: true },
-                        { field: 'loadbearing', title: '载重', sortable: true, showOverflow: true, width: 200, visible: true },
+                        { field: 'carId', title: '车型ID', sortable: true, showOverflow: true, width: 200, visible: true, formatter: 'formatNull' },
+                        { field: 'carName', title: '车型名称', sortable: true, showOverflow: true, width: 200, visible: true, formatter: 'formatNull' },
+                        { field: 'engineName', title: '发动机品牌', sortable: true, showOverflow: true, width: 200, visible: true, formatter: 'formatNull' },
+                        { field: 'referencePrice', title: '参考价格', sortable: true, showOverflow: true, width: 200, visible: true, formatter: 'formatAmount' },
+                        { field: 'carStyle', title: '车辆年款', sortable: true, showOverflow: true, width: 200, visible: true, formatter: 'formatNull' },
+                        { field: 'power', title: '功率', sortable: true, showOverflow: true, width: 200, visible: true, formatter: 'formatNull' },
+                        { field: 'regionName', title: '索赔厂商', sortable: true, showOverflow: true, width: 200, visible: true, formatter: 'formatNull' },
+                        { field: 'importName', title: '进口国产', sortable: true, showOverflow: true, width: 200, visible: true, formatter: 'formatNull' },
+                        { field: 'fuelNumber', title: '燃油标号', sortable: true, showOverflow: true, width: 200, visible: true, formatter: 'formatNull' },
+                        { field: 'loadbearing', title: '载重', sortable: true, showOverflow: true, width: 200, visible: true, formatter: 'formatNull' },
                     ],
                     tableData: [],
                     tableColumn2: [
@@ -883,7 +858,7 @@
                     that.carType.provCode = iframeVue.provCode;
                     that.carType.provName = iframeVue.provName;
                     that.arrayCarType[2] = true;
-                    that.tempCarBrand.istrue = true;
+                    that.tempCarBrand.istrue = false;
                     Vue.set(that.arrayCarType, 2, false) //这样就能被vue监控到，更新视图 
                     $("#myModal10").modal("hide");
                 });
@@ -921,7 +896,6 @@
                     let _this = this;
                     var files = e.target.files[0];
                     if (!files) {
-                        console.log("D")
                         return false;
                     }
                     /*图片类型正则验证*/
@@ -1118,6 +1092,7 @@
                     var formdata = new FormData(form);
                     formdata.append("file", this.$refs.filElem.files[0]);
                     formdata.append("brandName", this.carType.brandName);
+                    formdata.append("engineName", this.carType.engineName);
                     let that = this;
                     $.ajax({
                         url: "http://127.0.0.1:8080/carType/upload",
@@ -1160,6 +1135,7 @@
                     formdata.append("file", this.$refs.filElem1.files[0]);
                     formdata.append("brandName", this.carType.brandName);
                     formdata.append("beforeId", this.carType.beforeId);
+                    formdata.append("engineName", this.carType.engineName);
                     let that = this;
                     $.ajax({
                         url: "http://127.0.0.1:8080/carType/upd",
@@ -1252,6 +1228,12 @@
                 */
                 checkCarTypeForm(index) {
                     this.tempCarBrand.message = "红色边框内为必填项";
+                    this.engineBrand.forEach(item => {
+                        if (this.carType.column1 == item.engineId) {
+                            this.carType.engineName = item.engineName;
+                        }
+                    });
+                    console.log(this.carType.engineName);
                     let bool = true;
                     if (this.carType.carId == null || this.carType.carId == "") {
                         this.arrayCarType[0] = true;
@@ -1455,7 +1437,11 @@
                         success: function (result) {
                             if (result.code == 1000) {
                                 let pojo = JSON.parse(JSON.stringify(that.$refs.xTable2.getCurrentRecord()));
-                                that.findCarType(pojo.carId);
+                                try {
+                                    that.findCarType(pojo.carId);
+                                } catch (error) {
+                                    that.findCarType(that.carData[0].carId);
+                                }
                             }
                             $("#myModal3").modal("hide");
                         }
@@ -1498,10 +1484,11 @@
                     this.carType.loadbearing = "";
                     this.carType.fuelNumber = "";
                     this.carType.sid = "";
-                    this.carType.engineName = 0;
+                    this.carType.engineName = "";
                     this.carType.provCode = "";
                     this.carType.provName = "";
                     this.carType.regionName = "";
+                    this.carType.column1 = 0;
                     this.arrayCarType.forEach((value, index) => {
                         Vue.set(this.arrayCarType, index, false) //这样就能被vue监控到，更新视图 
                     });
@@ -1553,7 +1540,46 @@
             }
         };
         var Ctor = Vue.extend(Main);
-        new Ctor().$mount('.container-fluid')
+        new Ctor().$mount('.container-fluid');
+
+        VXETable.formats.mixin({
+            // 格式化性别
+            formatSex({ cellValue }) {
+                return cellValue ? (cellValue === '1' ? '男' : '女') : ''
+            },
+            formatNull({ cellValue }) {
+                return cellValue ? cellValue : '-'
+            },
+            // 格式化下拉选项
+            formatSelect({ cellValue }, list) {
+                const item = list.find(item => item.value === cellValue)
+                return item ? item.label : ''
+            },
+            // 格式化日期，默认 yyyy-MM-dd HH:mm:ss
+            formatDate({ cellValue }, format) {
+                return XEUtils.toDateString(cellValue, format || 'yyyy-MM-dd HH:mm:ss')
+            },
+            // 四舍五入金额，每隔3位逗号分隔，默认2位数
+            formatAmount({ cellValue }, digits = 2) {
+                return XEUtils.commafy(XEUtils.toNumber(cellValue), { digits })
+            },
+            // 格式化银行卡，默认每4位空格隔开
+            formatBankcard({ cellValue }) {
+                return XEUtils.commafy(XEUtils.toString(cellValue), { spaceNumber: 4, separator: ' ' })
+            },
+            // 四舍五入,默认两位数
+            formatFixedNumber({ cellValue }, digits = 2) {
+                return XEUtils.toFixed(XEUtils.round(cellValue, digits), digits)
+            },
+            // 向下舍入,默认两位数
+            formatCutNumber({ cellValue }, digits = 2) {
+                return XEUtils.toFixed(XEUtils.floor(cellValue, digits), digits)
+            },
+            // 转换 moment 类型为字符串
+            toMomentString({ cellValue }, format) {
+                return cellValue ? cellValue.format(format) : ''
+            }
+        })
     </script>
 </body>
 

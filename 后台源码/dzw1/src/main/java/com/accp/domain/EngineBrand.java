@@ -52,6 +52,10 @@ public class EngineBrand extends Model<EngineBrand> {
     @TableField(exist = false)
     private List<EngineBrand> children;
 
+    @ApiModelProperty(value = "备用列")
+    @TableField(exist = false)
+    private String beforeName;
+
 
     public static final String ENGINE_ID = "engine_id";
 

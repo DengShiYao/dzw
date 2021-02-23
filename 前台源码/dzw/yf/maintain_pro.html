@@ -40,8 +40,8 @@
                             </vxe-button>
                             <vxe-button icon="glyphicon glyphicon-edit" @click="updClassifyModal">修改分类
                             </vxe-button>
-                            <vxe-button icon="glyphicon glyphicon-remove-circle" data-toggle="modal" data-toggle="modal"
-                                data-target="#myModal3">删除</vxe-button>
+                            <vxe-button icon="glyphicon glyphicon-remove-circle" @click="removeCoinSprayModal">删除
+                            </vxe-button>
                         </template>
                     </vxe-toolbar>
                 </div>
@@ -52,9 +52,9 @@
                             </vxe-button>
                             <vxe-button icon="glyphicon glyphicon-edit" @click="openUpdServe">修改
                             </vxe-button>
-                            <vxe-button icon="glyphicon glyphicon-remove-circle" data-toggle="modal"
-                                data-target="#myModal7">删除</vxe-button>
-                            <vxe-button icon="fa fa-gavel" data-toggle="modal" data-target="#myModal8">
+                            <vxe-button icon="glyphicon glyphicon-remove-circle" @click="removeServeModal">删除
+                            </vxe-button>
+                            <vxe-button icon="fa fa-gavel" @click="openAdjustPrice">
                                 调价</vxe-button>
                             <!-- <vxe-button icon="glyphicon glyphicon-floppy-disk">保存</vxe-button> -->
                             <vxe-button icon="glyphicon glyphicon-export">导出</vxe-button>
@@ -68,9 +68,9 @@
                     <!-- 左侧树形  row-id="column1" -->
                     <!-- empty-text="没有更多数据了！" -->
                     <template>
-                        <vxe-grid round resizable show-overflow class="mytable-scrollbar" row-id="isId" height="100%"
-                            highlight-hover-row ref="xTree1" highlight-current-row :show-header="false"
-                            @current-change="currentChangeEventTree"
+                        <vxe-grid round :loading="loading" resizable show-overflow class="mytable-scrollbar"
+                            row-id="isId" height="100%" highlight-hover-row ref="xTree1" highlight-current-row
+                            :show-header="false" @current-change="currentChangeEventTree"
                             :tree-config="{children: 'children',reserve:'true'}" :data="treeData"
                             :columns="treeColumn1">
                             <!-- 使用自定义插槽来定义显示内容 -->
@@ -83,18 +83,17 @@
                 <div class="col-sm-10" style="height: 100%;border: 0px solid red; padding-right: 0px;">
                     <div style="height: 100%;">
                         <template>
-                            <vxe-grid border stripe highlight-hover-row highlight-current-row resizable ref="xTable"
-                                class="mytable-scrollbar" auto-resize height="100%" :data="tableData"
-                                :columns="tableColumn" @current-change="currentChangeEvent" round show-header-overflow
-                                show-overflow>
+                            <vxe-grid border stripe :loading="loading" highlight-hover-row highlight-current-row
+                                resizable ref="xTable" class="mytable-scrollbar" auto-resize height="100%"
+                                :data="tableData" :columns="tableColumn" @current-change="currentChangeEvent" round
+                                show-header-overflow show-overflow>
                             </vxe-grid>
                         </template>
                     </div>
                 </div>
             </div>
             <div class="col-sm-12 countn" style=" height: 4.6%; border: 0px solid red;">
-                &nbsp;&nbsp;&nbsp;&nbsp;总数据：<span>999</span></div>
-
+                &nbsp;&nbsp;&nbsp;&nbsp;总数据：<span v-text="tableData.length"></span></div>
             <!-- 模态框  -->
             <!-- 增加分类 -->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -182,11 +181,11 @@
                             <h4 class="modal-title" id="myModalLabel">品牌定义</h4>
                         </div>
                         <div class="modal-body">
-                            <h4>删除项目分类时，连同下面的维修项目一起删除？</h4>
+                            <h5>删除项目分类时，连同下面的维修项目一起删除？</h5>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">否</button>
-                            <button type="button" class="btn btn-primary">是</button>
+                            <button type="button" class="btn btn-primary" @click="removeCoinSpray">是</button>
                         </div>
                     </div>
                 </div>
@@ -256,10 +255,10 @@
                                                     <div class="col-sm-9">
                                                         <select class="form-control" style="width: 102.1%"
                                                             v-model="serve.iid">
-                                                            <option value="1">工时费</option>
-                                                            <option value="2">燃油费</option>
-                                                            <option value="3">代办费</option>
-                                                            <option value="4">其他费</option>
+                                                            <option value="工时费">工时费</option>
+                                                            <option value="燃油费">燃油费</option>
+                                                            <option value="代办费">代办费</option>
+                                                            <option value="其他费">其他费</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -304,6 +303,7 @@
                                                     <div class="col-sm-8">
                                                         <input type="text" class="form-control" id="inputPassword6"
                                                             onkeyup="this.value=this.value.replace(/[, ]/g,'')"
+                                                            @input="inputPrice" placeholder="0.00"
                                                             v-model="serve.price">
                                                     </div>
                                                 </div>
@@ -314,6 +314,7 @@
                                                         class="col-sm-4 control-label">会员价</label>
                                                     <div class="col-sm-8">
                                                         <input type="text" class="form-control" id="inputPassword7"
+                                                            placeholder="0.00"
                                                             onkeyup="this.value=this.value.replace(/[, ]/g,'')"
                                                             v-model="serve.memberPrice">
                                                     </div>
@@ -325,6 +326,7 @@
                                                         class="col-sm-4 control-label">VIP价</label>
                                                     <div class="col-sm-8">
                                                         <input type="text" class="form-control" id="inputPassword7"
+                                                            placeholder="0.00"
                                                             onkeyup="this.value=this.value.replace(/[, ]/g,'')"
                                                             v-model="serve.vipPrice">
                                                     </div>
@@ -338,6 +340,7 @@
                                                         class="col-sm-4 control-label">协议价</label>
                                                     <div class="col-sm-8">
                                                         <input type="text" class="form-control" id="inputPassword6"
+                                                            placeholder="0.00"
                                                             onkeyup="this.value=this.value.replace(/[, ]/g,'')"
                                                             v-model="serve.protocolPrice">
                                                     </div>
@@ -349,6 +352,7 @@
                                                         class="col-sm-4 control-label">索赔价</label>
                                                     <div class="col-sm-8">
                                                         <input type="text" class="form-control" id="inputPassword7"
+                                                            placeholder="0.00"
                                                             onkeyup="this.value=this.value.replace(/[, ]/g,'')"
                                                             v-model="serve.claimPrice">
                                                     </div>
@@ -360,6 +364,7 @@
                                                         class="col-sm-4 control-label">保险价</label>
                                                     <div class="col-sm-8">
                                                         <input type="text" class="form-control" id="inputPassword7"
+                                                            placeholder="0.00"
                                                             onkeyup="this.value=this.value.replace(/[, ]/g,'')"
                                                             v-model="serve.insurancePrice">
                                                     </div>
@@ -425,10 +430,10 @@
                                                     <div class="col-sm-9">
                                                         <select class="form-control" style="width: 102.1%"
                                                             v-model="serve.iid">
-                                                            <option value="1">工时费</option>
-                                                            <option value="2">燃油费</option>
-                                                            <option value="3">代办费</option>
-                                                            <option value="4">其他费</option>
+                                                            <option value="工时费">工时费</option>
+                                                            <option value="燃油费">燃油费</option>
+                                                            <option value="代办费">代办费</option>
+                                                            <option value="其他费">其他费</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -472,6 +477,7 @@
                                                         class="col-sm-4 control-label">标准价</label>
                                                     <div class="col-sm-8">
                                                         <input type="text" class="form-control" id="inputPassword6"
+                                                            placeholder="0.00" @input="inputPrice"
                                                             onkeyup="this.value=this.value.replace(/[, ]/g,'')"
                                                             v-model="serve.price">
                                                     </div>
@@ -483,6 +489,7 @@
                                                         class="col-sm-4 control-label">会员价</label>
                                                     <div class="col-sm-8">
                                                         <input type="text" class="form-control" id="inputPassword7"
+                                                            placeholder="0.00"
                                                             onkeyup="this.value=this.value.replace(/[, ]/g,'')"
                                                             v-model="serve.memberPrice">
                                                     </div>
@@ -494,6 +501,7 @@
                                                         class="col-sm-4 control-label">VIP价</label>
                                                     <div class="col-sm-8">
                                                         <input type="text" class="form-control" id="inputPassword7"
+                                                            placeholder="0.00"
                                                             onkeyup="this.value=this.value.replace(/[, ]/g,'')"
                                                             v-model="serve.vipPrice">
                                                     </div>
@@ -507,6 +515,7 @@
                                                         class="col-sm-4 control-label">协议价</label>
                                                     <div class="col-sm-8">
                                                         <input type="text" class="form-control" id="inputPassword6"
+                                                            placeholder="0.00"
                                                             onkeyup="this.value=this.value.replace(/[, ]/g,'')"
                                                             v-model="serve.protocolPrice">
                                                     </div>
@@ -518,6 +527,7 @@
                                                         class="col-sm-4 control-label">索赔价</label>
                                                     <div class="col-sm-8">
                                                         <input type="text" class="form-control" id="inputPassword7"
+                                                            placeholder="0.00"
                                                             onkeyup="this.value=this.value.replace(/[, ]/g,'')"
                                                             v-model="serve.claimPrice">
                                                     </div>
@@ -529,6 +539,7 @@
                                                         class="col-sm-4 control-label">保险价</label>
                                                     <div class="col-sm-8">
                                                         <input type="text" class="form-control" id="inputPassword7"
+                                                            placeholder="0.00"
                                                             onkeyup="this.value=this.value.replace(/[, ]/g,'')"
                                                             v-model="serve.insurancePrice">
                                                     </div>
@@ -552,11 +563,11 @@
                             <h4 class="modal-title" id="myModalLabel">删除确认</h4>
                         </div>
                         <div class="modal-body">
-                            <h4>是否确认删除该记录？</h4>
+                            <h5>是否确认删除该记录？</h5>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">否</button>
-                            <button type="button" class="btn btn-primary">是</button>
+                            <button type="button" class="btn btn-primary" @click="removeServe">是</button>
                         </div>
                     </div>
                 </div>
@@ -575,24 +586,23 @@
                                 <div class="col-sm-2"></div>
                                 <div class="form-group" style="margin-top: 15px;">
                                     <div class=" col-sm-3">
-                                        <select class="form-control" style="width: 102.1%">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
+                                        <select class="form-control" style="width: 102.1%" v-model="price2">
+                                            <option v-for="item,index in price" :value="index">{{ item.name }}
+                                            </option>
                                         </select>
                                     </div>
                                     <label for="inputPassword3" class="col-sm-2 control-label">=&nbsp;标准价&nbsp;*</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="inputPassword3">
+                                        <input type="text" class="form-control" v-model="countPrice">
                                     </div>
                                 </div>
                                 <div class="col-sm-2"></div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">否</button>
-                            <button type="button" class="btn btn-primary">是</button>
+                            <button type="button" class="btn btn-info abtn"
+                                style="padding-left: 25px; padding-right: 25px;" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn  btn-success abtn"
+                                style="padding-left: 25px; padding-right: 25px;" @click="clickAdjustPrice">保存</button>
                         </div>
                     </div>
                 </div>
@@ -629,6 +639,11 @@
                     minor: { minorId: "", minorName: "", beforeId: "" },
                     coinSpray: { coinId: "", coinName: "", beforeId: "" },
                     upkeep: { upkeepId: "", upkeepName: "", beforeId: "" },
+                    price: [],
+                    //调价 价格*比例
+                    countPrice: "",
+                    price2: "",
+                    serveCount: 0,
                     tempDate: [],
                     serve: { seId: "", seName: "", brandId: "", remark: "", price: "", memberPrice: "", vipPrice: "", protocolPrice: "", claimPrice: "", insurancePrice: "", column1: "", column2: "", beforeId: "", iid: "" },
                     hintText: "",
@@ -637,12 +652,12 @@
                         { num: 1, field: 'seId', title: '项目编码', sortable: true, showOverflow: true, visible: true },
                         { num: 1, field: 'seName', title: '项目名称', sortable: true, showOverflow: true, visible: true },
                         { num: 1, field: 'iid', title: '收入种类', sortable: true, showOverflow: true, visible: true },
-                        { num: 1, field: 'price', title: '标准价', sortable: true, showOverflow: true, visible: true },
-                        { num: 1, field: 'memberPrice', title: '会员价', sortable: true, showOverflow: true, visible: true },
-                        { num: 1, field: 'vipPrice', title: 'VIP价', sortable: true, showOverflow: true, visible: true },
-                        { num: 1, field: 'protocolPrice', title: '协议价', sortable: true, showOverflow: true, visible: true },
-                        { num: 1, field: 'claimPrice', title: '索赔价', sortable: true, showOverflow: true, visible: true },
-                        { num: 1, field: 'insurancePrice', title: '保险价', sortable: true, showOverflow: true, visible: true }
+                        { num: 1, field: 'price', title: '标准价', sortable: true, showOverflow: true, visible: true, formatter: 'formatAmount' },
+                        { num: 1, field: 'memberPrice', title: '会员价', sortable: true, showOverflow: true, visible: true, formatter: 'formatAmount' },
+                        { num: 1, field: 'vipPrice', title: 'VIP价', sortable: true, showOverflow: true, visible: true, formatter: 'formatAmount' },
+                        { num: 1, field: 'protocolPrice', title: '协议价', sortable: true, showOverflow: true, visible: true, formatter: 'formatAmount' },
+                        { num: 1, field: 'claimPrice', title: '索赔价', sortable: true, showOverflow: true, visible: true, formatter: 'formatAmount' },
+                        { num: 1, field: 'insurancePrice', title: '保险价', sortable: true, showOverflow: true, visible: true, formatter: 'formatAmount' }
                     ],
                     //维修项目data
                     tableData: [],
@@ -671,6 +686,7 @@
                 },
                 findepairing() {
                     let that = this;
+                    this.loading = true;
                     $.ajax({
                         url: "http://127.0.0.1:8080/serve/findepairing",
                         type: "get",
@@ -681,6 +697,7 @@
                         dataType: "json",
                         success: function (result) {
                             handlerResult(result, () => {
+                                that.loading = false;
                                 that.treeData = [];
                                 that.treeData.push(
                                     { uid: "", name: "车型", name2: "车型", children: [], prams: {}, isId: 1, comlun2: "" },
@@ -1013,7 +1030,7 @@
                     }
                     let that = this;
                     $.ajax({
-                        url: "http://127.0.0.1:8080/serve/selsarve/" + json.uid,
+                        url: "http://127.0.0.1:8080/serve/selsarve/" + json.uid + "/" + json.comlun2,
                         type: "get",
                         xhrFields: {
                             withCredentials: true
@@ -1055,6 +1072,7 @@
                     this.serve.seName = "";
                     this.serve.brandId = "0";
                     this.serve.remark = "";
+                    this.serve.price = "";
                     this.serve.memberPrice = "";
                     this.serve.protocolPrice = "";
                     this.serve.claimPrice = "";
@@ -1063,7 +1081,7 @@
                     this.serve.beforeId = "";
                     this.serve.column1 = "";
                     this.serve.column2 = "";
-                    this.serve.iid = 1;
+                    this.serve.iid = "工时费";
                 },
                 /*
                     增加维修服务模态框 1车型 2 发动机 3 钣喷 4 保养 5 小修
@@ -1116,7 +1134,7 @@
                         success: function (result) {
                             if (result.code == 1000) {
                                 //成功
-                                that.findepairing();
+                                that.selSarveAll();
                                 $("#myModel5").modal("hide");
                             } else if (result.code == 1002) {
                                 console.log("参数校验失败，红色框必填");
@@ -1173,7 +1191,7 @@
                         success: function (result) {
                             if (result.code == 1000) {
                                 //成功
-                                that.findepairing();
+                                that.selSarveAll();
                                 $("#myModel6").modal("hide");
                             } else if (result.code == 1002) {
                                 console.log("参数校验失败，红色框必填");
@@ -1183,7 +1201,252 @@
                         }
                     });
                 },
-
+                /*
+                    删除服务modal
+                */
+                removeServeModal() {
+                    if (json != null) {
+                        $("#myModal7").modal("show");
+                    }
+                }, /*
+                    删除服务modal
+                */
+                removeServe() {
+                    let that = this;
+                    console.log(that.$refs.xTable.getCurrentRecord().seId);
+                    $.ajax({
+                        url: "http://127.0.0.1:8080/serve/del/" + that.$refs.xTable.getCurrentRecord().seId,
+                        type: "post",
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        contentType: "application/json;charset=utf-8",
+                        crossDomain: true,
+                        dataType: "json",
+                        success: function (result) {
+                            if (result.code == 1000) {
+                                //成功
+                                that.selSarveAll();
+                                $("#myModal7").modal("hide");
+                            } else {
+                                console.log("删除失败")
+                            }
+                        }
+                    });
+                },
+                /*
+                    删除维修项目分类modal
+                */
+                removeCoinSprayModal() {
+                    let json = this.$refs.xTree1.getCurrentRecord();
+                    if (json != null) {
+                        if (json.uid == "") {
+                            this.hintText = "只能删除子类";
+                            $("#myModalalertupd").modal("show");
+                            setTimeout(() => {
+                                $("#myModalalertupd").modal("hide");
+                            }, 2000);
+                            return;
+                        } else if (json.name2 === "车型" || json.name2 === "发动机") {
+                            this.hintText = "只能修改车型、发动机以外的分类";
+                            $("#myModalalertupd").modal("show");
+                            setTimeout(() => {
+                                $("#myModalalertupd").modal("hide");
+                            }, 2000);
+                        } else {
+                            $("#myModal3").modal("show");
+                        }
+                    }
+                },
+                /*
+                    发送请求删除数据
+                */
+                removeCoinSpray() {
+                    let json = this.$refs.xTree1.getCurrentRecord();
+                    if (json.name2 === "钣喷") {
+                        this.removeCoinSpray();
+                    } else if (json.name2 === "保养") {
+                        this.removeUpkeep();
+                    } else if (json.name2 === "小修") {
+                        this.removeMinor()
+                    }
+                },
+                /*
+                    调用系方法小修删除
+                */
+                removeMinor() {
+                    let that = this;
+                    $.ajax({
+                        url: "http://127.0.0.1:8080/minor/del/" + that.$refs.xTree1.getCurrentRecord().uid,
+                        type: "post",
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        contentType: "application/json;charset=utf-8",
+                        crossDomain: true,
+                        dataType: "json",
+                        success: function (result) {
+                            if (result.code == 1000) {
+                                //成功
+                                that.findepairing();
+                                $("#myModal3").modal("hide");
+                            } else {
+                                console.log("删除失败");
+                            }
+                        }
+                    });
+                },
+                /*
+                   调用系方法删除保养
+               */
+                removeUpkeep() {
+                    let that = this;
+                    $.ajax({
+                        url: "http://127.0.0.1:8080/upkeep/del/" + that.$refs.xTree1.getCurrentRecord().uid,
+                        type: "post",
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        contentType: "application/json;charset=utf-8",
+                        crossDomain: true,
+                        dataType: "json",
+                        success: function (result) {
+                            if (result.code == 1000) {
+                                //成功
+                                that.findepairing();
+                                $("#myModal3").modal("hide");
+                            } else {
+                                console.log("删除失败");
+                            }
+                        }
+                    });
+                },
+                /*
+                   调用系方法删除钣喷
+               */
+                removeCoinSpray() {
+                    let that = this;
+                    $.ajax({
+                        url: "http://127.0.0.1:8080/coinSpray/del/" + that.$refs.xTree1.getCurrentRecord().uid,
+                        type: "post",
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        contentType: "application/json;charset=utf-8",
+                        crossDomain: true,
+                        dataType: "json",
+                        success: function (result) {
+                            if (result.code == 1000) {
+                                //成功
+                                that.findepairing();
+                                $("#myModal3").modal("hide");
+                            } else {
+                                console.log("删除失败");
+                            }
+                        }
+                    });
+                },
+                /*
+                    调价
+                */
+                openAdjustPrice() {
+                    let json = this.$refs.xTable.getCurrentRecord();
+                    if (json != null) {
+                        let pojo = JSON.parse(JSON.stringify(json));
+                        this.price = [];
+                        this.price2 = "0";
+                        this.price.push({
+                            num: pojo.price,
+                            name: "标准价",
+                            priceCulumn: "price"
+                        }, {
+                            num: pojo.price,
+                            name: "会员价",
+                            priceCulumn: "memberPrice"
+                        }, {
+                            num: pojo.price,
+                            name: "VIP价",
+                            priceCulumn: "vipPrice"
+                        }, {
+                            num: pojo.price,
+                            name: "协议价",
+                            priceCulumn: "protocolPrice"
+                        }, {
+                            num: pojo.price,
+                            name: "索赔价",
+                            priceCulumn: "claimPrice"
+                        }, {
+                            num: pojo.price,
+                            name: "保险价",
+                            priceCulumn: "insurancePrice"
+                        })
+                        $("#myModal8").modal("show");
+                    }
+                },
+                /*
+                    点击调价调整价格
+                */
+                clickAdjustPrice() {
+                    let temp = this.price[this.price2].num * this.countPrice;
+                    let priceCulumn = this.price[this.price2].priceCulumn;
+                    //发送请求修改价格
+                    let that = this;
+                    $.ajax({
+                        url: "http://127.0.0.1:8080/serve/reviseprice",
+                        type: "post",
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        data: {
+                            seId: that.$refs.xTable.getCurrentRecord().seId,
+                            price: temp,
+                            priceCulumn: priceCulumn
+                        },
+                        crossDomain: true,
+                        dataType: "json",
+                        success: function (result) {
+                            if (result.code == 1000) {
+                                //成功
+                                that.findepairing();
+                                $("#myModal8").modal("hide");
+                            } else {
+                                console.log("修改失败");
+                            }
+                        }
+                    });
+                },
+                /*
+                    价格换算
+                */
+                inputPrice() {
+                    let price = this.serve.price;
+                    this.serve.memberPrice = this.keepTwoDecimalFull(price * 0.95);
+                    this.serve.protocolPrice = this.keepTwoDecimalFull(price * 1.1);
+                    this.serve.claimPrice = this.keepTwoDecimalFull(price * 1.2);
+                    this.serve.vipPrice = this.keepTwoDecimalFull(price * 0.90);
+                    this.serve.insurancePrice = this.keepTwoDecimalFull(price * 1.3);
+                },
+                /*
+                    formatprice
+                */
+                keepTwoDecimalFull(num) {
+                    var result = parseFloat(num);
+                    if (isNaN(result)) {
+                        console.log("传入了非数字");
+                        return false;
+                    }
+                    result = Math.round(num * 100) / 100;
+                    var s_x = result.toString();
+                    var pos_decimal = s_x.indexOf('.');
+                    if (pos_decimal < 0) {
+                        pos_decimal = s_x.length;
+                        s_x += '.';
+                    }
+                    while (s_x.length <= pos_decimal + 2) {
+                        s_x += '0';
+                    }
+                    return s_x;
+                }
             },
             created() {
                 this.findepairing();
@@ -1191,6 +1454,42 @@
         };
         var Ctor = Vue.extend(Main);
         new Ctor().$mount('.container-fluid');
+
+        VXETable.formats.mixin({
+            // 格式化性别
+            formatSex({ cellValue }) {
+                return cellValue ? (cellValue === '1' ? '男' : '女') : ''
+            },
+            // 格式化下拉选项
+            formatSelect({ cellValue }, list) {
+                const item = list.find(item => item.value === cellValue)
+                return item ? item.label : ''
+            },
+            // 格式化日期，默认 yyyy-MM-dd HH:mm:ss
+            formatDate({ cellValue }, format) {
+                return XEUtils.toDateString(cellValue, format || 'yyyy-MM-dd HH:mm:ss')
+            },
+            // 四舍五入金额，每隔3位逗号分隔，默认2位数
+            formatAmount({ cellValue }, digits = 2) {
+                return XEUtils.commafy(XEUtils.toNumber(cellValue), { digits })
+            },
+            // 格式化银行卡，默认每4位空格隔开
+            formatBankcard({ cellValue }) {
+                return XEUtils.commafy(XEUtils.toString(cellValue), { spaceNumber: 4, separator: ' ' })
+            },
+            // 四舍五入,默认两位数
+            formatFixedNumber({ cellValue }, digits = 2) {
+                return XEUtils.toFixed(XEUtils.round(cellValue, digits), digits)
+            },
+            // 向下舍入,默认两位数
+            formatCutNumber({ cellValue }, digits = 2) {
+                return XEUtils.toFixed(XEUtils.floor(cellValue, digits), digits)
+            },
+            // 转换 moment 类型为字符串
+            toMomentString({ cellValue }, format) {
+                return cellValue ? cellValue.format(format) : ''
+            }
+        })
     </script>
 </body>
 

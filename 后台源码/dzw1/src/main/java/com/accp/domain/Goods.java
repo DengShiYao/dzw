@@ -59,7 +59,7 @@ public class Goods extends Model<Goods> {
     private Integer goodsCId;
 
     @ApiModelProperty(value = "收入分类")
-    private Integer iId;
+    private String iId;
 
     @ApiModelProperty(value = "原厂副厂")
     @TableField("Spec5")

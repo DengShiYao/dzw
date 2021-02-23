@@ -73,7 +73,7 @@
                             </vxe-button>
                             <vxe-button icon="glyphicon glyphicon-arrow-down" @click="tofindGoods(pages.next)">下页
                             </vxe-button>
-                            <vxe-button icon="glyphicon glyphicon-search" data-toggle="modal" data-target="#myModel8">查询
+                            <vxe-button icon="glyphicon glyphicon-search" @click="openSelGoods">查询
                             </vxe-button>
                             <vxe-button icon="glyphicon glyphicon-plus" @click="openInsGoods">增加
                             </vxe-button>
@@ -82,7 +82,7 @@
                             </vxe-button>
                             <vxe-button icon="glyphicon glyphicon-remove-circle" @click="removeGoods">删除</vxe-button>
                             <vxe-button icon="glyphicon glyphicon-export">导出</vxe-button>
-                            <vxe-button icon="glyphicon glyphicon-picture" data-toggle="modal" data-target="#myModel9">
+                            <vxe-button icon="glyphicon glyphicon-picture" @click="openGoodsIconModal">
                                 照片</vxe-button>
                             <vxe-button icon="fa fa-barcode">条码</vxe-button>
                             <vxe-button icon=" glyphicon-th-large 
@@ -419,10 +419,10 @@
                                             <label for="inputEmail1" class="col-sm-4 control-label">收入分类</label>
                                             <div class="col-sm-7">
                                                 <select class="form-control" v-model="goods.iid">
-                                                    <option>机修</option>
-                                                    <option>发动机</option>
-                                                    <option>钣喷</option>
-                                                    <option>燃油费</option>
+                                                    <option value="工时费">工时费</option>
+                                                    <option value="燃油费">燃油费</option>
+                                                    <option value="代办费">代办费</option>
+                                                    <option value="其他费">其他费</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -547,9 +547,9 @@
                                             <label for="inputEmail1"
                                                 class="col-sm-4 control-label">&nbsp;进货价&nbsp;</label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control"
+                                                <input type="text" class="form-control" @input="inputChange"
                                                     onkeyup="this.value=this.value.replace(/[, ]/g,'')"
-                                                    v-model="goods.column1">
+                                                    v-model="goods.column1" placeholder="0.00">
                                             </div>
                                         </div>
                                         <div class="form-group col-sm-4" style="margin-right: 12px;">
@@ -567,12 +567,12 @@
                                                 class="col-sm-4 control-label">&nbsp;加价率&nbsp;</label>
                                             <div class="col-sm-8">
                                                 <template v-if="goods.zdInputVisible">
-                                                    <input type="text" class="form-control"
+                                                    <input type="text" class="form-control" @input="inputChange"
                                                         onkeyup="this.value=this.value.replace(/[, ]/g,'')"
                                                         placeholder="0.00" v-model="goods.mzscale" style="width: 103%;">
                                                 </template>
                                                 <template v-else>
-                                                    <input type="text" class="form-control" disabled
+                                                    <input type="text" class="form-control" disabled placeholder="0.00"
                                                         onkeyup="this.value=this.value.replace(/[, ]/g,'')"
                                                         v-model="goods.mzscale" style="width: 103%;">
                                                 </template>
@@ -584,15 +584,16 @@
                                         <div class="form-group col-sm-4" style="margin-right: 18px;">
                                             <label for="inputEmail1" class="col-sm-4 control-label">&nbsp;标准价</label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control"
-                                                    onkeyup="this.value=this.value.replace(/[, ]/g,'')"
+                                                <input type="text" class="form-control" placeholder="0.00"
+                                                    onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')"
                                                     v-model="goods.price">
+                                                <!-- onkeyup="this.value=this.value.replace(/[, ]/g,'')" -->
                                             </div>
                                         </div>
                                         <div class="form-group col-sm-4" style="margin-right: 12px;">
                                             <label for="inputEmail1" class="col-sm-4 control-label">&nbsp;会员价</label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control"
+                                                <input type="text" class="form-control" placeholder="0.00"
                                                     onkeyup="this.value=this.value.replace(/[, ]/g,'')"
                                                     v-model="goods.memberPrice">
                                             </div>
@@ -601,6 +602,7 @@
                                             <label for="inputEmail1" class="col-sm-4 control-label">&nbsp;VIP价</label>
                                             <div class="col-sm-8">
                                                 <input type="text" class="form-control" style="width: 103%;"
+                                                    placeholder="0.00"
                                                     onkeyup="this.value=this.value.replace(/[, ]/g,'')"
                                                     v-model="goods.vipPrice">
                                             </div>
@@ -612,7 +614,7 @@
                                             <label for="inputEmail1"
                                                 class="col-sm-4 control-label">&nbsp;协议价&nbsp;</label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control"
+                                                <input type="text" class="form-control" placeholder="0.00"
                                                     onkeyup="this.value=this.value.replace(/[, ]/g,'')"
                                                     v-model="goods.protocolPrice">
                                             </div>
@@ -621,7 +623,7 @@
                                             <label for="inputEmail1"
                                                 class="col-sm-4 control-label">&nbsp;索赔价&nbsp;</label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control"
+                                                <input type="text" class="form-control" placeholder="0.00"
                                                     onkeyup="this.value=this.value.replace(/[, ]/g,'')"
                                                     v-model="goods.claimPrice">
                                             </div>
@@ -632,7 +634,7 @@
                                             <div class="col-sm-8">
                                                 <input type="text" class="form-control" style="width: 103%;"
                                                     onkeyup="this.value=this.value.replace(/[, ]/g,'')"
-                                                    v-model="goods.insurancePrice">
+                                                    placeholder="0.00" v-model="goods.insurancePrice">
                                             </div>
                                         </div>
                                     </div>
@@ -754,10 +756,10 @@
                                         <label for="inputEmail1" class="col-sm-4 control-label">收入分类</label>
                                         <div class="col-sm-7">
                                             <select class="form-control" v-model="goods.iid">
-                                                <option>机修</option>
-                                                <option>发动机</option>
-                                                <option>钣喷</option>
-                                                <option>燃油费</option>
+                                                <option value="工时费">工时费</option>
+                                                <option value="燃油费">燃油费</option>
+                                                <option value="代办费">代办费</option>
+                                                <option value="其他费">其他费</option>
                                             </select>
                                         </div>
                                     </div>
@@ -879,9 +881,9 @@
                                     <div class="form-group col-sm-4" style="margin-right: 18px;">
                                         <label for="inputEmail1" class="col-sm-4 control-label">&nbsp;进货价&nbsp;</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control"
+                                            <input type="text" class="form-control" @input="inputChange"
                                                 onkeyup="this.value=this.value.replace(/[, ]/g,'')"
-                                                v-model="goods.column1">
+                                                v-model="goods.column1" placeholder="0.00">
                                         </div>
                                     </div>
                                     <div class="form-group col-sm-4" style="margin-right: 12px;">
@@ -899,10 +901,11 @@
                                             <template v-if="goods.zdInputVisible">
                                                 <input type="text" class="form-control"
                                                     onkeyup="this.value=this.value.replace(/[, ]/g,'')"
-                                                    placeholder="0.00" v-model="goods.mzscale" style="width: 103%;">
+                                                    @input="inputChange" placeholder="0.00" v-model="goods.mzscale"
+                                                    style="width: 103%;">
                                             </template>
                                             <template v-else>
-                                                <input type="text" class="form-control" disabled
+                                                <input type="text" class="form-control" disabled placeholder="0.00"
                                                     onkeyup="this.value=this.value.replace(/[, ]/g,'')"
                                                     v-model="goods.mzscale" style="width: 103%;">
                                             </template>
@@ -914,7 +917,7 @@
                                     <div class="form-group col-sm-4" style="margin-right: 18px;">
                                         <label for="inputEmail1" class="col-sm-4 control-label">&nbsp;标准价</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control"
+                                            <input type="text" class="form-control" placeholder="0.00"
                                                 onkeyup="this.value=this.value.replace(/[, ]/g,'')"
                                                 v-model="goods.price">
                                         </div>
@@ -922,7 +925,7 @@
                                     <div class="form-group col-sm-4" style="margin-right: 12px;">
                                         <label for="inputEmail1" class="col-sm-4 control-label">&nbsp;会员价</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control"
+                                            <input type="text" class="form-control" placeholder="0.00"
                                                 onkeyup="this.value=this.value.replace(/[, ]/g,'')"
                                                 v-model="goods.memberPrice">
                                         </div>
@@ -931,7 +934,7 @@
                                         <label for="inputEmail1" class="col-sm-4 control-label">&nbsp;VIP价</label>
                                         <div class="col-sm-8">
                                             <input type="text" class="form-control" style="width: 103%;"
-                                                onkeyup="this.value=this.value.replace(/[, ]/g,'')"
+                                                placeholder="0.00" onkeyup="this.value=this.value.replace(/[, ]/g,'')"
                                                 v-model="goods.vipPrice">
                                         </div>
                                     </div>
@@ -941,7 +944,7 @@
                                     <div class="form-group col-sm-4" style="margin-right: 18px;">
                                         <label for="inputEmail1" class="col-sm-4 control-label">&nbsp;协议价&nbsp;</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control"
+                                            <input type="text" class="form-control" placeholder="0.00"
                                                 onkeyup="this.value=this.value.replace(/[, ]/g,'')"
                                                 v-model="goods.protocolPrice">
                                         </div>
@@ -949,7 +952,7 @@
                                     <div class="form-group col-sm-4" style="margin-right: 12px;">
                                         <label for="inputEmail1" class="col-sm-4 control-label">&nbsp;索赔价&nbsp;</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control"
+                                            <input type="text" class="form-control" placeholder="0.00"
                                                 onkeyup="this.value=this.value.replace(/[, ]/g,'')"
                                                 v-model="goods.claimPrice">
                                         </div>
@@ -958,7 +961,7 @@
                                         <label for="inputEmail1" class="col-sm-4 control-label">&nbsp;保险价&nbsp;</label>
                                         <div class="col-sm-8">
                                             <input type="text" class="form-control" style="width: 103%;"
-                                                onkeyup="this.value=this.value.replace(/[, ]/g,'')"
+                                                placeholder="0.00" onkeyup="this.value=this.value.replace(/[, ]/g,'')"
                                                 v-model="goods.insurancePrice">
                                         </div>
                                     </div>
@@ -1018,10 +1021,10 @@
                             <div class="pull-right">
                                 <div class="checkbox checcss">
                                     <label>
-                                        <input type="checkbox"> 停用
+                                        <input type="checkbox" v-model="queryblockUp" @change="queryCheckBoxChange"> 停用
                                     </label>
                                 </div>
-                                <button type="button" class="btn btn-success"
+                                <button type="button" class="btn btn-success" @click="requestSearchGoods(1)"
                                     style="padding-left: 25px; padding-right: 25px; margin-right: 30px;"><span
                                         class="glyphicon glyphicon-ok"></span> 保存</button>
                             </div>
@@ -1036,24 +1039,23 @@
                                         <div class="form-group col-sm-4" style="margin-right: 18px;">
                                             <label for="inputEmail1" class="col-sm-4 control-label">商品编码</label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" v-model="searchGoods.goodsId">
                                             </div>
                                         </div>
                                         <div class="form-group col-sm-4" style="margin-right: 12px;">
                                             <label for="inputEmail1" class="col-sm-4 control-label">商品名称</label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" v-model="searchGoods.goodsName">
                                             </div>
                                         </div>
                                         <div class="form-group col-sm-4">
                                             <label for="inputEmail1" class="col-sm-4 control-label">商品品牌</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control" style="width: 103%;">
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
+                                                <select class="form-control" style="width: 103%;"
+                                                    v-model="searchGoods.gbId">
+                                                    <option value="">不限</option>
+                                                    <option v-for="item in GoodsBrand" :value="item.gbId">
+                                                        {{ item.gbName }}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -1063,51 +1065,61 @@
                                         <div class="form-group col-sm-4" style="margin-right: 18px;">
                                             <label for="inputEmail1" class="col-sm-4 control-label">适用车型</label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control"
+                                                    v-model="searchGoods.engineType">
                                             </div>
                                         </div>
-                                        <div class="form-group col-sm-4" style="margin-right: 12px;">
-                                            <label for="inputEmail1" class="col-sm-4 control-label">商品大类</label>
-                                            <div class="col-sm-8">
-                                                <input type="text" class="form-control">
+                                        <div class="form-group col-sm-8">
+                                            <label for="inputEmail1" class="col-sm-4 control-label">商品分类</label>
+                                            <div class="col-sm-4">
+                                                <input type="text" class="form-control" v-model="searchGoods.goodsCId"
+                                                    style="border-radius:4px 0px 0px 4px;">
                                             </div>
+                                            <div class="col-lg-5">
+                                                <div class="input-group" style="width: 122%;">
+                                                    <input type="text" class="form-control" disabled
+                                                        style="border-radius:0px 0px 0px 0px;">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-default" type="button"><span
+                                                                class="glyphicon glyphicon-plus"></span></button>
+                                                    </span>
+                                                </div><!-- /input-group -->
+                                            </div><!-- /.col-lg-6 -->
                                         </div>
-                                        <div class="form-group col-sm-4">
-                                            <label for="inputEmail1" class="col-sm-4 control-label">商品中类</label>
-                                            <div class="col-sm-8">
-                                                <input type="text" class="form-control" style="width: 103%;">
-                                            </div>
-                                        </div>
+
                                     </div>
                                     <!-- = -->
                                     <div class="form-fiex col-sm-12">
                                         <div class="form-group col-sm-4" style="margin-right: 18px; ">
-                                            <label for="inputEmail1" class="col-sm-4 control-label">商品小类</label>
+                                            <label for="inputEmail1" class="col-sm-4 control-label">零部件</label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control">
+                                                <select class="form-control">
+                                                    <option>所有</option>
+                                                    <option>父件</option>
+                                                    <option>子件</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="form-group col-sm-4" style="margin-right: 12px;">
                                             <label for="inputEmail1" class="col-sm-4 control-label">收入分类</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control">
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
+                                                <select class="form-control" v-model="searchGoods.iid">
+                                                    <option value="">不限</option>
+                                                    <option value="工时费">工时费</option>
+                                                    <option value="燃油费">燃油费</option>
+                                                    <option value="代办费">代办费</option>
+                                                    <option value="其他费">其他费</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="form-group col-sm-4">
                                             <label for="inputEmail1" class="col-sm-4 control-label">原厂副厂</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control" style="width: 103%;">
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
+                                                <select class="form-control" style="width: 103%;"
+                                                    v-model="searchGoods.spec5">
+                                                    <option value="">不限</option>
+                                                    <option value="原厂件">原厂件</option>
+                                                    <option value="副厂件">副厂件</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -1116,24 +1128,19 @@
                                         <div class="form-group col-sm-4" style="margin-right: 18px; ">
                                             <label for="inputEmail1" class="col-sm-4 control-label">商品等级</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control">
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
+                                                <select class="form-control" v-model="searchGoods.spec6">
+                                                    <option value="">不限</option>
+                                                    <option value="优">优</option>
+                                                    <option value="良">良</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="form-group col-sm-4" style="margin-right: 12px;">
                                             <label for="inputEmail1" class="col-sm-4 control-label">商品产地</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control">
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
+                                                <select class="form-control" v-model="searchGoods.proId">
+                                                    <option v-for="item in provinces" :value="item.proId">{{
+                                                        item.province }}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -1148,19 +1155,20 @@
                                         <div class="form-group col-sm-4" style="margin-right: 18px; ">
                                             <label for="inputEmail1" class="col-sm-4 control-label">原厂编码</label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" v-model="searchGoods.oldBM">
                                             </div>
                                         </div>
                                         <div class="form-group col-sm-4" style="margin-right: 12px;">
                                             <label for="inputEmail1" class="col-sm-4 control-label">条形码</label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" v-model="searchGoods.itemTM">
                                             </div>
                                         </div>
                                         <div class="form-group col-sm-4">
                                             <label for="inputEmail1" class="col-sm-4 control-label">包装规格</label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control" style="width: 103%;">
+                                                <input type="text" class="form-control" style="width: 103%;"
+                                                    v-model="searchGoods.packSpec">
                                             </div>
                                         </div>
                                     </div>
@@ -1168,50 +1176,22 @@
                                         <div class="form-group col-sm-4" style="margin-right: 18px; ">
                                             <label for="inputEmail1" class="col-sm-4 control-label">体积A</label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" v-model="searchGoods.spec">
                                             </div>
                                         </div>
                                         <div class="form-group col-sm-4" style="margin-right: 12px;">
                                             <label for="inputEmail1" class="col-sm-4 control-label">毛重</label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control"
+                                                    v-model="searchGoods.grossWeight">
                                             </div>
                                         </div>
                                         <div class="form-group col-sm-4">
                                             <label for="inputEmail1" class="col-sm-4 control-label">净重</label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control" style="width: 103%;">
+                                                <input type="text" class="form-control" style="width: 103%;"
+                                                    v-model="searchGoods.netWeight">
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-fiex col-sm-12">
-                                        <div class="form-group col-sm-4" style="margin-right: 15px;">
-                                            <label for="inputEmail1" class="col-sm-4 control-label">零部件</label>
-                                            <div class="col-sm-8">
-                                                <select class="form-control">
-                                                    <option>所有</option>
-                                                    <option>父件</option>
-                                                    <option>子件</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group col-sm-8">
-                                            <label for="inputEmail1" class="col-sm-4 control-label"
-                                                style="margin-left: 5px !important;">品牌车型</label>
-                                            <div class="col-sm-4">
-                                                <input type="text" class="form-control"
-                                                    style="border-radius:4px 0px 0px 4px;">
-                                            </div>
-                                            <div class="col-lg-5">
-                                                <div class="input-group" style="width: 121%;">
-                                                    <input type="text" class="form-control" disabled
-                                                        style="border-radius:0px 0px 0px 0px;">
-                                                    <span class="input-group-btn">
-                                                        <button class="btn btn-default" type="button"><span
-                                                                class="glyphicon glyphicon-plus"></span></button>
-                                                    </span>
-                                                </div><!-- /input-group -->
-                                            </div><!-- /.col-lg-6 -->
                                         </div>
                                     </div>
                                 </div>
@@ -1295,8 +1275,8 @@
                                         <!-- <img src="../imags/3AA159DD714F65B532595C955DEB5356.jpg" alt=""> -->
                                     </div>
                                     <div class="btn-icon">
-                                        <span style="display: none;"><input type="file" ref="filElem" accept="image/*"
-                                                @change="getFile(0,$event)"></span>
+                                        <span style="display: none;"><input type="file" name="file" ref="filElem"
+                                                accept="image/*" @change="getFile(0,$event)"></span>
                                         <button @click="choiceImg(0)" class="btn btn-primary"
                                             type="primary">选择图片</button>
                                         <button type="button" class="btn btn-danger">删除</button>
@@ -1309,8 +1289,8 @@
                                         <!-- <img src="../imags/3AA159DD714F65B532595C955DEB5356.jpg" alt=""> -->
                                     </div>
                                     <div class="btn-icon">
-                                        <span style="display: none;"><input type="file" ref="filElem1" accept="image/*"
-                                                @change="getFile(1,$event)"></span>
+                                        <span style="display: none;"><input type="file" name="file" ref="filElem1"
+                                                accept="image/*" @change="getFile(1,$event)"></span>
                                         <button @click="choiceImg(1)" class="btn btn-primary"
                                             type="primary">选择图片</button>
                                         <button type="button" class="btn btn-danger">删除</button>
@@ -1331,8 +1311,8 @@
                                         <!-- <img src="../imags/3AA159DD714F65B532595C955DEB5356.jpg" alt=""> -->
                                     </div>
                                     <div class="btn-icon">
-                                        <span style="display: none;"><input type="file" ref="filElem2" accept="image/*"
-                                                @change="getFile(2,$event)"></span>
+                                        <span style="display: none;"><input type="file" name="file" ref="filElem2"
+                                                accept="image/*" @change="getFile(2,$event)"></span>
                                         <button @click="choiceImg(2)" class="btn btn-primary"
                                             type="primary">选择图片</button>
                                         <button type="button" class="btn btn-danger">删除</button>
@@ -1345,8 +1325,8 @@
                                         <div v-else style="padding-left: 25px;"><span>无图片</span></div>
                                     </div>
                                     <div class="btn-icon">
-                                        <span style="display: none;"><input type="file" ref="filElem3" accept="image/*"
-                                                @change="getFile(3,$event)"></span>
+                                        <span style="display: none;"><input type="file" name="file" ref="filElem3"
+                                                accept="image/*" @change="getFile(3,$event)"></span>
                                         <button @click="choiceImg(3)" class="btn btn-primary"
                                             type="primary">选择图片</button>
                                         <button type="button" class="btn btn-danger">删除</button>
@@ -1418,26 +1398,6 @@
                 </div>
             </div>
         </div>
-        <!-- 选中供应商 -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-                    </div>
-                    <div class="modal-body">
-                        ...
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </div>
     <!-- </div> -->
     <script src="js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
@@ -1460,6 +1420,7 @@
                     pages: {}, //分页对象
                     imgUrl: [],
                     blockUp: false,  //停用启用
+                    queryblockUp: false,  //查询的停用启用
                     selblockUp: 1,//要查询的参数 停用启用
                     preBtnVisible: false,//上页按钮显示隐藏
                     tempIstrue: false,   //选择分类提示信息
@@ -1504,6 +1465,20 @@
                     },
                     //供货商 iframe传值
                     iframeVue: { sid: "", provCode: "", provName: "" },
+                    //品牌车型
+                    tableColumn2: [
+                        { field: 'carId', title: '编码', sortable: true, showOverflow: true, visible: true },
+                        { field: 'carName', title: '品牌名称', sortable: true, showOverflow: true, visible: true },
+                        { field: 'initial', title: '首字母', sortable: true, showOverflow: true, visible: true }
+                    ],
+                    //品牌车型数据
+                    carData: [],
+                    //查询goods实体
+                    searchGoods: {
+                        goodsId: "", goodsName: "", gbId: "", engineType: "", goodsCId: "", iid: "",
+                        spec5: "", spec6: "", proId: "1", sid: "", oldBM: "", itemTM: "", packSpec: "", spec: "", grossWeight: "",
+                        netWeight: "", mzscale: "", interchangeNo: "", zd3: "", blockUp: "", zdInputVisible: false
+                    }
                 }
             },
             mounted() {
@@ -1525,6 +1500,9 @@
 
                 }, currentChangeEventTree3({ row }) {
                     this.tempIstrue = false;
+                },
+                carBrandCurrentChangeEvent({ row }) {
+
                 },
                 //获取焦点时显示文本框
                 td_dbclick(item, index) {
@@ -1931,6 +1909,7 @@
                                         widthtemp: item.columnWidth,
                                         tfocus: 'itemName',
                                         params: item,
+                                        formatter: 'formatNull'
                                     })
                                 })
                             })
@@ -2047,6 +2026,7 @@
                         Vue.set(this.goods, "zdInputVisible", true) //这样就能被vue监控到，更新视图 
                     } else {
                         Vue.set(this.goods, "zdInputVisible", false) //这样就能被vue监控到，更新视图 
+                        this.inputChange();
                     }
                 },
                 /*
@@ -2093,7 +2073,7 @@
                     this.goods.engineType = "";
                     this.goods.unit = "件";
                     this.goods.goodsCId = "";
-                    this.goods.iid = "1";
+                    this.goods.iid = "工时费";
                     this.goods.spec5 = "原厂件";
                     this.goods.spec6 = "优";
                     this.goods.proId = 1;
@@ -2210,10 +2190,10 @@
                         //产地
                         this.selProvinces();
                         let pojo = JSON.parse(JSON.stringify(json));
-                        this.goods = json;
+                        this.goods = pojo;
                         this.goods.beforeId = pojo.goodsId;
                         this.goods.goodsCId2 = pojo.goodsCategory.goodsCId;
-                        this.goods.goodsCId2 = pojo.goodsCategory.goodsName;
+                        this.goods.goodsName2 = pojo.goodsCategory.goodsName;
                         this.goods.regionId = pojo.suppliersRegion.provCode;
                         this.goods.regionName = pojo.suppliersRegion.provName;
                         this.blockUp = this.goods.blockUp == 1 ? false : true;
@@ -2284,6 +2264,106 @@
                             }
                         }
                     });
+                },
+                /*
+                    formatprice
+                */
+                keepTwoDecimalFull(num) {
+                    var result = parseFloat(num);
+                    if (isNaN(result)) {
+                        console.log("传入了非数字");
+                        return false;
+                    }
+                    result = Math.round(num * 100) / 100;
+                    var s_x = result.toString();
+                    var pos_decimal = s_x.indexOf('.');
+                    if (pos_decimal < 0) {
+                        pos_decimal = s_x.length;
+                        s_x += '.';
+                    }
+                    while (s_x.length <= pos_decimal + 2) {
+                        s_x += '0';
+                    }
+                    return s_x;
+                },
+                /*
+                    换算进货价
+                */
+                inputChange() {
+                    let num = this.goods.column1;
+                    if (this.goods.zdInputVisible) {
+                        let mzscale = this.goods.mzscale || 0;
+                        this.goods.price = this.keepTwoDecimalFull(num * 1 * mzscale);
+                        this.goods.memberPrice = this.keepTwoDecimalFull(num * 0.95 * mzscale);
+                        this.goods.vipPrice = this.keepTwoDecimalFull(num * 0.9 * mzscale);
+                        this.goods.protocolPrice = this.keepTwoDecimalFull(num * 1.1 * mzscale);
+                        this.goods.claimPrice = this.keepTwoDecimalFull(num * 1 * mzscale);
+                        this.goods.insurancePrice = this.keepTwoDecimalFull(num * 1.3 * mzscale);
+                    } else {
+                        this.goods.price = this.keepTwoDecimalFull(num * 1.5);
+                        this.goods.memberPrice = this.keepTwoDecimalFull(num * 1.43);
+                        this.goods.vipPrice = this.keepTwoDecimalFull(num * 1.35);
+                        this.goods.protocolPrice = this.keepTwoDecimalFull(num * 1.65);
+                        this.goods.claimPrice = this.keepTwoDecimalFull(num * 1.5);
+                        this.goods.insurancePrice = this.keepTwoDecimalFull(num * 1.95);
+                    }
+                },
+                /*
+                    商品图片模态框
+                */
+                openGoodsIconModal() {
+                    let json = this.$refs.xTable.getCurrentRecord();
+                    if (json != null) {
+                        var file = document.getElementsByName("file").forEach(item => item.value = null);
+                        $("#myModel9").modal("show");
+                    }
+                },
+                /*
+                    上传图片
+                */
+                uploadIcon() {
+                    var formdata = new FormData();
+                },
+                /*
+                    商品查询模态框
+                */
+                openSelGoods() {
+                    //商品品牌
+                    this.selGoodsBrand();
+                    //产地
+                    this.selProvinces();
+                    $("#myModel8").modal("show");
+                },
+                queryCheckBoxChange() {
+                    if (event.target.checked == true) {
+                        this.searchGoods.blockUp = 0;
+                        this.queryblockUp = true;
+                    } else {
+                        this.searchGoods.blockUp = 1;
+                        this.queryblockUp = false;
+                    }
+                },
+                requestSearchGoods(current) {
+                    console.log(JSON.stringify(this.searchGoods))
+                    let that = this;
+                    that.searchGoods.current = current;
+                    $.ajax({
+                        url: "http://127.0.0.1:8080/goods/searchgoods",
+                        type: "post",
+                        data: that.searchGoods,
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        dataType: "json",
+                        success: function (result) {
+                            if (result.code == 1000) {
+                                $("#myModel8").modal("hide");
+                            } else {
+                                console.log("刷新重试");
+                            }
+                        }
+                    });
                 }
             },
             created() {
@@ -2308,6 +2388,44 @@
         new Ctor().$mount('.container-fluid');
         $('.dropdown-toggle').dropdown()
 
+        VXETable.formats.mixin({
+            // 格式化性别
+            formatSex({ cellValue }) {
+                return cellValue ? (cellValue === '1' ? '男' : '女') : ''
+            },
+            formatNull({ cellValue }) {
+                return cellValue ? cellValue : '-'
+            },
+            // 格式化下拉选项
+            formatSelect({ cellValue }, list) {
+                const item = list.find(item => item.value === cellValue)
+                return item ? item.label : ''
+            },
+            // 格式化日期，默认 yyyy-MM-dd HH:mm:ss
+            formatDate({ cellValue }, format) {
+                return XEUtils.toDateString(cellValue, format || 'yyyy-MM-dd HH:mm:ss')
+            },
+            // 四舍五入金额，每隔3位逗号分隔，默认2位数
+            formatAmount({ cellValue }, digits = 2) {
+                return XEUtils.commafy(XEUtils.toNumber(cellValue), { digits })
+            },
+            // 格式化银行卡，默认每4位空格隔开
+            formatBankcard({ cellValue }) {
+                return XEUtils.commafy(XEUtils.toString(cellValue), { spaceNumber: 4, separator: ' ' })
+            },
+            // 四舍五入,默认两位数
+            formatFixedNumber({ cellValue }, digits = 2) {
+                return XEUtils.toFixed(XEUtils.round(cellValue, digits), digits)
+            },
+            // 向下舍入,默认两位数
+            formatCutNumber({ cellValue }, digits = 2) {
+                return XEUtils.toFixed(XEUtils.floor(cellValue, digits), digits)
+            },
+            // 转换 moment 类型为字符串
+            toMomentString({ cellValue }, format) {
+                return cellValue ? cellValue.format(format) : ''
+            }
+        })
     </script>
 </body>
 

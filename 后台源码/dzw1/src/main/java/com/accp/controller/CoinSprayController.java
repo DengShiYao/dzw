@@ -9,10 +9,7 @@ import com.accp.service.impl.CoinSprayServiceImpl;
 import com.accp.service.impl.ServeServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -34,6 +31,7 @@ public class CoinSprayController {
     /**
      * 维修项目
      */
+    @Autowired
     ServeServiceImpl serveService;
 
     /**
@@ -83,8 +81,8 @@ public class CoinSprayController {
      * @param coinId
      * @return
      */
-    @PostMapping("/del")
-    public ResultVO delCoinSpray(String coinId){
+    @PostMapping("/del/{coinId}")
+    public ResultVO delCoinSpray(@PathVariable String coinId){
         serveService.remove(new QueryWrapper<Serve>().lambda().eq(Serve::getBrandId,coinId));
         return new ResultVO(ResultCode.SUCCESS,service.remove(new QueryWrapper<CoinSpray>().lambda()
                 .eq(CoinSpray::getCoinId, coinId)));

@@ -102,13 +102,8 @@
             <div class="col-sm-12 treefont" style="height: 81%; border: 0px solid red; padding-right: 0px;">
                 <div v-show="treeVisble" class="col-sm-2"
                     style=" height: 100%;border: 0px solid red; font-size: 16px; padding-right: 0px;">
-                    <!-- <div class="col-sm-12">
-                        <div id="treeview12" class=""></div> 
-                    </div> -->
                     <!-- 左侧tree -->
                     <template>
-                        <!-- :tree-config="{children: 'children',expandAll:'true'}" -->
-                        <!-- :tree-config="{children: 'children',reserve:'true'}" -->
                         <vxe-grid round :loading="loading" resizable show-overflow class="mytable-scrollbar"
                             height="100%" row-id="regionId" highlight-hover-row ref="xTree" highlight-current-row
                             :show-header="false" @current-change="currentChangeEventTree"
@@ -131,9 +126,9 @@
                         <div style="height: 57%;">
                             <!-- <button v-slot:buttons type="button" @click="getCurrentEvent"> 你好</button> -->
                             <template>
-                                <vxe-grid border stripe highlight-hover-row highlight-current-row resizable ref="xTable"
-                                    class="mytable-scrollbar" auto-resize height="100%" :data="tableData"
-                                    :columns="tableColumn" @current-change="currentChangeEvent" round
+                                <vxe-grid border :loading="loading" stripe highlight-hover-row highlight-current-row
+                                    resizable ref="xTable" class="mytable-scrollbar" auto-resize height="100%"
+                                    :data="tableData" :columns="tableColumn" @current-change="currentChangeEvent" round
                                     show-header-overflow show-overflow>
                                 </vxe-grid>
                             </template>
@@ -153,7 +148,7 @@
                 </div>
             </div>
             <div class="col-sm-12 countn" style=" height: 4.6%; border: 0px solid red;">
-                &nbsp;&nbsp;&nbsp;&nbsp;总数据：<span>999</span></div>
+                &nbsp;&nbsp;&nbsp;&nbsp;总数据：<span v-text="tableData.length"></span></div>
             <!-- 模态框  -->
             <!-- 增加分类 -->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -839,7 +834,7 @@
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                     aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title clearfix" id="myModalLabel10">商品照片
+                            <h4 class="modal-title clearfix" id="myModalLabel10">供货商照片
                                 <button type="button" class="btn btn-success pull-right"
                                     style="padding-left: 25px; padding-right: 25px; margin-right: 30px;"><span
                                         class="glyphicon glyphicon-upload"></span>&nbsp;上传图片</button>
@@ -1531,7 +1526,8 @@
                 */
                 toFind() {
                     let regionId = this.$refs.xTree.getCurrentRecord().regionId
-                    var that = this;
+                    let that = this;
+                    this.loading = true;
                     $.ajax({
                         url: "http://localhost:8080/suppliersRegion/" + regionId,
                         type: "get",
@@ -1543,6 +1539,7 @@
                         success: function (result) {
                             handlerResult(result, () => {
                                 that.tableData = result.data;
+                                that.loading = false;
                                 that.$refs.xTable.setCurrentRow(that.tableData[0]);
                                 try {
                                     that.tableDataPhone = that.tableData[0].relation;
@@ -1559,6 +1556,7 @@
                 findRelation() {
                     let sid = this.$refs.xTable.getCurrentRecord().sid
                     let that = this;
+                    this.loading = true;
                     $.ajax({
                         url: "http://localhost:8080/suppliersContacts/" + sid,
                         type: "get",
@@ -1569,6 +1567,7 @@
                         dataType: "json",
                         success: function (result) {
                             handlerResult(result, () => {
+                                this.loading = false;
                                 that.$refs.xTable.getCurrentRecord().relation = result.data;
                                 that.tableDataPhone = that.$refs.xTable.getCurrentRecord().relation;
                                 try {
@@ -1610,6 +1609,7 @@
                                         widthtemp: item.columnWidth,
                                         tfocus: 'itemName',
                                         params: item,
+                                        formatter: item.columnName == "yhzh" ? 'formatBankcard' : 'formatNull'
                                     })
                                 })
                             })
@@ -2069,6 +2069,45 @@
                 }, 0);
             });
         });
+
+        VXETable.formats.mixin({
+            // 格式化性别
+            formatSex({ cellValue }) {
+                return cellValue ? (cellValue === '1' ? '男' : '女') : ''
+            },
+            formatNull({ cellValue }) {
+                return cellValue ? cellValue : '-'
+            },
+            // 格式化下拉选项
+            formatSelect({ cellValue }, list) {
+                const item = list.find(item => item.value === cellValue)
+                return item ? item.label : ''
+            },
+            // 格式化日期，默认 yyyy-MM-dd HH:mm:ss
+            formatDate({ cellValue }, format) {
+                return XEUtils.toDateString(cellValue, format || 'yyyy-MM-dd HH:mm:ss')
+            },
+            // 四舍五入金额，每隔3位逗号分隔，默认2位数
+            formatAmount({ cellValue }, digits = 2) {
+                return XEUtils.commafy(XEUtils.toNumber(cellValue), { digits })
+            },
+            // 格式化银行卡，默认每4位空格隔开
+            formatBankcard({ cellValue }) {
+                return cellValue ? XEUtils.commafy(XEUtils.toString(cellValue), { spaceNumber: 4, separator: ' ' }) : '-'
+            },
+            // 四舍五入,默认两位数
+            formatFixedNumber({ cellValue }, digits = 2) {
+                return XEUtils.toFixed(XEUtils.round(cellValue, digits), digits)
+            },
+            // 向下舍入,默认两位数
+            formatCutNumber({ cellValue }, digits = 2) {
+                return XEUtils.toFixed(XEUtils.floor(cellValue, digits), digits)
+            },
+            // 转换 moment 类型为字符串
+            toMomentString({ cellValue }, format) {
+                return cellValue ? cellValue.format(format) : ''
+            }
+        })
     </script>
 </body>
 

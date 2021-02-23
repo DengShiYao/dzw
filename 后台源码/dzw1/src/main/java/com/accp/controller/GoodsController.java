@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <p>
@@ -87,5 +89,13 @@ public class GoodsController {
         return new ResultVO(ResultCode.SUCCESS,service.removeById(goodsAutoId));
     }
 
+    @PostMapping("/searchgoods")
+    public void search(Goods goods,Integer current){
+        Page<Goods> page = new Page();
+        page.setCurrent(current==null ? 0 :current);
+        page.setSize(15);
+        Page<Goods> mapIPage = service.searchGoodsPage(page,goods);
+        System.out.println(mapIPage.toString());
+    }
 }
 

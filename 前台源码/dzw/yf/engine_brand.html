@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>商品资料</title>
+    <title>发动机品牌</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/font-awesome.css">
     <link rel="stylesheet" href="css/engine_brand.css">
@@ -67,7 +67,7 @@
                 </div>
             </div>
             <div class="col-sm-12 countn" style=" height: 4.6%; border: 0px solid red;">
-                &nbsp;&nbsp;&nbsp;&nbsp;总数据：<span>{{ engineCount }}</span></div>
+                &nbsp;&nbsp;&nbsp;&nbsp;总数据：<span v-text="tableData.length"></span></div>
         </div>
         <!-- Modal -->
         <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -107,7 +107,9 @@
         var Main = {
             data() {
                 return {
-                    engine: {},
+                    engine: {
+                        beforeName: ""
+                    },
                     loading: false,
                     engineCount: 0,
                     tableColumn: [
@@ -121,8 +123,8 @@
                 currentChangeEvent({
                     row
                 }) {
-                    console.log('行选中事件')
                     this.engine = JSON.parse(JSON.stringify(this.$refs.xTable.getCurrentRecord()));
+                    this.engine.beforeName = this.engine.engineName;
                 },
                 find() {
                     //this.loading = true;
@@ -149,7 +151,6 @@
                             console.log(error);
                         }
                     });
-
                 },
                 //查询总数据
                 getCount() {
@@ -224,7 +225,6 @@
                     $("#myModal1").modal("hide");
                 },
                 alertModal() {
-                    console.log("==============成功===============")
 
                 }
             },

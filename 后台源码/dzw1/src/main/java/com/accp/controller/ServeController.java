@@ -81,10 +81,10 @@ public class ServeController {
      * @param brandId
      * @return
      */
-    @GetMapping("/selsarve/{brandId}")
-    public ResultVO selSarveList(@PathVariable String brandId){
+    @GetMapping("/selsarve/{brandId}/{coulmn2}")
+    public ResultVO selSarveList(@PathVariable String brandId,@PathVariable String coulmn2){
         QueryWrapper<Serve> wrapper = new QueryWrapper<>();
-        wrapper.lambda().eq(Serve::getBrandId,brandId);
+        wrapper.lambda().eq(Serve::getBrandId,brandId).eq(Serve::getColumn2,coulmn2);
         return new ResultVO(ResultCode.SUCCESS,serveService.list(wrapper));
     }
 
@@ -104,7 +104,6 @@ public class ServeController {
      */
     @PostMapping("/ins")
     public ResultVO saveInsServe(@RequestBody Serve serve){
-        System.out.println(serve);
         if (serve.getSeId()=="" || serve.getSeName()=="" || serve.getIId()==null){
             return new ResultVO(ResultCode.VALIDATE_FAILED);
         }
@@ -132,6 +131,45 @@ public class ServeController {
             }
         }
         serveService.update(serve,new QueryWrapper<Serve>().lambda().eq(Serve::getSeId,serve.getBeforeId()));
+        return new ResultVO(ResultCode.SUCCESS);
+    }
+
+    /**
+     * 删除维修服务
+     * @param seId
+     * @return
+     */
+    @PostMapping("/del/{seId}")
+    public ResultVO removeServe(@PathVariable String seId){
+        System.out.println(seId);
+        serveService.remove(new QueryWrapper<Serve>().lambda().eq(Serve::getSeId,seId));
+        return new ResultVO(ResultCode.SUCCESS);
+    }
+
+    /**
+     * 修改价格
+     * @param price
+     * @param priceCulumn
+     * @param seId
+     * @return
+     */
+    @PostMapping("/reviseprice")
+    public ResultVO getRevisePrice(String price,String priceCulumn,String seId){
+        Serve serve = new Serve();
+        if ("price".equals(priceCulumn)){
+            serve.setPrice(Double.valueOf(price));
+        }else if("memberPrice".equals(priceCulumn)){
+            serve.setMemberPrice(Double.valueOf(price));
+        }else if("vipPrice".equals(priceCulumn)){
+            serve.setVipPrice(Double.valueOf(price));
+        }else if("protocolPrice".equals(priceCulumn)){
+            serve.setProtocolPrice(Double.valueOf(price));
+        }else if("claimPrice".equals(priceCulumn)){
+            serve.setClaimPrice(Double.valueOf(price));
+        }else if("insurancePrice".equals(priceCulumn)){
+            serve.setInsurancePrice(Double.valueOf(price));
+        }
+        serve.update(new QueryWrapper<Serve>().lambda().eq(Serve::getSeId,seId));
         return new ResultVO(ResultCode.SUCCESS);
     }
 }

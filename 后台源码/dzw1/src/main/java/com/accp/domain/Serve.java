@@ -34,7 +34,7 @@ public class Serve extends Model<Serve> {
     private String seName;
 
     @ApiModelProperty(value = "收入种类")
-    private Integer iId;
+    private String iId;
 
     @ApiModelProperty(value = "项目类别")
     private String brandId;

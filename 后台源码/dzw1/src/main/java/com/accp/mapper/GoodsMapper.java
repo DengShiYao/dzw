@@ -20,4 +20,6 @@ public interface GoodsMapper extends BaseMapper<Goods> {
     List<Goods> goodsList(@Param("blockUp") Integer blockUp,@Param("column1") Integer column1);
 
     Page<Goods> selGoodsPage(Page<Goods> page, @Param("blockUp") Integer blockUp, @Param("column1") Integer column1);
+
+    Page<Goods> searchGoodsPage(Page<Goods> page,@Param("goods") Goods goods);
 }

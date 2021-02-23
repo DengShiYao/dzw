@@ -1,6 +1,7 @@
 package com.accp.domain;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -33,6 +34,7 @@ public class Upkeep extends Model<Upkeep> {
     private String upkeepName;
 
     @ApiModelProperty(value = "逻辑删除 0真/1假")
+    @TableLogic
     private Integer isDelete;
 
     @ApiModelProperty(value = "备用列")

@@ -31,4 +31,14 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
     public Page<Goods> selGoodsPage(Page<Goods> page, Integer blockUp, Integer column1){
         return mapper.selGoodsPage(page, blockUp, column1);
     }
+
+    /**
+     * 按条件查询分页
+     * @param page
+     * @param goods
+     * @return
+     */
+    public Page<Goods> searchGoodsPage(Page<Goods> page,Goods goods){
+        return mapper.searchGoodsPage(page,goods);
+    }
 }

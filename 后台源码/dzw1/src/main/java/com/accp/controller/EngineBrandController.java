@@ -1,11 +1,14 @@
 package com.accp.controller;
 
 
+import com.accp.domain.CarType;
 import com.accp.domain.EngineBrand;
+import com.accp.domain.Serve;
 import com.accp.result.ResultCode;
 import com.accp.result.ResultVO;
 import com.accp.service.impl.EngineBrandServiceImpl;
 import com.accp.service.impl.ServeServiceImpl;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,9 +66,12 @@ public class EngineBrandController {
         try {
             EngineBrand engineBrand = objectMapper.readValue(json, EngineBrand.class);
             boolean b = brandService.saveOrUpdate(engineBrand);
-//            Serve serve = new Serve().setBrandId(engineBrand.getEngineId()).setColumn1(engineBrand.getEngineName());
-//            //修改维修项目
-//            serve.update(new QueryWrapper<Serve>().lambda().eq(Serve::getBrandId,engineBrand.getEngineId()));
+            //修改车型
+            CarType carType = new CarType().setEngineName(engineBrand.getEngineName());
+            carType.update(new QueryWrapper<CarType>().lambda().eq(CarType::getColumn1,engineBrand.getEngineId()));
+            //修改维修项目
+            Serve serve = new Serve().setColumn1(engineBrand.getEngineName());
+            serve.update(new QueryWrapper<Serve>().lambda().eq(Serve::getBrandId,engineBrand.getEngineId()).eq(Serve::getColumn2,"2"));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             return new ResultVO(ResultCode.SUCCESS);
@@ -74,9 +80,9 @@ public class EngineBrandController {
     }
 
     @PostMapping("/remove")
-    public ResultVO toremove(Integer engineId){
+    public ResultVO toremove(String engineId){
+        serveService.remove(new QueryWrapper<Serve>().lambda().eq(Serve::getBrandId,engineId));
         return new ResultVO(ResultCode.SUCCESS, brandService.removeById(engineId));
     }
-
 }
 
