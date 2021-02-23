@@ -111,10 +111,13 @@ public class DepartureController {
      *导出excel
      */
     @RequestMapping("/downLoadExportExcel")
-    public  ResponseEntity<byte []>  downLoadExportExcel() throws IOException {
-       /* ObjectMapper objectMapper = new ObjectMapper();
+    public  ResponseEntity<byte []>  downLoadExportExcel(String lzList) throws IOException {
+        System.out.println(lzList);
+        String []  arry = null;
+        arry=lzList.split(",");
+        /* ObjectMapper objectMapper = new ObjectMapper();
         List<Departure> list= objectMapper.readValue(json,objectMapper.getTypeFactory().constructParametricType(ArrayList.class,Departure.class));*/
-        List<Departure> list = departureService.selAllDeparture();
+        List<Departure> list = departureService.selExportList(arry);
         Workbook book = new XSSFWorkbook();
         Sheet sheet= book.createSheet();
         System.out.println("进入导出");

@@ -73,4 +73,14 @@ public class EmployeesServiceImpl extends ServiceImpl<EmployeesMapper, Employees
     public int madeAssume(String eId) {
         return employeesMapper.madeAssume(eId);
     }
+
+    @Override
+    public List<Employees> selDownLoadEmployList(String[] array) {
+        return employeesMapper.selDownLoadEmployList(array);
+    }
+
+    @Override
+    public List<Employees> selDownLoadCommunicationList(String[] array) {
+        return employeesMapper.selDownLoadCommunicationList(array);
+    }
 }

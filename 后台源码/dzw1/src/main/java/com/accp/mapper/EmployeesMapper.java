@@ -71,4 +71,16 @@ public interface EmployeesMapper extends BaseMapper<Employees> {
      * @return
      */
     public int madeAssume(String eId);
+
+    /**
+     * 导出员工
+     * @return
+     */
+    public  List<Employees> selDownLoadEmployList(String [] array);
+
+    /**
+     * 导出通讯名录
+     * @return
+     */
+    public  List<Employees> selDownLoadCommunicationList(String [] array);
 }
