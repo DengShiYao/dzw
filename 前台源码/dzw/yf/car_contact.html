@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>接车登记</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.css" />
+    <link rel="stylesheet" href="css/public-y.css">
+    <link rel="stylesheet" href="css/car_contact.css">
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="package/lib/style.css">
+</head>
+
+<body>
+    <div class="container-fluid" style="height: 100%;">
+        <div class="row" style="height: 100%;padding: 0px 0px !important;">
+            <div style=" border: 0px solid red; padding: 0px 0px !important;" class="col-sm-12">
+                <div class="col-sm-12 clearfix nav-div" style="border: 0px solid rebeccapurple;">
+                    <h3 class="clearfix" style="margin-top: 10px;">接车登记
+                        <button class="btn btn-default pull-right btnexit" type="button">关闭</button>
+                        <div class="pull-right" style="margin-right: 10px !important;">
+                            <form class="form-inline">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" style="width: 300px;"
+                                        placeholder="匹配车牌号/车架号/手机/客户">
+                                </div>
+                                <button type="button" class="btn btn-warning selbtn">搜索</button>
+                            </form>
+                        </div>
+                    </h3>
+                </div>
+            </div>
+            <div class="col-sm-12  navbtn">
+                <div style="display: inline-block;">
+                    <vxe-toolbar>
+                        <template v-slot:buttons>
+                            <vxe-button icon="fa fa-file-powerpoint-o">维修接车</vxe-button>
+                            <vxe-button icon="fa fa-file-word-o">救援开单</vxe-button>
+                        </template>
+                    </vxe-toolbar>
+                </div>
+            </div>
+
+            <div class="col-sm-12" style="height: 200px;">
+                <div class="col-sm-2 textsize" style="padding-left: 0px !important;">
+                    <h5><strong>公众号会员码</strong></h5>
+                    <div>
+                        <input type="text" class="form-control">
+                    </div>
+                    <p style="margin-top: 10px;color: rgb(57, 206, 222) ">车主信息：<span>一般用户</span></p>
+                    <p>车主：<span>A</span></p>
+                    <p>地址：<span>A</span></p>
+                    <p>驾驶员：<span>A</span>手机：<span>12346579877</span></p>
+                </div>
+                <div class="col-sm-2 textsize" style="width: 380px;">
+                    <h5><strong>车牌号</strong></h5>
+                    <div>
+                        <input type="text" class="form-control" style="width: 230px;">
+                    </div>
+                    <p style="margin-top: 10px;">
+                        <span style="color: rgb(57, 206, 222)">车辆信息</span>
+                        <span style="margin-left: 15px;">购买日期：<span>2020-12-12</span></span>
+                    </p>
+                    <p style="margin-top: 10px;">
+                        品牌：<span>中国重汽</span>
+                        <span style="margin-left: 15px;">车型：<span>德汽汕重卡</span></span>
+                    </p>
+                    <p style="margin-top: 10px;">
+                        发动机品牌：<span>DDD</span>
+                        <span style="margin-left: 15px;">发动机：<span>DDDD</span></span>
+                    </p>
+                    <p style="margin-top: 10px;">
+                        保险日期：<span>2020-12-12</span>
+                        <span style="margin-left: 15px;">保养日期：<span>2020-12-12</span></span>
+                    </p>
+                </div>
+            </div>
+            <div class="col-sm-12"
+                style="height: 36px; padding: 2px 10px !important;background-color: rgb(247, 247, 247);">
+                <vxe-radio-group v-model="selectTab">
+                    <vxe-radio-button label="tab1" content="作业中的车辆"></vxe-radio-button>
+                    <vxe-radio-button label="tab2" content="维修历史"></vxe-radio-button>
+                    <vxe-radio-button label="tab3" content="维修项目"></vxe-radio-button>
+                    <vxe-radio-button label="tab4" content="领料情况"></vxe-radio-button>
+                    <vxe-radio-button label="tab5" content="历史回访"></vxe-radio-button>
+                </vxe-radio-group>
+            </div>
+            <div class="col-sm-12 tableX">
+                <div v-show="selectTab === 'tab1'">
+                    <template>
+                        <vxe-grid border stripe :menu-config="tableMenu1" @menu-click="contextMenuClickEvent1"
+                            highlight-hover-row highlight-current-row resizable ref="xTable1" class="mytable-scrollbar"
+                            auto-resize height="100%" :data="tableData1" :columns="tableColumn1"
+                            @current-change="currentChangeEvent1" round show-header-overflow show-overflow>
+                        </vxe-grid>
+                    </template>
+                </div>
+                <div v-show="selectTab === 'tab2'">
+                    <template>
+                        <vxe-grid border stripe highlight-hover-row highlight-current-row resizable ref="xTable2"
+                            :menu-config="tableMenu2" @menu-click="contextMenuClickEvent2" class="mytable-scrollbar"
+                            auto-resize height="100%" :data="tableData2" :columns="tableColumn2"
+                            @current-change="currentChangeEvent2" round show-header-overflow show-overflow>
+                        </vxe-grid>
+                    </template>
+                </div>
+                <div v-show="selectTab === 'tab3'">
+                    <template>
+                        <vxe-grid border stripe highlight-hover-row highlight-current-row resizable ref="xTable3"
+                            :menu-config="tableMenu3" @menu-click="contextMenuClickEvent3" class="mytable-scrollbar"
+                            auto-resize height="100%" :data="tableData3" :columns="tableColumn3"
+                            @current-change="currentChangeEvent3" round show-header-overflow show-overflow>
+                        </vxe-grid>
+                    </template>
+                </div>
+                <div v-show="selectTab === 'tab4'">
+                    <template>
+                        <vxe-grid border stripe highlight-hover-row highlight-current-row resizable ref="xTable4"
+                            :menu-config="tableMenu4" @menu-click="contextMenuClickEvent4" class="mytable-scrollbar"
+                            auto-resize height="100%" :data="tableData4" :columns="tableColumn4"
+                            @current-change="currentChangeEvent4" round show-header-overflow show-overflow>
+                        </vxe-grid>
+                    </template>
+                </div>
+                <div v-show="selectTab === 'tab5'">
+                    <template>
+                        <vxe-grid border stripe highlight-hover-row highlight-current-row resizable ref="xTable5"
+                            :menu-config="tableMenu5" @menu-click="contextMenuClickEvent5" class="mytable-scrollbar"
+                            auto-resize height="100%" :data="tableData5" :columns="tableColumn5"
+                            @current-change="currentChangeEvent5" round show-header-overflow show-overflow>
+                        </vxe-grid>
+                    </template>
+                </div>
+            </div>
+            <div class="col-sm-12" style="height: 4%;line-height: 35px;">
+                共<span v-text="tableData1.length"></span>条数据
+            </div>
+        </div>
+    </div>
+    <script src="js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xe-utils"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vxe-table@3.1.4"></script>
+    <script src="js/bootstrap-treeview.js"></script>
+    <script src="js/common.js"></script>
+    <script type="text/javascript">
+        var Main = {
+            data() {
+                return {
+                    tableColumn1: [
+                        { field: 'id', title: '单据状态', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'name', title: '业务类型', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'name', title: '客户名称', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'name', title: '车牌号', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'name', title: '手机', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'name', title: '会员卡号', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'name', title: '单据类型', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'time', title: '开单时间', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatDate' },
+                        { field: 'time', title: '预计完工', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatDate' },
+                        { field: 'time', title: '完工时间', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatDate' },
+                        { field: 'time', title: '结算时间', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatDate' },
+                        { field: 'name', title: '预估金额', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatAmount' },
+                        { field: 'name', title: '服务顾问', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'name', title: '接车人', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' }
+                    ],
+                    tableData1: [
+                        { id: "1", name: "AA", time: "2020-11-11" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }
+                    ],
+                    tableColumn2: [
+                        { field: 'id', title: '维修单号', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'id', title: '接车时间', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatDate' },
+                        { field: 'id', title: '业务类型', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'id', title: '完工时间', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatDate' },
+                        { field: 'id', title: '客户名称', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'id', title: '车牌号', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'id', title: '手机', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'id', title: '会员卡号', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'id', title: '结算时间', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatDate' },
+                        { field: 'id', title: '消费金额', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatAmount' },
+
+                    ],
+                    tableData2: [
+                        { id: "1", name: "AA", time: "2020-11-11" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }
+                    ],
+                    tableColumn3: [
+                        { field: 'id', title: '维修单号', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'id', title: '接车时间', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatDate' },
+                        { field: 'id', title: '业务类型', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'id', title: '完工时间', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatDate' },
+                        { field: 'id', title: '结算时间', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatDate' },
+                        { field: 'id', title: '项目编码', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'id', title: '项目名称', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'id', title: '价类', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'id', title: '结算工时', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatAmount' },
+                        { field: 'id', title: '工时金额', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatAmount' },
+                        { field: 'id', title: '作业人员', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'id', title: '故障描述', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'id', title: '故障确认', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'id', title: '工单号', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'id', title: '工位', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+
+                    ],
+                    tableData3: [
+                        { id: "1", name: "AA", time: "2020-11-11" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }
+                    ],
+                    tableColumn4: [
+                        { field: 'id', title: '维修单号', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'id', title: '接车时间', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatDate' },
+                        { field: 'id', title: '业务类型', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'id', title: '完工时间', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatDate' },
+                        { field: 'id', title: '结算时间', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatDate' },
+                        { field: 'id', title: '类别', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'id', title: '领料日期', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatDate' },
+                        { field: 'id', title: '领料人', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'id', title: '物料编码', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'id', title: '物料名称', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'id', title: '单位', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'id', title: '价类', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'id', title: '数量', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'id', title: '单价', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatAmount' },
+                        { field: 'id', title: '金额', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatAmount' },
+                        { field: 'id', title: '服务顾问', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'id', title: '对应项目', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+
+                    ],
+                    tableData4: [
+                        { id: "1", name: "AA", time: "2020-11-11" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }
+                    ],
+                    tableColumn5: [
+                        { field: 'id', title: '回访内容', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'time', title: '回访时间', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatDate' },
+                        { field: 'name', title: '客户编码', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'name', title: '客户名称', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'name', title: '地址', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'name', title: '车牌号', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'name', title: '手机', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'name', title: '电话', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'id', title: '维修项目', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'id', title: '单据类型', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'id', title: '回访效果', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'id', title: '服务顾问', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'id', title: '详细说明', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'id', title: '说明人', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+
+                    ],
+                    tableData5: [
+                        { id: "1", name: "AA", time: "2020-11-11" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }
+                    ],
+                    //show table
+                    selectTab: 'tab1',
+                    tableMenu1: {
+                        header: {
+                            options: [
+                                [
+                                    { code: '1', name: '打开单据', prefixIcon: 'fa fa-file-powerpoint-o', className: 'my-copy-item' }
+                                ],
+                                [
+                                    { code: '2', name: '作废单据', prefixIcon: 'fa fa-hand-peace-o', className: 'my-copy-item' }
+                                ], [
+                                    { code: '3', name: '我的接车', prefixIcon: 'fa fa-wheelchair-alt', className: 'my-copy-item' }
+                                ], [
+                                    { code: '4', name: '超预计完工时间的车', prefixIcon: 'glyphicon glyphicon-heart', className: 'my-copy-item' },
+                                    { code: '5', name: '所有接车', prefixIcon: 'fa fa-copy', className: 'my-copy-item' },
+                                    { code: '6', name: '该客户接车', prefixIcon: 'fa fa-copy', className: 'my-copy-item' }
+                                ]
+                            ]
+                        },
+                        body: {
+                            options: [
+                                [
+                                    { code: '1', name: '打开单据', prefixIcon: 'fa fa-file-powerpoint-o', className: 'my-copy-item' }
+                                ],
+                                [
+                                    { code: '2', name: '作废单据', prefixIcon: 'fa fa-hand-peace-o', className: 'my-copy-item' }
+                                ], [
+                                    { code: '3', name: '我的接车', prefixIcon: 'fa fa-wheelchair-alt', className: 'my-copy-item' }
+                                ], [
+                                    { code: '4', name: '超预计完工时间的车', prefixIcon: 'glyphicon glyphicon-heart', className: 'my-copy-item' },
+                                    { code: '5', name: '所有接车', prefixIcon: 'fa fa-copy', className: 'my-copy-item' },
+                                    { code: '6', name: '该客户接车', prefixIcon: 'fa fa-copy', className: 'my-copy-item' }
+                                ]
+                            ]
+                        }
+                    },
+                    tableMenu2: {
+                        body: {
+                            options: [
+                                [
+                                    { code: '4', name: '看对应单据', prefixIcon: 'fa fa-copy', className: 'my-copy-item' },
+                                    { code: '5', name: '车牌号对应历史', prefixIcon: 'fa fa-copy', className: 'my-copy-item' },
+                                    { code: '6', name: '客户对应历史', prefixIcon: 'fa fa-copy', className: 'my-copy-item' }
+                                ],
+                            ]
+                        }
+                    },
+                    tableMenu3: {
+                        body: {
+                            options: [
+                                [
+                                    { code: '4', name: '看对应单据', prefixIcon: 'fa fa-copy', className: 'my-copy-item' },
+                                    { code: '5', name: '车牌号对应历史', prefixIcon: 'fa fa-copy', className: 'my-copy-item' },
+                                    { code: '6', name: '客户对应历史', prefixIcon: 'fa fa-copy', className: 'my-copy-item' }
+                                ],
+                            ]
+                        }
+                    },
+                    tableMenu4: {
+                        body: {
+                            options: [
+                                [
+                                    { code: '4', name: '看对应单据', prefixIcon: 'fa fa-copy', className: 'my-copy-item' },
+                                    { code: '5', name: '车牌号对应历史', prefixIcon: 'fa fa-copy', className: 'my-copy-item' },
+                                    { code: '6', name: '客户对应历史', prefixIcon: 'fa fa-copy', className: 'my-copy-item' }
+                                ],
+                            ]
+                        }
+                    },
+                    tableMenu5: {
+                        body: {
+                            options: [
+                                [
+                                    { code: '5', name: '车牌号对应历史', prefixIcon: 'fa fa-copy', className: 'my-copy-item' },
+                                    { code: '6', name: '客户对应历史', prefixIcon: 'fa fa-copy', className: 'my-copy-item' }
+                                ],
+                            ]
+                        }
+                    }
+                }
+            },
+            methods: {
+                currentChangeEvent1({ row }) {
+
+                }, currentChangeEvent2({ row }) {
+
+                }, currentChangeEvent3({ row }) {
+
+                }, currentChangeEvent4({ row }) {
+
+                }, currentChangeEvent5({ row }) {
+
+                },
+                /*
+                    右键菜单
+                */
+                contextMenuClickEvent1({ menu, row, column }) {
+                    console.log(menu.code);
+                },
+                contextMenuClickEvent2({ menu, row, column }) {
+                    console.log(menu.code);
+                },
+                contextMenuClickEvent3({ menu, row, column }) {
+                    console.log(menu.code);
+                },
+                contextMenuClickEvent4({ menu, row, column }) {
+                    console.log(menu.code);
+                },
+                contextMenuClickEvent5({ menu, row, column }) {
+                    console.log(menu.code);
+                },
+            },
+            created() {
+            }
+        };
+        var Ctor = Vue.extend(Main);
+        new Ctor().$mount('.container-fluid');
+
+        VXETable.formats.mixin({
+            // 格式化性别
+            formatSex({ cellValue }) {
+                return cellValue ? (cellValue === '1' ? '男' : '女') : ''
+            },
+            formatNull({ cellValue }) {
+                return cellValue ? cellValue : '-'
+            },
+            // 格式化下拉选项
+            formatSelect({ cellValue }, list) {
+                const item = list.find(item => item.value === cellValue)
+                return item ? item.label : ''
+            },
+            // 格式化日期，默认 yyyy-MM-dd HH:mm:ss
+            formatDate({ cellValue }, format) {
+                return XEUtils.toDateString(cellValue, format || 'yyyy-MM-dd HH:mm:ss')
+            },
+            // 四舍五入金额，每隔3位逗号分隔，默认2位数
+            formatAmount({ cellValue }, digits = 2) {
+                return XEUtils.commafy(XEUtils.toNumber(cellValue), { digits })
+            },
+            // 格式化银行卡，默认每4位空格隔开
+            formatBankcard({ cellValue }) {
+                return XEUtils.commafy(XEUtils.toString(cellValue), { spaceNumber: 4, separator: ' ' })
+            },
+            // 四舍五入,默认两位数
+            formatFixedNumber({ cellValue }, digits = 2) {
+                return XEUtils.toFixed(XEUtils.round(cellValue, digits), digits)
+            },
+            // 向下舍入,默认两位数
+            formatCutNumber({ cellValue }, digits = 2) {
+                return XEUtils.toFixed(XEUtils.floor(cellValue, digits), digits)
+            },
+            // 转换 moment 类型为字符串
+            toMomentString({ cellValue }, format) {
+                return cellValue ? cellValue.format(format) : ''
+            }
+        })
+    </script>
+</body>
+
+</html>

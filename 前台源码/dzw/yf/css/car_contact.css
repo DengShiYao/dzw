@@ -1,0 +1,38 @@
+.navbtn{
+    padding: 5px 10px;
+    text-align: right;
+    background-color: rgb(247, 247, 247);
+}
+.tableX{
+    height: 49%;padding: 0px 10px !important;
+}
+
+.tableX>div{
+    height: 100%;
+}
+
+.textsize p{
+    color: #606266;
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Helvetica Neue,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+}
+
+
+.my-menus {
+    background-color: #F8F8F9;
+  }
+  .my-menus .vxe-ctxmenu--link {
+    width: 200px;
+  }
+  .my-copy-item {
+    font-weight: 700;
+    font-style: oblique;
+  }
+  .color-red {
+    color: red;
+  }
+  .color-blue {
+    color: blue;
+  }
+  .color-orange {
+    color: orange;
+  }
