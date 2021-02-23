@@ -200,4 +200,26 @@
     <update id="madeAssume">
         UPDATE employees SET dismission =0 WHERE eId=#{eId}
     </update>
+    <!--导出员工list-->
+    <select id="selDownLoadEmployList" resultMap="BaseResultMap1">
+        SELECT * FROM employees
+        <where>
+            eId in
+            <foreach collection="array" item="item" open="(" close=")" separator=",">
+                #{item}
+            </foreach>
+        </where>
+        and  dismission=0
+    </select>
+    <!--导出通讯名录lsit-->
+    <select id="selDownLoadCommunicationList" resultMap="BaseResultMap1">
+        SELECT * FROM employees
+        <where>
+            eId in
+            <foreach collection="array" item="item" open="(" close=")" separator=",">
+                #{item}
+            </foreach>
+        </where>
+        and  dismission=0
+    </select>
 </mapper>

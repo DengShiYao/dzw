@@ -150,8 +150,10 @@ public class EmployeesController {
      *导出员工excel
      */
     @RequestMapping("/downLoadExportExcel")
-    public ResponseEntity<byte []> downLoadExportExcel() throws IOException {
-        List<Employees> list = employeesService.selInfo();
+    public ResponseEntity<byte []> downLoadExportExcel(String eIdList) throws IOException {
+        String []  arry = null;
+        arry=eIdList.split(",");
+        List<Employees> list = employeesService.selDownLoadEmployList(arry);
         Workbook book = new XSSFWorkbook();
         Sheet sheet= book.createSheet();
         System.out.println("进入导出");
@@ -276,8 +278,10 @@ public class EmployeesController {
      *导出通讯名录excel
      */
     @RequestMapping("/downLoadCommunicationExportExcel")
-    public ResponseEntity<byte []> downLoadCommunicationExportExcel() throws IOException {
-        List<Employees> list = employeesService.selInfo();
+    public ResponseEntity<byte []> downLoadCommunicationExportExcel(String eIdList) throws IOException {
+        String []  arry = null;
+        arry=eIdList.split(",");
+        List<Employees> list = employeesService.selDownLoadCommunicationList(arry);
         Workbook book = new XSSFWorkbook();
         Sheet sheet= book.createSheet();
         System.out.println("进入导出");

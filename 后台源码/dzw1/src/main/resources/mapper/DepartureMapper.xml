@@ -68,4 +68,13 @@
                 </if>
             </where>
     </select>
+    <select id="selExportList" resultMap="BaseResultMap1">
+        SELECT * FROM departure
+        <where>
+            eId in
+            <foreach collection="array" open="(" close=")" separator="," item="item">
+                #{item}
+            </foreach>
+        </where>
+    </select>
 </mapper>

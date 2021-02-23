@@ -38,7 +38,7 @@ public class DepartureServiceImpl extends ServiceImpl<DepartureMapper, Departure
     public boolean lz(Departure departure) {
         try {
             int a1=employeesMapper.madeFire(departure.getEId());
-           // int a2=technicalMapper.madeFire(departure.getEId());
+            int a2=technicalMapper.madeFire(departure.getEId());
             int a=departureMapper.insert(departure);
             return true;
         } catch (Exception e) {
@@ -51,7 +51,7 @@ public class DepartureServiceImpl extends ServiceImpl<DepartureMapper, Departure
     public boolean hg(String eId) {
         try {
             int a= employeesMapper.madeAssume(eId);
-           // int a2=technicalMapper.madeAssume(eId);
+            int a2=technicalMapper.madeAssume(eId);
             QueryWrapper<Departure> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("eId",eId);
             int a1=departureMapper.delete(queryWrapper);
@@ -95,6 +95,11 @@ public class DepartureServiceImpl extends ServiceImpl<DepartureMapper, Departure
     @Override
     public List<Departure> selBySearch(Departure departure) {
         return departureMapper.selBySearch(departure);
+    }
+
+    @Override
+    public List<Departure> selExportList(String[] array) {
+        return departureMapper.selExportList(array);
     }
 
 

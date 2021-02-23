@@ -58,6 +58,7 @@ public class Department extends Model<Department> {
 
     @ApiModelProperty(value = "部门类型实体")
     @JsonProperty(value = "departmentType")
+    @TableField(exist = false)
     private Departmenttype departmentType;
 
 
