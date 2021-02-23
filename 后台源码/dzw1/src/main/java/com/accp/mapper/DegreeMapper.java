@@ -12,5 +12,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2021-02-01
  */
 public interface DegreeMapper extends BaseMapper<Degree> {
-
+    public Degree selById(Integer degreeId);
 }

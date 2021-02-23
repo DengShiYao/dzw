@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -29,21 +31,26 @@ public class Recharge extends Model<Recharge> {
 
     @ApiModelProperty(value = "编号")
     @TableId(value = "id", type = IdType.AUTO)
+    @JsonProperty(value = "id")
     private Integer id;
 
     @ApiModelProperty(value = "会员号")
     @TableField("mId")
+    @JsonProperty(value = "mId")
     private Integer mId;
 
     @ApiModelProperty(value = "充值时间")
     @TableField("rechargeDate")
+    @JsonProperty(value = "rechargeDate")
     private String rechargeDate;
 
     @ApiModelProperty(value = "操作人")
     @TableField("eId")
+    @JsonProperty(value = "eId")
     private String eId;
 
     @ApiModelProperty(value = "充值金额")
+    @JsonProperty(value = "money")
     private Double money;
 
     @ApiModelProperty(value = "备用列")

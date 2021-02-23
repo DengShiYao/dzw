@@ -1,7 +1,12 @@
 package com.accp.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import java.io.Serializable;
+import java.util.List;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -33,14 +38,18 @@ public class TeamForm extends Model<TeamForm> {
     @ApiModelProperty(value = "班组权重")
     private Integer teamCommission;
 
-    @ApiModelProperty(value = "备用列")
-    private String column1;
+    @TableId(type = IdType.AUTO)
+    @ApiModelProperty(value = "自增主键")
+    private Integer column1;
 
-    @ApiModelProperty(value = "备用列")
-    private String column2;
+    @ApiModelProperty(value = "团队id")
+    private Integer column2;
 
     @ApiModelProperty(value = "备用列")
     private String column3;
+
+    @TableField(exist = false)
+    private List<Technical> jgList;
 
 
     public static final String TEAM_CODE = "team_code";

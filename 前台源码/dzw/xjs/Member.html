@@ -55,6 +55,9 @@
 			.modal-dialog{
 				width: 80%;
 			}
+			.bg{
+				background: orange;
+			}
 		</style>
 	</head>
 	<body>
@@ -62,13 +65,16 @@
 			<div class="clear1 headDiv">
 				<div class="headDiv_left">会员卡充值</div>
 				<div class="headDiv_right">
-				<input type="text" class="search" placeholder="匹配会员号/姓名/手机"/>
+				<input type="text" class="search" placeholder="匹配会员号/姓名" id="searchtext"/>
 				<button class="btn btn-info" @click="searchMember">搜索</button>
 				<button class="btn btn-danger">关闭</button>
 				</div>
 			</div>
 			<div class="bodyDiv">
 				<button class="btn btn-primary" @click="openRechargeWindow">会员卡充值</button>
+				<button class="btn btn-danger" @click="openRectifyWindow">会员余额校正</button>
+				<button class="btn btn-primary" @click="openSelRechargeWindow">查看会员充值记录</button>
+				<button class="btn btn-primary" @click="openSelRectifyWindow">查看会员矫正记录</button>
 			</div>
 			<div>
 				<table border="" cellspacing="" cellpadding="" class="table">
@@ -79,12 +85,12 @@
 						<th>会员余额</th>
 						<th>注册时间</th>
 					</tr>
-					<tr v-for="item in list">
-						<td></td>
-						<td>{{item.mId}}</td>
-						<td>{{item.mName}}</td>
-						<td>{{item.mPrice}}</td>
-						<td>{{item.createTime}}</td>
+					<tr v-for="(item,index) in list"  :class='{bg:index==isactive}' @click="fn(index)">
+						<td @click="chooseTableTr(item)"></td>
+						<td @click="chooseTableTr(item)">{{item.mId}}</td>
+						<td @click="chooseTableTr(item)">{{item.mName}}</td>
+						<td @click="chooseTableTr(item)">{{item.mPrice}}</td>
+						<td @click="chooseTableTr(item)">{{item.createDate}}</td>
 					</tr>
 				</table>
 			</div>
@@ -107,13 +113,13 @@
 										<td colspan="6">
 											<div class="form-group">
 												<label class="control-label">会员卡号</label>
-												<input type="text" id="" value="001" readonly="readonly" class="form-control"/>
+												<input type="text" id=""  readonly="readonly" class="form-control" v-model="member.mId"/>
 											</div>
 										</td>
 										<td colspan="6">
 											<div class="form-group">
 												<label class="control-label">会员姓名</label>
-												<input type="text" id="" value="小黄"  class="form-control" readonly="readonly"/>
+												<input type="text" id=""   class="form-control" readonly="readonly" v-model="member.mName"/>
 											</div>
 										</td>
 									</tr>
@@ -121,7 +127,7 @@
 										<td colspan="6">
 											<div class="form-group">
 												<label class="control-label">会员余额</label>
-												<input type="text" id="" value="100.00" readonly="readonly" class="form-control"/>
+												<input type="text" id=""  readonly="readonly" class="form-control" v-model="member.mPrice"/>
 											</div>
 										</td>
 										<td colspan="6">
@@ -136,20 +142,20 @@
 												<table border="0" cellspacing="0" cellpadding="0" width="100%">
 													<tr>
 														<td colspan="6">
-															<a class="btn" @click="recharge">200元</a>
+															<a class="btn" @click="rechargeFixed(200)">200元</a>
 														</td>
 														<td colspan="6">
-															<a class="btn" @click="recharge">100元</a>
+															<a class="btn" @click="rechargeFixed(100)">100元</a>
 														</td>
 													</tr>
 													<tr>
 														<td colspan="6">
-															<a class="btn" @click="recharge">50元</a>
+															<a class="btn" @click="rechargeFixed(50)">50元</a>
 														</td>
 														<td colspan="6">
 															<div class="form-group">
 																<label class="control-label">其他金额</label>
-																<input type="text" name="" id="" value=""  class="form-control"/>
+																<input type="text" name="" id="otherPrice" value=""  class="form-control"/>
 															</div>
 														</td>
 													</tr>
@@ -170,6 +176,121 @@
 					</div>
 				</div>
 			</div>
+			<!-- 会员校正余额-->
+			<div class="modal" data-backdrop = "static" id="rectifyWindow">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4>会员余额校正</h4>
+						</div>
+						<div class="modal-body">
+							<table border="0" cellspacing="0" cellpadding="0" width="80%" style="margin: 40px auto;">
+								<tr>
+									<td colspan="6">
+										<div class="form-group">
+												<label class="control-label">会员卡号</label>
+												<input type="text" id="" value="001" readonly="readonly" class="form-control" v-model="member.mId"/>
+											</div>
+									</td>
+									<td colspan="">
+										<div class="form-group">
+												<label class="control-label">会员姓名</label>
+												<input type="text" id="" value="所属" readonly="readonly" class="form-control" v-model="member.mName"/>
+											</div>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<div class="form-group">
+												<label class="control-label">会员余额</label>
+												<input type="text" id="" value="100.00" readonly="readonly" class="form-control" v-model="member.mPrice"/>
+											</div>
+									</td>
+									<td>
+										<div class="form-group">
+												<label class="control-label">校正金额</label>
+												<input type="text" id="checkPrice" value=""  class="form-control"/>
+											</div>
+									</td>
+								</tr>
+							</table>
+						</div>
+						<div class="modal-footer">
+							<div class="text-right">
+								<button class="btn btn-success" @click="rectify">校正</button>
+								<button class="btn btn-danger" @click="closeRectifyWindow">关闭</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--
+            	会员充值记录
+            -->
+            <div class="modal" data-backdrop = "static" id="selRechargeWindow">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h3>会员充值记录查询</h3>
+							<div class="text-right">
+									<button class="btn btn-danger" @click="closeSelRechargeWindow">关闭</button>
+							</div>
+						</div>
+						<div class="modal-body">
+							<table border="" cellspacing="" cellpadding="" class="table">
+								<tr>
+									<th>会员卡号</th>
+									<th>充值金额</th>
+									<th>操作人</th>
+									<th>充值时间</th>
+								</tr>
+								<tr v-for="item in czList">
+									<td>{{item.mId}}</td>
+									<td>{{item.money}}</td>
+									<td>{{item.eId}}</td>
+									<td>{{item.rechargeDate}}</td>
+								</tr>
+							</table>
+						</div>
+						<div class="modal-footer"></div>
+					</div>
+				</div>
+			</div>
+            <!--
+            	会员矫正记录
+            -->
+            <div class="modal" data-backdrop = "static" id="selRectifyWindow">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h3>会员充值记录查询</h3>
+							<div class="text-right">
+									<button class="btn btn-danger" @click="closeSelRectifyWindow">关闭</button>
+							</div>
+						</div>
+						<div class="modal-body">
+							<table border="" cellspacing="" cellpadding="" class="table">
+								<tr>
+									<th>会员卡号</th>
+									<th>校正金额</th>
+									<th>操作人</th>
+									<th>校正时间</th>
+								</tr>
+								<tr v-for="item in checkList ">
+									<td>{{item.mId}}</td>
+									<td>{{item.money}}</td>
+									<td>{{item.eId}}</td>
+									<td>{{item.rectifyDate}}</td>
+								</tr>
+							</table>
+						</div>
+						<div class="modal-footer"></div>
+					</div>
+				</div>
+			</div>
+            <!--
+            	分割线
+            -->
 		</div>
 	</body>
 	<script src="js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
@@ -180,59 +301,362 @@
 			el:"#ctx",
 			data(){
 				return{
-					list:[{
-						id:1,
-						mId:"0001",
-						mName:"小黄",
-						mPrice:100.00,
-						createTime:"2020-01-02"
-					},{
-						id:2,
-						mId:"0002",
-						mName:"小黑",
-						mPrice:200.00,
-						createTime:"2020-01-12"
-					},{
-						id:3,
-						mId:"0003",
-						mName:"黄狗",
-						mPrice:150.00,
-						createTime:"2020-01-13"
-					},{
-						id:4,
-						mId:"0004",
-						mName:"小小",
-						mPrice:20.00,
-						createTime:"2020-01-16"
-					}]
+					//会员列表
+					list:[],
+					//进行操作的会员行
+					memberClos:{},
+					//会员充值记录对象
+					rechargeObject:{},
+					//会员余额矫正对象
+					rectifyObject:{},
+					//会员充值查询记录
+					czList:[],
+					//会员矫正查询记录
+					checkList:[],
+					//查询到的单个会员对象
+					member:{},
+					//table的第一行默认有样式
+					isactive:0
 					//优美的间隔符
+					
 				}
 			},
 			methods:{
 				openRechargeWindow(){
+					var mId=this.memberClos.mId;
+					if(mId==null||mId==""){
+						alert("请先选择要操作的会员");
+						return;
+					}
+					let that=this;
+					$.ajax({
+						url:"http://127.0.0.1:8080/member/selByMid/"+mId,
+						type:"get",
+						dataType:"json",
+						async:false,
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						success:function(result){
+							that.member=result;
+						}
+					});
 					$("#rechargeWindow").modal("show");
 				},
 				closeRechargeWindow(){
 					$("#rechargeWindow").modal("hide");
 				},
+				//打开充值金额
 				openRecharge(){
 					$("#chooseRecharge").show();
 				},
 				closeRecharge(){
 					$("#chooseRecharge").hide();
 				},
-				recharge(){
-					alert("充值成功");
-					/*$("#chooseRecharge").hide();
-					$("#rechargeWindow").hide();*/
+				//充值固定的金额
+				rechargeFixed(fixPrice){
+					var myDate= new Date();
+					this.rechargeObject.mId=this.member.mId;
+					this.rechargeObject.money=fixPrice;
+					var nowYear=myDate.getFullYear();
+					var nowMonth=(myDate.getMonth()+1);
+					var nowDay=myDate.getDate();
+					var nowHouse=myDate.getHours();
+					var nowMinutes=myDate.getMinutes();
+					var nowSeconds=myDate.getSeconds();
+					if(nowMonth<10){
+						nowMonth="0"+nowMonth;
+					}
+					if(nowDay<10){
+						nowDay="0"+nowDay;
+					}
+					if(nowHouse<10){
+						nowHouse="0"+nowHouse;
+					}
+					if(nowMinutes<10){
+						nowMinutes="0"+nowMinutes;
+					}
+					if(nowSeconds<10){
+						nowSeconds="0"+nowSeconds;
+					}
+					var nowTime=nowYear+"-"+nowMonth+"-"+nowDay+" "+nowHouse+":"+nowMinutes+":"+nowSeconds;
+					console.log(nowTime);
+					this.rechargeObject.rechargeDate=nowTime;
+					var json=JSON.stringify(this.rechargeObject);
+					console.log(json);
+					$.ajax({
+						url:"http://127.0.0.1:8080/member/addMemberPrice",
+						type:"put",
+						data:json,
+						dataType:"json",
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						async:false,
+						contentType:"application/json;charset=utf-8",
+						success:function(result){
+							if(result){
+								alert("充值成功");
+							}else{
+								alert("充值失败");
+							}
+						}
+					});
 					$("#rechargeWindow").modal("hide");
+				},
+				//判断输入的充值金额是否为非正数
+				checkNumber(str){
+					var reg = /^[1-9]\d*|0$/;
+					if(!reg.test(str)){
+						return true;
+					}else{
+						return false;
+					}
+				},
+				recharge(){
+					var rMoney=$("#otherPrice").val();
+					if(this.checkNumber(rMoney)){
+						alert("充值金额必须大于0、不为空且为数字");
+						return;
+					}
+					var myDate= new Date();
+					this.rechargeObject.mId=this.member.mId;
+					this.rechargeObject.money=rMoney;
+					var nowYear=myDate.getFullYear();
+					var nowMonth=(myDate.getMonth()+1);
+					var nowDay=myDate.getDate();
+					var nowHouse=myDate.getHours();
+					var nowMinutes=myDate.getMinutes();
+					var nowSeconds=myDate.getSeconds();
+					if(nowMonth<10){
+						nowMonth="0"+nowMonth;
+					}
+					if(nowDay<10){
+						nowDay="0"+nowDay;
+					}
+					if(nowHouse<10){
+						nowHouse="0"+nowHouse;
+					}
+					if(nowMinutes<10){
+						nowMinutes="0"+nowMinutes;
+					}
+					if(nowSeconds<10){
+						nowSeconds="0"+nowSeconds;
+					}
+					var nowTime=nowYear+"-"+nowMonth+"-"+nowDay+" "+nowHouse+":"+nowMinutes+":"+nowSeconds;
+					console.log(nowTime);
+					this.rechargeObject.rechargeDate=nowTime;
+					var json=JSON.stringify(this.rechargeObject);
+					console.log(json);
+					$.ajax({
+						url:"http://127.0.0.1:8080/member/addMemberPrice",
+						type:"put",
+						data:json,
+						dataType:"json",
+						async:false,
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						contentType:"application/json;charset=utf-8",
+						success:function(result){
+							if(result){
+								alert("充值成功");
+							}else{
+								alert("充值失败");
+							}
+						}
+					});
+					$("#rechargeWindow").modal("hide");
+					this.find();
 				},
 				searchMember(){
 					alert("正在查询符合条件的会员");
+					var parse=$("#searchtext").val();
+					if(parse==null||parse==""){
+						parse="我是空查询";
+					}
+					let that=this;
+					$.ajax({
+						url:"http://127.0.0.1:8080/member/selByMidOrName/"+parse,
+						type:"get",
+						dataType:"json",
+						async:false,
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						success:function(result){
+							that.list=result;
+						}
+					});
+				},
+				openRectifyWindow(){
+					var mId=this.memberClos.mId;
+					if(mId==null||mId==""){
+						alert("请先选择要操作的会员");
+						return;
+					}
+					let that=this;
+					$.ajax({
+						url:"http://127.0.0.1:8080/member/selByMid/"+mId,
+						type:"get",
+						dataType:"json",
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						success:function(result){
+							that.member=result;
+						}
+					});
+					$("#rectifyWindow").modal("show");
+				},
+				closeRectifyWindow(){
+					$("#rectifyWindow").modal("hide");
+					this.find();
+				},
+				//矫正金额检验
+				checkPriceCheck(str){
+					var reg = /^(\-|\+)?\d/;
+					if(!reg.test(str)){
+						return true;
+					}else{
+						return false;
+					}
+				},
+				//校正金额
+				rectify(){
+					var checkPrice=$("#checkPrice").val();
+					if(this.checkPriceCheck(checkPrice)){
+						alert("充值金额必须为数字且不为空");
+						return;
+					}
+					var myDate= new Date();
+					this.rectifyObject.mId=this.member.mId;
+					this.rectifyObject.money=checkPrice;
+					var nowYear=myDate.getFullYear();
+					var nowMonth=(myDate.getMonth()+1);
+					var nowDay=myDate.getDate();
+					var nowHouse=myDate.getHours();
+					var nowMinutes=myDate.getMinutes();
+					var nowSeconds=myDate.getSeconds();
+					if(nowMonth<10){
+						nowMonth="0"+nowMonth;
+					}
+					if(nowDay<10){
+						nowDay="0"+nowDay;
+					}
+					if(nowHouse<10){
+						nowHouse="0"+nowHouse;
+					}
+					if(nowMinutes<10){
+						nowMinutes="0"+nowMinutes;
+					}
+					if(nowSeconds<10){
+						nowSeconds="0"+nowSeconds;
+					}
+					var nowTime=nowYear+"-"+nowMonth+"-"+nowDay+" "+nowHouse+":"+nowMinutes+":"+nowSeconds;
+					console.log(nowTime);
+					this.rectifyObject.rectifyDate=nowTime;
+					var json=JSON.stringify(this.rectifyObject);
+					console.log(json);
+					$.ajax({
+						url:"http://127.0.0.1:8080/member/checkMemberPrice",
+						type:"put",
+						data:json,
+						dataType:"json",
+						xhrFields: {
+							withCredentials: true
+						},
+						async:false,
+						crossDomain: true,
+						contentType:"application/json;charset=utf-8",
+						success:function(result){
+							if(result){
+								alert("校正成功");
+							}else{
+								alert("校正失败");
+							}
+						}
+					});
+					$("#rectifyWindow").modal("hide");
+					this.find();
+				},
+				//打开查询会员充值记录
+				openSelRechargeWindow(){
+					let that=this;
+					$.ajax({
+						url:"http://127.0.0.1:8080/recharge",
+						type:"get",
+						dataType:"json",
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						success:function(result){
+							that.czList=result;
+						}
+					});
+					$("#selRechargeWindow").modal("show");
+				},
+				closeSelRechargeWindow(){
+					$("#selRechargeWindow").modal("hide");
+				},
+				//打开查询会员矫正记录
+				openSelRectifyWindow(){
+					let that=this;
+					$.ajax({
+						url:"http://127.0.0.1:8080/rectify",
+						type:"get",
+						dataType:"json",
+						async:false,
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						success:function(result){
+							that.checkList=result;
+						}
+					});
+					$("#selRectifyWindow").modal("show");
+				},
+				closeSelRectifyWindow(){
+					$("#selRectifyWindow").modal("hide");
+				},
+				//查询所有会员
+				find(){
+					let that=this;
+					$.ajax({
+						url:"http://127.0.0.1:8080/member",
+						type:"get",
+						dataType:"json",
+						xhrFields: {
+							withCredentials: true
+						},
+						async:false,
+						crossDomain: true,
+						success:function(result){
+							console.log(result);
+							that.list=result;
+						}
+					});
+				},
+				 //选择table某列将数据传入，用于获取员工信息
+                    chooseTableTr(item){
+                    	this.memberClos=item;
+                    	console.log(this.memberClos);
+                },
+                 //点击tr背景变色
+                    fn (index) {
+					      //点击切换 变量的值 赋值为 index
+					      this.isactive=index;
 				}
 			},
 			created(){
-				
+				this.find();
 			}
 		})
 	</script>

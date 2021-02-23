@@ -1,5 +1,6 @@
 package com.accp.domain;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
@@ -33,10 +34,11 @@ public class MechanicsstarLevel extends Model<MechanicsstarLevel> {
     @ApiModelProperty(value = "提成权重")
     private Integer fullCommission;
 
-    @ApiModelProperty(value = "备用列")
-    private String column1;
+    @TableId("column1")
+    @ApiModelProperty(value = "自增主键")
+    private Integer column1;
 
-    @ApiModelProperty(value = "备用列")
+    @ApiModelProperty(value = "星级")
     private String column2;
 
     @ApiModelProperty(value = "备用列")

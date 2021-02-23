@@ -15,5 +15,7 @@
     <sql id="Base_Column_List">
         majorId, majorName, column1, column2, column3
     </sql>
-
+    <select id="selById" resultMap="BaseResultMap">
+        SELECT * FROM major WHERE majorId=#{majorId}
+    </select>
 </mapper>

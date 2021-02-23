@@ -1,5 +1,6 @@
 package com.accp.domain;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
@@ -39,11 +40,12 @@ public class FieldVehicles extends Model<FieldVehicles> {
     @ApiModelProperty(value = "归属班组")
     private String attributionTeam;
 
-    @ApiModelProperty(value = "备用列")
-    private String column1;
+    @TableId("column1")
+    @ApiModelProperty(value = "自增主键")
+    private Integer column1;
 
-    @ApiModelProperty(value = "备用列")
-    private String column2;
+    @ApiModelProperty(value = "班组外键")
+    private Integer column2;
 
     @ApiModelProperty(value = "备用列")
     private String column3;

@@ -4,7 +4,10 @@ import com.accp.domain.Department;
 import com.accp.mapper.DepartmentMapper;
 import com.accp.service.IDepartmentService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -16,5 +19,10 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class DepartmentServiceImpl extends ServiceImpl<DepartmentMapper, Department> implements IDepartmentService {
-
+    @Autowired
+    DepartmentMapper departmentMapper;
+    @Override
+    public List<Department> selBySid(Integer sId) {
+        return departmentMapper.selBySid(sId);
+    }
 }

@@ -17,5 +17,14 @@
     <sql id="Base_Column_List">
         dId, dName, tId, sId, column1, column2, column3
     </sql>
-
+    <select id="selById" resultMap="BaseResultMap">
+        SELECT * FROM department WHERE `dId`=#{dId}
+    </select>
+    <!--根据门店查询部门相关信息-->
+    <resultMap id="BaseResultMap1" type="com.accp.domain.Department" extends="BaseResultMap">
+        <association property="departmentType" column="tId" select="com.accp.mapper.DepartmenttypeMapper.selById"></association>
+    </resultMap>
+    <select id="selBySid" resultMap="BaseResultMap1">
+            SELECT * FROM department WHERE sId=#{sId}
+    </select>
 </mapper>

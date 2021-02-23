@@ -15,5 +15,7 @@
     <sql id="Base_Column_List">
         sexId, sexName, column1, column2, column3
     </sql>
-
+    <select id="selById" resultMap="BaseResultMap">
+        SELECT * FROM sex WHERE `sexId`=#{sexId}
+    </select>
 </mapper>

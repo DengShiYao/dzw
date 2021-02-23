@@ -1,9 +1,12 @@
 package com.accp.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+import java.util.List;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -40,6 +43,9 @@ public class Tuandui extends Model<Tuandui> {
 
     @ApiModelProperty(value = "备用列")
     private String column3;
+
+    @TableField(exist = false)
+    private List<TeamForm> tfList;
 
 
     public static final String TD_ID = "td_id";

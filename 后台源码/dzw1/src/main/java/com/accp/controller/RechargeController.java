@@ -1,9 +1,15 @@
 package com.accp.controller;
 
 
+import com.accp.domain.Recharge;
+import com.accp.service.impl.RechargeServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * <p>
@@ -16,6 +22,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/recharge")
 public class RechargeController {
-
+    @Autowired
+    RechargeServiceImpl rechargeService;
+    @GetMapping
+    public List<Recharge> selAll(){
+        return rechargeService.list();
+    }
 }
 

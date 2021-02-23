@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -29,40 +31,50 @@ public class Departure extends Model<Departure> {
 
     @ApiModelProperty(value = "编号")
     @TableId(value = "id", type = IdType.AUTO)
+    @JsonProperty(value = "id")
     private Integer id;
 
     @ApiModelProperty(value = "员工编号")
     @TableField("eId")
+    @JsonProperty(value = "eId")
     private String eId;
 
     @ApiModelProperty(value = "离职时间")
     @TableField("dismissDate")
+    @JsonProperty(value = "dismissDate")
     private String dismissDate;
 
     @ApiModelProperty(value = "离职原因")
     @TableField("dismissReason")
+    @JsonProperty(value = "dismissReason")
     private String dismissReason;
 
     @ApiModelProperty(value = "登记人")
     @TableField("registId")
+    @JsonProperty(value = "registId")
     private Integer registId;
 
     @ApiModelProperty(value = "性别")
+    @JsonProperty(value = "sex")
     private String sex;
 
     @ApiModelProperty(value = "部门编号")
     @TableField("dId")
+    @JsonProperty(value = "dId")
     private String dId;
 
     @ApiModelProperty(value = "所属门店")
     @TableField("sId")
+    @JsonProperty(value = "sId")
     private Integer sId;
 
     @ApiModelProperty(value = "姓名")
+    @JsonProperty(value = "name")
     private String name;
 
     @ApiModelProperty(value = "岗位编码")
     @TableField("jobId")
+    @JsonProperty(value = "jobId")
     private String jobId;
 
     @ApiModelProperty(value = "备用列")
@@ -73,6 +85,21 @@ public class Departure extends Model<Departure> {
 
     @ApiModelProperty(value = "备用列")
     private String column3;
+
+    @ApiModelProperty(value = "门店")
+    @TableField(exist = false)
+    @JsonProperty(value = "store")
+    private  Store store;
+
+    @ApiModelProperty(value = "部门")
+    @TableField(exist = false)
+    @JsonProperty(value = "department")
+    private  Department department;
+
+    @ApiModelProperty(value = "职位")
+    @TableField(exist = false)
+    @JsonProperty(value = "job")
+    private  Job job;
 
 
     public static final String ID = "id";

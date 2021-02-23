@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+import java.util.List;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -34,6 +36,10 @@ public class Store extends Model<Store> {
     @ApiModelProperty(value = "门店名称")
     @TableField("storeName")
     private String storeName;
+
+    @ApiModelProperty(value = "子门店集合")
+    @TableField(exist = false)
+    private List<Store> list;
 
     @ApiModelProperty(value = "父门店编号")
     @TableField("pstoreId")

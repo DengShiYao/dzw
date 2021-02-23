@@ -80,7 +80,7 @@
 			<div class="clear1 headDiv">
 				<div class="headDiv_left">通讯名录</div>
 				<div class="headDiv_right">
-				<input type="text" class="search" placeholder="匹配工号/姓名/手机"/>
+				<input type="text" class="search" placeholder="匹配工号/姓名/手机" id="searchtext"/>
 				<button class="btn btn-success" @click="search">搜索</button>
 				<button class="btn btn-danger">关闭</button>
 				</div>
@@ -104,13 +104,13 @@
 								<th>邮箱</th>
 							</tr>
 							<tr v-for="item in list">
-								<td><input type="text" name="" id="" :value="item.bm" readonly="readonly"  class="form-control"/></td>
-								<td><input type="text" name="" id="" :value="item.eId"  readonly="readonly" class="form-control"/></td>
-								<td><input type="text" name="" id="" :value="item.eName" readonly="readonly"  class="form-control"/></td>
-								<td><input type="text" name="" id="" :value="item.fj"  class="form-control"/></td>
-								<td><input type="text" name="" id="" :value="item.zb"  class="form-control"/></td>
-								<td><input type="text" name="" id="" :value="item.phone" class="form-control"/></td>
-								<td><input type="text" name="" id="" :value="item.email"  class="form-control"/></td>
+								<td><input type="text" name="" id="" :value="item.department.dName" readonly="readonly"  class="form-control" v-model="item.dId"/></td>
+								<td><input type="text" name="" id="" :value="item.eId"  readonly="readonly" class="form-control" v-model="item.eId"/></td>
+								<td><input type="text" name="" id="" :value="item.eName" readonly="readonly"  class="form-control" v-model="item.eName"/></td>
+								<td><input type="text" name="" id="" :value="item.extension"  class="form-control" v-model="item.extension"/></td>
+								<td><input type="text" name="" id="" :value="item.direct"  class="form-control" v-model="item.direct"/></td>
+								<td><input type="text" name="" id="" :value="item.phone" class="form-control" v-model="item.phone"/></td>
+								<td><input type="text" name="" id="" :value="item.email"  class="form-control" v-model="item.email"/></td>
 							</tr>
 						</table>
 					</div>
@@ -133,180 +133,200 @@
 						<div class="modal-body">
 							<div>
 								<table border="0" cellspacing="0" cellpadding="0" width="100%" height="auto">
-									<tr>
-										<td colspan="4">
-											<div class="form-group">
-												<label class="control-label">员工编号</label>
-												<input type="text" name="" id="" value="" class="form-control" />
-											</div>
-										</td>
-										<td colspan="4">
-											<div class="form-group">
-												<label class="control-label">员工姓名</label>
-												<input type="text" name="" id="" value="" class="form-control" />
-											</div>
-										</td>
-										<td colspan="4">
-											<div class="form-group">
-												<label for="" class="control-label">性别</label>
-												<input type="text" name="" id="" value="" class="form-control" />
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td colspan="6">
-											<div class="form-group">
-												<label class="control-label">岗位</label>
-												<select class="form-control">
-													<option value="">总经理</option>
-													<option value="">副总经理</option>
-												</select>
-											</div>
-										</td>
-										<td colspan="6">
-											<div class="form-group">
-												<label class="control-label">部门</label>
-												<select class="form-control">
-													<option value="">嘻哈部</option>
-													<option value="">hh部</option>
-												</select>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td colspan="4">
-											<div class="form-group">
-												<label class="control-label">身体状态</label>
-												<input type="text" id="" value="" class="form-control" />
-											</div>
-										</td>
-										<td colspan="4">
-											<div class="form-group">
-												<label class="control-label">身高</label>
-												<input type="text" id="" value="" class="form-control" />
-											</div>
-										</td>
-										<td colspan="4">
-											<div class="form-group">
-												<label class="control-label">籍贯</label>
-												<input type="text" id="" value="" class="form-control"/>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td colspan="4">
-											<div class="form-group">
-												<label class="control-label">民族</label>
-												<input type="text" id="" value=""  class="form-control"/>
-											</div>
-										</td>
-										<td colspan="4">
-											<div class="form-group">
-												<label class="control-label">婚姻状态</label>
-												<input type="text" id="" value="" class="form-control"/>
-											</div>
-										</td>
-										<td colspan="4">
-											<div class="form-group">
-												<label class="control-label">学历</label>
-												<select class="form-control">
-													<option value="">大专</option>
-													<option value="">本科</option>
-												</select>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td colspan="4">
-											<div class="form-group">
-												<label class="control-label">毕业学校</label>
-												<input type="text" id="" value="" class="form-control" />
-											</div>
-										</td>
-										<td colspan="4">
-											<div class="form-group">
-												<label class="control-label">专业</label>
-												<select class="form-control">
-													<option value="">计算机科学</option>
-													<option value="">网络工程</option>
-												</select>
-											</div>
-										</td>
-										<td colspan="4">
-											<div>
-												<label class="control-label">专业资格</label>
-												<input type="text" id="" value="" class="form-control"/>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td colspan="4">
-											<div class="form-group">
-												<label class="control-label">生日</label>
-												<input type="date" id="" value="" class="form-control"/>
-											</div>
-										</td>
-										<td colspan="4">
-											<div class="form-group">
-												<label class="control-label">学位</label>
-												<input type="text" id="" value="" class="form-control"/>
-											</div>
-										</td>
-										<td colspan="4">
-											<div class="form-group">
-											 	<label class="control-label">编制</label>
-												<input type="text" id="" value="" class="form-control"/>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td colspan="6">
-											<div class="form-group">
-												<label class="control-label">身份证号</label>
-												<input type="text" id="" value="" class="form-control"/>
-											</div>
-										</td>
-										<td colspan="6">
-											<div class="form-group">
-												<label class="control-label">入职日期从</label>
-												<input type="date" id="" value="" class="form-control"/>
-												<label class="control-label">至</label>
-												<input type="date" id="" value="" class="form-control"/>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td colspan="6">
-											<div class="form-group">
-												<label class="control-label">试用日期从</label>
-												<input type="date" id="" value="" class="form-control"/>
-												<label class="control-label">至</label>
-												<input type="date" id="" value="" class="form-control"/>
-											</div>
-										</td>
-										<td colspan="6">
-											<div class="form-group">
-												<label class="control-label">属性</label>
-												<select class="form-control">
-													<option value="">记考勤计薪</option>
-													<option value="">不记考勤计薪</option>
-													<option value="">记考勤不计薪</option>
-													<option value="">不记考勤不计薪</option>
-												</select>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td colspan="6">
-											<div class="form-group">
-												<label class="control-label">合同开始从</label>
-												<input type="date" id="" value="" class="form-control"/>
-												<label class="control-label">至</label>
-												<input type="date" id="" value="" class="form-control"/>
-											</div>
-										</td>
-									</tr>
-								</table>
+								<tr>
+									<td colspan="4">
+										<div class="form-group">
+											<label class="control-label">员工编号</label>
+											<input type="text" name="" id="" value="" class="form-control" v-model="employQuery.eId"/>
+										</div>
+									</td>
+									<td colspan="4">
+										<div class="form-group">
+											<label class="control-label">员工姓名</label>
+											<input type="text" name="" id="" value="" class="form-control" v-model="employQuery.eName" />
+										</div>
+									</td>
+									<td colspan="4">
+										<div class="form-group">
+											<label for="" class="control-label">性别</label>
+											<select class="form-control" v-model="employQuery.sexId">
+												<option value=""></option>
+												<option v-for="item in sexList" :value="item.sexId">{{item.sexName}}</option>
+											</select>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="6">
+										<div class="form-group">
+											<label class="control-label">岗位</label>
+											<select class="form-control" v-model="employQuery.jId">
+												<option value=""></option>
+												<option v-for="item in jobList" :value="item.jobId">{{item.jobName}}</option>
+											</select>
+										</div>
+									</td>
+									<td colspan="6">
+										<div class="form-group">
+											<label class="control-label">部门</label>
+											<select class="form-control" v-model="employQuery.dId">
+												<option value=""></option>
+												<option value="">销售部</option>
+												<option value="">小小部</option>
+											</select>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="4">
+										<div class="form-group">
+											<label class="control-label">身体状态</label>
+											<input type="text" id="" value="" class="form-control" v-model="employQuery.health"/>
+										</div>
+									</td>
+									<td colspan="4">
+										<div class="form-group">
+											<label class="control-label">身高</label>
+											<input type="text" id="" value="" class="form-control" v-model="employQuery.height"/>
+										</div>
+									</td>
+									<td colspan="4">
+										<div class="form-group">
+											<label class="control-label">籍贯</label>
+											<select class="form-control" v-model="employQuery.nplaceId">
+												<option value=""></option>
+												<option v-for="item in nplaceList" :value="item.nplaceId">{{item.nplaceName}}</option>
+											</select>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="4">
+										<div class="form-group">
+											<label class="control-label">民族</label>
+											<select class="form-control" v-model="employQuery.nationalId">
+												<option value=""></option>
+												<option v-for="item in nationalList" :value="item.nationalId">{{item.nationalName}}</option>
+											</select>
+										</div>
+									</td>
+									<td colspan="4">
+										<div class="form-group">
+											<label class="control-label">婚姻状态</label>
+											<select class="form-control" v-model="employQuery.marryId">
+												<option value=""></option>
+												<option v-for="item in marryList" :value="item.marryId">{{item.marryName}}</option>
+											</select>
+										</div>
+									</td>
+									<td colspan="4">
+										<div class="form-group">
+											<label class="control-label">学历</label>
+											<select class="form-control" v-model="employQuery.educationId">
+												<option value=""></option>
+												<option v-for="item in educationList" :value="item.educationId">{{item.educationName}}</option>
+											</select>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="4">
+										<div class="form-group">
+											<label class="control-label">毕业学校</label>
+											<select class="form-control" v-model="employQuery.schoolId">
+												<option value=""></option>
+												<option v-for="item in schoolList" :value="item.schoolId">{{item.schoolName}}</option>
+											</select>
+										</div>
+									</td>
+									<td colspan="4">
+										<div class="form-group">
+											<label class="control-label">专业</label>
+											<select class="form-control" v-model="employQuery.majorId">
+												<option value=""></option>
+												<option v-for="item in majorList" :value="item.majorId">{{item.majorName}}</option>
+											</select>
+										</div>
+									</td>
+									<td colspan="4">
+										<div>
+											<label class="control-label">专业资格</label>
+											<select class="form-control" v-model="employQuery.PQId">
+												<option value=""></option>
+												<option v-for="item in PQList" :value="item.PQId">{{item.PQName}}</option>
+											</select>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="4">
+										<div class="form-group">
+											<label class="control-label">生日</label>
+											<input type="date" id="" value="" class="form-control" v-model="employQuery.birth"/>
+										</div>
+									</td>
+									<td colspan="4">
+										<div class="form-group">
+											<label class="control-label">学位</label>
+											<select class="form-control" v-model="employQuery.degreeId">
+												<option value=""></option>
+												<option v-for="item in degreeList" :value="item.degreeId">{{item.degreeName}}</option>
+											</select>
+										</div>
+									</td>
+									<td colspan="4">
+										<div class="form-group">
+										 	<label class="control-label">编制</label>
+											<input type="text" id="" value="" class="form-control" v-model="employQuery.establish"/>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="6">
+										<div class="form-group">
+											<label class="control-label">身份证号</label>
+											<input type="text" id="" value="" class="form-control" v-model="employQuery.cardId"/>
+										</div>
+									</td>
+									<td colspan="6">
+										<div class="form-group">
+											<label class="control-label">入职日期从</label>
+											<input type="date" id="" value="" class="form-control" v-model="employQuery.entryDateStart"/>
+											<label class="control-label">至</label>
+											<input type="date" id="" value="" class="form-control" v-model="employQuery.entryDateEnd"/>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="6">
+										<div class="form-group">
+											<label class="control-label">试用日期从</label>
+											<input type="date" id="" value="" class="form-control" v-model="employQuery.proDateStart"/>
+											<label class="control-label">至</label>
+											<input type="date" id="" value="" class="form-control" v-model="employQuery.proDateEnd"/>
+										</div>
+									</td>
+									<td colspan="6">
+										<div class="form-group">
+											<label class="control-label">属性</label>
+											<select class="form-control" v-model="employQuery.attId">
+												<option value=""></option>
+												<option v-for="item in natureList" :value="item.attId">{{item.attName}}</option>
+											</select>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="6">
+										<div class="form-group">
+											<label class="control-label">合同开始从</label>
+											<input type="date" id="" value="" class="form-control" v-model="employQuery.pactBegin"/>
+											<label class="control-label">至</label>
+											<input type="date" id="" value="" class="form-control" v-model="employQuery.pactEnd"/>
+										</div>
+									</td>
+								</tr>
+							</table>
 							</div>
 						</div>
 						<div class="modal-footer"></div>
@@ -324,112 +344,375 @@
 			data(){
 				return{
 					//员工通信假数据
-					list:[{
-						bm:"机修1组",
-						eId:"0EX001",
-						eName:"黄鹏鸟",
-						fj:"187777",
-						zb:"",
-						phone:"A1",
-						email:""
-					},{
-						bm:"机修1组",
-						eId:"0EX002",
-						eName:"黄渤",
-						fj:"",
-						zb:"",
-						phone:"A2",
-						email:""
-					},{
-						bm:"机修2组",
-						eId:"0EX005",
-						eName:"包组长",
-						fj:"18777123",
-						zb:"",
-						phone:"1897232664",
-						email:""
-					},{
-						bm:"机修1组",
-						eId:"0EX006",
-						eName:"黄鹏",
-						fj:"",
-						zb:"1253",
-						phone:"A1",
-						email:""
-					},{
-						bm:"机修1组",
-						eId:"0EX008",
-						eName:"宝哥",
-						fj:"",
-						zb:"",
-						phone:"",
-						email:"11111@qq.com"
-					}],
-					list1:[{
-						bm:"机修1组",
-						eId:"0EX001",
-						eName:"黄鹏鸟",
-						fj:"187777",
-						zb:"",
-						phone:"A1",
-						email:""
-					},{
-						bm:"机修1组",
-						eId:"0EX002",
-						eName:"黄渤",
-						fj:"",
-						zb:"",
-						phone:"A2",
-						email:""
-					},{
-						bm:"机修2组",
-						eId:"0EX005",
-						eName:"包组长",
-						fj:"18777123",
-						zb:"",
-						phone:"1897232664",
-						email:""
-					},{
-						bm:"机修1组",
-						eId:"0EX006",
-						eName:"黄鹏",
-						fj:"",
-						zb:"1253",
-						phone:"A1",
-						email:""
-					},{
-						bm:"机修1组",
-						eId:"0EX008",
-						eName:"宝哥",
-						fj:"",
-						zb:"",
-						phone:"222222",
-						email:"11111@qq.com"
-					}],
-					a:5
+					list:[],
+					a:5,
+					//性别框虚拟数据
+					sexList:[],
+					//部门框虚拟数据
+					departList:[],
+					//民族框虚拟数据
+					nationalList:[],
+					//籍贯框虚拟数据
+					nplaceList:[],
+					//学历框虚拟数据
+					educationList:[],
+					//学校框虚拟数据
+					schoolList:[],
+					//专业框虚拟数据
+					majorList:[],
+					//专业资格框虚拟数据
+					PQList:[],
+					//学位框虚拟数据
+					degreeList:[],
+					//银行虚拟数据
+					bankList:[],
+					//婚姻状态数据
+					marryList:[],
+					//属性数据
+					natureList:[],
+					//多条件查询员工查询对象
+                	employQuery:{},
+                	//职位虚拟数据
+					jobList:[]
 				}
 			},
 			methods:{
 				//查询所有员工的通信名录
 				find(){
-					111
+					this.selEmployeeList();
 				},
+				selEmployeeList(){
+                    	let that=this;
+                    	$.ajax({
+                    		url:"http://127.0.0.1:8080/employees/selAllEmployees",
+                    		type:"get",
+                    		xhrFields: {
+							withCredentials: true
+							},
+							crossDomain: true,
+                    		dataType:"json",
+                    		success:function(result){
+                    			console.log(result);
+                    			that.list=result;
+                    			that.a=that.list.length;
+                    		}
+                    	});
+                },
+                 //搜索框匹配
+                    selByNamePhone(){
+                    	var parse=$("#searchtext").val();
+                    	if(parse.trim()==null||parse.trim()==""){
+                    		parse="我是空查询";
+                    	}
+                    	console.log(parse);
+                    	let that=this;
+                    	$.ajax({
+                    		url:"http://127.0.0.1:8080/employees/selByParse/"+parse,
+                    		type:"get",
+                    		dataType:"json",
+                    		xhrFields: {
+							withCredentials: true
+							},
+							crossDomain: true,
+                    		success:function(result){
+                    			that.list=result;
+                    			that.a=that.list.length;
+                    		}
+                    	});
+                  },
+                   //根据门店进行员工筛选
+                    selTableByStoreId(sId){
+                    	let that=this;
+                    	$.ajax({
+                    		url:"http://127.0.0.1:8080/employees/selByMid/"+sId,
+                    		type:"get",
+                    		xhrFields: {
+							withCredentials: true
+							},
+							crossDomain: true,
+							async:false,
+                    		dataType:"json",
+                    		success:function(result){
+                    			that.list=result;
+                    			that.a=that.list.length;
+                    		}
+                    	});
+                    },
+                    //获取籍贯数据
+                     getNplaceList(){
+                    	let that=this;
+                    	$.ajax({
+                    		url:"http://127.0.0.1:8080/nativeplace",
+                    		type:"get",
+                    		dataType:"json",
+                    		xhrFields: {
+							withCredentials: true
+							},
+							crossDomain: true,
+							success:function(result){
+								console.log(result);
+								that.nplaceList=result;
+							}
+                    	});
+                    },
+                    //获取民族数据
+                    getNationalList(){
+                    	let that=this;
+                    	$.ajax({
+                    		url:"http://127.0.0.1:8080/national",
+                    		type:"get",
+                    		dataType:"json",
+                    		xhrFields: {
+							withCredentials: true
+							},
+							crossDomain: true,
+							success:function(result){
+								that.nationalList=result;
+							}
+                    	});
+                    },
+                    //获取婚姻状态数据
+                    getMarryList(){
+                    	let that=this;
+                    	$.ajax({
+                    		url:"http://127.0.0.1:8080/marry",
+                    		type:"get",
+                    		dataType:"json",
+                    		xhrFields: {
+							withCredentials: true
+							},
+							crossDomain: true,
+							success:function(result){
+								that.marryList=result;
+							}
+                    	});
+                    },
+                    //获取学历数据
+                    getEducationList(){
+                    	let that=this;
+                    	$.ajax({
+                    		url:"http://127.0.0.1:8080/education",
+                    		type:"get",
+                    		dataType:"json",
+                    		xhrFields: {
+							withCredentials: true
+							},
+							crossDomain: true,
+							success:function(result){
+								that.educationList=result;
+							}
+                    	});
+                    },
+                    //获取毕业学校数据
+                    getSchoolList(){
+                    	let that=this;
+                    	$.ajax({
+                    		url:"http://127.0.0.1:8080/school",
+                    		type:"get",
+                    		dataType:"json",
+                    		xhrFields: {
+							withCredentials: true
+							},
+							crossDomain: true,
+							success:function(result){
+								that.schoolList=result;
+							}
+                    	});
+                    },
+                    //获取专业数据
+                    getMajorList(){
+                    	let that=this;
+                    	$.ajax({
+                    		url:"http://127.0.0.1:8080/major",
+                    		type:"get",
+                    		dataType:"json",
+                    		xhrFields: {
+							withCredentials: true
+							},
+							crossDomain: true,
+							success:function(result){
+								that.majorList=result;
+							}
+                    	});
+                    },
+                    //获取专业资格数据
+                    getPQList(){
+                    	let that=this;
+                    	$.ajax({
+                    		url:"http://127.0.0.1:8080/pq",
+                    		type:"get",
+                    		dataType:"json",
+                    		xhrFields: {
+							withCredentials: true
+							},
+							crossDomain: true,
+							success:function(result){
+								console.log(result);
+								that.PQList=result;
+							}
+                    	});
+                    },
+                    //获取属性数据
+                    getNatureList(){
+                    	let that=this;
+                    	$.ajax({
+                    		url:"http://127.0.0.1:8080/nature",
+                    		type:"get",
+                    		dataType:"json",
+                    		xhrFields: {
+							withCredentials: true
+							},
+							crossDomain: true,
+							success:function(result){
+								that.natureList=result;
+							}
+                    	});
+                    },
+                    //获取学位数据
+                    getDegreeList(){
+                    	let that=this;
+                    	$.ajax({
+                    		url:"http://127.0.0.1:8080/degree",
+                    		type:"get",
+                    		dataType:"json",
+                    		xhrFields: {
+							withCredentials: true
+							},
+							crossDomain: true,
+							success:function(result){
+								that.degreeList=result;
+							}
+                    	});
+                    },
+                    //获取开户银行数据
+                     getBankList(){
+                    	let that=this;
+                    	$.ajax({
+                    		url:"http://127.0.0.1:8080/bank",
+                    		type:"get",
+                    		dataType:"json",
+                    		xhrFields: {
+							withCredentials: true
+							},
+							crossDomain: true,
+							success:function(result){
+								that.bankList=result;
+							}
+                    	});
+                    },
+                    //获取性别数据
+                    getSexList(){
+                    	let that=this;
+                    	$.ajax({
+                    		url:"http://127.0.0.1:8080/sex",
+                    		type:"get",
+                    		dataType:"json",
+                    		xhrFields: {
+							withCredentials: true
+							},
+							crossDomain: true,
+							success:function(result){
+								that.sexList=result;
+							}
+                    	});
+                    },
+                    //获取职位数据
+                    getJobList(){
+                    	let that=this;
+                    	$.ajax({
+                    		url:"http://127.0.0.1:8080/job",
+                    		type:"get",
+                    		dataType:"json",
+                    		xhrFields: {
+							withCredentials: true
+							},
+							crossDomain: true,
+							success:function(result){
+								that.jobList=result;
+							}
+                    	});
+                   },
+                   //获取所有门店
+                   getStoreList(){
+                   	 let that=this;
+                   	 $.ajax({
+                    		url:"http://127.0.0.1:8080/store",
+                    		type:"get",
+                    		dataType:"json",
+                    		xhrFields: {
+							withCredentials: true
+							},
+							crossDomain: true,
+							success:function(result){
+								 console.log(result);
+								that.storeList=result;
+							}
+                    	});
+                   },
 				save(){
-					this.list=this.list1;
+					let that=this;
+					var json=JSON.stringify(that.list)
+					console.log(json);
+					$.ajax({
+						url:"http://127.0.0.1:8080/employees/saveOrUpdate",
+						type:"put",
+						data:json,
+						async:false,
+						contentType:"application/json;charset=utf-8",
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						success:function(result){
+							console.log(result);
+						}
+					});
 					alert("保存成功");
+					/*this.find();*/
 				},
 				daoChu(){
 					alert("导出成功");
 				},
 				search(){
 					alert("正在根据条件进行员工通讯名录的查询");
+					this.selByNamePhone();
 				},
 				//对查询条件div进行查询
 				sel(){
-					alert("正在对条件div中的内容进行条件查询");
-					$("#selByDiv").modal("hide");
-				},
+                    	let that=this;
+                    	var json=JSON.stringify(that.employQuery);
+                    	console.log(json);
+                    	$.ajax({
+                    		url:"http://127.0.0.1:8080/employees/selByManyConditions",
+                    		type:"post",
+                    		data:json,
+                    		xhrFields: {
+							withCredentials: true
+							},
+							crossDomain: true,
+                    		dataType:"json",
+                    		contentType:"application/json;charset=utf-8",
+                    		success:function(result){
+                    			console.log(result);
+                    			that.list=result;
+                    			that.a=that.list.length;
+                    		}
+                    	});
+                    	$("#selByDiv").modal("hide");
+                 },
 				openSelBy(){
+						this.getNplaceList();
+                    	this.getNationalList();
+                    	this.getMarryList();
+                    	this.getEducationList();
+                    	this.getSchoolList();
+                    	this.getMajorList()
+                    	this.getPQList();
+                    	this.getNatureList();
+                    	this.getDegreeList();
+                    	this.getBankList();
+                    	this.getSexList();
+                    	this.getJobList();
 					$("#selByDiv").modal("show");
 				},
 				closeSelBy(){
