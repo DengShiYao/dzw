@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+	</head>
+	<body>
+		<div id="ctn">
+			<ul>
+					<!-- 直接循环li -->
+					<li v-for="item in clasM"  @click.stop="select_bj($event)">{{item.storeName}}
+							<ul>
+									<li @click.stop="select_bj_school($event)" v-for="i in item.children">{{i.storeName}}
+									</li>
+							</ul>
+					</li>
+			</ul>
+		</div>
+		
+		<script src="js/jquery-1.12.4.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/vue-2.6.js"></script>
+		<script>
+			new Vue({
+				el:"#ctn",
+				data(){
+					return {
+						clasM:{},
+						gongsi1:[{
+							storeId:1,
+							storeName:"北京卡修",
+							children:[{
+								storeId:2,
+								storeName:"0000-成高",
+							},{
+								storeId:3,
+								storeName:"0001-成高1",
+							}]
+							},
+							{
+								storeId:4,
+								storeName:"天津卡修",
+								children:[{
+									storeId:5,
+									storeName:"0000-曾不错"
+								},{
+									storeId:6,
+									storeName:"0001-ssss"
+								}]
+							}
+							]
+					}
+				},
+				methods:{
+					find(){
+								this.clasM=this.gongsi1;
+					       },
+					select_bj(e){
+					    $(e.target).find("ul").toggleClass("hide");
+					    $(e.target).toggleClass("img_up");
+					    this.classT = {};
+					    this.student = {};
+					},
+					select_bj_school(e){
+					    $(e.target).find("ul").toggleClass("hide");
+					    $(e.target).toggleClass("img_up");
+					    this.classT = {};
+					    this.student = {};
+					    
+					}
+				},
+				created(){
+					this.find();
+				}
+			})
+		</script>
+	</body>
+</html>

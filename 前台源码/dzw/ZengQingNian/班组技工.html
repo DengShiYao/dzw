@@ -5,24 +5,33 @@
 		<title>班组技工</title>
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
 	</head>
+	<style type="text/css">
+	</style>
 	<body>
 		<div id="ctn" class="container-fluid">
 			<div class="row" style="background-color: rgb(247,255,255);height: 50px;display: flex;align-items: center;">
-					<span style="font-size: 25px;margin-left: 10px;">班组技工</span>
-					<input type="text" placeholder="匹配工号/姓名/手机" style="margin-left: 67%;width: 250px;height: 33px;">
-					<button class="btn btn-primary" style="margin-left: 10px;">搜索</button>
+					<span style="font-size: 25px;margin-left: 30px;">班组技工</span>
+					<input v-model="findLike" placeholder="匹配工号/姓名/手机" style="margin-left: 66%;width: 250px;height: 33px;">
+					<button class="btn btn-primary" style="margin-left: 10px;" @click="findByLike()">搜索</button>
 					<button class="btn"  style="margin-left: 10px;">关闭</button>		
 			</div>
 			<div class="row" style="background-color: rgb(247,247,247);">
 				<div class="row">
-					<div style="margin-top: 5px;margin-bottom: 5px;">
-						<button class="btn btn-default" style="margin-left: 30px;"  @click="add()">增加技工</button>
-						<button class="btn btn-default" style="margin-left: 10px;" @click="update()">修改</button>
-						<button class="btn btn-default" style="margin-left: 10px;">删除</button>
-						<button class="btn btn-default" style="margin-left: 10px;">查询</button>
-						<button class="btn btn-default" style="margin-left: 10px;">置空密码</button>
-						<button class="btn btn-default" style="margin-left: 10px;" @click="qc()">班组全重</button>
-						<button class="btn btn-default" style="margin-left: 10px;">导出</button>
+					<div style="margin-top: 5px;margin-bottom: 5px;margin-left: 30px">
+						<span v-if="jgVisble">
+							<button class="btn btn-default" @click="add()">增加技工</button>
+						</span>
+						<span v-if="xgjgVisble">
+							<button class="btn btn-default" style="margin-left: 10px;" @click="update()">修改技工</button>
+							<button class="btn btn-default" style="margin-left: 10px;" @click="removejg()">删除技工</button>
+						</span>
+						<!-- <button class="btn btn-default" style="margin-left: 10px;" @click="qc()">班组全重</button> -->
+						<button class="btn btn-default" style="margin-left: 10px;" @click="bzAdd()">增加班组</button>
+						<span v-if="bzVisble">
+							<button class="btn btn-default" style="margin-left: 10px;" @click="bzUpdate()">修改班组</button>
+							<button class="btn btn-default" style="margin-left: 10px;" @click="bzRemove()">删除班组</button>
+						</span>
+						<button class="btn btn-default" style="margin-left: 10px;" @click="daochu()">导出</button>
 					</div>
 				</div>
 			</div>
@@ -30,12 +39,9 @@
 				<div class="col-md-2">
 					<ul>
 							<!-- 直接循环这个li就行了多重循环嵌套 -->
-							<li v-for="item in clasM"  @click.stop="select_bj($event)" class="select_bj">{{item.storeName}}
+							<li v-for="item in tuandui"  @click.stop="select_bj($event)">{{item.tdName}}
 									<ul>
-											<li @click.stop="select_bj_school($event)" v-for="i in item.children" class="select_bj_school">{{i.storeName}}
-													<ul class="no_style">
-															<li @click.stop="select_bj_school_class($event,a.classid,a.schoolid)" v-for="a in i.children" class="select_bj_school_class">{{a.dName}}</li>
-													</ul>
+											<li @click.stop="select_bj_school($event)" v-for="i in item.tfList" @click="bz(i.jgList,i.teamCode,i.teamName,i)">{{i.teamName}}
 											</li>
 									</ul>
 							</li>
@@ -47,143 +53,121 @@
 					
 				</div>
 				<div class="col-md-10">
-					<table class="table table-bordered table-striped table-hover">
-						<tr style="background-color: rgb(33,182,206); color: white;">
-							<td>技工编号</td>
-							<td>技工姓名</td>
-							<td>性别</td>
-							<td>是否是组长</td>
-							<td>所在班组</td>
-							<td>手机</td>
-							<td>登陆账号</td>
-							<td>地址</td>
-							<td>出生日期</td>
-							<td>微信号</td>
-							<td>身份证号</td>
-							<td>户口地址</td>
-							<td>开户银行</td>
-							<td>等级编码</td>
-							<td>维修品牌</td>
-							<td>是否离职</td>
-						</tr>
-						<tr>
-							<td>1000</td>
-							<td>机修1组</td>
-							<td>0EX0001</td>
-							<td>黄犁鸟</td>
-							<td>男</td>
-							<td>A1</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td>0EX0001</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>1000</td>
-							<td>机修1组</td>
-							<td>0EX0002</td>
-							<td>黄渤</td>
-							<td>男</td>
-							<td>A2</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td>0EX0002</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>1000</td>
-							<td>机修1组</td>
-							<td>0EX0016</td>
-							<td>么么么</td>
-							<td>男</td>
-							<td>23456</td>
-							<td>232</td>
-							<td>2019-12-25</td>
-							<td></td>
-							<td>0EX0001</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-					</table>
+							<table class="table table-bordered table-striped table-hover">
+								<tr style="background-color: rgb(33,182,206); color: white;">
+									<td>班组编号</td>
+									<td>班组名称</td>
+									<td>技工编号</td>
+									<td>技工姓名</td>
+									<td>性别</td>
+									<td>是否是组长</td>
+									<td>手机</td>
+									<td>登陆账号</td>
+									<td>地址</td>
+									<td>出生日期</td>
+									<td>微信号</td>
+									<td>身份证号</td>
+									<td>户口地址</td>
+									<td>开户银行</td>
+									<td>银行账号</td>
+									<td>维修工种</td>
+									<td>维修品牌</td>
+									<td>是否离职</td>
+								</tr>
+								<tr v-for="item in jgList" @click="xgjgUpdate(item)">
+									<td v-if="item.core != null">{{item.core}}</td>
+									<td v-else >{{jgList.core}}</td>
+									<td v-if="item.name != null">{{item.name}}</td>
+									<td v-else >{{jgList.name}}</td>
+									<td>{{item.technicalNumber}}</td>
+									<td>{{item.technicalName}}</td>
+									<td>{{item.technicalSex}}</td>
+									<td v-if="item.headman === true">是</td>
+									<td v-if="item.headman === false">否</td>
+									<td>{{item.phone}}</td>
+									<td>{{item.accountNumber}}</td>
+									<td>{{item.address}}</td>
+									<td>{{item.birthday}}</td>
+									<td>{{item.microsignal}}</td>
+									<td>{{item.idNumber}}</td>
+									<td>{{item.address2}}</td>
+									<td>{{item.bank}}</td>
+									<td>{{item.bankNumber}}</td>
+									<td>{{item.maintenanceType}}</td>
+									<td>{{item.maintenanceBrand}}</td>
+									<td v-if="item.dimission === 0">否</td>
+									<td v-if="item.dimission === 1">是</td>
+								</tr>
+							</table>
 				</div>
 			</div>
 			
 			
 			
 			
-			<!--模态框-->
+			<!--模态框,新增技工-->
 			<div class="modal" data-backdrop="static" id="mymodal">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
 							<span class="close" data-dismiss="modal">&times;</span>
 							<span style="font-size: 27px;"><strong>技工资料</strong></span>
-							<button style="margin-left: 65%;" class="btn btn-success">保存</button>
+							<button style="margin-left: 65%;" class="btn btn-success" @click="createjigong()">保存</button>
 						</div>
 						<div class="modal-body" style="background-color: rgb(247,247,247);">
 							<p>
-								<span style="color: red;">*</span>技工编号：<input type="text" style="width: 120px;"> 
-								 <span style="color: red;margin-left: 10px;">*</span>技工姓名：<input type="text" style="width: 100px;"> 
-							   <span style="color: red;margin-left: 10px;">*</span>姓别：<select name="">
-													<option value="">男</option>
-													<option value="">女</option>
+								<span style="color: red;">*</span>技工编号：<input v-model="createjg.technicalNumber" style="width: 120px;"> 
+								 <span style="color: red;margin-left: 10px;">*</span>技工姓名：<input v-model="createjg.technicalName" style="width: 100px;"> 
+							   <span style="color: red;margin-left: 10px;">*</span>姓别：<select v-model="createjg.technicalSex">
+													<option value="男">男</option>
+													<option value="女">女</option>
 											 </select>
-									<input type="checkbox" style="margin-left: 10px;">组长
+									<input type="checkbox" style="margin-left: 10px;" v-model="createjg.headman">组长
 							</p>
 							
 							<p>
 								<span style="color: red;">*</span>
-								所在班级：<input type="text">
-								手机：<input type="text" style="margin-left: 10px;">
+								所在班组：
+								<select name="" v-model="createjg.column1">
+									<option :value="item.column1" v-for="item in bzList">{{item.teamName}}</option>
+								</select>
+								手机：<input v-model="createjg.phone" style="margin-left: 10px;">
 							</p>
 							
 							<p>
-								登陆账号：<input type="text" style="margin-left: 10px;">
-								地址：<input type="text" style="margin-left: 10px;">
+								登陆账号：<input v-model="createjg.accountNumber" style="margin-left: 10px;">
+								地址：<input v-model="createjg.address" style="margin-left: 10px;">
 							</p>
 							
 							<p>
-								出生日期：<input type="date" style="margin-left: 10px;">
-								微信号：<input type="text" style="margin-left: 10px;">
+								出生日期：<input type="date" v-model="createjg.birthday" style="margin-left: 10px;">
+								微信号：<input v-model="createjg.microsignal" style="margin-left: 10px;">
 							</p>
 							
 							<p>
-								身份证号：<input type="text" style="margin-left: 10px;">
-								户口地址：<input type="text" style="margin-left: 10px;">
+								身份证号：<input v-model="createjg.idNumber" style="margin-left: 10px;">
+								户口地址：<input v-model="createjg.address2" style="margin-left: 10px;">
 							</p>
 							
 							<p>
-								开户银行：<select name="">
-														<option value="">工商银行</option>
-														<option value="">建设银行</option>
+								开户银行：	<select name="" v-model="createjg.bank">
+														<option value="工商银行">工商银行</option>
+														<option value="建设银行">建设银行</option>
+														<option value="农业银行">农业银行</option>
 												  </select>
-								银行账号：<input type="text" style="width: 150px;margin-left: 10px;">
-								星级：<select name="" style="margin-left: 10px;">
-														<option value="">一星</option>
-														<option value="">二星</option>
-												  </select>
+								银行账号： <input v-model="createjg.bankNumber" style="width: 150px;margin-left: 10px;">
+								
+								等级编码：	<button class="btn btn-success" @click="jgxj()">选择</button>
 							</p>
 							<p>
-								维修工种：<input type="text" style="width: 450px;">
+								星级：<input v-model="addjgxj.column2" style="margin-left: 10px;" disabled="disabled">
+								等级：<input v-model="addjgxj.cradeName" style="margin-left: 10px;" disabled="disabled">
 							</p>
 							<p>
-								维修品牌：<input type="text" style="width: 450px;">
+								维修工种：<input v-model="createjg.maintenanceType" style="width: 450px;">
+							</p>
+							<p>
+								维修品牌：<input v-model="createjg.maintenanceBrand" style="width: 450px;">
 							</p>
 							
 						</div>
@@ -198,63 +182,69 @@
 			
 			
 			
-			<!--模态框-->
+			<!--模态框,修改技工-->
 			<div class="modal" data-backdrop="static" id="mymodal2">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
 							<span class="close" data-dismiss="modal">&times;</span>
 							<span style="font-size: 27px;"><strong>技工资料</strong></span>
-							<button style="margin-left: 65%;" class="btn btn-success">保存</button>
+							<button style="margin-left: 65%;" class="btn btn-success" @click="updateJigong()">保存</button>
 						</div>
 						<div class="modal-body" style="background-color: rgb(247,247,247);">
 							<p>
-								<span style="color: red;">*</span>技工编号：<input type="text" style="width: 120px;"> 
-								 <span style="color: red;margin-left: 10px;">*</span>技工姓名：<input type="text" style="width: 100px;"> 
-							   <span style="color: red;margin-left: 10px;">*</span>姓别：<select name="">
-													<option value="">男</option>
-													<option value="">女</option>
+								<span style="color: red;">*</span>技工编号：<input v-model="updatejg.technicalNumber" style="width: 120px;" disabled="disabled"> 
+								 <span style="color: red;margin-left: 10px;">*</span>技工姓名：<input v-model="updatejg.technicalName" style="width: 100px;"> 
+							   <span style="color: red;margin-left: 10px;">*</span>姓别：<select v-model="updatejg.technicalSex">
+													<option value="男">男</option>
+													<option value="女">女</option>
 											 </select>
-									<input type="checkbox" style="margin-left: 10px;">组长
+									<input type="checkbox" style="margin-left: 10px;" v-model="updatejg.headman">组长
 							</p>
 							
 							<p>
 								<span style="color: red;">*</span>
-								所在班级：<input type="text">
-								手机：<input type="text" style="margin-left: 10px;">
+								所在班组：
+								<select name="" v-model="updatejg.column1">
+									<option :value="item.column1" v-for="item in bzList">{{item.teamName}}</option>
+								</select>
+								手机：<input v-model="updatejg.phone" style="margin-left: 10px;">
 							</p>
 							
 							<p>
-								登陆账号：<input type="text" style="margin-left: 10px;">
-								地址：<input type="text" style="margin-left: 10px;">
+								登陆账号：<input v-model="updatejg.accountNumber" style="margin-left: 10px;">
+								地址：<input v-model="updatejg.address" style="margin-left: 10px;">
 							</p>
 							
 							<p>
-								出生日期：<input type="date" style="margin-left: 10px;">
-								微信号：<input type="text" style="margin-left: 10px;">
+								出生日期：<input type="date" v-model="updatejg.birthday" style="margin-left: 10px;">
+								微信号：<input v-model="updatejg.microsignal" style="margin-left: 10px;">
 							</p>
 							
 							<p>
-								身份证号：<input type="text" style="margin-left: 10px;">
-								户口地址：<input type="text" style="margin-left: 10px;">
+								身份证号：<input v-model="updatejg.idNumber" style="margin-left: 10px;">
+								户口地址：<input v-model="updatejg.address2" style="margin-left: 10px;">
 							</p>
 							
 							<p>
-								开户银行：<select name="">
-														<option value="">工商银行</option>
-														<option value="">建设银行</option>
+								开户银行：	<select name="" v-model="updatejg.bank">
+														<option value="工商银行">工商银行</option>
+														<option value="建设银行">建设银行</option>
+														<option value="农业银行">农业银行</option>
 												  </select>
-								银行账号：<input type="text" style="width: 150px;margin-left: 10px;">
-								星级：<select name="" style="margin-left: 10px;">
-														<option value="">一星</option>
-														<option value="">二星</option>
-												  </select>
+								银行账号： <input v-model="updatejg.bankNumber" style="width: 150px;margin-left: 10px;">
+								
+								等级编码：	<button class="btn btn-success" @click="jgxj()">选择</button>
 							</p>
 							<p>
-								维修工种：<input type="text" style="width: 450px;">
+								星级：<input v-model="addjgxj.column2" style="margin-left: 10px;" disabled="disabled">
+								等级：<input v-model="addjgxj.cradeName" style="margin-left: 10px;" disabled="disabled">
 							</p>
 							<p>
-								维修品牌：<input type="text" style="width: 450px;">
+								维修工种：<input v-model="updatejg.maintenanceType" style="width: 450px;">
+							</p>
+							<p>
+								维修品牌：<input v-model="updatejg.maintenanceBrand" style="width: 450px;">
 							</p>
 							
 						</div>
@@ -342,9 +332,137 @@
 						</div>
 					</div>
 				</div>
+			</div>	
+			
+			
+			
+			<!--模态框-->
+			<div class="modal" data-backdrop="static" id="bzAdd">
+				<div class="modal-dialog"  style="width: 350px;">
+					<div class="modal-content">
+						<span class="close" data-dismiss="modal">&times;</span>
+						<div class="modal-header">
+							<span style="font-size: 25px;margin-left: 10px;">增加班组</span>
+							<button class="btn btn-success" style="margin-left: 40%;" @click="createBz()">保存</button>
+						</div>
+						<div class="modal-body">
+							<form class="form-horizontal" style="margin-left: -40px;">
+									<div class="form-group">
+									  <label for="inputEmail3" class="col-sm-4 control-label" style="color: rgb(33,182,206);">选择团队</label>
+									  <div class="col-sm-8">
+											<select name="" class="form-control" id="inputEmail3" v-model="createTeamFrom.column2">
+												<option :value="item.tdId" v-for="item in tuandui">{{item.tdName}}</option>
+											</select>
+									  </div>
+									</div>
+									<div class="form-group">
+									  <label for="inputEmail4" class="col-sm-4 control-label" style="color: rgb(33,182,206);">班组编码</label>
+									  <div class="col-sm-8">
+									    <input v-model="createTeamFrom.teamCode" class="form-control" id="inputEmail4">
+									  </div>
+									</div>
+									<div class="form-group">
+									  <label for="inputPassword5" class="col-sm-4 control-label" style="color: rgb(33,182,206);">班组名称</label>
+									  <div class="col-sm-8">
+									    <input v-model="createTeamFrom.teamName" class="form-control" id="inputPassword5">
+									  </div>
+									</div>
+									<div class="form-group">
+									  <label for="inputPassword3" class="col-sm-4 control-label" style="color: rgb(33,182,206);">班组权重</label>
+									  <div class="col-sm-8">
+									    <input v-model="createTeamFrom.teamCommission" class="form-control" id="inputPassword3">
+									  </div>
+									</div>
+							</form>
+								
+						</div>
+						<div class="modal-footer">
+						</div>
+					</div>
+				</div>
+			</div>	
+			
+			
+			
+			
+			<!--模态框-->
+			<div class="modal" data-backdrop="static" id="bzUpdate">
+				<div class="modal-dialog"  style="width: 350px;">
+					<div class="modal-content">
+						<span class="close" data-dismiss="modal">&times;</span>
+						<div class="modal-header">
+							<span style="font-size: 25px;margin-left: 10px;">修改班组</span>
+							<button class="btn btn-success" style="margin-left: 40%;" @click="updateBz()">保存</button>
+						</div>
+						<div class="modal-body">
+							<form class="form-horizontal" style="margin-left: -40px;">
+									<div class="form-group">
+									  <label for="inputEmail3" class="col-sm-4 control-label" style="color: rgb(33,182,206);">选择团队</label>
+									  <div class="col-sm-8">
+											<select name="" class="form-control" id="inputEmail3" v-model="updateTeamFrom.column2">
+												<option :value="item.tdId" v-for="item in tuandui">{{item.tdName}}</option>
+											</select>
+									  </div>
+									</div>
+									<div class="form-group">
+									  <label for="inputEmail4" class="col-sm-4 control-label" style="color: rgb(33,182,206);">班组编码</label>
+									  <div class="col-sm-8">
+									    <input v-model="updateTeamFrom.teamCode" class="form-control" id="inputEmail4">
+									  </div>
+									</div>
+									<div class="form-group">
+									  <label for="inputPassword5" class="col-sm-4 control-label" style="color: rgb(33,182,206);">班组名称</label>
+									  <div class="col-sm-8">
+									    <input v-model="updateTeamFrom.teamName" class="form-control" id="inputPassword5">
+									  </div>
+									</div>
+									<div class="form-group">
+									  <label for="inputPassword3" class="col-sm-4 control-label" style="color: rgb(33,182,206);">班组权重</label>
+									  <div class="col-sm-8">
+									    <input v-model="updateTeamFrom.teamCommission" class="form-control" id="inputPassword3">
+									  </div>
+									</div>
+							</form>
+								
+						</div>
+						<div class="modal-footer">
+						</div>
+					</div>
+				</div>
 			</div>
-			
-			
+				
+				
+				
+				
+				<!--模态框，技工星级-->
+				<div class="modal" data-backdrop="static" id="kkk">
+					<div class="modal-dialog"  style="width: 450px;">
+						<div class="modal-content">
+							<span class="close" data-dismiss="modal">&times;</span>
+							<div class="modal-header">
+								<span style="font-size: 25px;margin-left: 10px;">技工星级</span>
+							</div>
+							<div class="modal-body">
+									<table class="table table-bordered table-striped table-hover">
+										<tr style="background-color: rgb(33,182,206); color: white;">
+											<td>等级编码</td>
+											<td>星级</td>
+											<td>等级</td>
+											<td>提成权重</td>
+										</tr>
+										<tr v-for="item in jgxingji" @click="xzxingji(item)">
+											<td>{{item.cradeCode}}</td>
+											<td>{{item.column2}}</td>
+											<td>{{item.cradeName}}</td>
+											<td>{{item.fullCommission}}</td>
+										</tr>
+									</table>
+							</div>
+							<div class="modal-footer">
+							</div>
+						</div>
+					</div>
+				</div>	
 			
 			
 			
@@ -357,176 +475,233 @@
 				el:"#ctn",
 				data(){
 					return {
-						city:{},
-											clasM:{},
-											classT:{},
-											student:{},
-											grade:{},
-											addStu:{},
-											stuid:[],
-											stu1:{},
-											zd:[],
-											gongsi1:[{
-												storeId:1,
-												storeName:"北京卡修",
-												pstoreId:0,
-												children:[{
-													storeId:2,
-													storeName:"0000-成高",
-													pstoreId:1,
-													children:[{
-														dId:11,
-														dName:"管钱部",
-														tId:1,
-														sId:2
-													},{
-														dId:21,
-														dName:"客服部",
-														tId:2,
-														sId:2
-													}]
-												},{
-													storeId:3,
-													storeName:"0001-成高1",
-													pstoreId:1,
-													children:[{
-														dId:31,
-														dName:"hh部",
-														tId:3,
-														sId:3
-													},{
-														dId:11,
-														dName:"管钱部",
-														tId:1,
-														sId:3
-													}]
-												}]
-												}]
+							clasM:[],
+							url:"http://127.0.0.1:8080/tuandui/",
+							tuandui:[],
+							jgList:[],
+							createTeamFrom:{},
+							updateTeamFrom:{},
+							bzVisble:false,
+							jgVisble:false,
+							xgjgVisble:false,
+							jgxingji:[],
+							addjgxj:{},
+							createjg:{},
+							updatejg:{},
+							bzList:[],
+							findLike:""
+								
 					}
 				},
 				methods:{
+					daochu(){
+						let that = this;
+						var jlist = [];
+						this.jgList.forEach(item=>{
+							 jlist.push(item.technicalNumber);
+						})
+						var jglist = jlist.join(",");
+						/* var json = JSON.stringify(this.jgList);
+					 	$.ajax({
+							url:that.url+"daochu",
+							data:json,
+							contentType:"application/json;charset=utf-8",
+							type:"post",
+							success:function(result){
+								//ResponseEntity
+							}
+						}) */
+						
+						location.href = that.url+"daochu1?jglist="+jglist; 
+					},
+					findByLike(){
+						let that = this;
+						$.ajax({
+							url:that.url+"findByLike",
+							data:{
+								condition:that.findLike
+							},
+							type:"post",
+							success:function(result){
+								console.log(result);
+								that.jgList = result;
+							}
+						}) 
+					},
+					removejg(){
+						let that = this;
+						var bool = confirm("是否删除改技工？");
+						if(bool){
+							$.ajax({
+								url:that.url+"removejg",
+								data:that.updatejg,
+								type:"post",
+								success:function(result){
+									alert("删除成功！");
+									location.reload();
+								}
+							})
+						}
+					},
+					updateJigong(){
+						let that = this;
+						this.updatejg.column2 = this.addjgxj.column1;
+						$.ajax({
+							url:that.url+"jgUpdate",
+							data:that.updatejg,
+							type:"post",
+							success:function(result){
+								alert("修改成功！");
+								location.reload();
+							}
+						})
+					},
+					xgjgUpdate(item){
+						this.xgjgVisble = true;
+						this.updatejg = item;
+					},
+					createjigong(){
+						let that = this;
+						$.ajax({
+							url:that.url+"jgcreate",
+							data:that.createjg,
+							type:"post",
+							success:function(result){
+								alert("新增成功！");
+								location.reload();
+							}
+						})
+					},
+					xzxingji(xzxj){
+						this.addjgxj = xzxj;
+						this.createjg.column2 = xzxj.column1;
+						$("#kkk").modal("hide");
+					},
+					jgxj(){
+						$("#kkk").modal("show");
+						let that = this;
+						$.ajax({
+							url:"http://127.0.0.1:8080/mechanicsstarLevel/toFind",
+							dataType:"json",
+							success:function(result){
+								//console.log(result);
+								that.jgxingji = result;
+							}
+						})
+					},
+					bzRemove(){
+						let that = this;
+						var bool = confirm("是否删除？");
+						if(bool){
+							$.ajax({
+								url:that.url+"removeBz",
+								data:that.updateTeamFrom,
+								type:"post",
+								success:function(result){
+									alert("删除成功！");
+									location.reload();
+								}
+							})
+						}
+						
+					},
+					updateBz(){
+						let that = this;
+						$.ajax({
+							url:that.url+"updateBz",
+							data:that.updateTeamFrom,
+							type:"post",
+							success:function(result){
+								alert("修改成功！");
+								location.reload();
+							}
+						})
+					},
+					bzUpdate(){
+						$("#bzUpdate").modal("show");
+					},
+					createBz(){
+						let that = this;
+						$.ajax({
+							url:that.url+"createbz",
+							data:that.createTeamFrom,
+							type:"post",
+							success:function(result){
+								alert("新增成功！");
+								location.reload();
+							}
+						})
+					},
+					bzAdd(){
+						$("#bzAdd").modal("show");
+					},
+					bz(list,code,name,TeamForm){
+						this.updateTeamFrom = TeamForm;
+						this.jgVisble = true;
+						this.bzVisble = true;
+						let that = this;
+						list.core = code;
+						list.name = name;
+						console.log(this.jgList);
+						this.jgList = list;
+					},
 					add(){
 						$("#mymodal").modal("show");
 					},
 					update(){
 						$("#mymodal2").modal("show");
+						let that = this;
+						$.ajax({
+							url:"http://127.0.0.1:8080/mechanicsstarLevel/chajgId",
+							data:{
+								id:that.updatejg.column2
+							},
+							type:"post",
+							dataType:"json",
+							success:function(result){
+								that.addjgxj = result;
+							}
+						})
 						},
 						qc(){
 							$("#mymodal3").modal("show");
 						},
-					 find(){
-											this.clasM=this.gongsi1;
-					                    },
-					                    select_bj(e){
-					                        $(e.target).find("ul").toggleClass("hide");
-					                        $(e.target).toggleClass("img_up");
-					                        this.classT = {};
-					                        this.student = {};
-					                    },
-					                    select_bj_school(e){
-					                        $(e.target).find("ul").toggleClass("hide");
-					                        $(e.target).toggleClass("img_up");
-					                        this.classT = {};
-					                        this.student = {};
-					                        
-					                    },
-					                    // 根据这个城市的这个学校的这个班级查询所有
-					                    select_bj_school_class(e,classid,schoolid){
-					                        var item = $("[class*=select_bj_school_class]");
-					                        $.each(item,function(i,item){
-					                                var flag = $(item).hasClass("backgroun_color");
-					                                if(flag){
-					                                    $(item).toggleClass("backgroun_color")
-					                                }
-					                        })
-					                        $(e.target).toggleClass("backgroun_color");
-											
-					                    },
-					                    delClas(){
-					                        if(JSON.stringify(this.classT) == "{}"){
-												alert("请先选择班级!");
-												return false;
-					                        }
-											var msg = "是否删除此班级！";
-											if(confirm(msg)){
-												
-											}
-					                    },
-					                    addstu1(){
-					                        this.addStu.classid=this.classT[0].classid;
-					                        this.addStu.schoolid=this.classT[0].schoolid;
-					                        let that = this;
-					                        this.addStu.sex = $(".dm").val();
-					                        $("input[name='sex11']").each(function(i,v){
-					                            if ($(v).is(":checked"))
-					                            {
-					                            	that.addStu.sex=$(v).val();
-					                            }
-					                        });
-					                        alert(this.addStu.sex);
-					                       
-					                    },
-					                    updatestu1(){
-					                    	let that = this;
-					                        this.stu1.sex = $(".dm").val();
-					                      
-					                    },
-					                    close(){
-					                        $("#addStudent").modal("hide");
-					                        
-					                        $("#updateStudent").modal("hide");
-					                    },
-					                    addStu_show(){
-					                    	 if(JSON.stringify(this.classT) == "{}"){
-					 							alert("请先选择班级!");
-					 							return false;
-					                         }
-					                    	 $("#addStudent").modal("show");
-					                       /* $("[class=addStu]").show();*/
-					                        this.findGrade();
-					                    },
-					                    updateStu_show(){
-					                    	var a = this.findupdateStu();
-					                    	if(!a){
-					                        	return;
-					                       	}
-					                    	this.findGrade();
-					                    	$("#updateStudent").modal("show");
-					                        /*$("[class=updateStu]").show();*/
-					                        
-					                    },
-					                    to_updateClass(){
-					                    	if(JSON.stringify(this.classT) == "{}"){
-												alert("请先选择班级!");
-												return false;
-					                        }
-					                        window.location.href="updateClass.html?classid=" + this.classT[0].classid;
-					                    },
-					                    findupdateStu(){
-					                        if(JSON.stringify(this.stuid) == "[]"){
-												alert("请先选择学生");
-												return false;
-					                        }
-					                       
-					    					return true;
-					                    },
-					                    delStu(){
-					                    	console.log(this.stuid);
-					                    	if(this.stuid.length==0){
-					                    		alert("请先选择学生!");
-					                    		return;
-					                    	}
-											var flag = "是否要删除此学生？";
-											if(confirm(flag)){
-												var json = JSON.stringify(this.stuid);
-												
-											}
-					                    },
-					                    findGrade(){
-					                    	
-					                    }
-				},
+					 shux(){
+						this.clasM=this.gongsi1;
+										},
+										select_bj(e){
+												$(e.target).find("ul").toggleClass("hide");
+												console.log(this.tuandui);
+										},
+										select_bj_school(e){
+												$(e.target).find("ul").toggleClass("hide");
+										},
+						find(){
+							let that = this;
+							$.ajax({
+								url:that.url+"find",
+								success:function(result){
+									//console.log(result);
+									that.tuandui = result;
+								}
+								
+							})
+						},
+						bzFind(){<!--查询所有班组-->
+							let that = this;
+							$.ajax({
+								url:"http://127.0.0.1:8080/teamForm/bzFind",
+								dataType:"json",
+								success:function(result){
+									console.log(result);
+									that.bzList = result;
+								}
+							})
+							}
+					},
 				created(){
+					this.bzFind();
+					this.shux();
 					this.find();
 				}
 			})

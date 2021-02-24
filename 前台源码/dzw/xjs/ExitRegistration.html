@@ -192,11 +192,13 @@
 						</tr>
 						<tr v-for="item,index in list" :class='{bg:index==isactive}' @click="fn(index)">
 							<td></td>
-							<td @click="chooseYgTr(item)">{{item.department.dName}}</td>
+							<td @click="chooseYgTr(item)" v-if="item.department">{{item.department.dName}}</td>
+							<td v-else></td>
 							<td @click="chooseYgTr(item)">{{item.eId}}</td>
 							<td @click="chooseYgTr(item)">{{item.name}}</td>
 							<td @click="chooseYgTr(item)">{{item.sex}}</td>
-							<td @click="chooseYgTr(item)">{{item.job.jobName}}</td>
+							<td @click="chooseYgTr(item)" v-if="item.job">{{item.job.jobName}}</td>
+							<td v-else></td>
 							<td @click="chooseYgTr(item)">{{item.dismissDate}}</td>
 							<td @click="chooseYgTr(item)">{{item.dismissReason}}</td>
 						</tr>
@@ -253,10 +255,7 @@
 									<td colspan="6">
 										<div class="form-group">
 											<label class="control-label">部门</label>
-											<select class="form-control" v-model="departrueQw.dId">
-												<option value="">总经理</option>
-												<option value="">副总经理</option>
-											</select>
+											<input type="text" name="" id="" value="" readonly="readonly" class="form-control" v-model="departrueQw.dId" @click="opendepartDiv"/>			
 										</div>
 									</td>
 								</tr>
@@ -414,8 +413,8 @@
 							<form class="form-inline">
 								<div class="form-group">
 									<label class="control-label">员工姓名</label>
-									<input type="text" name="" id="" class="form-control"  readonly="readonly" v-model="checkedEclos.eId"/>
-									<input type="text" name="" id="" value="" class="form-control" readonly="readonly" v-model="checkedEclos.eName"/>
+									<input type="text" name="" id="" class="form-control"  readonly="readonly" v-model="exit.eId"/>
+									<input type="text" name="" id="" value="" class="form-control" readonly="readonly" v-model="exit.name"/>
 									<a class="btn" @click="openChooseEploy">选择员工</a>
 									<a class="btn" @click="openJgDiv">选择技工</a>
 									<label class="control-label">离职日期</label>
@@ -548,21 +547,62 @@
 											<td>是否是组长</td>
 											<td>手机</td>
 										</tr>
-										<tr v-for="item in jgList">
-											<td v-if="item.core != null">{{item.core}}</td>
-											<td v-else >{{jgList.core}}</td>
-											<td v-if="item.name != null">{{item.name}}</td>
-											<td v-else >{{jgList.name}}</td>
-											<td>{{item.technicalNumber}}</td>
-											<td>{{item.technicalName}}</td>
-											<td>{{item.technicalSex}}</td>
-											<td v-if="item.headman === true">是</td>
-											<td v-if="item.headman === false">否</td>
-											<td>{{item.phone}}</td>
+										<tr v-for="(item,index) in jgList" :class='{bg:index==isactive}' @click="fn(index)">
+											<td @click="chooseTechnicalTableTr(item)"></td>
+											<td v-if="item.core != null"  @click="chooseTechnicalTableTr(item)">{{item.core}}</td>
+											<td v-else  @click="chooseTechnicalTableTr(item)">{{jgList.core}}</td>
+											<td v-if="item.name != null"  @click="chooseTechnicalTableTr(item)">{{item.name}}</td>
+											<td v-else  @click="chooseTechnicalTableTr(item)">{{jgList.name}}</td>
+											<td  @click="chooseTechnicalTableTr(item)">{{item.technicalNumber}}</td>
+											<td  @click="chooseTechnicalTableTr(item)">{{item.technicalName}}</td>
+											<td  @click="chooseTechnicalTableTr(item)">{{item.technicalSex}}</td>
+											<td v-if="item.headman == true"  @click="chooseTechnicalTableTr(item)">是</td>
+											<td v-else  @click="chooseTechnicalTableTr(item)">否</td>
+											<td  @click="chooseTechnicalTableTr(item)">{{item.phone}}</td>
 										</tr>
 									</table>
 								</div>
 						</div>
+						</div>
+						<div class="modal-footer"></div>
+					</div>
+				</div>
+			</div>
+			 <!-- 部门框-->
+             <div class="modal" data-backdrop = "static" id="departDiv">
+				<div class="modal-dialog1">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h3 class="col-lg-4">部门选择</h3>
+		            		<div class="text-right">
+		            			<button class="btn btn-success" @click="savedepartList">选择</button>
+								<button class="btn btn-danger" @click="closedepartDiv">关闭</button>
+		            		</div>
+						</div>
+						<div class="modal-body">
+							<div>
+			            		<select name="" class="form-control" v-model="selStoorId" @change="getDepartmentList(selStoorId)">
+			            			<option :value="item.storeId" v-for="item in storeList">{{item.storeId}}-{{item.storeName}}</option>
+			            			<!--<option value="">0001-成高</option>
+			            			<option value="">0002-成高1</option>-->
+			            		</select>
+			            	</div>
+			            	<div>
+			            		<table border="" cellspacing="" cellpadding="" class="table table2">
+			            			<tr>
+			            				<th></th>
+			            				<th>部门编码</th>
+			            				<th>部门名称</th>
+			            				<th>部门分类</th>
+			            			</tr>
+			            			<tr v-for="(item,index) in departList" :class='{bg:index==isactive}' @click="fn(index)">
+			            				<td  @click="chooseDepartmentTr(item)"></td>
+			            				<td  @click="chooseDepartmentTr(item)">{{item.dId}}</td>
+			            				<td  @click="chooseDepartmentTr(item)">{{item.dName}}</td>
+			            				<td  @click="chooseDepartmentTr(item)">{{item.departmentType.tName}}</td>
+			            			</tr>
+			            		</table>
+			            	</div>
 						</div>
 						<div class="modal-footer"></div>
 					</div>
@@ -640,10 +680,11 @@
 					tuandui:[],
 					//技工list
 					jgList:[],
-					//
-					xgjgVisble:false,
-					//
-					updatejg:{}
+					//操作的技工行
+					checkTclos:{},
+					selStoorId:"",
+					departList:[],
+					updateOrAddDepartment:{}
 				}
 			},
 			methods:{
@@ -655,6 +696,7 @@
 						return;
 					}
 					console.log(parse);
+					let that=this;
 					$.ajax({
 						url:"http://127.0.0.1:8080/departure/selByEidOrName/"+parse,
 						dataType:"json",
@@ -726,7 +768,15 @@
 					this.find();
 				},
 				daoChu(){
-					window.location.href="http://127.0.0.1:8080/departure/downLoadExportExcel";
+					var eList=[];
+					this.list.forEach(
+						item=>{eList.push(item.eId);
+					});
+					console.log(eList);
+					var json=JSON.stringify(eList);
+					var lzList=eList.toString();
+					console.log(lzList);
+					window.location.href="http://127.0.0.1:8080/departure/downLoadExportExcel?lzList="+lzList;
 					/*alert("导出成功");*/
 				},
 				//查询所有离职人员
@@ -791,6 +841,7 @@
 				closeFireLogin(){
 					$("#lzdj").modal("hide");
 				},
+				//离职登记
 				fireLogin(){
 					if(this.exit.eId==null||this.exit.eId==""){
 						alert("离职员工编号不能为空!");
@@ -832,16 +883,19 @@
 				chooseEploy(){
 					if(this.checkedEclos==""||this.checkedEclos==null){
 						alert("请先选择员工");
+						return;
 					}
+					this.exit={};
 					this.exit.eId=this.checkedEclos.eId;
 					this.exit.name=this.checkedEclos.eName;
 					this.exit.sex=this.checkedEclos.sex.sexName;
 					this.exit.dId=this.checkedEclos.dId;
 					this.exit.sId=this.checkedEclos.mId;
 					this.exit.jobId=this.checkedEclos.jId;
+					console.log(this.exit);
+					/*Vue.set(this.exit,"eId",this.checkedEclos.eId);*/
 					alert("正在将选择的员工填入");
 					$("#xzyg").modal("hide");
-					this.openFireLogin();
 				},
 				//门店选择
 				openStoreChoose(){
@@ -890,7 +944,7 @@
 							console.log(that.storeList);
 						}
 					});
-					alert("1122");
+					/*alert("1122");*/
 					/*$("#storeLogin").modal("hide");
 					$("#storeLogin").modal("show");*/
 					alert("正在按条件查询门店");
@@ -900,14 +954,29 @@
 					
 					alert("正在根据搜索框内容进行员工条件查询");
 				},
+				//打开离职技工窗口
 				openJgDiv(){
 					this.findTuanDui();
+					/*this.shux();*/
+					this.bzFind();
 					$("#jgDiv").modal("show");
 				},
 				closeJgDiv(){
 					$("#jgDiv").modal("hide");
 				},
+				//将技工离职登记
 				chooseJg(){
+					if(this.checkTclos==""||this.checkTclos==null){
+						alert("请先选择技工");
+						return;
+					}
+					this.exit={};
+					this.exit.eId=this.checkTclos.technicalNumber;
+					this.exit.sex=this.checkTclos.technicalSex;
+					this.exit.name=this.checkTclos.technicalName;
+					this.exit.sId=1;
+					console.log(this.exit);
+					/*Vue.set(this.exit,"eId",this.checkTclos.technicalNumber);*/
 					alert("正在讲该技工进行录入");
 					$("#jgDiv").modal("hide");
 				},
@@ -973,10 +1042,15 @@
 						}
 					});
 				},
-				//选中元工行
+				//选中员工行
 				chooseEmployTableTr(item){
 					this.checkedEclos=item;
 					console.log(this.checkedEclos);
+				},
+				//选中技工行
+				chooseTechnicalTableTr(item){
+					this.checkTclos=item;
+					console.log(this.checkTclos);
 				},
 				  //点击tr背景变色
                 fn (index) {
@@ -1009,7 +1083,6 @@
 				chooseYgTr(item){
 					this.changeEid=item.eId;
 					console.log(this.changeEid);
-					
 				},
 				//团队list填充
 				findTuanDui(){
@@ -1051,12 +1124,114 @@
 				xgjgUpdate(item){
 						this.xgjgVisble = true;
 						this.updatejg = item;
-				}
+				},
+				//
+				select_bj(e){
+					$(e.target).find("ul").toggleClass("hide");
+					console.log(this.tuandui);
+				},
+				select_bj_school(e){
+					$(e.target).find("ul").toggleClass("hide");
+				},
+				/*shux(){
+					this.clasM=this.gongsi1;
+				},*/
+				//查询所有班组
+				bzFind(){
+					let that = this;
+					$.ajax({
+					    url:"http://127.0.0.1:8080/teamForm/bzFind",
+						dataType:"json",
+						success:function(result){
+						console.log(result);
+						that.bzList = result;
+						}
+					})
+				},
+				//将选择的部门填入
+               	savedepartList(){
+               			if(this.updateOrAddDepartment==null||this.updateOrAddDepartment==""){
+               				alert("请先选择部门");
+               				return;
+               			}
+               			this.departrueQw={};
+               			this.departrueQw.dId=this.updateOrAddDepartment.dId;
+               			alert("正在将选择的部门填入");
+               			$("#departDiv").modal("hide");
+               	},
+               	//打开部门框子
+               	opendepartDiv(){
+               			this.getAllDepartmentList();
+               			this.getStoreList();
+               			$("#departDiv").modal("show");
+               	},
+               	closedepartDiv(){
+               			$("#departDiv").modal("hide");
+               	},
+               	 //获取所有门店
+                   getStoreList(){
+                   	 let that=this;
+                   	 $.ajax({
+                    		url:"http://127.0.0.1:8080/store",
+                    		type:"get",
+                    		dataType:"json",
+                    		xhrFields: {
+							withCredentials: true
+							},
+							crossDomain: true,
+							success:function(result){
+								 console.log(result);
+								that.storeList=result;
+							}
+                    	});
+                   },
+                   //获取当前门店的部门
+                   getDepartmentList(mId){
+                   	 let that=this;
+                   	 $.ajax({
+                    		url:"http://127.0.0.1:8080/department/findBySid/"+mId,
+                    		type:"get",
+                    		dataType:"json",
+                    		xhrFields: {
+							withCredentials: true
+							},
+							crossDomain: true,
+							 async:false,
+							success:function(result){
+								 console.log(result);
+								that.departList=result;
+							}
+                    	});
+                   },
+                   //获取所有部门
+                   getAllDepartmentList(){
+                   	   let that=this;
+                   	   $.ajax({
+                   	   	url:"http://127.0.0.1:8080/department/findAllDepartment",
+                   	   	type:"get",
+                   	   	xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						 async:false,
+                   	   	dataType:"json",
+                   	   	success:function(result){
+                   	   		console.log(result);
+                   	   		that.departList=result;
+                   	   	}
+                   	   });
+                   },
+                    chooseDepartmentTr(item){
+                    	this.updateOrAddDepartment=item;
+                    }
 			},
 			created(){
 				this.employ={};
 				this.yg=[];
 				this.find();
+				this.bzFind();
+				/*this.shux();*/
+				this.findTuanDui();
 			}
 		});
 	</script>

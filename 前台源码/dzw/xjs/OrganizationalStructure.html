@@ -34,15 +34,16 @@
 			}
 			.table{
 				margin-top: 20px;
+				table-layout:fixed;
 			}
 			.table2{
 				width: 60%;
 			}
 			.table th{
-				color: white;background-color: deepskyblue;border: 1px solid black;
+				color: white;background-color: deepskyblue;border: 1px solid black;width:100px;text-align: center;
 			}
 			.table td{
-				border: 1px solid gray;
+				border: 1px solid gray;width:100px;text-align: center;
 			}
 			.table tr{
 				margin-top: 10px;
@@ -167,8 +168,8 @@
 					<button class="btn btn-danger" @click="openUpdateStore">修改门店</button>
 					<button class="btn btn-danger" @click="remoceStore">删除门店</button>
 				</div>
-				<div class="row">
-					<div class="col-lg-4">
+				<div>
+					<div style="width: 10%;">
                         <ul>
                             <!-- 直接循环这个li就行了多重循环嵌套 -->
                             <li v-for="item in clasM" @click.stop="selTableByStoreId(item.storeId),chooseStoreTr(item)">{{item.storeName}}
@@ -182,7 +183,7 @@
                             </li>
                         </ul>
 					</div>
-					<div class="col-lg-8">
+					<div style="margin-left: 250px;margin-top: -70px;width: 90%;height: 100%;">
 						<table class="table">
 							<tr>
 								<th></th>
@@ -211,7 +212,7 @@
 								<td></td>
 								<td @click="chooseTableTr(item)">{{item.store.storeName}}</td>
 								<td @click="chooseTableTr(item)">{{item.dId}}</td>
-								<td @click="chooseTableTr(item)">{{item.department.dname}}</td>
+								<td @click="chooseTableTr(item)">{{item.department.dName}}</td>
 								<td @click="chooseTableTr(item)">{{item.eId}}</td>
 								<td @click="chooseTableTr(item)">{{item.eName}}</td>
 								<td @click="chooseTableTr(item)">{{item.sex.sexName}}</td>
@@ -224,7 +225,7 @@
 								<td @click="chooseTableTr(item)"><span v-if="item.education">{{item.education.educationName}}</span></td>
 								<td @click="chooseTableTr(item)"><span v-if="item.school">{{item.school.schoolName}}</span></td>
 								<td @click="chooseTableTr(item)"><span v-if="item.major">{{item.major.majorName}}</span></td>
-								<td @click="chooseTableTr(item)"><span v-if="item.pq">{{item.pq.pqname}}</span></td>
+								<td @click="chooseTableTr(item)"><span v-if="item.pq">{{item.pq.PQName}}</span></td>
 								<td @click="chooseTableTr(item)"><span v-if="item.degree">{{item.degree.degreeName}}</span></td>
 								<td @click="chooseTableTr(item)">{{item.establish}}</td>
 								<td @click="chooseTableTr(item)">{{item.cardId}}</td>
@@ -296,7 +297,7 @@
 															<option value=""></option>
 															<option v-for="item in departList" :value="item.dId">{{item.dName}}</option>
 														</select>
-														<a class="btn" @click="opendepartDiv">进入</a>
+														<!--<a class="btn" @click="opendepartDiv">进入</a>-->
 													</div>
 												</td>
 											</tr>
@@ -342,7 +343,6 @@
 													<div class="form-group">
 														<label for="national" class="control-label">民族</label>
 														<select name="" id="national" class="form-control" v-model="addEmploy.nationalId">
-															<option value=""></option>
 															<option v-for="item in nationalList" :value="item.nationId">{{item.nationalName}}</option>
 														</select>
 														<a class="btn" @click="openNationalDiv">进入</a>
@@ -683,7 +683,7 @@
 															<option value=""></option>
 															<option v-for="item in departList" :value="item.dId">{{item.dName}}</option>
 														</select>
-														<a class="btn" @click="opendepartDiv">进入</a>
+														<!--<a class="btn" @click="opendepartDiv">进入</a>-->
 													</div>
 												</td>
 											</tr>
@@ -1030,11 +1030,11 @@
 										<th>角色名称</th>
 										<th>包含</th>
 									</tr>
-									<tr v-for="item in jobList">
+									<tr v-for="item in postitionList">
 										<td></td>
-										<td>{{item.name}}</td>
+										<td>{{item.postitionName}}</td>
 										<td>
-											<input type="checkbox" name="" id="" :value="item.id" v-model="jobChecks" />
+											<input type="checkbox" name="" id="" :value="item.postitionId" v-model="jobChecks" />
 										</td>
 									</tr>
 								</table>
@@ -1093,11 +1093,7 @@
 									<td colspan="6">
 										<div class="form-group">
 											<label class="control-label">部门</label>
-											<select class="form-control" v-model="employQuery.dId">
-												<option value=""></option>
-												<option value="">销售部</option>
-												<option value="">小小部</option>
-											</select>
+											<input type="text" name="" id="" value="" readonly="readonly" class="form-control" v-model="employQuery.dId" @click="opendepartDiv"/>
 										</div>
 									</td>
 								</tr>
@@ -1352,10 +1348,10 @@
 						</div>
 						<div class="modal-body">
 							<div>
-			            		<select name="" class="form-control">
-			            			<option value="">0000-总厂</option>
-			            			<option value="">0001-成高</option>
-			            			<option value="">0002-成高1</option>
+			            		<select name="" class="form-control" v-model="selStoorId" @change="getDepartmentList(selStoorId)">
+			            			<option :value="item.storeId" v-for="item in storeList">{{item.storeId}}-{{item.storeName}}</option>
+			            			<!--<option value="">0001-成高</option>
+			            			<option value="">0002-成高1</option>-->
 			            		</select>
 			            	</div>
 			            	<div>
@@ -1366,11 +1362,11 @@
 			            				<th>部门名称</th>
 			            				<th>部门分类</th>
 			            			</tr>
-			            			<tr v-for="item in departList">
-			            				<td></td>
-			            				<td>{{item.dId}}</td>
-			            				<td>{{item.dName}}</td>
-			            				<td>{{item.dTypeName}}</td>
+			            			<tr v-for="(item,index) in departList" :class='{bg:index==isactive}' @click="fn(index)">
+			            				<td  @click="chooseDepartmentTr(item)"></td>
+			            				<td  @click="chooseDepartmentTr(item)">{{item.dId}}</td>
+			            				<td  @click="chooseDepartmentTr(item)">{{item.dName}}</td>
+			            				<td  @click="chooseDepartmentTr(item)">{{item.departmentType.tName}}</td>
 			            			</tr>
 			            		</table>
 			            	</div>
@@ -1822,7 +1818,7 @@
                 	employList:[
                 				{
                 				eId:"",
-                				/*national:{
+                				national:{
 		                			nationalId:0,
 		                			nationalName:""
 		                		},
@@ -1835,8 +1831,8 @@
 		                			degreeName:""
 		                		},
 		                		department:{
-		                			dId:0,
-		                			dName:""
+		                			/*dId:0,
+		                			/*dName:""*/
 		                		},
 		                		education:{
 		                			educationId:0,
@@ -1877,7 +1873,7 @@
 		                		store:{
 		                			storeId:"",
 		                			storeName:""
-		                		}*/	
+		                		}
                 		}],
 					clasM:{},
 					//左侧树状模拟数据
@@ -1952,6 +1948,8 @@
 					updateOrAddDegree:{},
 					//进行操作的开户银行行
 					updateOrAddBank:{},
+					//进行操作的部门行
+					updateOrAddDepartment:{},
 					//进行操作的门店
 					updateOrAddStore:{},
 					//table的第一行默认有样式
@@ -1979,7 +1977,13 @@
 					//新增门店对象
 					addStore:{},
 					//修改门店对象
-					updateStore:{}
+					updateStore:{},
+					//用于部门根据门店查询所使用的storeId
+					selStoorId:"",
+					//职务list,用于角色管理
+					postitionList:[],
+					//某员工职务list
+					ePostitionList:[]
                 },
                 methods:{
                 	//初始化
@@ -1988,6 +1992,48 @@
                     	this. selStoreBySelf();
 						this.clasM=this.gongsi1;
 						this.setUpdateOrRemoveEmployId();
+						this.selAllPostition();
+                    },
+                    //查询所有的职务
+                    selAllPostition(){
+                    	let that=this;
+                    	$.ajax({
+                    		url:"http://127.0.0.1:8080/postition",
+                    		type:"get",
+                    		xhrFields: {
+							withCredentials: true
+							},
+							crossDomain: true,
+							async:false,
+                    		dataType:"json",
+                    		success:function(result){
+                    			that.postitionList=result;
+                    		}
+                    	});
+                    },
+                    //根据员工id查询该员工的职务
+                    selPostitionByEid(eId){
+                    	/*alert(eId);*/
+                    	this.jobChecks=[];
+                    	let that=this;
+                    	$.ajax({
+                    		url:"http://127.0.0.1:8080/staffpostition/selByEid/"+eId,
+                    		type:"get",
+                    		xhrFields: {
+							withCredentials: true
+							},
+							crossDomain: true,
+							async:false,
+                    		dataType:"json",
+                    		success:function(result){
+                    			console.log(result);
+                    			that.ePostitionList=result;
+		                    	that.ePostitionList.forEach(item=>{
+		                    		that.jobChecks.push(item.postition.postitionId);
+		                    	});
+		                    	console.log(that.jobChecks);
+                    		}
+                    	});
                     },
                     //根据门店进行员工筛选
                     selTableByStoreId(sId){
@@ -2066,9 +2112,15 @@
                     	/*alert("导入成功");*/
                     },
                     daoChu(){
-                    	window.location.href="http://127.0.0.1:8080/employees/downLoadExportExcel";
+                    	var emList=[];
+                    	this.employList.forEach(item=>{
+                    		emList.push(item.eId);
+                    	});
+                    	var eIdList=emList.toString();
+                    	window.location.href="http://127.0.0.1:8080/employees/downLoadExportExcel?eIdList="+eIdList;
                     	/*alert("导出成功");*/
                     },
+                    //删除员工
                     remove(){
                     	var flag=confirm("是否将该员工所有资料清除");
                     	if(flag){
@@ -2164,6 +2216,9 @@
                     	this.updateOrAddSex=item;
                     	console.log(this.updateOrAddSex);
                     },
+                    chooseDepartmentTr(item){
+                    	this.updateOrAddDepartment=item;
+                    },
                     chooseNationalTr(item){
                     	this.updateOrAddNational=item;
                     	console.log(this.updateOrAddNational);
@@ -2227,6 +2282,7 @@
 							withCredentials: true
 							},
 							crossDomain: true,
+							 async:false,
 							success:function(result){
 								console.log(result);
 								that.nplaceList=result;
@@ -2243,8 +2299,10 @@
                     		xhrFields: {
 							withCredentials: true
 							},
+							 async:false,
 							crossDomain: true,
 							success:function(result){
+								console.log(result);
 								that.nationalList=result;
 							}
                     	});
@@ -2259,6 +2317,7 @@
                     		xhrFields: {
 							withCredentials: true
 							},
+							 async:false,
 							crossDomain: true,
 							success:function(result){
 								that.marryList=result;
@@ -2275,6 +2334,7 @@
                     		xhrFields: {
 							withCredentials: true
 							},
+							 async:false,
 							crossDomain: true,
 							success:function(result){
 								that.educationList=result;
@@ -2292,6 +2352,7 @@
 							withCredentials: true
 							},
 							crossDomain: true,
+							 async:false,
 							success:function(result){
 								that.schoolList=result;
 							}
@@ -2308,6 +2369,7 @@
 							withCredentials: true
 							},
 							crossDomain: true,
+							 async:false,
 							success:function(result){
 								that.majorList=result;
 							}
@@ -2324,6 +2386,7 @@
 							withCredentials: true
 							},
 							crossDomain: true,
+							 async:false,
 							success:function(result){
 								console.log(result);
 								that.PQList=result;
@@ -2438,11 +2501,30 @@
 							withCredentials: true
 							},
 							crossDomain: true,
+							 async:false,
 							success:function(result){
 								 console.log(result);
 								that.departList=result;
 							}
                     	});
+                   },
+                   //获取所有部门
+                   getAllDepartmentList(){
+                   	   let that=this;
+                   	   $.ajax({
+                   	   	url:"http://127.0.0.1:8080/department/findAllDepartment",
+                   	   	type:"get",
+                   	   	xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						 async:false,
+                   	   	dataType:"json",
+                   	   	success:function(result){
+                   	   		console.log(result);
+                   	   		that.departList=result;
+                   	   	}
+                   	   });
                    },
                    //获取新增员工编号
                    	 getEid(){
@@ -2574,6 +2656,13 @@
                     },
                     //打开角色管理
                     role(){
+                    	var eId=this.updateOrRemoveEmployId;
+                    	if(eId==""||eId==null){
+                    		alert("请先选择员工");
+                    		return;
+                    	}
+                    	this.selPostitionByEid(eId);
+                    	this.selAllPostition();	
                     	$("#eployRole").modal("show");
                     },
                     //关闭角色管理
@@ -2613,6 +2702,7 @@
 							withCredentials: true
 							},
 							crossDomain: true,
+							async:false,
                     		dataType:"json",
                     		contentType:"application/json;charset=utf-8",
                     		success:function(result){
@@ -2624,6 +2714,31 @@
                     },
                     //修改员工角色
                     updateRole(){
+                    	var eId=this.updateOrRemoveEmployId;
+                    	if(eId==""||eId==null){
+                    		alert("请先选择员工");
+                    		return;
+                    	}
+                    	var json=JSON.stringify(this.jobChecks);
+                    	$.ajax({
+                    		url:"http://127.0.0.1:8080/staffpostition/updateStaffPostition/"+eId,
+                    		type:"put",
+                    		data:json,
+                    		xhrFields: {
+							withCredentials: true
+							},
+							crossDomain: true,
+                    		dataType:"json",
+                    		async:false,
+                    		contentType:"application/json;charset=utf-8",
+                    		success:function(result){
+                    			if(result){
+                    				alert("成功");
+                    			}else{
+                    				alert("失败");
+                    			}
+                    		}
+                    	});
                     	alert("修改员工角色成功");
                     	$("#eployRole").modal("hide");
                     },
@@ -2701,16 +2816,20 @@
                			/*this. setSexListFirst();*/
                		},
                		sexOk(){
-               		/*	alert(this.addEmploy.sexId);*/
-               			alert("正在将选择的性别填入");
-               			$("#sexDiv").modal("hide");
-               			/*this.addEploy();
-               			this.updateEploy();*/
                			this.addEmploy.sexId=this.updateOrAddSex.sexId;
                			this.updateEmploy.sexId=this.updateOrAddSex.sexId;
+               			alert(this.addEmploy.sexId);
+               			alert("正在将选择的性别填入");
+               			$("#sexDiv").modal("hide");
+               			console.log(this.addEmploy);
+               			this.getSexList();
+						/*this.addEploy();
+               			this.updateEploy();*/
                		},
                		//打开部门框子
                		opendepartDiv(){
+               			this.getAllDepartmentList();
+               			this.getStoreList();
                			$("#departDiv").modal("show");
                		},
                		closedepartDiv(){
@@ -2718,6 +2837,12 @@
                		},
                		//将选择的部门填入
                		savedepartList(){
+               			if(this.updateOrAddDepartment==null||this.updateOrAddDepartment==""){
+               				alert("请先选择部门");
+               				return;
+               			}
+               			this.employQuery={};
+               			this.employQuery.dId=this.updateOrAddDepartment.dId;
                			alert("正在将选择的部门填入");
                			$("#departDiv").modal("hide");
                		},
@@ -2765,11 +2890,13 @@
                			this.setNationalListFirst();
                		},
                		nationalOk(){
+               			console.log(this.updateOrAddNational.nationalId);
+               			this.addEmploy.nationalId= this.updateOrAddNational.nationalId;
+               			this.updateEmploy.nationalId= this.updateOrAddNational.nationalId;
+               			this.getNationalList();
+               			console.log(this.addEmploy);
                			alert("正在将选择的民族填入");
                			$("#nationalDiv").modal("hide");
-               			/*this.addEploy();
-               			this.updateEploy();*/
-               			this.addEmploy.nationalId= this.updateOrAddNational.nationalId;
                		},
                		//籍贯
                		openNplaceDiv(){
@@ -2815,10 +2942,10 @@
                		},
                		nplaceOk(){
                			this.addEmploy.nplaceId= this.updateOrAddNplace.nplaceId;
+               			this.updateEmploy.nplaceId=this.updateOrAddNplace.nplaceId;
                			alert("正在将选择的籍贯填入");
                			$("#nplaceDiv").modal("hide");
-               			this.addEploy();
-               			this.updateEploy();
+               			this.getNplaceList();
                		},
                		//学历
                		openEducationDiv(){
@@ -2864,10 +2991,10 @@
                		},
                		educationOk(){
                			this.addEmploy.educationId=this.updateOrAddEducation.educationId;
+               			this.updateEmploy.educationId=this.updateOrAddEducation.educationId;
+               			this.getEducationList();
                			alert("正在将选择的学历填入");
                			$("#educationDiv").modal("hide");
-               			this.addEploy();
-               			this.updateEploy();
                		},
                		//学校
                		openSchoolDiv(){
@@ -2913,10 +3040,10 @@
                		},
                		schoolOk(){
                			this.addEmploy.schoolId=this.updateOrAddSchool.schoolId;
+               			this.updateEmploy.schoolId=this.updateOrAddSchool.schoolId;
+               			this.getSchoolList();
                			alert("正在将选择的学校填入");
                			$("#schoolDiv").modal("hide");
-               			this.addEploy();
-               			this.updateEploy();
                		},
                		//专业
                		openMajorDiv(){
@@ -2961,10 +3088,10 @@
                		},
                		majorOk(){
                			this.addEmploy.majorId=this.updateOrAddMajor.majorId;
+               			this.updateEmploy.majorId=this.updateOrAddMajor.majorId;
+               			this.getMajorList();
                			alert("正在将选择的专业填入");
                			$("#majorDiv").modal("hide");
-               			this.addEploy();
-               			this.updateEploy();
                		},
                		//专业资格
                		openPQDiv(){
@@ -3009,10 +3136,10 @@
                		},
                		PQOk(){
                			this.addEmploy.PQId=this.updateOrAddPq.PQId;
+               			this.updateEmploy.PQId=this.updateOrAddPq.PQId;
+               			this.getPQList();
                			alert("正在将选择的专业资格填入");
                			$("#PQDiv").modal("hide");
-               			this.addEploy();
-               			this.updateEploy();
                		},
                		//学位
                		openDegreeDiv(){
@@ -3057,10 +3184,10 @@
                		},
                		degreeOk(){
                			this.addEmploy.degreeId=this.updateOrAddDegree.degreeId;
+               			this.updateEmploy.degreeId=this.updateOrAddDegree.degreeId;
+               			this.getDegreeList();
                			alert("正在将选择的学位填入");
                			$("#degreeDiv").modal("hide");
-               			this.addEploy();
-               			this.updateEploy();
                		},
                		//银行
                		openBankDiv(){
@@ -3106,11 +3233,9 @@
                		bankOk(){
                			alert("正在将选择的银行填入");
                			$("#bankDiv").modal("hide");
-               			this.addEploy();
-               			this.updateEploy();
                			this.addEmploy.bankId=this.updateOrAddBank.bankId;
                			this.updateEmploy.bankId=this.updateOrAddBank.bankId;
-               			
+               			this.getBankList();
                		},
                		//打开新增门店
                		openNewStore(){
@@ -3142,6 +3267,7 @@
                			});
                			/*alert("新增门店成功");*/
                			$("#addStore").modal("hide");
+               			this.find();
                		},
                		//根据选择的门店进行查询
                		selUpdateStoreByMid(){
@@ -3193,6 +3319,7 @@
                			});
                			alert("修改门店成功");
                			$("#updateStore").modal("hide");
+               			this.find();
                		},
                		remoceStore(){
                			var flag2=confirm("你确定要删除该门店?可能会造成信息丢失");
@@ -3215,6 +3342,7 @@
                				});
                				alert("删除门店成功");
                			}
+               			this.find();
                		},
                		addPrint(){
                			window.location.href="addPrint.html";

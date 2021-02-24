@@ -163,6 +163,7 @@
 							withCredentials: true
 						},
 						crossDomain: true,
+						 async:false,
 						success:function(result){
 							console.log(result);
 							that.list=result;
@@ -184,6 +185,7 @@
 							},
 							crossDomain: true,
 							data:json,
+							async:false,
 							success:function(result){
 								if(result){
 									alert("成功");
@@ -206,6 +208,7 @@
 							withCredentials: true
 						},
 						crossDomain: true,
+						 async:false,
 						success:function(result){
 							alert(result);
 						}
@@ -224,6 +227,7 @@
 							xhrFields: {
 								withCredentials: true
 							},
+							async:false,
 							crossDomain: true,
 							data:json,
 							success:function(result){
@@ -235,6 +239,7 @@
 					this.getCount();
 				},
 				daoChu(){
+					window.location.href="http://127.0.0.1:8080/job/downLoadExportExcel";
 					alert("导出成功");
 				},
 				tc(item,index){
