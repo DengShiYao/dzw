@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>维修单</title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+	</head>
+	<body>
+		<style type="text/css">
+			iframe{
+				height: 900px;
+				width: 100%;
+				border: 0px;
+			}
+		</style>
+			<div id="ctn" class="container-fluid">
+				<div class="row" style="background-color: rgb(247,255,255);display: flex; align-items: center;height: 50px;">
+					<span style="font-size: 25px;margin-left: 20px;">维修单</span>
+					<button class="btn" style="margin-left: 89%;">取消</button>
+				</div>
+				<div class="row" style="background-color: rgb(247,247,247);height: 40px;display: flex;align-items: center;">
+					<span style="font-size: 17px;margin-left: 20px;">单号：</span>
+				</div>
+				<div class="row" style="border-top: 1px solid rgb(33,182,206);">
+					<form class="form-inline" style="margin-top: 10px;">
+					  <div class="form-group" style="margin-left: 30px;">
+					    <label for="exampleInputName1">车牌号码</label>
+					    <input type="text" class="form-control" id="exampleInputName1">
+					  </div>
+					  <div class="form-group">
+					    <label for="exampleInputName2">车架号</label>
+					    <input type="text" class="form-control" id="exampleInputName2">
+					  </div>
+						<div class="form-group">
+						  <label for="exampleInputName3">车辆型号</label>
+						  <input type="text" class="form-control" id="exampleInputName3">
+						</div>
+						<div class="form-group">
+						  <label for="exampleInputName4">车辆品牌</label>
+						  <input type="text" class="form-control" id="exampleInputName4">
+						</div><br><br>
+						<div class="form-group" style="margin-left: 30px;">
+						  <label for="exampleInputName5">发动机号</label>
+						  <input type="text" class="form-control" id="exampleInputName5">
+						</div>
+						<div class="form-group">
+						  <label for="exampleInputName6">发动机品牌</label>
+						  <input type="text" class="form-control" id="exampleInputName6">
+						</div>
+						<div class="form-group">
+						  <label for="exampleInputName7">服务顾问</label>
+						  <input type="text" class="form-control" id="exampleInputName7">
+						</div><br><br>
+						<div class="form-group" style="margin-left: 30px;">
+						  <label for="exampleInputName8">车主姓名</label>
+						  <input type="text" class="form-control" id="exampleInputName8">
+						</div>
+						<div class="form-group">
+						  <label for="exampleInputName9">驾驶员</label>
+						  <input type="text" class="form-control" id="exampleInputName9">
+						</div>
+						<div class="form-group">
+						  <label for="exampleInputName10">联系电话</label>
+						  <input type="text" class="form-control" id="exampleInputName10">
+						</div><br><br>
+						<div class="form-group" style="margin-left: 30px;">
+						  <label for="exampleInputName11">进厂里程</label>
+						  <input type="text" class="form-control" id="exampleInputName11">
+						</div>
+						<div class="form-group">
+						  <label for="exampleInputName12">进厂油量</label>
+						  <input type="text" class="form-control" id="exampleInputName12">
+						</div>
+						<div class="form-group">
+						  <label for="exampleInputName13">上次里程</label>
+						  <input type="text" class="form-control" id="exampleInputName13">
+						</div>
+						<div class="form-group">
+						  <label for="exampleInputName14">进厂时间</label>
+						  <input type="text" class="form-control" id="exampleInputName14">
+						</div><br><br>
+						<div class="form-group" style="margin-left: 30px;">
+						  <label for="exampleInputName15">业务类别</label>
+						  <input type="text" class="form-control" id="exampleInputName15">
+						</div>
+						<div class="form-group">
+						  <label for="exampleInputName16">施工班次</label>
+						  <input type="text" class="form-control" id="exampleInputName16">
+						</div>
+						<div class="form-group">
+						  <label for="exampleInputName17">接车人</label>
+						  <input type="text" class="form-control" id="exampleInputName17">
+						</div>
+						<div class="form-group">
+						  <label for="exampleInputName18">预计完工</label>
+						  <input type="text" class="form-control" id="exampleInputName18">
+						</div><br><br>
+						<div class="form-group" style="margin-left: 30px;">
+						  <label for="exampleInputName19">结算方式</label>
+						  <input type="text" class="form-control" id="exampleInputName19">
+						</div>
+						<div class="form-group">
+						  <label for="exampleInputName20">赔款公司</label>
+						  <input type="text" class="form-control" id="exampleInputName20">
+						</div>
+						<div class="form-group">
+						  <label for="exampleInputName21">完工时间</label>
+						  <input type="text" class="form-control" id="exampleInputName21">
+						</div>
+						<div class="form-group">
+						  <label for="exampleInputName22">上次进厂</label>
+						  <input type="date" class="form-control" id="exampleInputName22">
+						</div><br><br>
+						<div class="form-group" style="margin-left: 30px;">
+						  <label for="exampleInputName23">预估金额</label>
+						  <input type="text" class="form-control" id="exampleInputName23">
+						</div>
+						<div class="form-group">
+						  <label for="exampleInputName24">接待备注</label>
+						  <input type="text" style="width: 694px;" class="form-control" id="exampleInputName24">
+						</div><br><br>
+						<div class="form-group" style="margin-left: 30px;">
+						  <label for="exampleInputName25">报修陈述</label>
+							<textarea rows="" cols="127" class="form-control">
+								
+							</textarea>
+						</div>
+					</form>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<ul class="nav nav-tabs">
+							<li :class="{active:item.active}" v-for="item in tabs"><a :href="'#'+item.ename" data-toggle="tab" @click="activeBool(item)">{{item.name}}</a></li>
+						</ul>
+					</div>			
+				</div>
+				<div class="row">
+					<div class="tab-content">
+						<div v-for="item in tabs" :id="item.ename" :class="['tab-pane',item.active?'active':'']">
+							<iframe :src="item.path"></iframe>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<script src="js/jquery-1.12.4.js"></script>
+			<script src="js/vue-2.6.js"></script>
+			<script src="js/bootstrap.min.js"></script>
+			<script>
+				new Vue({
+					el:"#ctn",
+					data(){
+						return{
+							tabs:[{
+								id:0,
+								name:"维修项目",
+								ename:"weixiu",
+								active:false,
+								path:"jiesuan/weixiu.html"
+							},{
+								id:1,
+								name:"领料情况",
+								ename:"lingliao",
+								active:false,
+								path:"jiesuan/lingliao.html"
+							},{
+								id:2,
+								name:"结算信息",
+								ename:"jies",
+								active:false,
+								path:"jiesuan/jies.html"
+							}]
+						}
+					},
+					methods:{
+						
+					}
+				})
+			</script>
+	</body>
+</html>
