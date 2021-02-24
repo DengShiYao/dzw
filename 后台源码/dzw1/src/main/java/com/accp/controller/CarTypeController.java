@@ -68,7 +68,6 @@ public class CarTypeController {
      */
     @PostMapping("/upload")
     public ResultVO addCarTypeUpload(MultipartFile file, @Valid  CarType carType){
-        System.out.println(carType);
         //先判断此id的合法性
         if (carType.getCarId()==null || carType.getCarId()=="" ) {
             return new ResultVO(ResultCode.ID_NOT_NULL);

@@ -53,4 +53,9 @@
     <select id="selSupplier" resultMap="BaseResultMap">
         SELECT * FROM `suppliers_region` WHERE `sid`=#{sid}
     </select>
+
+    <select id="serachSupplier" resultMap="MyResultMap">
+         SELECT * FROM `suppliers_region`
+          ${ew.customSqlSegment}
+    </select>
 </mapper>

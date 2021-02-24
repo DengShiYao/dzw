@@ -36,7 +36,6 @@ public class DzwColumnControllerController {
     @GetMapping("/showColumn")
     public ResultVO toFind(HttpSession session){
         SysUser user = (SysUser)session.getAttribute("user");
-        System.out.println(user);
         if (user == null){ return new ResultVO(ResultCode.USER_NOT_LOGIN);}
         List<DzwColumnController> suppliersColumnList = service.list(new QueryWrapper<DzwColumnController>().lambda()
                 .eq(DzwColumnController::getTableName, "suppliers_region")

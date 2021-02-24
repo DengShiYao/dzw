@@ -1,7 +1,10 @@
 package com.accp.mapper;
 
 import com.accp.domain.SuppliersRegion;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -17,4 +20,6 @@ public interface SuppliersRegionMapper extends BaseMapper<SuppliersRegion> {
     List<SuppliersRegion> toFind(String regionId);
 
     SuppliersRegion selSupplier(Integer sid);
+
+    List<SuppliersRegion> serachSupplier(@Param("ew") Wrapper wrapper);
 }

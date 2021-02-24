@@ -2,6 +2,7 @@ package com.accp.mapper;
 
 import com.accp.domain.Goods;
 import com.accp.vo.Page;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -21,5 +22,7 @@ public interface GoodsMapper extends BaseMapper<Goods> {
 
     Page<Goods> selGoodsPage(Page<Goods> page, @Param("blockUp") Integer blockUp, @Param("column1") Integer column1);
 
-    Page<Goods> searchGoodsPage(Page<Goods> page,@Param("goods") Goods goods);
+    Page<Goods> searchGoodsPage(Page<Goods> page,@Param("ew") Wrapper wrapper);
+    //查询全部
+    List<Goods> goodsListAll();
 }

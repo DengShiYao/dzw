@@ -6,7 +6,9 @@ import com.accp.result.ResultCode;
 import com.accp.result.ResultVO;
 import com.accp.service.impl.SuppliersContactsServiceImpl;
 import com.accp.service.impl.SuppliersRegionServiceImpl;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -102,5 +104,10 @@ public class SuppliersRegionController {
         return new ResultVO(ResultCode.ID_NOT_NULL);
     }
 
+    @PostMapping("/searchsupplier")
+    public ResultVO searchSupplier(SuppliersRegion region){
+        System.out.println(region);
+        return new ResultVO(ResultCode.SUCCESS,  service.serachSupplier(region));
+    }
 }
 

@@ -76,7 +76,7 @@
                 <div>
                     <vxe-toolbar>
                         <template v-slot:buttons>
-                            <vxe-button icon="glyphicon glyphicon-search" data-toggle="modal" data-target="#myModel8">查询
+                            <vxe-button icon="glyphicon glyphicon-search" @click="openSelSupplier">查询
                             </vxe-button>
                             <vxe-button icon="glyphicon glyphicon-plus" v-if="iframBtnVisible" @click="openInsSupplier">
                                 增加
@@ -555,7 +555,6 @@
                                                         <option value="0">=== 请选择 ===</option>
                                                         <option v-for="item in pasymentMethod" :value="item.pmId">{{
                                                             item.pmethod }}</option>
-
                                                     </select>
                                                 </div>
                                             </div>
@@ -671,18 +670,10 @@
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                     aria-hidden="true">&times;</span></button>
-
                             <h4 class="modal-title clearfix" id="myModalLabel8">供货单位查询
-                                <div class="pull-right">
-                                    <div class="checkbox checcss">
-                                        <label>
-                                            <input type="checkbox"> 停用
-                                        </label>
-                                    </div>
-                                    <button type="button" class="btn btn-success"
-                                        style="padding-left: 25px; padding-right: 25px; margin-right: 30px;"><span
-                                            class="glyphicon glyphicon-search"></span> 查询</button>
-                                </div>
+                                <button type="button" class="btn btn-success pull-right" @click="requestSupplier"
+                                    style="padding-left: 25px; padding-right: 25px; margin-right: 30px;"><span
+                                        class="glyphicon glyphicon-ok"></span> 查询</button>
                             </h4>
                         </div>
                         <div class="modal-body row">
@@ -695,14 +686,16 @@
                                                 <label for="inputEmail1"
                                                     class="col-sm-4 control-label">&nbsp;厂商代码&nbsp;</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control"
+                                                        v-model="searchSupplier.provCode">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-6" style="margin-right: 12px;">
                                                 <label for="inputEmail1"
                                                     class="col-sm-4 control-label">&nbsp;厂商名称&nbsp;</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control"
+                                                        v-model="searchSupplier.provName">
                                                 </div>
                                             </div>
                                         </div>
@@ -711,40 +704,38 @@
                                                 <label for="inputEmail1"
                                                     class="col-sm-4 control-label">&nbsp;地址&nbsp;</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control"
+                                                        v-model="searchSupplier.address">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-6" style="margin-right: 12px;">
                                                 <label for="inputEmail1"
                                                     class="col-sm-4 control-label">&nbsp;付款方式&nbsp;</label>
                                                 <div class="col-sm-8">
-                                                    <select class="form-control">
-                                                        <option>1</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                        <option>5</option>
+                                                    <select class="form-control" v-model="searchSupplier.pmId">
+                                                        <option value="">不限</option>
+                                                        <option v-for="item in pasymentMethod" :value="item.pmId">{{
+                                                            item.pmethod }}</option>
                                                     </select>
                                                 </div>
-                                            </div>-
+                                            </div>
                                         </div>
                                         <div class="form-fiex col-sm-12">
                                             <div class="form-group col-sm-6" style="margin-right: 18px;">
                                                 <label for="inputEmail1" class="col-sm-4 control-label">厂商等级</label>
                                                 <div class="col-sm-8">
-                                                    <select class="form-control">
-                                                        <option>1</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                        <option>5</option>
+                                                    <select class="form-control" v-model="searchSupplier.fgId">
+                                                        <option value="">不限</option>
+                                                        <option v-for="item in firmGradeList" :value="item.fgId">{{
+                                                            item.fgrade }}</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-6" style="margin-right: 12px;">
                                                 <label for="inputEmail1" class="col-sm-4 control-label">经营品牌</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control"
+                                                        v-model="searchSupplier.zd2">
                                                 </div>
                                             </div>
                                         </div>
@@ -752,13 +743,16 @@
                                             <div class="form-group col-sm-6" style="margin-right: 18px;">
                                                 <label for="inputEmail1" class="col-sm-4 control-label">厂商类别</label>
                                                 <div class="col-sm-8">
-                                                    <select class="form-control">
-                                                        <option>1</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                        <option>5</option>
-                                                    </select>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" disabled
+                                                            v-model="searchSupplier.provType"
+                                                            style="border-radius:4px 0px 0px 4px;">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-default" @click="selopensupplier"
+                                                                type="button"><span
+                                                                    class="glyphicon glyphicon-plus"></span></button>
+                                                        </span>
+                                                    </div><!-- /input-group -->
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-6" style="margin-right: 12px;">
@@ -789,14 +783,16 @@
                                                 <label for="inputEmail1"
                                                     class="col-sm-4 control-label">&nbsp;经营情况&nbsp;</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control"
+                                                        v-model="searchSupplier.operation">
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-6" style="margin-right: 12px;">
                                                 <label for="inputEmail1"
                                                     class="col-sm-4 control-label">&nbsp;备注&nbsp;</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" class="form-control"
+                                                        v-model="searchSupplier.remark">
                                                 </div>
                                             </div>
                                         </div>
@@ -1125,14 +1121,49 @@
                     </div>
                 </div>
             </div>
+            <!-- 查询时厂商类别 -->
+            <div class="modal fade" id="myModal14" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">厂商类别
+                                <button type="button" class="btn btn-success pull-right" @click=" btnsupplier"
+                                    style="padding-left: 25px; padding-right: 25px; margin-right: 30px;"><span
+                                        class="glyphicon glyphicon-ok"></span> 选择</button>
+                            </h4>
+                        </div>
+                        <div class="modal-body" style="padding: 0px 10px;">
+                            <div class="alert alert-danger" v-if="tempIstrue" id="alert2"
+                                style="margin-bottom: 10px !important;">
+                                <a href="#" class="close" data-dismiss="alert">
+                                    &times;
+                                </a>
+                                <strong>错误信息：</strong><span>请选择树目录</span>
+                            </div>
+                            <div class="coml-sm-12 tempTable">
+                                <div style="height: 300px;padding-right: 0px; ">
+                                    <vxe-grid round border resizable show-overflow class="mytable-scrollbar"
+                                        height="100%" row-id="regionId" auto-resize highlight-hover-row ref="xTree4"
+                                        highlight-current-row @current-change="currentChangeEventTree3"
+                                        @cell-dblclick="xTree3dblclick"
+                                        :tree-config="{children: 'children',indent:'40'}" :data="treeData"
+                                        :columns="treeColumn2">
+                                    </vxe-grid>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>
     <script src="js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
     <script src="js/bootstrap.js"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    <script src="https://cdn.jsdelivr.net/npm/xe-utils"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vxe-table"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="https://cdn.jsdelivr.net/npm/xe-utils"></script>
     <script src="https://cdn.jsdelivr.net/npm/vxe-table@3.1.4"></script>
@@ -1147,6 +1178,7 @@
                     imgUrl: [],
                     iframBtnVisible: true,   //是否再ifram重
                     treeVisble: true,
+                    tempIstrue: false,
                     isLoad: true,    //只在加载使用一次
                     textHide: [false, false, false, false],
                     check_list: [],
@@ -1191,7 +1223,15 @@
                         { field: 'regionName', showOverflow: true, treeNode: true, type: { expand: 'true' }, slots: { default: 'user-slot' } },
                     ], //左侧树形   
                     treeData: [], //左侧树形   
-                    iframeVal: null,    // 为了接受vue传过来的值
+                    iframeVal: null,    // 为了接受vue传过来的值,
+                    //查询供货商时树形
+                    treeColumn2: [
+                        { field: 'regionId', showOverflow: true, treeNode: true },
+                        { field: 'regionName', showOverflow: true },
+                    ],
+                    searchSupplier: {  //供货商实体
+                        regionName: "", provCode: "", provName: "", address: "", operation: "", pmId: "", fgId: "", zd2: "", provType: "", preDay: "0", remark: "",
+                    },
                 }
             },
             mounted() {
@@ -1206,6 +1246,9 @@
                 })
             },
             methods: {
+                currentChangeEventTree3({ row }) {
+
+                },
                 //获取焦点时显示文本框
                 td_dbclick(item, index) {
                     item.inputVislble = false;
@@ -1350,7 +1393,7 @@
                     let that = this;
                     this.loading = true
                     $.ajax({
-                        url: "http://localhost:8080/suppliersRegionCity",
+                        url: "http://127.0.0.1:8080/suppliersRegionCity",
                         type: "get",
                         xhrFields: {
                             withCredentials: true
@@ -1529,7 +1572,7 @@
                     let that = this;
                     this.loading = true;
                     $.ajax({
-                        url: "http://localhost:8080/suppliersRegion/" + regionId,
+                        url: "http://127.0.0.1:8080/suppliersRegion/" + regionId,
                         type: "get",
                         xhrFields: {
                             withCredentials: true
@@ -1558,7 +1601,7 @@
                     let that = this;
                     this.loading = true;
                     $.ajax({
-                        url: "http://localhost:8080/suppliersContacts/" + sid,
+                        url: "http://127.0.0.1:8080/suppliersContacts/" + sid,
                         type: "get",
                         xhrFields: {
                             withCredentials: true
@@ -1586,7 +1629,7 @@
                     this.check_list = [];
                     var that = this;
                     $.ajax({
-                        url: "http://localhost:8080/dzwColumnController/showColumn",
+                        url: "http://127.0.0.1:8080/dzwColumnController/showColumn",
                         type: "get",
                         xhrFields: {
                             withCredentials: true
@@ -1623,7 +1666,7 @@
                 find_ShowColumn() {
                     var that = this;
                     $.ajax({
-                        url: "http://localhost:8080/dzwColumnController/showColumn",
+                        url: "http://127.0.0.1:8080/dzwColumnController/showColumn",
                         type: "get",
                         xhrFields: {
                             withCredentials: true
@@ -1664,7 +1707,7 @@
                 updateTableColumn() {
                     var that = this;
                     $.ajax({
-                        url: "http://localhost:8080/dzwColumnController/upd",
+                        url: "http://127.0.0.1:8080/dzwColumnController/upd",
                         type: "post",
                         data: JSON.stringify(that.setShowtableColumn),
                         xhrFields: {
@@ -1715,7 +1758,7 @@
                 selPaymentMethod() {
                     let that = this;
                     $.ajax({
-                        url: "http://localhost:8080/paymentMethod",
+                        url: "http://127.0.0.1:8080/paymentMethod",
                         type: "get",
                         xhrFields: {
                             withCredentials: true
@@ -1735,7 +1778,7 @@
                 sekFrimGrade() {
                     let that = this;
                     $.ajax({
-                        url: "http://localhost:8080/firmGrade",
+                        url: "http://127.0.0.1:8080/firmGrade",
                         type: "get",
                         xhrFields: {
                             withCredentials: true
@@ -1783,7 +1826,7 @@
                 toInsSupplier() {
                     var that = this;
                     $.ajax({
-                        url: "http://localhost:8080/suppliersRegion/ins",
+                        url: "http://127.0.0.7:8080/suppliersRegion/ins",
                         type: "post",
                         data: JSON.stringify(that.supplier),
                         xhrFields: {
@@ -1857,7 +1900,7 @@
                 toUpdSupplier() {
                     var that = this;
                     $.ajax({
-                        url: "http://localhost:8080/suppliersRegion/upd",
+                        url: "http://127.0.0.1:8080/suppliersRegion/upd",
                         type: "post",
                         data: JSON.stringify(that.supplier),
                         xhrFields: {
@@ -1913,7 +1956,7 @@
                     let that = this;
                     let json = this.$refs.xTable.getCurrentRecord();
                     $.ajax({
-                        url: "http://localhost:8080/suppliersRegion/del/" + json.sid,
+                        url: "http://127.0.0.1:8080/suppliersRegion/del/" + json.sid,
                         type: "post",
                         xhrFields: {
                             withCredentials: true
@@ -1974,7 +2017,7 @@
                     let that = this;
                     let json = this.$refs.xTable.getCurrentRecord();
                     $.ajax({
-                        url: "http://localhost:8080/suppliersContacts/save",
+                        url: "http://127.0.0.1:8080/suppliersContacts/save",
                         type: "post",
                         data: JSON.stringify(that.contactsPojo),
                         xhrFields: {
@@ -2008,7 +2051,7 @@
                 delContacts() {
                     let that = this;
                     $.ajax({
-                        url: "http://localhost:8080/suppliersContacts/del/" + that.$refs.xTable3.getCurrentRecord().scId,
+                        url: "http://127.0.0.1:8080/suppliersContacts/del/" + that.$refs.xTable3.getCurrentRecord().scId,
                         type: "post",
                         xhrFields: {
                             withCredentials: true
@@ -2033,7 +2076,81 @@
                 iframePrams() {
                     let code = this.$refs.xTable.getCurrentRecord();
                     window.parent.postMessage(code, "*");
-
+                },
+                /*
+                    打开查询供货商模态框
+                */
+                openSelSupplier() {
+                    //付款方式
+                    this.selPaymentMethod();
+                    //厂商等级
+                    this.sekFrimGrade();
+                    this.initSearchSupplier();
+                    $("#myModel8").modal("show");
+                },
+                xTree3dblclick({ row }) {
+                    let json = this.$refs.xTree4.getCurrentRecord();
+                    this.searchSupplier.provType = json.regionId;
+                    $("#myModal14").modal("hide");
+                },
+                /*查询时 选择供货厂商分类*/
+                selopensupplier() {
+                    this.tempIstrue = false;
+                    $("#myModal14").modal("show");
+                },
+                /* 查询 选择供货厂商模态框 选择按钮*/
+                btnsupplier() {
+                    let json = this.$refs.xTree4.getCurrentRecord();
+                    if (json == null) {
+                        this.tempIstrue = true;
+                    } else {
+                        this.searchSupplier.provType = json.regionId;
+                        $("#myModal14").modal("hide");
+                    }
+                },
+                /*初始化查询对象*/
+                initSearchSupplier() {
+                    this.searchSupplier.provName = "";
+                    this.searchSupplier.provCode = "";
+                    this.searchSupplier.address = "";
+                    this.searchSupplier.operation = "";
+                    this.searchSupplier.pmId = "";
+                    this.searchSupplier.fgId = "";
+                    this.searchSupplier.zd2 = "";
+                    this.searchSupplier.provType = "";
+                    this.searchSupplier.preDay = "";
+                    this.searchSupplier.remark = "";
+                    this.searchSupplier.preDay = "";
+                    this.searchSupplier.preDay = "";
+                },
+                /*发送请求按条件查询*/
+                requestSupplier() {
+                    console.log(JSON.stringify(this.searchSupplier));
+                    let that = this;
+                    this.loading = true;
+                    $.ajax({
+                        url: "http://127.0.0.1:8080/suppliersRegion/searchsupplier",
+                        type: "post",
+                        data: that.searchSupplier,
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        dataType: "json",
+                        success: function (result) {
+                            handlerResult(result, () => {
+                                that.tableData = result.data;
+                                that.loading = false;
+                                $("#myModel8").modal("hide");
+                                that.$refs.xTable.setCurrentRow(that.tableData[0]);
+                                try {
+                                    that.tableDataPhone = that.tableData[0].relation;
+                                } catch (err) {
+                                    that.tableDataPhone = [];
+                                }
+                            })
+                        }
+                    });
                 }
             },
             created() {

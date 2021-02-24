@@ -77,57 +77,64 @@
     </resultMap>
     <select id="searchGoodsPage" resultMap="MyResultMap3">
         SELECT * FROM `goods`
-        <where>
-            <if test="goods.blockUp != null">
-                AND blockUp=#{goods.blockUp}
-            </if>
-            <if test="goods.goodsId != null || goods.goodsId != '' ">
-                AND goods_id like CONCAT('%',CONCAT(#{goods.goodsId},'%'))
-            </if>
-            <if test="goods.goodsName != null || goods.goodsName != ''">
-                AND goods_name like CONCAT('%',CONCAT(#{goods.goodsName},'%'))
-            </if>
-            <if test="goods.gbId != null">
-                AND gb_id=#{goods.gbId}
-            </if>
-            <if test="goods.engineType != null || goods.engineType != ''">
-                AND engine_type like CONCAT('%',CONCAT(#{goods.engineType},'%'))
-            </if>
-            <if test="goods.goodsCId != null">
-                AND goods_c_id=#{goods.goodsCId}
-            </if>
-            <if test="goods.iId != null || goods.iId != ''">
-                AND i_id=#{goods.iId }
-            </if>
-            <if test="goods.Spec5 != null || goods.Spec5 != ''">
-                AND Spec5=#{goods.Spec5 }
-            </if>
-            <if test="goods.Spec6 != null || goods.Spec6 != ''">
-                AND Spec6=#{goods.Spec6 }
-            </if>
-            <if test="goods.proId != null ">
-                AND pro_id=#{goods.proId }
-            </if>
-            <if test="goods.OldBM != null || goods.OldBM != ''">
-                AND OldBM=#{goods.OldBM }
-            </if>
-            <if test="goods.ItemTM != null || goods.ItemTM != ''">
-                AND ItemTM=#{goods.ItemTM }
-            </if>
-            <if test="goods.PackSpec != null || goods.PackSpec != ''">
-                AND PackSpec=#{goods.PackSpec }
-            </if>
-            <if test="goods.Spec != null || goods.Spec != ''">
-                AND Spec=#{goods.Spec }
-            </if>
-            <if test="goods.GrossWeight != null || goods.GrossWeight != ''">
-                AND GrossWeight=#{goods.GrossWeight }
-            </if>
-            <if test="goods.NetWeight != null || goods.NetWeight != ''">
-                AND NetWeight=#{goods.NetWeight }
-            </if>
-        </where>
+            ${ew.customSqlSegment}
     </select>
 
+    <select id="goodsListAll" resultMap="MyResultMap3">
+         SELECT * FROM `goods` WHERE `is_delete`=0 AND `block_up`=1
+    </select>
+<!--    <where>-->
+<!--        <if test="true">-->
+<!--            AND is_delete=0-->
+<!--        </if>-->
+<!--        <if test="goods.blockUp != null">-->
+<!--            AND blockUp=#{goods.blockUp}-->
+<!--        </if>-->
+<!--        <if test="goods.goodsId != null || goods.goodsId != '' ">-->
+<!--            AND goods_id like CONCAT('%',CONCAT(#{goods.goodsId},'%'))-->
+<!--        </if>-->
+<!--        <if test="goods.goodsName != null || goods.goodsName != ''">-->
+<!--            AND goods_name like CONCAT('%',CONCAT(#{goods.goodsName},'%'))-->
+<!--        </if>-->
+<!--        <if test="goods.gbId != null">-->
+<!--            AND gb_id=#{goods.gbId}-->
+<!--        </if>-->
+<!--        <if test="goods.engineType != null || goods.engineType != ''">-->
+<!--            AND engine_type like CONCAT('%',CONCAT(#{goods.engineType},'%'))-->
+<!--        </if>-->
+<!--        <if test="goods.goodsCId != null">-->
+<!--            AND goods_c_id=#{goods.goodsCId}-->
+<!--        </if>-->
+<!--        <if test="goods.iId != null || goods.iId != ''">-->
+<!--            AND i_id=#{goods.iId }-->
+<!--        </if>-->
+<!--        <if test="goods.Spec5 != null || goods.Spec5 != ''">-->
+<!--            AND Spec5=#{goods.Spec5 }-->
+<!--        </if>-->
+<!--        <if test="goods.Spec6 != null || goods.Spec6 != ''">-->
+<!--            AND Spec6=#{goods.Spec6 }-->
+<!--        </if>-->
+<!--        <if test="goods.proId != null ">-->
+<!--            AND pro_id=#{goods.proId }-->
+<!--        </if>-->
+<!--        <if test="goods.OldBM != null || goods.OldBM != ''">-->
+<!--            AND OldBM=#{goods.OldBM }-->
+<!--        </if>-->
+<!--        <if test="goods.ItemTM != null || goods.ItemTM != ''">-->
+<!--            AND ItemTM=#{goods.ItemTM }-->
+<!--        </if>-->
+<!--        <if test="goods.PackSpec != null || goods.PackSpec != ''">-->
+<!--            AND PackSpec=#{goods.PackSpec }-->
+<!--        </if>-->
+<!--        <if test="goods.Spec != null || goods.Spec != ''">-->
+<!--            AND Spec=#{goods.Spec }-->
+<!--        </if>-->
+<!--        <if test="goods.GrossWeight != null || goods.GrossWeight != ''">-->
+<!--            AND GrossWeight=#{goods.GrossWeight }-->
+<!--        </if>-->
+<!--        <if test="goods.NetWeight != null || goods.NetWeight != ''">-->
+<!--            AND NetWeight=#{goods.NetWeight }-->
+<!--        </if>-->
+<!--    </where>-->
 
 </mapper>

@@ -67,11 +67,11 @@
                     </vxe-toolbar>
                 </div>
                 <div>
-                    <vxe-toolbar>
+                    <vxe-toolbar>pages.next
                         <template v-slot:buttons>
-                            <vxe-button icon="glyphicon glyphicon-arrow-up" @click="tofindGoods(pages.prev)">上页
+                            <vxe-button icon="glyphicon glyphicon-arrow-up" @click=" btnFindChange(pages.prev)">上页
                             </vxe-button>
-                            <vxe-button icon="glyphicon glyphicon-arrow-down" @click="tofindGoods(pages.next)">下页
+                            <vxe-button icon="glyphicon glyphicon-arrow-down" @click="btnFindChange(pages.next)">下页
                             </vxe-button>
                             <vxe-button icon="glyphicon glyphicon-search" @click="openSelGoods">查询
                             </vxe-button>
@@ -81,12 +81,12 @@
                                 修改
                             </vxe-button>
                             <vxe-button icon="glyphicon glyphicon-remove-circle" @click="removeGoods">删除</vxe-button>
-                            <vxe-button icon="glyphicon glyphicon-export">导出</vxe-button>
+                            <vxe-button icon="glyphicon glyphicon-export" @click="exportExcelModal">导出</vxe-button>
                             <vxe-button icon="glyphicon glyphicon-picture" @click="openGoodsIconModal">
                                 照片</vxe-button>
                             <vxe-button icon="fa fa-barcode">条码</vxe-button>
                             <vxe-button icon=" glyphicon-th-large 
-                        glyphicon glyphicon-th" data-toggle="modal" data-target="#myModal3">分类设置</vxe-button>
+                        glyphicon glyphicon-th">分类设置</vxe-button>
                             <vxe-button icon="fa fa-cog" @click="columnModal">字段设置</vxe-button>
                             <!-- <vxe-button @click="$refs.xTable.setCurrentRow(tableData[1])">设置第二行选中</vxe-button> -->
                             <!-- <vxe-button @click="$refs.xTable.clearCurrentRow()">取消选中</vxe-button> -->
@@ -235,21 +235,33 @@
                     </div>
                 </div>
             </div>
-            <!-- 分类编辑 -->
+            <!-- 查询时 选择分类-->
             <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog" role="document" style="width: 600px !important;">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                     aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel3">商品分类</h4>
+                            <h4 class="modal-title" id="myModalLabel3">商品分类
+                                <button type="button" class="btn btn-success pull-right" @click="btnxuanz"
+                                    style="padding-left: 25px; padding-right: 25px; margin-right: 30px;"><span
+                                        class="glyphicon glyphicon-ok"></span> 选择</button>
+                            </h4>
                         </div>
                         <div class="modal-body row" style="padding: 0px 30px;">
+                            <div class="alert alert-danger" v-if="tempIstrue2" id="alert2"
+                                style="margin-bottom: 10px !important;">
+                                <a href="#" class="close" data-dismiss="alert">
+                                    &times;
+                                </a>
+                                <strong>错误信息：</strong><span>请选择树目录</span>
+                            </div>
                             <div class="coml-sm-12 tempTable">
                                 <div style="height: 400px;padding-right: 0px; ">
                                     <vxe-grid round border resizable show-overflow class="mytable-scrollbar"
                                         height="100%" row-id="column1" auto-resize highlight-hover-row ref="xTree2"
                                         highlight-current-row @current-change="currentChangeEventTree2"
+                                        @cell-dblclick="xTree3dblclick2"
                                         :tree-config="{children: 'children',expandAll:'true',indent:'40'}"
                                         :data="treeData" :columns="treeColumn2">
                                     </vxe-grid>
@@ -257,8 +269,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">否</button>
-                            <button type="button" class="btn btn-primary">是</button>
+
                         </div>
                     </div>
                 </div>
@@ -1026,7 +1037,7 @@
                                 </div>
                                 <button type="button" class="btn btn-success" @click="requestSearchGoods(1)"
                                     style="padding-left: 25px; padding-right: 25px; margin-right: 30px;"><span
-                                        class="glyphicon glyphicon-ok"></span> 保存</button>
+                                        class="glyphicon glyphicon-ok"></span> 查询</button>
                             </div>
                         </h4>
                     </div>
@@ -1072,15 +1083,17 @@
                                         <div class="form-group col-sm-8">
                                             <label for="inputEmail1" class="col-sm-4 control-label">商品分类</label>
                                             <div class="col-sm-4">
-                                                <input type="text" class="form-control" v-model="searchGoods.goodsCId"
+                                                <input type="text" class="form-control" v-model="searchGoods.goodsCId2"
                                                     style="border-radius:4px 0px 0px 4px;">
                                             </div>
                                             <div class="col-lg-5">
                                                 <div class="input-group" style="width: 122%;">
                                                     <input type="text" class="form-control" disabled
+                                                        v-model="searchGoods.goodsCName"
                                                         style="border-radius:0px 0px 0px 0px;">
                                                     <span class="input-group-btn">
-                                                        <button class="btn btn-default" type="button"><span
+                                                        <button class="btn btn-default" @click="opensearchgoodstype"
+                                                            type="button"><span
                                                                 class="glyphicon glyphicon-plus"></span></button>
                                                     </span>
                                                 </div><!-- /input-group -->
@@ -1103,7 +1116,7 @@
                                         <div class="form-group col-sm-4" style="margin-right: 12px;">
                                             <label for="inputEmail1" class="col-sm-4 control-label">收入分类</label>
                                             <div class="col-sm-8">
-                                                <select class="form-control" v-model="searchGoods.iid">
+                                                <select class="form-control" v-model="searchGoods.iId">
                                                     <option value="">不限</option>
                                                     <option value="工时费">工时费</option>
                                                     <option value="燃油费">燃油费</option>
@@ -1139,6 +1152,7 @@
                                             <label for="inputEmail1" class="col-sm-4 control-label">商品产地</label>
                                             <div class="col-sm-8">
                                                 <select class="form-control" v-model="searchGoods.proId">
+                                                    <option value="">不限</option>
                                                     <option v-for="item in provinces" :value="item.proId">{{
                                                         item.province }}</option>
                                                 </select>
@@ -1398,13 +1412,73 @@
                 </div>
             </div>
         </div>
+        <!-- 导出 -->
+        <div class="modal fade bs-example-modal-lg mytable-scrollbar" tabindex="-1" id="myModel11" role="dialog"
+            aria-labelledby="myLargeModalLabel">
+            <div class="modal-dialog modal-lg" role="document" style="width: 600px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title clearfix" id="myModalLabel2">导出数据
+
+                        </h4>
+                    </div>
+                    <div class="modal-body row">
+                        <div class="col-sm-12" style="padding: 0px 60px ;">
+                            <div class="form-group" style="padding-bottom: 25px !important;">
+                                <div class="col-sm-3" style="line-height: 35px; text-align: right;">
+                                    <strong>选择数据</strong>
+                                </div>
+                                <div class="col-sm-9">
+                                    <select class="form-control" v-model="exportAll">
+                                        <option value="0">当前数据</option>
+                                        <option value="1">全量数据</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="col-sm-3" style="line-height: 280px;text-align: right;">
+                                    <strong>选择字段</strong>
+                                </div>
+                                <div class="col-sm-9" style="height:280px;  overflow:auto;">
+                                    <template>
+                                        <vxe-grid border=outer :loading="loading" highlight-hover-row
+                                            highlight-current-row ref="xTable4" class="mytable-scrollbar" auto-resize
+                                            height="100%" :data="exportData" :columns="exportColumn"
+                                            :checkbox-config="{labelField:'column1',checkAll:'true',checkField:'column2'}"
+                                            @current-change="currentChangeEventExport" round show-header-overflow
+                                            show-overflow>
+                                        </vxe-grid>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12" style="text-align: right;padding-top: 10px;padding-right: 30px;">
+                            <button type="button" class="btn btn-info" style="padding-right: 25px; padding-left: 25px;"
+                                data-dismiss="modal">取消</button>
+                            <button type=" button" class="btn btn-success" @click="getExportSelectEvent1"
+                                style="padding-right: 25px; padding-left: 25px;">导出</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 弹框提示 -->
+        <div class="modal fade bs-example-modal-sm" id="myModalalertupd" tabindex="-1" role="dialog"
+            aria-labelledby="mySmallModalLabel">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h5><i class="fa fa-times" style="color: red;"></i>&nbsp;{{ hintText }}！！！</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <!-- </div> -->
     <script src="js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
     <script src="js/bootstrap.js"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    <script src="https://cdn.jsdelivr.net/npm/xe-utils"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vxe-table"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="https://cdn.jsdelivr.net/npm/xe-utils"></script>
     <script src="https://cdn.jsdelivr.net/npm/vxe-table@3.1.4"></script>
@@ -1419,6 +1493,12 @@
                 return {
                     pages: {}, //分页对象
                     imgUrl: [],
+                    btnChange: true,
+                    //弹框提示信息
+                    hintText: "",
+                    //导出当前数据还是导出全部
+                    exportAll: 0,
+                    tempIstrue2: false,
                     blockUp: false,  //停用启用
                     queryblockUp: false,  //查询的停用启用
                     selblockUp: 1,//要查询的参数 停用启用
@@ -1447,12 +1527,18 @@
                         { field: 'goodsName', title: "分类名称", showOverflow: true, type: { expand: 'true' } }
                     ],
                     treeColumn3: [
-                        { field: 'goodsCId', title: "分类编码", showOverflow: true, treeNode: true, },
+                        { field: 'goodsCId', title: "分类编码", showOverflow: true, treeNode: true },
                         { field: 'goodsName', title: "分类名称", showOverflow: true, }
                     ],
                     tableColumn: [],    //显示的列
                     settableColumn: [],  //字段设置的数据源
                     setShowtableColumn: [], //提交数据库修改的数据
+                    //导出列的配置
+                    exportColumn: [
+                        { type: 'checkbox', title: "全部字段" }
+                    ],
+                    //导出列的字段
+                    exportData: [],
                     tableData: [],  //商品详情数据
                     treeData: [],    //左侧树形配置
                     //商品实体
@@ -1475,9 +1561,9 @@
                     carData: [],
                     //查询goods实体
                     searchGoods: {
-                        goodsId: "", goodsName: "", gbId: "", engineType: "", goodsCId: "", iid: "",
-                        spec5: "", spec6: "", proId: "1", sid: "", oldBM: "", itemTM: "", packSpec: "", spec: "", grossWeight: "",
-                        netWeight: "", mzscale: "", interchangeNo: "", zd3: "", blockUp: "", zdInputVisible: false
+                        goodsId: "", goodsName: "", gbId: "", engineType: "", goodsCId: "", iId: "",
+                        spec5: "", spec6: "", proId: "", sid: "", oldBM: "", itemTM: "", packSpec: "", spec: "", grossWeight: "",
+                        netWeight: "", mzscale: "", interchangeNo: "", zd3: "", blockUp: "1", goodsCId2: ""
                     }
                 }
             },
@@ -1502,6 +1588,9 @@
                     this.tempIstrue = false;
                 },
                 carBrandCurrentChangeEvent({ row }) {
+
+                },
+                currentChangeEventExport({ row }) {
 
                 },
                 //获取焦点时显示文本框
@@ -1841,7 +1930,9 @@
                     查询商品详情
                 */
                 tofindGoods(current) {
-                    this.loading = true
+                    this.loading = true;
+                    this.initSearchGoods();
+                    ; this.btnChange = true;
                     let that = this;
                     let json = that.$refs.xTree.getCurrentRecord();
                     let column1 = 0;
@@ -1885,7 +1976,7 @@
                     this.check_list = [];
                     var that = this;
                     $.ajax({
-                        url: "http://localhost:8080/dzwColumnController/showcolumngoods",
+                        url: "http://127.0.0.1:8080/dzwColumnController/showcolumngoods",
                         type: "get",
                         xhrFields: {
                             withCredentials: true
@@ -1921,7 +2012,7 @@
                 find_ShowColumn() {
                     var that = this;
                     $.ajax({
-                        url: "http://localhost:8080/dzwColumnController/showcolumngoods",
+                        url: "http://127.0.0.1:8080/dzwColumnController/showcolumngoods",
                         type: "get",
                         xhrFields: {
                             withCredentials: true
@@ -1962,7 +2053,7 @@
                 updateTableColumn() {
                     var that = this;
                     $.ajax({
-                        url: "http://localhost:8080/dzwColumnController/upd",
+                        url: "http://127.0.0.1:8080/dzwColumnController/upd",
                         type: "post",
                         data: JSON.stringify(that.setShowtableColumn),
                         xhrFields: {
@@ -2343,9 +2434,39 @@
                         this.queryblockUp = false;
                     }
                 },
+                /*
+                    初始化查询对象
+                */
+                initSearchGoods() {
+                    this.searchGoods.goodsId = "";
+                    this.searchGoods.goodsName = "";
+                    this.searchGoods.gbId = "";
+                    this.searchGoods.engineType = "";
+                    this.searchGoods.goodsCId = "";
+                    this.searchGoods.goodsCName = "";
+                    this.searchGoods.iId = "";
+                    this.searchGoods.spec5 = "";
+                    this.searchGoods.proId = "";
+                    this.searchGoods.sid = "";
+                    this.searchGoods.oldBM = "";
+                    this.searchGoods.packSpec = "";
+                    this.searchGoods.spec = "";
+                    this.searchGoods.grossWeight = "";
+                    this.searchGoods.netWeight = "";
+                    this.searchGoods.mzscale = "";
+                    this.searchGoods.interchangeNo = "";
+                    this.searchGoods.zd3 = "";
+                    this.searchGoods.blockUp = "1";
+                    this.searchGoods.goodsCId2 = "";
+
+                },
+                /*
+                    按条件查询商品分页
+                */
                 requestSearchGoods(current) {
-                    console.log(JSON.stringify(this.searchGoods))
+                    this.btnChange = false;
                     let that = this;
+                    that.loading = true;
                     that.searchGoods.current = current;
                     $.ajax({
                         url: "http://127.0.0.1:8080/goods/searchgoods",
@@ -2358,15 +2479,112 @@
                         dataType: "json",
                         success: function (result) {
                             if (result.code == 1000) {
+                                handlerResult(result, () => {
+                                    that.loading = false;
+                                    that.tableData = result.data.records;
+                                    that.pages = result.data;
+                                    if (that.tableData.length > 0) {
+                                        that.$refs.xTable.setCurrentRow(that.tableData[0]);
+                                    }
+                                })
                                 $("#myModel8").modal("hide");
                             } else {
                                 console.log("刷新重试");
                             }
                         }
                     });
+                },
+                /*
+                    控制上页下页中 是按条件查询还是查询所有
+                */
+                btnFindChange(current) {
+                    this.btnChange ? this.tofindGoods(current) : this.requestSearchGoods(current);
+                },
+                /* 查询时商品分类*/
+                opensearchgoodstype() {
+                    this.tempIstrue2 = false;
+                    $("#myModal3").modal("show");
+                },
+                /*查询时商品品牌选择 */
+                btnxuanz() {
+                    let json = this.$refs.xTree2.getCurrentRecord();
+                    if (json == null) {
+                        this.tempIstrue2 = true;
+                    } else {
+                        this.tempIstrue2 = false;
+                        this.searchGoods.goodsCId = json.column1;
+                        this.searchGoods.goodsCId2 = json.goodsCId;
+                        this.searchGoods.goodsCName = json.goodsName;
+                        $("#myModal3").modal("hide");
+                    }
+                },
+                xTree3dblclick2({ row }) {
+                    let json = this.$refs.xTree2.getCurrentRecord();
+                    this.searchGoods.goodsCId = json.column1;
+                    this.searchGoods.goodsCId2 = json.goodsCId;
+                    this.searchGoods.goodsCName = json.goodsName;
+                    $("#myModal3").modal("hide");
+                },
+                /* 商品信息导出模态框 */
+                exportExcelModal() {
+                    this.findExportColumn();
+                    this.exportAll = 0;
+                    $("#myModel11").modal("show");
+                },
+                /*
+                    导出时查询数据库字段
+                */
+                findExportColumn() {
+                    this.loading = true;
+                    let that = this;
+                    $.ajax({
+                        url: "http://127.0.0.1:8080/dzwColumnController/showcolumngoods",
+                        type: "get",
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        dataType: "json",
+                        success: function (result) {
+                            that.exportData = [];
+                            that.loading = false;
+                            handlerResult(result, () => {
+                                that.exportData = result.data;
+                                if (that.exportData) {
+                                    that.$refs.xTable4.setCheckboxRow(that.exportData, true);
+                                }
+                            })
+                        }
+                    });
+                },
+                /*
+                    保存复选框选中结果
+                */
+                getExportSelectEvent1() {
+                    let selectRecords = this.$refs.xTable4.getCheckboxRecords();
+                    if (selectRecords.length == 0) {
+                        this.hintText = "请勾选要导出的列";
+                        $("#myModalalertupd").modal("show");
+                        setTimeout(() => {
+                            $("#myModalalertupd").modal("hide");
+                        }, 2000);
+                    } else {
+                        $("#myModel11").modal("hide");
+                        if (this.exportAll === 0) {
+                            console.log("当前");
+                        } else {
+                            console.log("全部");
+                            let json = JSON.stringify(selectRecords);
+                            var form = $('<form />', { action: 'http://127.0.0.1:8080/goods/downloadexcelall', method: "get", style: "display:none;" }).appendTo('body');
+                            // form.append('<input type="hidden" name="exportColumn" value="' + format + '" />');
+                            form.append('<textarea name="exportColumn" id="" cols="30" rows="10">"' + json + '"</textarea>');
+                            form.submit();
+                        }
+                    }
                 }
             },
             created() {
+                Vue.prototype.$XModal = VXETable.modal
                 this.find();
                 //查询显示列
                 this.findShowColumn()
@@ -2385,8 +2603,21 @@
             }
         }
         var Ctor = Vue.extend(Main);
+
         new Ctor().$mount('.container-fluid');
         $('.dropdown-toggle').dropdown()
+
+        //控制模态框层级
+        $(document).ready(function () {
+            // 通过该方法来为每次弹出的模态框设置最新的zIndex值，从而使最新的modal显示在最前面
+            $(document).on('show.bs.modal', '.modal', function () {
+                var zIndex = 1040 + (10 * $('.modal:visible').length);
+                $(this).css('z-index', zIndex);
+                setTimeout(function () {
+                    $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
+                }, 0);
+            });
+        });
 
         VXETable.formats.mixin({
             // 格式化性别
