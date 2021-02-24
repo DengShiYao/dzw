@@ -2012,12 +2012,9 @@
                     	});
                     },
                     //根据员工id查询该员工的职务
-                    selPostitionByEid(){
-                    	var eId=this.updateOrRemoveEmployId;
-                    	if(eId==""||eId==null){
-                    		alert("请先选择员工");
-                    		return;
-                    	}
+                    selPostitionByEid(eId){
+                    	/*alert(eId);*/
+                    	this.jobChecks=[];
                     	let that=this;
                     	$.ajax({
                     		url:"http://127.0.0.1:8080/staffpostition/selByEid/"+eId,
@@ -2659,7 +2656,12 @@
                     },
                     //打开角色管理
                     role(){
-                    	this.selPostitionByEid();
+                    	var eId=this.updateOrRemoveEmployId;
+                    	if(eId==""||eId==null){
+                    		alert("请先选择员工");
+                    		return;
+                    	}
+                    	this.selPostitionByEid(eId);
                     	this.selAllPostition();	
                     	$("#eployRole").modal("show");
                     },
