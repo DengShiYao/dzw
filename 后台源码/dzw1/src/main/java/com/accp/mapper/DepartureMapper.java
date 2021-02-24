@@ -40,11 +40,4 @@ public interface DepartureMapper extends BaseMapper<Departure> {
      * @return
      */
     public  List<Departure> selBySearch(Departure departure);
-
-    /**
-     * 获得导出excal数据
-     * @param array
-     * @return
-     */
-    public List<Departure> selExportList(String [] array);
 }
