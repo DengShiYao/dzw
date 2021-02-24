@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * <p>
- *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author dsy
@@ -17,18 +17,21 @@ import java.util.List;
 public interface DepartureMapper extends BaseMapper<Departure> {
     /**
      * 查询所有离职记录
+     *
      * @return
      */
     public List<Departure> selAllDeparture();
 
     /**
      * 根据门店筛选查询
+     *
      * @return
      */
-    public List<Departure> selBySid( Integer [] array);
+    public List<Departure> selBySid(Integer[] array);
 
     /**
      * 工号姓名模糊查询
+     *
      * @param parse
      * @return
      */
@@ -36,8 +39,17 @@ public interface DepartureMapper extends BaseMapper<Departure> {
 
     /**
      * 搜索框查询
+     *
      * @param departure
      * @return
      */
-    public  List<Departure> selBySearch(Departure departure);
+    public List<Departure> selBySearch(Departure departure);
+
+    /**
+     * 获得导出excal数据
+     *
+     * @param array
+     * @return
+     */
+    public List<Departure> selExportList(String[] array);
 }
