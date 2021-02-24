@@ -14,34 +14,33 @@
 			<div class="row"  style="background-color: rgb(247,247,247);">
 				<div class="row">
 					<div style="margin-top: 10px;margin-left: 80.5%;">
-						<a href="#" style="font-size: 20px;color: black;margin-left: 20px;"><img src="img/4ee2fb32e66e49f242d1067c0bff1921.jpeg" style="width: 20px;margin-right: 5px;" >增加</a>
-						<a href="#" style="font-size: 20px;color: black;margin-left: 20px;"><img src="img/886b14bb25788cdd0af693bef85ed117.jpeg" style="width: 20px;margin-right: 5px;" >删除</a>
-						<a href="#" style="font-size: 20px;color: black;margin-left: 20px;"><img src="img/afaa16537c1ec647315b40d55f46546f.jpeg" style="width: 20px;margin-right: 5px;" >保存</a>
+						<a href="#" style="font-size: 20px;color: black;margin-left: 20px;" @click="add()"><img src="img/4ee2fb32e66e49f242d1067c0bff1921.jpeg" style="width: 20px;margin-right: 5px;" >增加</a>
+						<a href="#" style="font-size: 20px;color: black;margin-left: 20px;" @click="remove(teamForm.column1)"><img src="img/886b14bb25788cdd0af693bef85ed117.jpeg" style="width: 20px;margin-right: 5px;" >删除</a>
+						<a href="#" style="font-size: 20px;color: black;margin-left: 20px;" @click="save()"><img src="img/afaa16537c1ec647315b40d55f46546f.jpeg" style="width: 20px;margin-right: 5px;" >保存</a>
 					</div>
 				</div>
 				<div class="row" style="height: 52px;">
 					<form class="form-inline">
 					  <div class="form-group" style="margin-left: 35px;">
 					    <label for="exampleInputName2" style="color: rgb(33,182,206);"><span style="color: red;">*</span>车牌号</label>
-					    <input type="text" class="form-control" id="exampleInputName2"  style="width: 120px;">
+					    <input v-model="teamForm.plateNumber" class="form-control" id="exampleInputName2"  style="width: 120px;">
 					  </div>
 					  <div class="form-group" style="margin-left: 10px;">
 					    <label for="exampleInputEmail2" style="color: rgb(33,182,206);">品牌</label>
-					    <input type="text" class="form-control" id="exampleInputEmail2"  style="width: 120px;">
+					    <input v-model="teamForm.brand" class="form-control" id="exampleInputEmail2"  style="width: 120px;">
 					  </div>
 						<div class="form-group" style="margin-left: 10px;">
-						  <label for="exampleInputEmail2" style="color: rgb(33,182,206);">车型</label>
-						  <input type="text" class="form-control" id="exampleInputEmail2"  style="width: 120px;">
+						  <label for="exampleInputEmail3" style="color: rgb(33,182,206);">车型</label>
+						  <input v-model="teamForm.motorcycleType" class="form-control" id="exampleInputEmail3"  style="width: 120px;">
 						</div>
 						<div class="form-group" style="margin-left: 10px;">
-						  <label for="exampleInputEmail2" style="color: rgb(33,182,206);"><span style="color: red;">*</span>当前里程</label>
-						  <input type="text" class="form-control" id="exampleInputEmail2"  style="width: 150px;">
+						  <label for="exampleInputEmail4" style="color: rgb(33,182,206);"><span style="color: red;">*</span>当前里程</label>
+						  <input v-model="teamForm.currentMileage" class="form-control" id="exampleInputEmail4"  style="width: 150px;">
 						</div>
 						<div class="form-group" style="margin-left: 10px;">
-						  <label for="exampleInputEmail2" style="color: rgb(33,182,206);">班组</label>
-							<select name="" class="form-control" id="exampleInputEmail2" disabled="disabled" style="width: 150px;">
-								<option value=""></option>
-								<option value=""></option>
+						  <label style="color: rgb(33,182,206);"  for="exampleInputEmail5">班组</label>
+							<select name="" style="width: 150px;"  id="exampleInputEmail5" class="form-control" v-model="teamName" @change="teamForm.attributionTeam = teamName">
+								<option selected="selected" :value="item.teamName" v-for="item in bzList">{{item.teamCode}}&nbsp;&nbsp;{{item.teamName}}</option>
 							</select>
 						</div>
 					</form>
@@ -57,19 +56,12 @@
 							<td>当前里程</td>
 							<td>归属班组</td>
 						</tr>
-						<tr>
-							<td>湘A0111</td>
-							<td>布加迪</td>
-							<td>跑车</td>
-							<td>10000</td>
-							<td>武昌队</td>
-						</tr>
-						<tr>
-							<td>渝B3111</td>
-							<td>大众</td>
-							<td>速腾1.6L</td>
-							<td>1000</td>
-							<td>机修1组</td>
+						<tr v-for="item in list" @click="teamForm = item">
+							<td>{{item.plateNumber}}</td>
+							<td>{{item.brand}}</td>
+							<td>{{item.motorcycleType}}</td>
+							<td>{{item.currentMileage}}</td>
+							<td>{{item.attributionTeam}}</td>
 						</tr>
 					</table>
 				</div>
@@ -87,13 +79,75 @@
 			new Vue({
 				el:"#ctn",
 				data(){
-					return {}
+					return {
+						url:"http://127.0.0.1:8080/teamForm/",
+						bzList:[],
+						list:[],
+						teamForm:{column1:0},
+						teamName:""
+					}
 				},
 				methods:{
+						remove(id){
+							let that = this;
+							var bool = confirm("是否删除？");
+							if(bool){
+								$.ajax({
+									url:that.url+"remove/"+id,
+									type:"post",
+									success:function(result){
+										alert("删除成功！");
+										location.reload();
+									}
+								})
+							}
+						},
+					save(){
+						let that = this;
+						$.ajax({
+								url:that.url+"saveOrUpdate",
+								data:that.teamForm,
+								type:"post",
+								success:function(result){
+									alert("成功！");
+									location.reload();
+								},
+								error:function(){
+									alert("错误");
+									location.reload();
+								}
+						})
+					},
+					add(){
+						this.teamForm = {};
+					},
+					bzFind(){
+						let that = this;
+						$.ajax({
+							url:that.url+"bzFind",
+							dataType:"json",
+							success:function(result){
+								console.log(result);
+								that.bzList = result;
+							}
+						})
+					},
+					find(){
+						let that = this;
+						$.ajax({
+							url:that.url+"find",
+							dataType:"json",
+							success:function(result){
+								console.log(result);
+								that.list = result;
+							}
+						})
+					}
 					
 				},
 				created(){
-					
+					this.bzFind();
+					this.find();
 				}
 			})
 			
