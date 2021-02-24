@@ -73,6 +73,9 @@
 			.modal-dialog{
 				width: 80%;
 			}
+			.bg{
+				background: orchid;
+			}
 		</style>
 	</head>
 	<body>
@@ -104,7 +107,7 @@
 								<th>邮箱</th>
 							</tr>
 							<tr v-for="item in list">
-								<td><input type="text" name="" id="" :value="item.department.dName" readonly="readonly"  class="form-control" v-model="item.dId"/></td>
+								<td><input type="text" name="" id="" :value="item.department.dName" readonly="readonly"  class="form-control" v-model="item.department.dName"/></td>
 								<td><input type="text" name="" id="" :value="item.eId"  readonly="readonly" class="form-control" v-model="item.eId"/></td>
 								<td><input type="text" name="" id="" :value="item.eName" readonly="readonly"  class="form-control" v-model="item.eName"/></td>
 								<td><input type="text" name="" id="" :value="item.extension"  class="form-control" v-model="item.extension"/></td>
@@ -169,11 +172,7 @@
 									<td colspan="6">
 										<div class="form-group">
 											<label class="control-label">部门</label>
-											<select class="form-control" v-model="employQuery.dId">
-												<option value=""></option>
-												<option value="">销售部</option>
-												<option value="">小小部</option>
-											</select>
+											<input type="text" name="" id="" value="" readonly="readonly" class="form-control" v-model="employQuery.dId" @click="opendepartDiv"/>
 										</div>
 									</td>
 								</tr>
@@ -333,6 +332,46 @@
 					</div>
 				</div>
 			</div>
+			 <!-- 部门框-->
+             <div class="modal" data-backdrop = "static" id="departDiv">
+				<div class="modal-dialog1">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h3 class="col-lg-4">部门选择</h3>
+		            		<div class="text-right">
+		            			<button class="btn btn-success" @click="savedepartList">选择</button>
+								<button class="btn btn-danger" @click="closedepartDiv">关闭</button>
+		            		</div>
+						</div>
+						<div class="modal-body">
+							<div>
+			            		<select name="" class="form-control" v-model="selStoorId" @change="getDepartmentList(selStoorId)">
+			            			<option :value="item.storeId" v-for="item in storeList">{{item.storeId}}-{{item.storeName}}</option>
+			            			<!--<option value="">0001-成高</option>
+			            			<option value="">0002-成高1</option>-->
+			            		</select>
+			            	</div>
+			            	<div>
+			            		<table border="" cellspacing="" cellpadding="" class="table table2">
+			            			<tr>
+			            				<th></th>
+			            				<th>部门编码</th>
+			            				<th>部门名称</th>
+			            				<th>部门分类</th>
+			            			</tr>
+			            			<tr v-for="(item,index) in departList" :class='{bg:index==isactive}' @click="fn(index)">
+			            				<td  @click="chooseDepartmentTr(item)"></td>
+			            				<td  @click="chooseDepartmentTr(item)">{{item.dId}}</td>
+			            				<td  @click="chooseDepartmentTr(item)">{{item.dName}}</td>
+			            				<td  @click="chooseDepartmentTr(item)">{{item.departmentType.tName}}</td>
+			            			</tr>
+			            		</table>
+			            	</div>
+						</div>
+						<div class="modal-footer"></div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</body>
 	<script type="text/javascript" src="js/jquery-1.12.4.js" ></script>
@@ -373,7 +412,10 @@
 					//多条件查询员工查询对象
                 	employQuery:{},
                 	//职位虚拟数据
-					jobList:[]
+					jobList:[],
+					selStoorId:"",
+					storeList:[],
+					isactive:0,
 				}
 			},
 			methods:{
@@ -671,7 +713,15 @@
 					/*this.find();*/
 				},
 				daoChu(){
-					alert("导出成功");
+					/*alert("11111");*/
+					var emList=[];
+					this.list.forEach(item=>{
+                    		emList.push(item.eId);
+                    	});
+                    var eIdList=emList.toString();
+                    console.log(eIdList);
+					window.location.href="http://127.0.0.1:8080/employees/downLoadCommunicationExportExcel?eIdList="+eIdList;
+					/*alert("导出成功");*/
 				},
 				search(){
 					alert("正在根据条件进行员工通讯名录的查询");
@@ -717,7 +767,88 @@
 				},
 				closeSelBy(){
 					$("#selByDiv").modal("hide");
-				}
+				},
+				//将选择的部门填入
+               	savedepartList(){
+               			if(this.updateOrAddDepartment==null||this.updateOrAddDepartment==""){
+               				alert("请先选择部门");
+               				return;
+               			}
+               			this.employQuery={};
+               			this.employQuery.dId=this.updateOrAddDepartment.dId;
+               			alert("正在将选择的部门填入");
+               			$("#departDiv").modal("hide");
+               	},
+               	//打开部门框子
+               		opendepartDiv(){
+               			this.getAllDepartmentList();
+               			this.getStoreList();
+               			$("#departDiv").modal("show");
+               	},
+               	closedepartDiv(){
+               		$("#departDiv").modal("hide");
+               	},
+               	 //获取所有门店
+                   getStoreList(){
+                   	 let that=this;
+                   	 $.ajax({
+                    		url:"http://127.0.0.1:8080/store",
+                    		type:"get",
+                    		dataType:"json",
+                    		xhrFields: {
+							withCredentials: true
+							},
+							crossDomain: true,
+							success:function(result){
+								 console.log(result);
+								that.storeList=result;
+							}
+                    	});
+                   },
+                   //获取当前门店的部门
+                   getDepartmentList(mId){
+                   	 let that=this;
+                   	 $.ajax({
+                    		url:"http://127.0.0.1:8080/department/findBySid/"+mId,
+                    		type:"get",
+                    		dataType:"json",
+                    		xhrFields: {
+							withCredentials: true
+							},
+							crossDomain: true,
+							 async:false,
+							success:function(result){
+								 console.log(result);
+								that.departList=result;
+							}
+                    	});
+                   },
+                   //获取所有部门
+                   getAllDepartmentList(){
+                   	   let that=this;
+                   	   $.ajax({
+                   	   	url:"http://127.0.0.1:8080/department/findAllDepartment",
+                   	   	type:"get",
+                   	   	xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						 async:false,
+                   	   	dataType:"json",
+                   	   	success:function(result){
+                   	   		console.log(result);
+                   	   		that.departList=result;
+                   	   	}
+                   	   });
+                   },
+                    chooseDepartmentTr(item){
+                    	this.updateOrAddDepartment=item;
+                    },
+                      //点击tr背景变色
+                	fn (index) {
+					      //点击切换 变量的值 赋值为 index
+					      this.isactive=index;
+					}
 			},
 			created(){
 				this.find();
