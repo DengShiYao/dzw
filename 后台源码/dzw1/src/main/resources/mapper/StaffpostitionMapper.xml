@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.accp.mapper.StaffpostitionMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.accp.domain.Staffpostition">
+        <id column="id" property="id" />
+        <result column="eId" property="eId" />
+        <result column="postitonId" property="postitonId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, eId, postitonId
+    </sql>
+    <!--查询当前员工的职务-->
+    <resultMap id="BaseResultMap1" type="com.accp.domain.Staffpostition" extends="BaseResultMap">
+        <association property="postition" column="postitonId" select="com.accp.mapper.PostitionMapper.selByPid"></association>
+    </resultMap>
+    <select id="selByEid" resultMap="BaseResultMap1">
+        SELECT * FROM StaffPostition WHERE eId=#{eId}
+    </select>
+    <insert id="insertEidPidBeatch">
+        INSERT INTO StaffPostition (`eId`,`postitonId`) VALUES
+        <foreach collection="list" separator="," item="item">
+          (#{item.eId},#{item.postitonId})
+        </foreach>
+    </insert>
+</mapper>
