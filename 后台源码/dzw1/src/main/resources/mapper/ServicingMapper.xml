@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.accp.mapper.ServicingMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.accp.domain.Servicing">
+        <id column="ser_number" property="serNumber" />
+        <result column="ser_chepai" property="serChepai" />
+        <result column="ser_chejia" property="serChejia" />
+        <result column="ser_chexinhao" property="serChexinhao" />
+        <result column="ser_carbrand" property="serCarbrand" />
+        <result column="ser_motornumber" property="serMotornumber" />
+        <result column="ser_motorbrand" property="serMotorbrand" />
+        <result column="ser_serviceguwen" property="serServiceguwen" />
+        <result column="ser_carzhuname" property="serCarzhuname" />
+        <result column="ser_driver" property="serDriver" />
+        <result column="ser_lianxiphone" property="serLianxiphone" />
+        <result column="ser_jinchanglicheng" property="serJinchanglicheng" />
+        <result column="ser_jinchangyl" property="serJinchangyl" />
+        <result column="ser_shangcilicheng" property="serShangcilicheng" />
+        <result column="ser_jctime" property="serJctime" />
+        <result column="ser_servietype" property="serServietype" />
+        <result column="ser_sgbanci" property="serSgbanci" />
+        <result column="ser_jiecaruser" property="serJiecaruser" />
+        <result column="ser_expecttime" property="serExpecttime" />
+        <result column="ser_jsfangshi" property="serJsfangshi" />
+        <result column="ser_peikuan" property="serPeikuan" />
+        <result column="ser_sgtime" property="serSgtime" />
+        <result column="ser_scjinchang" property="serScjinchang" />
+        <result column="ser_expectmoney" property="serExpectmoney" />
+        <result column="ser_jdbeizu" property="serJdbeizu" />
+        <result column="ser_paigtime" property="serPaigtime" />
+        <result column="ser_dqlicheng" property="serDqlicheng" />
+        <result column="ser_paigbz" property="serPaigbz" />
+        <result column="ser_chufatime" property="serChufatime" />
+        <result column="ser_chufaadress" property="serChufaadress" />
+        <result column="ser_jiashicar" property="serJiashicar" />
+        <result column="ser_xinshilicheng" property="serXinshilicheng" />
+        <result column="ser_shigongtime" property="serShigongtime" />
+        <result column="ser_jyadess" property="serJyadess" />
+        <result column="column1" property="column1" />
+        <result column="column2" property="column2" />
+        <result column="column3" property="column3" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ser_number, ser_chepai, ser_chejia, ser_chexinhao, ser_carbrand, ser_motornumber, ser_motorbrand, ser_serviceguwen, ser_carzhuname, ser_driver, ser_lianxiphone, ser_jinchanglicheng, ser_jinchangyl, ser_shangcilicheng, ser_jctime, ser_servietype, ser_sgbanci, ser_jiecaruser, ser_expecttime, ser_jsfangshi, ser_peikuan, ser_sgtime, ser_scjinchang, ser_expectmoney, ser_jdbeizu, ser_paigtime, ser_dqlicheng, ser_paigbz, ser_chufatime, ser_chufaadress, ser_jiashicar, ser_xinshilicheng, ser_shigongtime, ser_jyadess, column1, column2, column3
+    </sql>
+
+</mapper>

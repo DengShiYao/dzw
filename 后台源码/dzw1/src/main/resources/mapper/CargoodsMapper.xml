@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.accp.mapper.CargoodsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.accp.domain.Cargoods">
+        <id column="car_number" property="carNumber" />
+        <result column="car_status" property="carStatus" />
+        <result column="car_servicetype" property="carServicetype" />
+        <result column="car_username" property="carUsername" />
+        <result column="car_chepai" property="carChepai" />
+        <result column="car_phone" property="carPhone" />
+        <result column="car_vipnumber" property="carVipnumber" />
+        <result column="car_djtype" property="carDjtype" />
+        <result column="car_begintime" property="carBegintime" />
+        <result column="car_expecttime" property="carExpecttime" />
+        <result column="car_endtime" property="carEndtime" />
+        <result column="car_jstime" property="carJstime" />
+        <result column="car_expectmoney" property="carExpectmoney" />
+        <result column="car_serviceguwen" property="carServiceguwen" />
+        <result column="car_jiecheuser" property="carJiecheuser" />
+        <result column="column1" property="column1" />
+        <result column="column2" property="column2" />
+        <result column="column3" property="column3" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        car_number, car_status, car_servicetype, car_username, car_chepai, car_phone, car_vipnumber, car_djtype, car_begintime, car_expecttime, car_endtime, car_jstime, car_expectmoney, car_serviceguwen, car_jiecheuser, column1, column2, column3
+    </sql>
+
+</mapper>

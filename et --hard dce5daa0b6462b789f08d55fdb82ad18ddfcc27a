@@ -1,0 +1,433 @@
+[33mcommit 19034cc712d615890e44d5920ed79169e339bd2e[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: JieSiXiao <1253777923@qq.com>
+Date:   Sat Feb 20 15:51:38 2021 +0800
+
+    对技工新增了离职和回滚方法
+
+[33mcommit 9e006204fd68f72b80c3db0b5488e782e6064a9e[m
+Author: JieSiXiao <1253777923@qq.com>
+Date:   Sat Feb 20 13:24:22 2021 +0800
+
+    项目人事员工资料及会员后台
+
+[33mcommit dce5daa0b6462b789f08d55fdb82ad18ddfcc27a[m
+Author: yf336699 <1280240187@qq.com>
+Date:   Sat Feb 20 11:22:35 2021 +0800
+
+    维修项目第一次提交
+
+[33mcommit 06f81ef3d472bef95898e50db19ccd561520300f[m
+Merge: 98b3699 07ad2de
+Author: yf336699 <1280240187@qq.com>
+Date:   Tue Feb 16 21:55:28 2021 +0800
+
+    Merge branch 'master' of https://github.com/DengShiYao/dzw
+
+[33mcommit 98b3699e3f142a179cefbb1a1867ca02f6008de3[m
+Author: yf336699 <1280240187@qq.com>
+Date:   Tue Feb 16 21:54:01 2021 +0800
+
+    goods 第一次提交
+
+[33mcommit 07ad2ded2152cfb5308e1a8451374d1991fb6bfd[m
+Author: JieSiXiao <1253777923@qq.com>
+Date:   Mon Feb 15 11:13:15 2021 +0800
+
+    根据邓思耀的要求，重新上传最新修改的sql
+
+[33mcommit 9abbb1c60b8b18919625c82caba55b3334efd16b[m
+Author: JieSiXiao <1253777923@qq.com>
+Date:   Mon Feb 15 10:31:29 2021 +0800
+
+    最新数据库sql,2021_2_15版本
+
+[33mcommit 1dbbf882670e7c11fbf9c6cde6da960c1f276f7e[m
+Author: yf336699 <1280240187@qq.com>
+Date:   Fri Feb 12 23:30:26 2021 +0800
+
+    供货商第三次
+
+[33mcommit 1dc0877942c3ea559c1c442016b5630c3cfe417c[m
+Author: yf336699 <1280240187@qq.com>
+Date:   Mon Feb 8 21:37:32 2021 +0800
+
+    供货商资料
+
+[33mcommit 57f61b8acf47bfb64af741f837549d470b9c8fe0[m
+Author: yf336699 <1280240187@qq.com>
+Date:   Sun Feb 7 22:18:41 2021 +0800
+
+    供货商第一次提交
+
+[33mcommit a4993a1c5f7f4acf4759414c2bab36329b1cf693[m
+Author: yf336699 <1280240187@qq.com>
+Date:   Sat Feb 6 22:20:32 2021 +0800
+
+    品牌车型
+
+[33mcommit cb30d5af2b8f3da60987fc512a1020edd1b9d8bd[m
+Author: yf336699 <1280240187@qq.com>
+Date:   Sat Feb 6 13:57:38 2021 +0800
+
+    demo
+
+[33mcommit aa63fbb14ad1ff15db50931c2ffb08f0ecb8871f[m
+Author: yf336699 <1280240187@qq.com>
+Date:   Fri Feb 5 23:21:43 2021 +0800
+
+    新增文件上传
+
+[33mcommit c19a9d20c046dc5c36d3ff47b0ac9f3b2cd677e2[m
+Author: yf336699 <1280240187@qq.com>
+Date:   Thu Feb 4 23:48:34 2021 +0800
+
+    品牌更新bug未修复
+
+[33mcommit 3d40573b543113a97babd664d1e67feb3d5b18e3[m
+Author: yf336699 <1280240187@qq.com>
+Date:   Wed Feb 3 22:49:04 2021 +0800
+
+    发动机品牌
+
+[33mcommit bf2990d369b9529e7f0fc6bb7d38ecf6d7b82887[m
+Author: dengsiyao666 <1932543404@qq.com>
+Date:   Wed Feb 3 15:19:58 2021 +0800
+
+    修改后的数据字典
+
+[33mcommit 24565809273355aac82f8946217827b1ce394461[m
+Author: dengsiyao666 <1932543404@qq.com>
+Date:   Wed Feb 3 15:17:01 2021 +0800
+
+    修改后的项目生成了新增的表
+
+[33mcommit c34ca45254e1b26ef61360972a99f382070091f1[m
+Author: yf336699 <1280240187@qq.com>
+Date:   Tue Feb 2 22:57:02 2021 +0800
+
+    调整发动机品牌页面
+
+[33mcommit e4996b1a246df3d1c334e9defb0cffd1f9ad691a[m
+Author: dengsiyao666 <1932543404@qq.com>
+Date:   Tue Feb 2 19:56:25 2021 +0800
+
+    多生成了一些新表
+
+[33mcommit d8a8a5abbb9d4864b4b827e9e08ab2898ff44295[m
+Author: dengsiyao666 <1932543404@qq.com>
+Date:   Tue Feb 2 19:34:50 2021 +0800
+
+    修改后的
+
+[33mcommit eb6fa57a5a47cdcb6502ab421ca14acd1475e18d[m
+Merge: 99b168e ad2829e
+Author: JieSiXiao <1253777923@qq.com>
+Date:   Mon Feb 1 22:34:39 2021 +0800
+
+    Merge branch 'master' of https://github.com/DengShiYao/dzw
+
+[33mcommit 99b168e8c1e6c536df3e006e0471e29eea374144[m
+Author: JieSiXiao <1253777923@qq.com>
+Date:   Mon Feb 1 22:31:01 2021 +0800
+
+    岗位定义测试
+
+[33mcommit ad2829ebaa6f42a272a8fe26aa5c113a71836d0a[m
+Author: JieSiXiao <1253777923@qq.com>
+Date:   Mon Feb 1 22:31:01 2021 +0800
+
+    岗位定义测试
+
+[33mcommit ffe8cf0716d0d09d9c8afd02d5ff121389a1355d[m
+Author: JieSiXiao <1253777923@qq.com>
+Date:   Mon Feb 1 22:19:50 2021 +0800
+
+    岗位定义控制器
+
+[33mcommit 18141e2bc8921483d4852c59dc38dd63fad433ab[m
+Author: dengsiyao666 <1932543404@qq.com>
+Date:   Mon Feb 1 18:49:12 2021 +0800
+
+    重新创建的项目
+
+[33mcommit 89e3e09a7791b0e546fbad5e478ce69534f3ef4e[m
+Author: dengsiyao666 <1932543404@qq.com>
+Date:   Mon Feb 1 18:32:12 2021 +0800
+
+    修改后的项目
+
+[33mcommit cba74d64b565ee13f676da43359805e36a5d89fb[m
+Author: dengsiyao666 <1932543404@qq.com>
+Date:   Mon Feb 1 18:21:03 2021 +0800
+
+    修改后的数据库和项目
+
+[33mcommit 4b8fb742abac5c55db05296812d34be996eab724[m
+Author: dengsiyao666 <1932543404@qq.com>
+Date:   Sun Jan 31 21:34:12 2021 +0800
+
+    后台源码
+
+[33mcommit 40a793c11f86597663cd7cb818ed029522051dc4[m
+Author: dengsiyao666 <1932543404@qq.com>
+Date:   Sun Jan 31 19:58:32 2021 +0800
+
+    数据库sql以及数据字典修改
+
+[33mcommit 608832d63c9af628824ceb4693edbe0453ad4ec0[m
+Author: dengsiyao666 <1932543404@qq.com>
+Date:   Sat Jan 30 16:51:27 2021 +0800
+
+    修改后的数据字典
+
+[33mcommit f135db35b433dccf31a44c758dfd762b78645407[m
+Merge: b6a6aff bc71e4d
+Author: dengsiyao666 <1932543404@qq.com>
+Date:   Sat Jan 30 16:40:39 2021 +0800
+
+    Merge branch 'master' of https://github.com/DengShiYao/dzw
+
+[33mcommit bc71e4dc192622a3f3081211ac99247ac6ca138a[m
+Author: yf336699 <1280240187@qq.com>
+Date:   Thu Jan 28 22:19:43 2021 +0800
+
+    temp
+
+[33mcommit 3529a3011493617edad5d6a2b5aa898094bff9d3[m
+Author: JieSiXiao <1253777923@qq.com>
+Date:   Thu Jan 28 11:21:09 2021 +0800
+
+    第三次提交，所有div全部修改成模态框
+
+[33mcommit b0529d625d56cddaca5922781880a0bbb0993043[m
+Author: yf336699 <1280240187@qq.com>
+Date:   Wed Jan 27 22:16:44 2021 +0800
+
+    temp
+
+[33mcommit b6a6aff0d6c64a78f428996d1b3fbdf7c358a1cd[m
+Author: dengsiyao666 <1932543404@qq.com>
+Date:   Wed Jan 27 12:06:07 2021 +0800
+
+    修改后
+
+[33mcommit 602af40e06d44cbae23a0f40486982d5f6061f8c[m
+Author: dengsiyao666 <1932543404@qq.com>
+Date:   Wed Jan 27 12:00:48 2021 +0800
+
+    首页
+
+[33mcommit 05f3d1bec0a0e5d53fc5ac59d8fc349509f1041e[m
+Author: dengsiyao666 <1932543404@qq.com>
+Date:   Wed Jan 27 11:53:18 2021 +0800
+
+    首页
+
+[33mcommit a9c9bc4b921968b9915043a2753fd826cee4e204[m
+Author: dzy888 <1452035653@qq.com>
+Date:   Wed Jan 27 11:40:25 2021 +0800
+
+    戴政宇页面3
+
+[33mcommit 7a34a586d2e14889eb396f0c4c2861fb33ff393c[m
+Merge: 7fa8d63 f31c99f
+Author: yf336699 <1280240187@qq.com>
+Date:   Wed Jan 27 11:07:25 2021 +0800
+
+    Merge branch 'master' of https://github.com/DengShiYao/dzw
+
+[33mcommit 7fa8d63f1325f5900cfb2b5ee15f456b4e34c227[m
+Author: yf336699 <1280240187@qq.com>
+Date:   Wed Jan 27 11:07:06 2021 +0800
+
+    dome
+
+[33mcommit f31c99f9f35986ee5936bdde56b52d7f48cad055[m
+Author: dengsiyao666 <1932543404@qq.com>
+Date:   Wed Jan 27 10:31:44 2021 +0800
+
+    修改后的数据字典
+
+[33mcommit 7e936007b61e09c1805d10cdda056c37bee8b397[m
+Merge: 79e17f0 3232c2e
+Author: yf336699 <1280240187@qq.com>
+Date:   Wed Jan 27 10:16:38 2021 +0800
+
+    Merge branch 'master' of https://github.com/DengShiYao/dzw
+
+[33mcommit 79e17f05a8f0c77fafb5c191ffe499fa4b799061[m
+Author: yf336699 <1280240187@qq.com>
+Date:   Wed Jan 27 10:15:08 2021 +0800
+
+    temp
+
+[33mcommit 3232c2ecc18706e7360ecce914db99005f9b4061[m
+Author: JieSiXiao <1253777923@qq.com>
+Date:   Wed Jan 27 10:10:32 2021 +0800
+
+    通讯名录二次修改
+
+[33mcommit 9c64205b485ae73bef49d3b31ea6f4a6329c0adb[m
+Author: JieSiXiao <1253777923@qq.com>
+Date:   Wed Jan 27 09:10:15 2021 +0800
+
+    第二次提交,弹出div待改模态框
+
+[33mcommit f43c53d11d59777179ebc3b03831eb6982966104[m
+Author: yg021017 <3368623992@qq.com>
+Date:   Wed Jan 27 09:02:35 2021 +0800
+
+    维修接车
+
+[33mcommit a8400958765cbe347d0f48db6af55844e2b34324[m
+Author: dzy888 <1452035653@qq.com>
+Date:   Wed Jan 27 08:28:17 2021 +0800
+
+    戴政宇页面
+
+[33mcommit 4739a8d22c03067f131413aa0c08271a384ef94c[m
+Author: ZengQingNian888 <280229143@qq.com>
+Date:   Wed Jan 27 08:20:22 2021 +0800
+
+    曾庆年
+
+[33mcommit ba6a33d8eec42f4220f1f958cd0c35e8955af828[m
+Author: yf336699 <1280240187@qq.com>
+Date:   Tue Jan 26 23:26:37 2021 +0800
+
+    ..字段设置
+
+[33mcommit 112cbd081bd6111f073ed1ac1950716bc8322fe3[m
+Author: dzy888 <1452035653@qq.com>
+Date:   Tue Jan 26 08:45:57 2021 +0800
+
+    这是戴政宇的静态页面
+
+[33mcommit 5c9bcf988842500364e07e83d95b9c46ad871bc3[m
+Author: ZengQingNian888 <280229143@qq.com>
+Date:   Tue Jan 26 08:41:29 2021 +0800
+
+    技工
+
+[33mcommit 3528542adf53f1afb2c1b23abec349362daf0fad[m
+Author: yf336699 <1280240187@qq.com>
+Date:   Mon Jan 25 21:28:06 2021 +0800
+
+    com
+
+[33mcommit b58012299dcaf60c6a6de6ad0041f65ca9062c21[m
+Merge: 2a30bc0 935ed5b
+Author: ZengQingNian888 <280229143@qq.com>
+Date:   Mon Jan 25 08:30:36 2021 +0800
+
+    Merge branch 'master' of https://github.com/DengShiYao/dzw
+
+[33mcommit 935ed5b962a076f8f50f6554a45cd4d3c49750bc[m
+Author: yf336699 <1280240187@qq.com>
+Date:   Sun Jan 24 21:51:33 2021 +0800
+
+    info
+
+[33mcommit 2a30bc01d141c07e68604fc53272764de0704eb9[m
+Merge: c3a5559 283248e
+Author: ZengQingNian888 <280229143@qq.com>
+Date:   Sun Jan 24 12:02:34 2021 +0800
+
+    Merge branch 'master' of https://github.com/DengShiYao/dzw
+
+[33mcommit c3a55595c211ad929b4d4568101960b14ead5b03[m
+Author: ZengQingNian888 <280229143@qq.com>
+Date:   Sun Jan 24 12:01:49 2021 +0800
+
+    技工管理、结算中心
+
+[33mcommit 283248e67e59db9a4865dcd80278dac0d7543234[m
+Author: yf336699 <1280240187@qq.com>
+Date:   Sat Jan 23 22:03:11 2021 +0800
+
+    维修项目
+
+[33mcommit 163483c61aa48e9d0cedec08a70029cfe7a600fa[m
+Author: yf336699 <1280240187@qq.com>
+Date:   Sat Jan 23 17:57:39 2021 +0800
+
+    车型定义
+
+[33mcommit f2fe80441de909092785b89a072fd74c223b6bf4[m
+Author: yf336699 <1280240187@qq.com>
+Date:   Fri Jan 22 22:30:42 2021 +0800
+
+    差模态框
+
+[33mcommit 0558120779dc74bc2a3668d721b049b125a932ac[m
+Author: yf336699 <1280240187@qq.com>
+Date:   Fri Jan 22 21:51:14 2021 +0800
+
+    table
+
+[33mcommit 49f8425f42a38d8f7c010b128c4c0e552542fc84[m
+Author: yf336699 <1280240187@qq.com>
+Date:   Fri Jan 22 17:55:43 2021 +0800
+
+    修改文件
+
+[33mcommit 94abe94a7678a5861ea262bf41bc8ce2c092d819[m
+Author: ZengQingNian888 <280229143@qq.com>
+Date:   Fri Jan 22 17:33:33 2021 +0800
+
+    ssa'd's'fa's'd1
+
+[33mcommit bafe8c23a00de16c1714a7f0d23aca24a9fc7f62[m
+Author: ZengQingNian888 <280229143@qq.com>
+Date:   Fri Jan 22 17:30:52 2021 +0800
+
+    啊啊啊啊
+
+[33mcommit 4ce4e282e065d3dcaca31d00fa65e4ed2cfd016c[m
+Author: ZengQingNian888 <280229143@qq.com>
+Date:   Fri Jan 22 17:19:38 2021 +0800
+
+    班组技工
+
+[33mcommit 953ecc588bf8028cc2b8bab5a7a576318b190d6d[m
+Merge: 2575a73 55116d2
+Author: JieSiXiao <1253777923@qq.com>
+Date:   Fri Jan 22 16:47:15 2021 +0800
+
+    第一次页面
+
+[33mcommit 2575a73a82a2f0a744b79a2bf596b12dc062c5ad[m
+Author: JieSiXiao <1253777923@qq.com>
+Date:   Fri Jan 22 16:37:51 2021 +0800
+
+    第一次提交页面
+
+[33mcommit 2bce652581d78327d32fbc9109b8b3d78c8954f1[m
+Author: JieSiXiao <1253777923@qq.com>
+Date:   Fri Jan 22 16:00:13 2021 +0800
+
+    第一天
+
+[33mcommit 55116d2f1461badb2a668eb04a4b640841496b7b[m
+Author: yf336699 <1280240187@qq.com>
+Date:   Fri Jan 22 15:19:11 2021 +0800
+
+    tabledemo
+
+[33mcommit b6c6a99a5134aa35808e0352c936298c2b593d10[m
+Author: dengsiyao666 <1932543404@qq.com>
+Date:   Thu Jan 21 15:45:24 2021 +0800
+
+    任务分配
+
+[33mcommit c54b7fd03354efc3f48c9b9be29a4dc5fb57eb9f[m
+Author: dengsiyao666 <1932543404@qq.com>
+Date:   Thu Jan 21 12:14:31 2021 +0800
+
+    前端js/jquery/vue/bootstrap等一些文件
+
+[33mcommit 55fac9d8514b23649f0d436e63c1df8dbcba7c0c[m
+Author: dengsiyao666 <1932543404@qq.com>
+Date:   Thu Jan 21 11:30:31 2021 +0800
+
+    需求文档和数据字典
