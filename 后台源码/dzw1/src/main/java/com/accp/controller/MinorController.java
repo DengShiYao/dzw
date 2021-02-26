@@ -67,7 +67,7 @@ public class MinorController {
                 return new ResultVO(ResultCode.PEY_EXIT);
             }
         }
-        new Serve().setBrandId(minor.getMinorId()).update(
+        new Serve().setBrandId(minor.getMinorId()).setColumn1(minor.getMinorName()).update(
                 new QueryWrapper<Serve>().lambda().eq(Serve::getBrandId,minor.getBeforeId()));
         service.update(minor,new QueryWrapper<Minor>().lambda()
                 .eq(Minor::getMinorId,minor.getBeforeId()));

@@ -69,7 +69,7 @@ public class CoinSprayController {
                 return new ResultVO(ResultCode.PEY_EXIT);
             }
         }
-        new Serve().setBrandId(coinSpray.getCoinId()).update(
+        new Serve().setBrandId(coinSpray.getCoinId()).setColumn1(coinSpray.getCoinName()).update(
                 new QueryWrapper<Serve>().lambda().eq(Serve::getBrandId,coinSpray.getBeforeId()));
         service.update(coinSpray,new QueryWrapper<CoinSpray>().lambda()
                 .eq(CoinSpray::getCoinId,coinSpray.getBeforeId()));

@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="css/public-y.css">
     <!-- 引入样式 -->
     <link rel="stylesheet" href="package/lib/style.css">
+    <style>
+
+    </style>
 </head>
 
 <body class="hea-div">
@@ -52,10 +55,9 @@
                     </form>
                 </div>
             </div>
-            <div class="col-sm-4" style="height: 75%;border: 0px solid red; ">
+            <div class="col-sm-4" style="height: 70%;border: 0px solid red; ">
                 <div style="height: 100%; width: 99%; padding: 0px;">
                     <div style="height: 100%;">
-                        <!-- <button v-slot:buttons type="button" @click="getCurrentEvent"> 你好</button> -->
                         <template>
                             <vxe-grid border stripe :loading="loading" highlight-hover-row highlight-current-row
                                 resizable ref="xTable" class="mytable-scrollbar" auto-resize height="100%"
@@ -66,7 +68,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-12 countn" style=" height: 4.6%; border: 0px solid red;">
+            <div class="col-sm-12 countn" style=" height:30px; border: 0px solid red;">
                 &nbsp;&nbsp;&nbsp;&nbsp;总数据：<span v-text="tableData.length"></span></div>
         </div>
         <!-- Modal -->

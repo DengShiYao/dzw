@@ -80,9 +80,17 @@
             ${ew.customSqlSegment}
     </select>
 
+    <!--  导出所有数据  -->
     <select id="goodsListAll" resultMap="MyResultMap3">
          SELECT * FROM `goods` WHERE `is_delete`=0 AND `block_up`=1
     </select>
+
+    <!--  导出时查询按多条件查询数据  -->
+    <select id="goodsListSearch" resultMap="MyResultMap3">
+         SELECT * FROM `goods`
+            ${ew.customSqlSegment}
+    </select>
+
 <!--    <where>-->
 <!--        <if test="true">-->
 <!--            AND is_delete=0-->

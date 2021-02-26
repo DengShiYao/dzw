@@ -25,4 +25,7 @@ public interface GoodsMapper extends BaseMapper<Goods> {
     Page<Goods> searchGoodsPage(Page<Goods> page,@Param("ew") Wrapper wrapper);
     //查询全部
     List<Goods> goodsListAll();
+    //按条件查询
+    List<Goods> goodsListSearch(@Param("ew") Wrapper wrapper);
+
 }

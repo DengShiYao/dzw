@@ -9,9 +9,9 @@ import com.accp.service.impl.DzwColumnControllerServiceImpl;
 import com.accp.service.impl.GoodsServiceImpl;
 import com.accp.vo.Page;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -129,17 +129,52 @@ public class GoodsController {
      */
     @RequestMapping("/downloadexcelall")
     public ResponseEntity downloadExcelAll(String exportColumn) throws IOException {
-        exportColumn = exportColumn.substring(1,exportColumn.length()-1);
-        List<DzwColumnController> list = objectMapper.readValue(exportColumn, new TypeReference<List<DzwColumnController>>() {/**/});
-        System.out.println(exportColumn);
         //查询要导出的数据
         List<Goods> goodsList = service.goodsListAll();
+        return toExcel(exportColumn,goodsList);
+    }
+
+    /**
+     * 按多条件查询结果导出
+     * @param jsonGoods
+     * @param exportColumn
+     * @return
+     */
+    @RequestMapping("/downloadexcel")
+    public ResponseEntity downloadExcel(String jsonGoods, String exportColumn) throws IOException {
+        jsonGoods = jsonGoods.substring(1,jsonGoods.length()-1);
+        System.out.println(jsonGoods);
+        Goods goods = objectMapper.readValue(jsonGoods, Goods.class);
+        List<Goods> goodsList = service.goodsListSearch(goods);
+        return toExcel(exportColumn,goodsList);
+    }
+
+    /**
+     * 默认条件
+     * @param blockUp
+     * @param column1
+     * @param exportColumn
+     * @throws JsonProcessingException
+     * @return
+     */
+    @RequestMapping("/downloadexceleearch")
+    public ResponseEntity downloadExcelSearch(String blockUp, String column1, String exportColumn) throws IOException {
+        List<Goods> goodsList = service.goodsListSearchDefult(Integer.valueOf(blockUp), Integer.valueOf(column1));
+        return toExcel(exportColumn,goodsList);
+    }
+
+    /**
+     * 导出Excel方法
+     * @param exportColumn
+     * @param goodsList
+     * @return
+     * @throws IOException
+     */
+    public ResponseEntity toExcel(String exportColumn,List<Goods> goodsList) throws IOException {
+        exportColumn = exportColumn.substring(1,exportColumn.length()-1);
+        List<DzwColumnController> list = objectMapper.readValue(exportColumn, new TypeReference<List<DzwColumnController>>() {/**/});
         Workbook book = new XSSFWorkbook();
         Sheet sheet = book.createSheet();
-//        Font font = book.createFont();
-//        font.setBold(true);
-//        CellStyle cellStyle = book.createCellStyle();
-//        cellStyle.setFont(font);
 
         //导出excel头部
         Row rowTitle = sheet.createRow(0);
@@ -227,13 +262,6 @@ public class GoodsController {
         //设置响应的文件的名称
         headers.setContentDispositionFormData("attachment",fileName);
         return new ResponseEntity(byteArrayOutputStream.toByteArray(), headers, HttpStatus.OK);
-
     }
-
-    @RequestMapping("/downloadexcel")
-    public void downloadExcel(Goods goods, List<DzwColumnShowController> list){
-
-    }
-
 }
 

@@ -11,6 +11,13 @@
     <link rel="stylesheet" href="css/public-y.css">
     <!-- 引入样式 -->
     <link rel="stylesheet" href="package/lib/style.css">
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
 </head>
 
 <body class="hea-div">
@@ -32,7 +39,7 @@
                     </h3>
                 </div>
             </div>
-            <div class="col-sm-12 flexdiv" style="border: 0px solid red;">
+            <div class="col-sm-12 flexdiv" style="border: 0px solid red;padding-left: 0px;">
                 <div>
                     <vxe-toolbar>
                         <template v-slot:buttons>
@@ -67,7 +74,7 @@
                     </vxe-toolbar>
                 </div>
                 <div>
-                    <vxe-toolbar>pages.next
+                    <vxe-toolbar>
                         <template v-slot:buttons>
                             <vxe-button icon="glyphicon glyphicon-arrow-up" @click=" btnFindChange(pages.prev)">上页
                             </vxe-button>
@@ -85,8 +92,8 @@
                             <vxe-button icon="glyphicon glyphicon-picture" @click="openGoodsIconModal">
                                 照片</vxe-button>
                             <vxe-button icon="fa fa-barcode">条码</vxe-button>
-                            <vxe-button icon=" glyphicon-th-large 
-                        glyphicon glyphicon-th">分类设置</vxe-button>
+                            <!-- <vxe-button icon=" glyphicon-th-large 
+                        glyphicon glyphicon-th">分类设置</vxe-button> -->
                             <vxe-button icon="fa fa-cog" @click="columnModal">字段设置</vxe-button>
                             <!-- <vxe-button @click="$refs.xTable.setCurrentRow(tableData[1])">设置第二行选中</vxe-button> -->
                             <!-- <vxe-button @click="$refs.xTable.clearCurrentRow()">取消选中</vxe-button> -->
@@ -94,7 +101,8 @@
                     </vxe-toolbar>
                 </div>
             </div>
-            <div class="col-sm-12 treefont" style="height: 81%; border: 0px solid red; padding-right: 0px;">
+            <div class="col-sm-12 treefont"
+                style="height: 76%; border: 0px solid red; padding-left: 0px;padding-right: 0px;">
                 <div v-show="treeVisble" class="col-sm-2"
                     style=" height: 100%;border: 0px solid red; font-size: 16px; padding-right: 0px;">
                     <!-- 左侧树形 -->
@@ -130,7 +138,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-12 countn" style=" height: 4.6%; border: 0px solid red;">
+            <div class="col-sm-12 countn" style=" height: 4.5%; border: 0px solid red;">
                 &nbsp;&nbsp;&nbsp;&nbsp;共&nbsp;<span>{{ pages.total }}&nbsp;条数据
 
                 </span>&nbsp;&nbsp;第&nbsp;<span>{{ pages.current }}</span>&nbsp;页
@@ -2572,19 +2580,44 @@
                         $("#myModel11").modal("hide");
                         if (this.exportAll === 0) {
                             console.log("当前");
+                            //当前内容导出时 如果没有按条件搜索则按当前商品分类查找
+                            //btnChange 为false时 按多条件查询搜索 否则按商品分类进行查找
+                            if (this.btnChange) {
+                                let goods = this.$refs.xTree.getCurrentRecord();
+                                let column1 = 0;
+                                try {
+                                    column1 = this.isLoad == true ? 0 : goods.column1;
+                                } catch (error) {
+                                    column1 = 0;
+                                }
+                                let json = JSON.stringify(selectRecords);
+                                let blockUp = this.selblockUp
+                                var form = $('<form />', { action: 'http://127.0.0.1:8080/goods/downloadexceleearch', method: "get", style: "display:none;" }).appendTo('body');
+                                form.append('<input type="hidden" name="blockUp" value="' + blockUp + '" />');
+                                form.append('<input type="hidden" name="column1" value="' + column1 + '" />');
+                                form.append('<textarea name="exportColumn" id="" cols="30" rows="10">"' + json + '"</textarea>');
+                                form.submit().remove();
+                            } else {
+                                let json = JSON.stringify(selectRecords);
+                                let goods = JSON.stringify(this.searchGoods);
+                                var form = $('<form />', { action: 'http://127.0.0.1:8080/goods/downloadexcel', method: "get", style: "display:none;" }).appendTo('body');
+                                form.append('<textarea name="jsonGoods" id="" cols="30" rows="10">"' + goods + '"</textarea>');
+                                form.append('<textarea name="exportColumn" id="" cols="30" rows="10">"' + json + '"</textarea>');
+                                form.submit().remove();
+                            }
+
                         } else {
                             console.log("全部");
                             let json = JSON.stringify(selectRecords);
                             var form = $('<form />', { action: 'http://127.0.0.1:8080/goods/downloadexcelall', method: "get", style: "display:none;" }).appendTo('body');
                             // form.append('<input type="hidden" name="exportColumn" value="' + format + '" />');
                             form.append('<textarea name="exportColumn" id="" cols="30" rows="10">"' + json + '"</textarea>');
-                            form.submit();
+                            form.submit().remove();
                         }
                     }
                 }
             },
             created() {
-                Vue.prototype.$XModal = VXETable.modal
                 this.find();
                 //查询显示列
                 this.findShowColumn()

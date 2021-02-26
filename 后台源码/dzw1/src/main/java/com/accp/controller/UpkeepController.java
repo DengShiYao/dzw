@@ -66,7 +66,7 @@ public class UpkeepController {
                 return new ResultVO(ResultCode.PEY_EXIT);
             }
         }
-        new Serve().setBrandId(upkeep.getUpkeepId()).update(
+        new Serve().setBrandId(upkeep.getUpkeepId()).setColumn1(upkeep.getUpkeepName()).update(
                 new QueryWrapper<Serve>().lambda().eq(Serve::getBrandId,upkeep.getBeforeId()));
         service.update(upkeep,new QueryWrapper<Upkeep>().lambda()
                 .eq(Upkeep::getUpkeepId,upkeep.getBeforeId()));

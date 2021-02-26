@@ -1205,6 +1205,7 @@
                     删除服务modal
                 */
                 removeServeModal() {
+                    let json = this.$refs.xTable.getCurrentRecord();
                     if (json != null) {
                         $("#myModal7").modal("show");
                     }
