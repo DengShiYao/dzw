@@ -51,6 +51,13 @@ public class CarController {
         List<Car> list = zz.list(query);
         return list;
     }
+
+    //查询所有车辆
+    @RequestMapping("/selectPagecl")
+    public List<Car> selectPagecl(String  car){
+        List<Car> list = zz.list();
+        return list;
+    }
     //新增车辆
     @RequestMapping("/insert")
     @ResponseBody
@@ -145,5 +152,11 @@ public class CarController {
         List<LinliaoBiao> list =service2.list();
         return list;
     }
+    //今日提醒wei_xiubiao 查询
+    /*@RequestMapping("SelectLinliaoBiao")
+    public List<LinliaoBiao> SelectLinliaoBiao(){
+        List<LinliaoBiao> list =service2.list();
+        return list;
+    }*/
 }
 
