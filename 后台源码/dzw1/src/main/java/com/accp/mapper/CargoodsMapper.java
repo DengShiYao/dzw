@@ -12,5 +12,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2021-02-25
  */
 public interface CargoodsMapper extends BaseMapper<Cargoods> {
-
+    public Cargoods selByCloumn(String cloumn1);
 }

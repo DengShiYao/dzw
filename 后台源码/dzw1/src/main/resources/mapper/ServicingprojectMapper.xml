@@ -25,5 +25,20 @@
     <sql id="Base_Column_List">
         wx_id, wx_projectnae, wx_jialei, wx_miandan, wx_serviceuser, wx_jsjies, wx_number, wx_gsdanjia, wx_gzmiaoshu, wx_gzyuanyin, wx_weixiubz, wx_gdannumber, column1, column2, column3
     </sql>
-
+    <resultMap id="BaseResultMap1" type="com.accp.domain.Servicingproject" extends="BaseResultMap">
+        <association property="servicing" column="wx_gdannumber" select="com.accp.mapper.ServicingMapper.selBySernumber"></association>
+        <association property="cargoods" column="wx_gdannumber" select="com.accp.mapper.CargoodsMapper.selByCloumn"></association>
+    </resultMap>
+    <select id="selByArray" resultMap="BaseResultMap1">
+        SELECT * FROM servicingproject
+        <where>
+            servicingproject.wx_gdannumber in
+            <foreach collection="array" item="item" open="(" close=")" separator=",">
+                #{item}
+            </foreach>
+        </where>
+    </select>
+    <select id="selByServicingProjectId" resultMap="BaseResultMap1">
+        SELECT * FROM servicingproject WHERE wx_id=#{wxId}
+    </select>
 </mapper>

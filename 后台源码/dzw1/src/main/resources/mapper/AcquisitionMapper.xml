@@ -17,5 +17,17 @@
     <sql id="Base_Column_List">
         ac_id, ac_repairid, ac_time, ac_goods, column1, column2, column3
     </sql>
-
+    <resultMap id="BaseResultMap1" type="com.accp.domain.Acquisition" extends="BaseResultMap">
+        <!--<association property="goods" column="acGoods" select="" ></association>-->
+        <association property="servicingproject" column="acRepairid" select="com.accp.mapper.ServicingprojectMapper.selByServicingProjectId"></association>
+    </resultMap>
+    <select id="selByArray" resultMap="BaseResultMap1">
+         SELECT * FROM acquisition
+         <where>
+             ac_repairid in
+             <foreach collection="array" item="item" open="(" close=")" separator=",">
+                 #{item}
+             </foreach>
+         </where>
+    </select>
 </mapper>
