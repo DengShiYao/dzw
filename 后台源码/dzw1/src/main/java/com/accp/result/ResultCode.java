@@ -28,7 +28,12 @@ public enum ResultCode {
     //操作错误
     PEY_EXIT(3000,"此数据已经存在"),
     File_TYPE_ERROR(3001,"文件类型错误"),
-    File_SIZE_ERROR(3001,"超出可上传文件大小");
+    File_SIZE_ERROR(3001,"超出可上传文件大小"),
+
+    //支付
+    FAILED_PAY(4001,"预下单失败"),
+    UNKNOWN(4002,"系统异常，预下单失败"),
+    DEFAULT_PAY(4003,"不支持的交易状态，交易返回异常!!!");
 
     private int code;
     private String msg;

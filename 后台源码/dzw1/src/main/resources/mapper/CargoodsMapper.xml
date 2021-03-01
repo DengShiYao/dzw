@@ -28,5 +28,7 @@
     <sql id="Base_Column_List">
         car_number, car_status, car_servicetype, car_username, car_chepai, car_phone, car_vipnumber, car_djtype, car_begintime, car_expecttime, car_endtime, car_jstime, car_expectmoney, car_serviceguwen, car_jiecheuser, column1, column2, column3
     </sql>
-
+    <select id="selByCloumn" resultMap="BaseResultMap">
+         SELECT * FROM cargoods WHERE column1 =#{column1}
+    </select>
 </mapper>

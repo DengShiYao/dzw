@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link href="../../css/bootstrap.min.css" rel="stylesheet" />
+	</head>
+	<body>
+		<!--待入库旧件-->
+		<div id="ctx">
+		<table class="table table-striped">
+  			<tr>
+				<td>车牌号码333</td>
+				<td>车牌号码333</td>
+				<td>车牌号码333</td>
+				<td>车牌号码333</td>
+				<td>车牌号码333</td>
+				<td>车牌号码333</td>
+				<td>车牌号码333</td>
+				<td>车牌号码333</td>
+				<td>车牌号码333</td>
+				<td>车牌号码333</td>
+				<td>车牌号码333</td>
+				<td>车牌号码333</td>
+			</tr>
+			<tr  v-for="item in page">
+	 				<td>{{item.sid}}</td>
+	  				<td>{{item.ProvCode}}</td>
+	  				<td>{{item.ProvName}}</td>
+	  				<td>{{item.Address}}</td>
+	  				<td>{{item.Operation}}</td>
+	  				<td>{{item.HttpA}}</td>
+	  				<td>{{item.khyh}}</td>
+	  				<td>{{item.yhzh}}</td>
+	  				<td>{{item.pmId}}</td>
+	  				<td>{{item.fgId}}</td>
+	  				<td>{{item.zd2}}</td>
+	  				<td>{{item.scId}}</td>
+	  				<td>{{item.PreDay}}</td>
+	  				<td>{{item.Remark}}</td>
+	  				<td>{{item.regionId}}</td>
+	  				<td>{{item.blockUp}}</td>
+	  				<td>{{item.suppliersWidth}}</td>
+	  				
+	  		</tr>
+		</table>
+		</div>
+	</body>
+	<script type="text/javascript" src="../js/jquery.min.js" ></script>
+	<script type="text/javascript" src="../js/vue.js" ></script>
+	<script type="text/javascript" src="../js/bootstrap.min.js" ></script>
+	<script>
+		var vm = new Vue({
+			el:"#ctx",
+				data:{
+				page:{}
+				
+				},
+				methods:{
+						find(){
+								let that = this;
+								
+								$.ajax({
+										url:"http://127.0.0.1:8080/car/Selectregion/",
+										type:"post",
+										dataType:"json",
+										success:function(result){
+												that.page=result;
+												/*alert(JSON.stringify(that.page))
+												alert("查询成功")*/
+											}
+									});
+							}
+					},
+					created(){
+						this.find();
+						
+						}
+		})
+	</script>
+</html>

@@ -1,6 +1,7 @@
 package com.accp.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
@@ -37,7 +38,7 @@ public class Acquisition extends Model<Acquisition> {
     private String acTime;
 
     @ApiModelProperty(value = "物料id，外键商品表")
-    private String acGoods;
+    private Integer acGoods;
 
     @ApiModelProperty(value = "备用列1")
     private String column1;
@@ -48,6 +49,11 @@ public class Acquisition extends Model<Acquisition> {
     @ApiModelProperty(value = "备用列3")
     private String column3;
 
+    @TableField(exist = false)
+    private Goods goods;
+
+    @TableField(exist =false)
+    private Servicingproject servicingproject;
 
     public static final String AC_ID = "ac_id";
 

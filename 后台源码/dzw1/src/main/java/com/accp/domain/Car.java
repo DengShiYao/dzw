@@ -1,9 +1,15 @@
 package com.accp.domain;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -27,6 +33,7 @@ public class Car extends Model<Car> {
     private static final long serialVersionUID=1L;
 
     @ApiModelProperty(value = "车牌号码")
+    @TableId
     private String carCph;
 
     @ApiModelProperty(value = "车辆品牌")
@@ -43,7 +50,8 @@ public class Car extends Model<Car> {
     private String carPhone;
 
     @ApiModelProperty(value = "出生日期")
-    private LocalDateTime carCsrq;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+    private LocalDate carCsrq;
 
     @ApiModelProperty(value = "车辆归属")
     private String carClgs;
@@ -52,7 +60,8 @@ public class Car extends Model<Car> {
     private String carJsydz;
 
     @ApiModelProperty(value = "驾照到期日期")
-    private LocalDateTime carJzdq;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+    private LocalDate carJzdq;
 
     @ApiModelProperty(value = "车架号")
     private String carCjh;
@@ -76,25 +85,30 @@ public class Car extends Model<Car> {
     private String carCx;
 
     @ApiModelProperty(value = "购买日期")
-    private LocalDateTime carGmrq;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+    private LocalDate carGmrq;
 
     @ApiModelProperty(value = "上牌日期")
-    private LocalDateTime carSprq;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+    private LocalDate carSprq;
 
     @ApiModelProperty(value = "车检到期")
-    private LocalDateTime carCjdq;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+    private LocalDate carCjdq;
 
     @ApiModelProperty(value = "交强险保险公司")
     private String carjqxbxgs;
 
     @ApiModelProperty(value = "交强险到期日期")
-    private LocalDateTime carJqxdq;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+    private LocalDate carJqxdq;
 
     @ApiModelProperty(value = "是否在我投保车中")
     private String carSf;
 
     @ApiModelProperty(value = "二维日期")
-    private LocalDateTime carEwrq;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+    private LocalDate carEwrq;
 
     @ApiModelProperty(value = "燃油类别")
     private String carRylb;
@@ -103,19 +117,22 @@ public class Car extends Model<Car> {
     private String carXcbylc;
 
     @ApiModelProperty(value = "下次保养日期")
-    private LocalDateTime carXcbyrq;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+    private LocalDate carXcbyrq;
 
     @ApiModelProperty(value = "会员码")
     private String carHym;
-
+    //这是商业保险id
     @ApiModelProperty(value = "备用列")
     private String column1;
-
+    //这是商业险到期
     @ApiModelProperty(value = "备用列")
     private String column2;
-
+    //这是关联客户id
     @ApiModelProperty(value = "备用给")
     private String column3;
+
+
 
 
     public static final String CAR_CPH = "car_cph";

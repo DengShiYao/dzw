@@ -5,6 +5,13 @@
 		<title>车辆管理</title>
 		<link rel="stylesheet" href="../css/bootstrap.min.css" />
 		<style>
+			.form-control{
+				width: 120px;
+			}
+			.form-group{
+				width: 120px;
+				display: inline-block;
+			}
 			* {
 				margin: 0px;
 				padding: 0px;
@@ -30,6 +37,7 @@
 			}
 			table tr:nth-child(1) td{
 				background-color: #31B0D5;
+				height: 10px;
 			}
 			#cl{
 				min-height:200px;overflow-y:auto;max-height:300px;
@@ -37,22 +45,25 @@
 			#kh{
 				min-height:50px;overflow-y:auto;max-height:300px;
 			}
+			
 		</style>
 	</head>
 	<body>
 		<div id="lx">
 		<div class="row">
   			<div class="col-md-8"><h1>车辆资料</h1></div>
-  			<div class="col-md-4"><form class="form-inline">
-  			<div class="form-group">
-    		<label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
-    		<div class="input-group">
-      		<div class="input-group-addon">搜索</div>
-      		<input type="text" class="form-control" id="exampleInputAmount" placeholder="车辆搜索">
-    		</div>
+  			<div class="col-md-4">
+  			<form class="form-inline">
+	  			<div class="form-group">
+	    		<label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+	    		<div class="input-group">
+	      		<div class="input-group-addon">搜索</div>
+	      		<input type="text" class="form-control" id="exampleInputAmount" placeholder="车辆搜索" v-model="clss">
+	    		</div>
+	  			</div>
+	  			<a class="btn btn-primary" @click="find">查询</a>
+			</form>
   			</div>
-  			<button type="submit" class="btn btn-primary">查询</button>
-			</form></div>
 		</div>
 		<div class="row">
   		<div class="col-md-8">
@@ -61,9 +72,9 @@
   		<div style="float: left;width:1490px ;height: 100px;">
 				<div style="float: left;width: 1200px;height: 60px;">
 					<div id="che" style="background-color: #EFF7FF; float: left;width: 1500px;height: 25px; margin-top: 10px;display: none;">
-						<button type="button" @click="s" class="btn btn-default">增加车资料</button>
-						<button type="button" class="btn btn-default">修改车资料</button>
-						<button type="button" class="btn btn-default">删除车资料</button>
+						<button type="button"   data-toggle="modal" href="#insertmodal" class="btn btn-default">新增</button>
+  						<button type="button"  data-toggle="modal" href="#updatamodal" class="btn btn-default">修改</button>
+  						<button type="button" class="btn btn-default" @click="remove(edit)">删除</button>
 					</div>
 				</div>
 				<div style="float: left;width: 1490px;height: 40px;margin-top: -5px;">
@@ -71,8 +82,8 @@
 						<button type="button" class="btn btn-default">客户编辑</button>
 						<button type="button" @click="showmo3()" class="btn btn-default">增加客户和车</button>
 						<button type="button" @click="showmo4()" class="btn btn-default">增加客户</button>
-						<button type="button" class="btn btn-default">修改客户</button>
-						<button type="button" class="btn btn-default">删除客户</button>
+						<button type="button" @click="showmo5()" class="btn btn-default">修改客户</button>
+						<button type="button" class="btn btn-default" @click="remove(edit)">删除客户</button>
 						<button type="button" @click="ba1" class="btn btn-default">相关证照</button>
 						<button type="button" class="btn btn-default">设置密码</button>
 					</div>
@@ -81,172 +92,189 @@
 		</div>
   		</div>
 
-  		
-  		
-  		<div class="modal" id="mymodal" data-backdrop="static">
-					<div style="width: 900px;" class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<span class="close" data-dismiss="modal">&times;</span>
-								<h5 class="col-xs-10">车辆资料编辑</h5>
-								<button class="btn btn-default col-xs-1" style="background-color:#82D921 ;">保存</button>
-							</div>
-							<div class="modal-body" style="background-color: #F7F7F7;">
-								<table class="table table-hover">
-									<tr>
-										<td>*<label style="margin-left: 10px;">车牌号码</label><input style="width: 120px;margin-left: 7px;" /><img @click="mod" src="img/20210125084610.png" height="23" width="16px" style="margin-top:-2.5px;">*<label style="margin-left: 10px;">车辆品牌</label><input style="width: 120px; margin-left: 10px;"><img @click="mod1" src="img/20210125084610.png" height="23" width="16px" style="margin-top:-2.5px; margin-right: 4px;">*<label style="margin-left: 10px;">车辆型号</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;">*<label style="margin-left: 10px;">驾驶员</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;"></td>
-									</tr>
-
-									<tr>
-										<td>*<label style="margin-left: 10px;">驾驶员电话</label><input style="width: 105px;margin-left: 7px;margin-right: 10px;" /><label style="margin-left: 11px;">出生日期</label><input style="width: 120px; margin-left: 10px;margin-right: 10px;"><label style="margin-left: 11px;">驾驶员地址</label><input style="width: 310px;margin-left: 7px;margin-right: 10px;"></td>
-									</tr>
-									<tr>
-										<td><label style="margin-left: 11px;">车架号</label><input style="width: 170px;margin-left: 7px;margin-right: 10px;" /><label style="margin-left: 11px;">发动机号</label><input style="width: 120px; margin-left: 10px;margin-right: 10px;"><label style="margin-left: 11px;">车辆年款</label><input style="width: 80px;margin-left: 7px;margin-right: 10px;"><label style="margin-left: 11px;">里程</label><input style="width: 155px;margin-left: 7px;margin-right: 10px;">
-									</tr>
-									<tr>
-										<td>*<label style="margin-left: 10px;">发动机品牌</label>
-											<select style="width: 280px;margin-left: 20px;">
-												<option>1-d2</option>
-												<option>阿达-d3</option>
-											</select><label style="margin-left: 11px;">载重</label><input style="width: 180px; margin-left: 10px;margin-right: 10px;"><label style="margin-left: 11px;">购买日期</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;"></td>
-									</tr>
-									<tr>
-										<td><label style="margin-left: 11px;">上牌日期</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;"><label style="margin-left: 11px;">车检到期</label><input style="width: 130px; margin-left: 10px;margin-right: 10px;"><label style="margin-left: 11px;">二维日期</label><input style="width: 130px;margin-left: 7px;margin-right: 10px;"><label style="margin-left: 11px;">车系</label><input style="width: 137px;margin-left: 7px;margin-right: 10px;"></td>
-									</tr>
-									<tr>
-										<td>
-											<span style="color: red;">保险</span>
-											<label style="margin-left: 11px;">交强险保险公司</label>
-											<select style="margin-left: 10px;width: 105px;">
-												<option>阳光保险</option>
-												<option>中华联合保险公司</option>
-											</select><label style="margin-left: 11px;">交强险到期</label><input style="width: 130px; margin-left: 10px;margin-right: 10px;"><input type="checkbox"><label style="margin-left: 3px;margin-right: ;">在我投保投车</label>*<label style="margin-left: 10px;">车辆归属</label>
-											<select style="margin-left: 10px;width: 150px;height: 25px;">
-												<option>个人车</option>
-												<option>公司车</option>
-												<option>租赁车</option>
-											</select>
-											<img @click="mod2" src="img/20210125084610.png" height="25" width="16px" style="margin-top:-4px;margin-left: -3px;" />
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<label style="margin-left: 43px;">商业险保险公司</label>
-											<select style="margin-left: 10px;width: 105px;">
-												<option>阳光保险</option>
-												<option>中华联合保险公司</option>
-											</select><label style="margin-left: 11px;">商业险到期</label><input style="width: 130px; margin-left: 10px;margin-right: 10px;"><label>驾证到期</label><input style="width: 90px;margin-left:7px;margin-right: 10px;"><label>燃油类别</label>
-											<select style="margin-left: 10px;width: 103px;height: 25px;">
-												<option>个人车</option>
-												<option>公司车</option>
-												<option>租赁车</option>
-											</select>
-											<img @click="mod3" src="img/20210125084610.png" height="25" width="16px" style="margin-top:-4px;margin-left: -3px;" />
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<label style="margin-left: 11px;">下次保养里程</label><input style="margin-left: 10px; width: 110px;"><label style="margin-left: 11px;">下次保养日期</label><input style="width: 130px; margin-left: 10px;margin-right: 10px;"><label>客户名称</label><input disabled="disabled" style="width: 295px;margin-left:7px;"><img src="img/20210125084610.png" height="23" width="16px" style="margin-top:-2.5px;" @click="luo">
-										</td>
-									</tr>
-								</table>
-							</div>
-						</div>
-					</div>
-				</div>
 				<div class="modal" id="mymodal6" data-backdrop="static">
 					<div style="width: 900px;" class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-header">
 								<span class="close" data-dismiss="modal">&times;</span>
 								<h5 class="col-xs-10">客户资料编辑</h5>
-								<button class="btn btn-default col-xs-1" style="background-color:#82D921 ;">保存</button>
+								<button class="btn btn-default col-xs-1" style="background-color:#82D921 ;" @click="addStudentdc()">保存</button>
 							</div>
 							<div class="modal-body" style="background-color: #F7F7F7;">
 								<table class="table table-hover">
 									<tr>
-										<td>*<label style="margin-left: 10px;">客户编码</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;" />*<label style="margin-left: 10px;">客户名称</label><input style="width: 120px; margin-left: 10px;"><label style="margin-left: 10px;">联系人</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;">*<label style="margin-left: 10px;">手机号码</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;"></td>
+										<td>*<label style="margin-left: 10px;">客户编码</label><input  style="width: 120px;margin-left: 7px;margin-right: 10px;"  v-model="add.carCsrq"/>*
+											<label style="margin-left: 10px;">客户名称</label><input style="width: 120px; margin-left: 10px;" v-model="add.carCsrq">
+											<label style="margin-left: 10px;">联系人</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;" v-model="add.carCsrq">*
+												<label style="margin-left: 10px;">手机号码</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;" v-model="add.carCsrq"></td>
 									</tr>
 
 									<tr>
-										<td><label style="margin-left: 10px;">客户地址</label><input style="width: 340px;margin-left: 7px;margin-right: 10px;" /><label style="margin-left: 11px;">客户生日</label><input type="date" style="width: 120px; margin-left: 10px;margin-right: 10px;"></td>
+										<td><label style="margin-left: 10px;">客户地址</label><input style="width: 340px;margin-left: 7px;margin-right: 10px;" v-model="add.carCsrq"/>
+										<label style="margin-left: 11px;">客户生日</label><input type="date" style="width: 120px; margin-left: 10px;margin-right: 10px;" v-model="add.carCsrq"></td>
 									</tr>
 									<tr>
-										<td><label style="margin-left: 11px;">账期</label><input type="number" style="width: 50px;margin-left: 7px;margin-right: 10px;" /><label style="margin-left: 11px;">挂账额度</label><input style="width: 120px; margin-left: 10px;margin-right: 10px;"><label style="margin-left: 11px;">专属顾问</label><input style="width: 80px;margin-left: 7px;margin-right: 10px;"><label style="margin-left: 11px;">顾问电话</label><input style="width: 155px;margin-left: 7px;margin-right: 10px;">
+										<td><label style="margin-left: 11px;">账期</label><input type="number" style="width: 50px;margin-left: 7px;margin-right: 10px;" v-model="add.carCsrq"/>
+										<label style="margin-left: 11px;">挂账额度</label><input style="width: 120px; margin-left: 10px;margin-right: 10px;" v-model="add.carCsrq">
+										<label style="margin-left: 11px;">专属顾问</label><input style="width: 80px;margin-left: 7px;margin-right: 10px;" v-model="add.carCsrq">
+										<label style="margin-left: 11px;">顾问电话</label><input style="width: 155px;margin-left: 7px;margin-right: 10px;" v-model="add.carCsrq">
 									</tr>
 									<tr>
 										<td>
 											<label>省</label>
-											<input><img @click="showmo" src="img/20210125084610.png" height="23" width="16px" style="margin-top:-4.5px;margin-left: 0px;"/>
+											<input v-model="add.carCsrq"><img @click="showmo" src="img/20210125084610.png" height="23" width="16px" style="margin-top:-4.5px;margin-left: 0px;" />
 											<label>市</label>
-											<input /><img @click="showmo1" src="img/20210125084610.png"  height="23" width="16px" style="margin-top:-4.5px;margin-left: 0px;"/>
+											<input v-model="add.carCsrq"/><img @click="showmo1" src="img/20210125084610.png"  height="23" width="16px" style="margin-top:-4.5px;margin-left: 0px;" />
 											<label>区</label>
-											<input><img @click="showmo2" src="img/20210125084610.png"  height="23" width="16px" style="margin-top:-4.5px;margin-left: 0px;"/>
+											<input  v-model="add.carCsrq"><img @click="showmo2" src="img/20210125084610.png"  height="23" width="16px" style="margin-top:-4.5px;margin-left: 0px;"/>
 										</td>
 									</tr>
 									<tr>
-										<td><label style="margin-left: 11px;">备注</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;"></td>
-									</tr>
-									<tr>
-										<td>*<label style="margin-left: 10px;">车牌号码</label><input style="width: 120px;margin-left: 7px;" /><img @click="mod" src="img/20210125084610.png" height="23" width="16px" style="margin-top:-2.5px;">*<label style="margin-left: 10px;">车辆品牌</label><input style="width: 120px; margin-left: 10px;"><img @click="mod1" src="img/20210125084610.png" height="23" width="16px" style="margin-top:-2.5px; margin-right: 4px;">*<label style="margin-left: 10px;">车辆型号</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;">*<label style="margin-left: 10px;">驾驶员</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;"></td>
-									</tr>
-									<tr>
-										<td>*<label style="margin-left: 10px;">驾驶员电话</label><input style="width: 105px;margin-left: 7px;margin-right: 10px;" /><label style="margin-left: 11px;">出生日期</label><input style="width: 120px; margin-left: 10px;margin-right: 10px;">*<label style="margin-left: 10px;">车辆归属</label>
-											<select style="margin-left: 10px;width: 150px;height: 25px;">
-												<option>个人车</option>
-												<option>公司车</option>
-												<option>租赁车</option>
-											</select>
-											<img @click="mod2" src="img/20210125084610.png" height="25" width="16px" style="margin-top:-4px;margin-left: -3px;" />
-											<label>驾证到期</label>
-											<input type="date"/>
-										</td>
-									</tr>
-									<tr>
-										<td><label style="margin-left: 11px;">车架号</label><input style="width: 170px;margin-left: 7px;margin-right: 10px;" /><label style="margin-left: 11px;">发动机号</label><input style="width: 120px; margin-left: 10px;margin-right: 10px;"><label style="margin-left: 11px;">车辆年款</label><input style="width: 80px;margin-left: 7px;margin-right: 10px;"><label style="margin-left: 11px;">里程</label><input style="width: 155px;margin-left: 7px;margin-right: 10px;">
-									</tr>
-									<tr>
-										<td>*<label style="margin-left: 10px;">发动机品牌</label>
-											<select style="width: 280px;margin-left: 20px;">
-												<option>1-d2</option>
-												<option>阿达-d3</option>
-											</select><label style="margin-left: 11px;">载重</label><input style="width: 180px; margin-left: 10px;margin-right: 10px;"><label style="margin-left: 11px;">购买日期</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;"></td>
-									</tr>
-									<tr>
-										<td>
-											<label style="margin-left: 11px;">上牌日期</label><input type="date" style="margin-left: 10px; width: 110px;"><label style="margin-left: 11px;">车检到期</label>
-											<input type="date" style="margin-left: 10px; width: 110px;">
-											<label>燃油类别</label>
-											<select style="margin-left: 10px;width: 103px;height: 25px;">
-												<option>个人车</option>
-												<option>公司车</option>
-												<option>租赁车</option>
-											</select>
-											<img @click="mod3" src="img/20210125084610.png" height="25" width="16px" style="margin-top:-4px;margin-left: -3px;" />
-											<input type="checkbox"><label style="margin-left: 3px;margin-right: ;">在我投保投车</label>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<span style="color: red;">保险</span>
-											<label style="margin-left: 11px;">交强险保险公司</label>
-											<select style="margin-left: 10px;width: 105px;">
-												<option>阳光保险</option>
-												<option>中华联合保险公司</option>
-											</select><label style="margin-left: 11px;">交强险到期</label><input style="width: 130px; margin-left: 10px;margin-right: 10px;">
-										</td>
-									</tr>
-									<tr>
-										<td>
-											
-											<label style="margin-left: 11px;">商业保险公司</label>
-											<select style="margin-left: 10px;width: 105px;">
-												<option>阳光保险</option>
-												<option>中华联合保险公司</option>
-											</select><label style="margin-left: 11px;">商业险到期</label><input style="width: 130px; margin-left: 10px;margin-right: 10px;">
-										</td>
+										<td><label style="margin-left: 11px;">备注</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;" v-model="add.carCsrq"></td>
 									</tr>
 								</table>
+								<div class="form-group">
+    								<label for="exampleInputName2">车牌号码</label>
+    								<input type="text" class="form-control" id="exampleInputEmail2" v-model="add2.carCph">
+  									</div>
+  									<div class="form-group">
+    								<label for="exampleInputName2">车辆品牌</label>
+    								<select v-model="add2.carClpp" class="form-control" v-for="item in selet1">
+  											<option :value="item.carId">{{item.brandName}}</option>
+  											
+									</select>
+  									</div>
+  									<div class="form-group">
+										<div class="form-group">
+    									<label for="exampleInputEmail2">车辆型号</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="add2.carType">
+  									</div>
+    									<button type="button"   data-toggle="modal" href="#ppcx" class="btn btn-default">x</button>
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">驾驶员</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="add2.carJsy">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">驾驶员电话</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="add2.carPhone">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">出生日期</label>
+    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="add2.carCsrq">
+  									</div>
+  									<div class="form-group">
+    								<label for="exampleInputName2">车辆归属</label>
+    								<select v-model="add2.carClgs" class="form-control" v-for="item in selet2">
+  											<option :value="item.affiliationid">{{item.affiliationname}}</option>
+									</select>
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">驾驶员地址</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="add2.carJsydz">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">驾照到期</label>
+    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="add2.carJzdq">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">车架号</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="add2.carCjh">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">发动机号</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="add2.carFdjh">
+  									</div>
+  									<div class="form-group">
+    								<label for="exampleInputName2">发动机品牌</label>
+    								<select v-model="add2.carFdjpph" class="form-control" v-for="item in selet1">
+  											<option :value="item.carId">{{item.engineName}}</option>
+  											
+									</select>
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">车辆年款</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="add2.carCllk">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">里程</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="add2.carLc">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">载重</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="add2.carZz">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">车系</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="add2.carCx">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">购买日期</label>
+    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="add2.carGmrq">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">上牌日期</label>
+    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="add2.carSprq">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">车检到期</label>
+    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="add2.carCjdq">
+  									</div>
+  									<div class="form-group">
+    								<label for="exampleInputName2">是否在我投保车中</label>
+    								<select v-model="add2.carSf" class="form-control">
+  											<option value="是">是</option>
+  											<option value="否">否</option>
+									</select>
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">二维日期</label>
+    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="add2.carEwrq">
+  									</div>
+  									<div class="form-group">
+    								<label for="exampleInputName2">燃油类别 </label>
+    								<select v-model="add2.carRylb" class="form-control">
+  											<option value="柴油">柴油</option>
+  											<option value="汽油">汽油</option>
+									</select>
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2"> 下次保养里程</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="add2.carXcbylc">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">下次保养日期 </label>
+    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="add2.carXcbyrq">
+  									</div>
+  									<div class="form-group">
+    								<label for="exampleInputName2">交商业保险公司</label>
+    								<select v-model="add2.column1" class="form-control" v-for="item in selet4">
+  											<option :value="item.sybxid">{{item.sybxname}}</option>
+  											
+									</select>
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">商业险到期 </label>
+    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="add2.column2">
+  									</div>
+  									<div class="form-group">
+    								<label for="exampleInputName2">交强险保险公司</label>
+    								<select v-model="add2.carjqxbxgs" class="form-control" v-for="item in selet3">
+  											<option :value="item.qbxid">{{item.qbxname}}</option>
+  											
+									</select>
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">强险到期日期 </label>
+    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="add2.carJqxdq">
+  									</div>
+  									<div class="form-group">
+    								<label for="exampleInputName2">客户名称</label>
+    								<select v-model="add2.column3" class="form-control" v-for="item in selet5">
+  											<option :value="item.id">{{item.khName}}</option>
+  											
+									</select>
+  									</div>
 							</div>
 						</div>
 					</div>
@@ -255,51 +283,121 @@
 					<div style="width: 900px;" class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-header">
-								<span class="close" data-dismiss="modal">&times;</span>
+								<span class="close" data-dismiss="modal" >&times;</span>
 								<h5 class="col-xs-10">客户资料编辑</h5>
-								<button class="btn btn-default col-xs-1" style="background-color:#82D921 ;">保存</button>
+								<button class="btn btn-default col-xs-1" style="background-color:#82D921 ;" @click="addStudent()">保存</button>
 							</div>
 							<div class="modal-body" style="background-color: #F7F7F7;">
 								<table class="table table-hover">
 									<tr>
-										<td>*<label style="margin-left: 10px;">客户编码</label><input disabled="disabled" style="width: 120px;margin-left: 7px;margin-right: 10px;" />*<label style="margin-left: 10px;">客户名称</label><input style="width: 120px; margin-left: 10px;"><label style="margin-left: 10px;">联系人</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;">*<label style="margin-left: 10px;">手机号码</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;"></td>
+										<td>*<label style="margin-left: 10px;">客户编码</label><input  style="width: 120px;margin-left: 7px;margin-right: 10px;" v-model="add.khid"/>*
+											<label style="margin-left: 10px;">客户名称</label><input style="width: 120px; margin-left: 10px;" v-model="add.khName">
+											<label style="margin-left: 10px;">联系人</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;" v-model="add.lxpeople">*
+											<label style="margin-left: 10px;">手机号码</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;" v-model="add.phone"></td>
 									</tr>
 
 									<tr>
-										<td><label style="margin-left: 10px;">客户地址</label><input style="width: 340px;margin-left: 7px;margin-right: 10px;" /><label style="margin-left: 11px;">客户生日</label><input type="date" style="width: 120px; margin-left: 10px;margin-right: 10px;"></td>
+										<td><label style="margin-left: 10px;">客户地址</label><input style="width: 340px;margin-left: 7px;margin-right: 10px;" v-model="add.adress"/>
+										<label style="margin-left: 11px;">客户生日</label><input type="date" style="width: 120px; margin-left: 10px;margin-right: 10px;" v-model="add.birthday"></td>
 									</tr>
 									<tr>
-										<td><label style="margin-left: 11px;">账期</label><input type="number" style="width: 50px;margin-left: 7px;margin-right: 10px;" /><label style="margin-left: 11px;">挂账额度</label><input style="width: 120px; margin-left: 10px;margin-right: 10px;"><label style="margin-left: 11px;">专属顾问</label><input style="width: 80px;margin-left: 7px;margin-right: 10px;"><label style="margin-left: 11px;">顾问电话</label><input style="width: 155px;margin-left: 7px;margin-right: 10px;">
+										<td><label style="margin-left: 11px;">账期</label><input type="number" style="width: 50px;margin-left: 7px;margin-right: 10px;" v-model="add.zq"/>
+										<label style="margin-left: 11px;">挂账额度</label><input style="width: 120px; margin-left: 10px;margin-right: 10px;" v-model="add.gzmoeny">
+										<label style="margin-left: 11px;">专属顾问</label><input style="width: 80px;margin-left: 7px;margin-right: 10px;" v-model="add.fwgw">
+										<label style="margin-left: 11px;">顾问电话</label><input style="width: 155px;margin-left: 7px;margin-right: 10px;" v-model="add.ywphone">
 									</tr>
 									<tr>
 										<td>
 											<label>省</label>
-											<input><img @click="showmo" src="img/20210125084610.png" height="23" width="16px" style="margin-top:-4.5px;margin-left: 0px;"/>
+											<input v-model="add.khsheng"><img @click="showmo" src="img/20210125084610.png" height="23" width="16px" style="margin-top:-4.5px;margin-left: 0px;"/>
 											<label>市</label>
-											<input /><img @click="showmo1" src="img/20210125084610.png"  height="23" width="16px" style="margin-top:-4.5px;margin-left: 0px;"/>
+											<input v-model="add.khshi"/><img @click="showmo1" src="img/20210125084610.png"  height="23" width="16px" style="margin-top:-4.5px;margin-left: 0px;"/>
 											<label>区</label>
-											<input><img @click="showmo2" src="img/20210125084610.png"  height="23" width="16px" style="margin-top:-4.5px;margin-left: 0px;"/>
+											<input v-model="add.khq"><img @click="showmo2" src="img/20210125084610.png"  height="23" width="16px" style="margin-top:-4.5px;margin-left: 0px;"/>
 										</td>
 									</tr>
 									<tr>
-										<td><label style="margin-left: 11px;">备注</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;"></td>
+										<td><label style="margin-left: 11px;">备注</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;" v-model="add.remarks"></td>
 									</tr>
 									<tr>
-										<td><label style="margin-left: 10px;">纳税人识别号</label><input style="width: 120px;margin-left: 7px;" /><img @click="mod" src="img/20210125084610.png" height="23" width="16px" style="margin-top:-2.5px;"><label style="margin-left: 10px;">注册电话</label><input style="width: 120px; margin-left: 10px;"><img @click="mod1" src="img/20210125084610.png" height="23" width="16px" style="margin-top:-2.5px; margin-right: 4px;"><label style="margin-left: 10px;">开户银行</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;"></td>
+										<td><label style="margin-left: 10px;">纳税人识别号</label><input style="width: 120px;margin-left: 7px;" v-model="add.nsr"/><img @click="mod" src="img/20210125084610.png" height="23" width="16px" style="margin-top:-2.5px;">
+										<label style="margin-left: 10px;">注册电话</label><input style="width: 120px; margin-left: 10px;" v-model="add.zcdh"><img @click="mod1" src="img/20210125084610.png" height="23" width="16px" style="margin-top:-2.5px; margin-right: 4px;">
+										<label style="margin-left: 10px;">开户银行</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;" v-model="add.khyh"></td>
 									</tr>
 									<tr>
 										<td>
-											<label style="margin-left: 10px;">银行账号</label><input style="width: 105px;margin-left: 7px;margin-right: 10px;" /><label style="margin-left: 11px;">注册地址</label><input style="width: 120px; margin-left: 10px;margin-right: 10px;">
+											<label style="margin-left: 10px;">银行账号</label><input style="width: 105px;margin-left: 7px;margin-right: 10px;" v-model="add.column1"/>
+											<label style="margin-left: 11px;">注册地址</label><input style="width: 120px; margin-left: 10px;margin-right: 10px;" v-model="add.zcadress">
 										</td>
-									</tr>
-									<tr>
-										<td><label style="margin-left: 11px;">其它一</label><input style="width: 170px;margin-left: 7px;margin-right: 10px;" /><label style="margin-left: 11px;">其它二</label><input style="width: 120px; margin-left: 10px;margin-right: 10px;"><label style="margin-left: 11px;">其它三</label><input style="width: 80px;margin-left: 7px;margin-right: 10px;"><label style="margin-left: 11px;">其它四</label><input style="width: 155px;margin-left: 7px;margin-right: 10px;">
 									</tr>
 								</table>
 							</div>
 						</div>
 					</div>
 				</div>
+				<div class="modal" id="kehuxg" data-backdrop="static">
+					<div style="width: 900px;" class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<span class="close" data-dismiss="modal" @click="gbxg()">&times;</span>
+								<h5 class="col-xs-10">客户资料修改</h5>
+								<button class="btn btn-default col-xs-1" style="background-color:#82D921 ;" @click="addStudent()">保存</button>
+							</div>
+							<div class="modal-body" style="background-color: #F7F7F7;">
+								<table class="table table-hover">
+									<tr>
+										<td>*<label style="margin-left: 10px;">客户编码</label><input  style="width: 120px;margin-left: 7px;margin-right: 10px;" v-model="edit.khid"/>*
+											<label style="margin-left: 10px;">客户名称</label><input style="width: 120px; margin-left: 10px;" v-model="edit.khName">
+											<label style="margin-left: 10px;">联系人</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;" v-model="edit.lxpeople">*
+											<label style="margin-left: 10px;">手机号码</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;" v-model="edit.phone"></td>
+									</tr>
+
+									<tr>
+										<td><label style="margin-left: 10px;">客户地址</label><input style="width: 340px;margin-left: 7px;margin-right: 10px;" v-model="edit.adress"/>
+										<label style="margin-left: 11px;">客户生日</label><input type="date" style="width: 120px; margin-left: 10px;margin-right: 10px;" v-model="edit.birthday"></td>
+									</tr>
+									<tr>
+										<td><label style="margin-left: 11px;">账期</label><input type="number" style="width: 50px;margin-left: 7px;margin-right: 10px;" v-model="edit.zq"/>
+										<label style="margin-left: 11px;">挂账额度</label><input style="width: 120px; margin-left: 10px;margin-right: 10px;" v-model="edit.gzmoeny">
+										<label style="margin-left: 11px;">专属顾问</label><input style="width: 80px;margin-left: 7px;margin-right: 10px;" v-model="edit.fwgw">
+										<label style="margin-left: 11px;">顾问电话</label><input style="width: 155px;margin-left: 7px;margin-right: 10px;" v-model="edit.ywphone">
+									</tr>
+									<tr>
+										<td>
+											<label>省</label>
+											<input v-model="edit.khsheng"><img @click="showmo" src="img/20210125084610.png" height="23" width="16px" style="margin-top:-4.5px;margin-left: 0px;"/>
+											<label>市</label>
+											<input v-model="edit.khshi"/><img @click="showmo1" src="img/20210125084610.png"  height="23" width="16px" style="margin-top:-4.5px;margin-left: 0px;"/>
+											<label>区</label>
+											<input v-model="edit.khq"><img @click="showmo2" src="img/20210125084610.png"  height="23" width="16px" style="margin-top:-4.5px;margin-left: 0px;"/>
+										</td>
+									</tr>
+									<tr>
+										<td><label style="margin-left: 11px;">备注</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;" v-model="edit.remarks"></td>
+									</tr>
+									<tr>
+										<td><label style="margin-left: 10px;">纳税人识别号</label><input style="width: 120px;margin-left: 7px;" v-model="edit.nsr"/><img @click="mod" src="img/20210125084610.png" height="23" width="16px" style="margin-top:-2.5px;">
+										<label style="margin-left: 10px;">注册电话</label><input style="width: 120px; margin-left: 10px;" v-model="edit.zcdh"><img @click="mod1" src="img/20210125084610.png" height="23" width="16px" style="margin-top:-2.5px; margin-right: 4px;">
+										<label style="margin-left: 10px;">开户银行</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;" v-model="edit.khyh"></td>
+									</tr>
+									<tr>
+										<td>
+											<label style="margin-left: 10px;">银行账号</label><input style="width: 105px;margin-left: 7px;margin-right: 10px;" v-model="edit.column1"/>
+											<label style="margin-left: 11px;">注册地址</label><input style="width: 120px; margin-left: 10px;margin-right: 10px;" v-model="edit.zcadress">
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				
+				
+				
+				
+				
+				
 				<div class="modal" id="mymodal11" data-backdrop="static">
 					<div style="width: 1510px;" class="modal-dialog">
 						<div class="modal-content">
@@ -792,7 +890,7 @@
 		<div style="width: 1500px;height:300px; float: left;overflow: scroll;">
 				<table style=" width: 2910px; max-width: 2920px;height: 300px;max-height: 380px;" class="table table-bordered">
 					<tr style="height: 20px;background-color: #39CEDE;color: white;">
-						<td class="wrap" style="width: 120px;">客户编码</td>
+						<td class="wrap" style="width: 50px;">客户编码</td>
 						<td style="width: 120px">客户名称</td>
 						<td style="width: 120px">详细地址</td>
 						<td style="width: 120px">联系人</td>
@@ -808,8 +906,6 @@
 						<td style="width: 120px">业务员电话</td>
 						<td style="width: 90px">账期(天)</td>
 						<td style="width: 90px">挂账额度</td>
-						<td style="width: 90px">累计积分</td>
-						<td style="width: 90px">订金金额</td>
 						<td style="width: 90px">客户省</td>
 						<td style="width: 90px">客户市</td>
 						<td style="width: 90px">客户区</td>
@@ -823,129 +919,35 @@
 						<td style="width: 90px">其它三</td>
 						<td style="width: 90px">其它四</td>
 					</tr>
-					<tr style="height: 30px;">
-						<td class="wrap">车牌号码</td>
-						<td>车牌号码</td>
-				
-				
-				<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
+					<tr style="height: 30px;"  v-for="item in page" @click="toEdit(item)">
+						<td class="wrap">{{item.khid}}</td>
+		  				<td>{{item.khName}}</td>
+		  				<td>{{item.adress}}</td>
+		  				<td>{{item.lxpeople}}</td>
+		  				<td>{{item.phone}}</td>
+		  				<td>{{item.birthday}}</td>
+		  				<td>{{item.khcategory}}</td>
+		  				<td>{{item.yhnumber}}</td>
+		  				<td>{{item.rhtime}}</td>
+		  				<td>{{item.dqtime}}</td>
+		  				<td>{{item.remarks}}</td>
+		  				<td>{{item.jdtime}}</td>
+		  				<td>{{item.fwgw}}</td>
+		  				<td>{{item.ywphone}}</td>
+		  				<td>{{item.zq}}</td>
+		  				<td>{{item.gzmoeny}}</td>
+		  				<td>{{item.khsheng}}</td>
+		  				<td>{{item.khshi}}</td>
+		  				<td>{{item.khq}}</td>
+		  				<td>{{item.nsr}}</td>
+		  				<td>{{item.zcdh}}</td>
+		  				<td>{{item.khyh}}</td>
+		  				<td>{{item.zcadress}}</td>
+		  				<td>{{item.column1}}</td>
 					</tr>
-					<tr style="height: 30px;">
-						<td class="wrap">车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-					</tr>
-					<tr style="height: 30px;">
-						<td class="wrap">车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-						<td>车牌号码</td>
-					</tr>
+					
 				</table>
-			</div>
-		
-		
-		
-		
-		<nav aria-label="Page navigation">
-			  <ul class="pagination">
-			    <li>
-			      <a href="#" aria-label="Previous">
-			        <span aria-hidden="true">&laquo;</span>
-			      </a>
-			    </li>
-			    <li><a href="#">1</a></li>
-			    <li><a href="#">2</a></li>
-			    <li><a href="#">3</a></li>
-			    <li><a href="#">4</a></li>
-			    <li><a href="#">5</a></li>
-			    <li>
-			      <a href="#" aria-label="Next">
-			        <span aria-hidden="true">&raquo;</span>
-			      </a>
-			    </li>
-			  </ul>
-		</nav>
+		</div>
 
 
 
@@ -965,7 +967,7 @@
 				</ul>
 		<div style="width: 1500px;height:240px; float: left;margin-top: -10px;overflow: scroll;">
 					<table id="clxx" style=" width: 2910px; max-width: 2920px;height: 300px;max-height: 380px;" class="table table-bordered">
-						<tr style="background-color: #39CEDE;height: 30px;">
+						<tr style="background-color: #39CEDE;height: 50px;">
 							<td>车牌号码</td>
 							<td>车辆品牌</td>
 							<td>车辆型号</td>
@@ -995,186 +997,40 @@
 							<td>下次保养里程</td>
 							<td>会员码</td>
 						</tr>
-						<tr>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-						</tr>
-						<tr>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-						</tr>
-						<tr>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-						</tr>
-						<tr>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-						</tr>
-						<tr>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-						</tr>
-						<tr>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-							<td>车牌号码</td>
-						</tr>
+						<tr  v-for="item in selet6" @click="toEdit2(item)" style="height: 50px;">
+			 				<td>{{item.carCph}}</td>
+			  				<td>{{item.carClpp}}</td>
+			  				<td>{{item.carType}}</td>
+			  				<td>{{item.carJsy}}</td>
+			  				<td>{{item.carPhone}}</td>
+			  				<td>{{item.carCsrq}}</td>
+			  				<td>{{item.carClgs}}</td>
+			  				<td>{{item.carJsydz}}</td>
+			  				<td>{{item.carJzdq}}</td>
+			  				<td>{{item.carCjh}}</td>
+			  				<td>{{item.carFdjh}}</td>
+			  				<td>{{item.carFdjpph}}</td>
+			  				<td>{{item.carCllk}}</td>
+			  				<td>{{item.carLc}}</td>
+			  				<td>{{item.carZz}}</td>
+			  				<td>{{item.carCx}}</td>
+			  				<td>{{item.carGmrq}}</td>
+			  				<td>{{item.carSprq}}</td>
+			  				<td>{{item.carCjdq}}</td>
+			  				<td>{{item.carjqxbxgs}}</td>
+			  				<td>{{item.carJqxdq}}</td>
+			  				<td>{{item.carSf}}</td>
+			  				<td>{{item.carEwrq}}</td>
+			  				<td>{{item.carRylb}}</td>
+			  				<td>{{item.carXcbylc}}</td>
+			  				<td>{{item.carXcbyrq}}</td>
+			  				<td>{{item.carHym}}</td>
+			  				<td>{{item.column1}}</td>
+			  				<td>{{item.column2}}</td>
+			  				<td>{{item.column3}}</td>
+	  				
+	  				
+	  				</tr>
 					</table>
 					<table id="lsxf" class="table table-bordered" style="display: none;">
 						<tr style="background-color: #39CEDE;">
@@ -1223,31 +1079,7 @@
 							<td>车牌号码</td>
 						</tr>
 					</table>
-				</div>
-		
-		
-		<nav aria-label="Page navigation">
-			  <ul class="pagination">
-			    <li>
-			      <a href="#" aria-label="Previous">
-			        <span aria-hidden="true">&laquo;</span>
-			      </a>
-			    </li>
-			    <li><a href="#">1</a></li>
-			    <li><a href="#">2</a></li>
-			    <li><a href="#">3</a></li>
-			    <li><a href="#">4</a></li>
-			    <li><a href="#">5</a></li>
-			    <li>
-			      <a href="#" aria-label="Next">
-			        <span aria-hidden="true">&raquo;</span>
-			      </a>
-			    </li>
-			  </ul>
-			</nav>
-		
-		
-		
+			</div>
 			
 			
 			
@@ -1315,6 +1147,338 @@
 					</div>
 				</div>
 			</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<!--新增-->
+			<div class="modal" data-backdrop="true" id="insertmodal">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">车辆资料编辑</div>
+						<div class="modal-body">
+							<div class="editStudent">
+									<form class="form-inline">
+  									<div class="form-group">
+    								<label for="exampleInputName2">车牌号码</label>
+    								<input type="text" class="form-control" id="exampleInputEmail2" v-model="add.carCph">
+  									</div>
+  									<div class="form-group">
+    								<label for="exampleInputName2">车辆品牌</label>
+    								<select v-model="add.carClpp" class="form-control" v-for="item in selet1">
+  											<option :value="item.carId">{{item.brandName}}</option>
+  											
+									</select>
+  									</div>
+  									<div class="form-group">
+										<div class="form-group">
+    									<label for="exampleInputEmail2">车辆型号</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="add.carType">
+  									</div>
+    									<button type="button"   data-toggle="modal" href="#ppcx" class="btn btn-default">x</button>
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">驾驶员</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="add.carJsy">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">驾驶员电话</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="add.carPhone">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">出生日期</label>
+    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="add.carCsrq">
+  									</div>
+  									<div class="form-group">
+    								<label for="exampleInputName2">车辆归属</label>
+    								<select v-model="add.carClgs" class="form-control" v-for="item in selet2">
+  											<option :value="item.affiliationid">{{item.affiliationname}}</option>
+									</select>
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">驾驶员地址</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="add.carJsydz">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">驾照到期</label>
+    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="add.carJzdq">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">车架号</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="add.carCjh">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">发动机号</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="add.carFdjh">
+  									</div>
+  									<div class="form-group">
+    								<label for="exampleInputName2">发动机品牌</label>
+    								<select v-model="add.carFdjpph" class="form-control" v-for="item in selet1">
+  											<option :value="item.carId">{{item.engineName}}</option>
+  											
+									</select>
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">车辆年款</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="add.carCllk">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">里程</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="add.carLc">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">载重</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="add.carZz">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">车系</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="add.carCx">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">购买日期</label>
+    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="add.carGmrq">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">上牌日期</label>
+    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="add.carSprq">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">车检到期</label>
+    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="add.carCjdq">
+  									</div>
+  									<div class="form-group">
+    								<label for="exampleInputName2">是否在我投保车中</label>
+    								<select v-model="add.carSf" class="form-control">
+  											<option value="是">是</option>
+  											<option value="否">否</option>
+									</select>
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">二维日期</label>
+    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="add.carEwrq">
+  									</div>
+  									<div class="form-group">
+    								<label for="exampleInputName2">燃油类别 </label>
+    								<select v-model="add.carRylb" class="form-control">
+  											<option value="柴油">柴油</option>
+  											<option value="汽油">汽油</option>
+									</select>
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2"> 下次保养里程</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="add.carXcbylc">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">下次保养日期 </label>
+    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="add.carXcbyrq">
+  									</div>
+  									<div class="form-group">
+    								<label for="exampleInputName2">交商业保险公司</label>
+    								<select v-model="add.column1" class="form-control" v-for="item in selet4">
+  											<option :value="item.sybxid">{{item.sybxname}}</option>
+  											
+									</select>
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">商业险到期 </label>
+    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="add.column2">
+  									</div>
+  									<div class="form-group">
+    								<label for="exampleInputName2">交强险保险公司</label>
+    								<select v-model="add.carjqxbxgs" class="form-control" v-for="item in selet3">
+  											<option :value="item.qbxid">{{item.qbxname}}</option>
+  											
+									</select>
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">强险到期日期 </label>
+    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="add.carJqxdq">
+  									</div>
+  									<div class="form-group">
+    								<label for="exampleInputName2">客户名称</label>
+    								<select v-model="add.column3" class="form-control" v-for="item in selet5">
+  											<option :value="item.id">{{item.khName}}</option>
+  											
+									</select>
+  									</div>
+									</form>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button @click="addStudent()">保存</button>
+							<button>关闭</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
+			<!--修改-->
+			<div class="modal" data-backdrop="true" id="updatamodal">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">车辆资料编辑</div>
+						<div class="modal-body">
+							<div class="editStudent">
+									<form class="form-inline">
+  									<div class="form-group">
+    								<label for="exampleInputName2">车牌号码</label>
+    								<input type="text" class="form-control" id="exampleInputEmail2" v-model="edit.carCph">
+  									</div>
+  									<div class="form-group">
+    								<label for="exampleInputName2">车辆品牌</label>
+    								<select v-model="edit.carClpp" class="form-control" >
+  											<option v-for="item in selet1" :value="item.carId">{{item.brandName}}</option>
+  											
+									</select>
+  									</div>
+  									<div class="form-group">
+										<div class="form-group">
+    									<label for="exampleInputEmail2">车辆型号</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="edit.carType">
+  									</div>
+    									<button type="button"   data-toggle="modal" href="#ppcx" class="btn btn-default">x</button>
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">驾驶员</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="edit.carJsy">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">驾驶员电话</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="edit.carPhone">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">出生日期</label>
+    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="edit.carCsrq">
+  									</div>
+  									<div class="form-group">
+    								<label for="exampleInputName2">车辆归属</label>
+    								<select v-model="edit.carClgs" class="form-control" >
+  											<option v-for="item in selet2" :value="item.affiliationid">{{item.affiliationname}}</option>
+									</select>
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">驾驶员地址</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="edit.carJsydz">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">驾照到期</label>
+    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="edit.carJzdq">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">车架号</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="edit.carCjh">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">发动机号</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="edit.carFdjh">
+  									</div>
+  									<div class="form-group">
+    								<label for="exampleInputName2">发动机品牌</label>
+    								<select v-model="edit.carFdjpph" class="form-control" >
+  											<option  v-for="item in selet1" :value="item.carId">{{item.engineName}}</option>
+  											
+									</select>
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">车辆年款</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="edit.carCllk">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">里程</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="edit.carLc">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">载重</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="edit.carZz">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">车系</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="edit.carCx">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">购买日期</label>
+    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="edit.carGmrq">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">上牌日期</label>
+    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="edit.carSprq">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">车检到期</label>
+    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="edit.carCjdq">
+  									</div>
+  									<div class="form-group">
+    								<label for="exampleInputName2">是否在我投保车中</label>
+    								<select v-model="edit.carSf" class="form-control">
+  											<option value="是">是</option>
+  											<option value="否">否</option>
+									</select>
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">二维日期</label>
+    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="edit.carEwrq">
+  									</div>
+  									<div class="form-group">
+    								<label for="exampleInputName2">燃油类别 </label>
+    								<select v-model="edit.carRylb" class="form-control">
+  											<option value="柴油">柴油</option>
+  											<option value="汽油">汽油</option>
+									</select>
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2"> 下次保养里程</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="edit.carXcbylc">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">下次保养日期 </label>
+    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="edit.carXcbyrq">
+  									</div>
+  									<div class="form-group">
+    								<label for="exampleInputName2">交商业保险公司</label>
+    								<select v-model="edit.column1" class="form-control" >
+  											<option v-for="item in selet4" :value="item.sybxid">{{item.sybxname}}</option>
+  											
+									</select>
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">商业险到期 </label>
+    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="edit.column2">
+  									</div>
+  									<div class="form-group">
+    								<label for="exampleInputName2">交强险保险公司</label>
+    								<select v-model="edit.carjqxbxgs" class="form-control" >
+  											<option v-for="item in selet3" :value="item.qbxid">{{item.qbxname}}</option>
+  											
+									</select>
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">强险到期日期 </label>
+    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="edit.carJqxdq">
+  									</div>
+  									<div class="form-group">
+    								<label for="exampleInputName2">客户名称</label>
+    								<select v-model="edit.column3" class="form-control" >
+  											<option v-for="item in selet5" :value="item.id">{{item.khName}}</option>
+  											
+									</select>
+  									</div>
+									</form>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button @click="editStudent()">保存</button>
+							<button>关闭</button>
+						</div>
+					</div>
+				</div>
+			</div>
 			</div>
 	</body>
 	<script type="text/javascript" src="../js/jquery.min.js" ></script>
@@ -1324,9 +1488,29 @@
 			new Vue({
 				el: "#lx",
 				data: {
-					ss:[]
+					ss:[],
+					clss:null,
+					page:{},
+					page2:{},
+					edit:{},
+					edit2:{},
+					add:{},
+					add2:{},
+					pagePl:{},
+					selet1:{},
+					selet2:{},
+					selet3:{},
+					selet4:{},
+					selet5:{},
+					selet6:{}
 				},
 				methods: {
+					showmo5(){
+						$("#kehuxg").show();
+					},
+					gbxg(){
+						$("#kehuxg").hide();
+					},
 					khbj() {
 						$("#kh").show();
 					},
@@ -1392,9 +1576,227 @@
 					},
 					qx(){
 						ss=[];
-					}
+					},
+					
+					
+					
+					
+					
+					addStudentdc(){
+								let that = this;
+									var json = JSON.stringify(that.add);
+									var json2 = JSON.stringify(that.add2);
+									alert(json)
+								$.ajax({
+										url:"http://127.0.0.1:8080/consumer/insert/",
+										data:json,
+										type:"post",
+										contentType:"application/json;charset=utf-8", 
+										success:function(){
+												alert("新增成功")
+												that.find();
+											}
+								});
+								$.ajax({
+										url:"http://127.0.0.1:8080/car/insert/",
+										data:json,
+										type:"post",
+										contentType:"application/json;charset=utf-8", 
+										success:function(){
+												alert("新增成功")
+												that.find();
+											},error:function(){
+												alert("车牌号重复，新增失败")
+											}
+										})
+									
+							},
+					addStudent(){
+								let that = this;
+									var json = JSON.stringify(that.add);
+									alert(json)
+								$.ajax({
+										url:"http://127.0.0.1:8080/consumer/insert/",
+										data:json,
+										type:"post",
+										contentType:"application/json;charset=utf-8", 
+										success:function(){
+												alert("新增成功")
+												that.find();
+											}
+								});
+									
+								},
+						find(){
+								let that = this;
+								var kehu = that.clss;
+								alert("用户搜索"+kehu);
+								$.ajax({
+										url:"http://127.0.0.1:8080/consumer/selectPage/",
+										data:{kehu:kehu},
+										type:"post",
+										dataType:"json",
+										success:function(result){
+												that.page=result;
+												alert(JSON.stringify(that.page))
+												alert("查询成功")
+											}
+									});
+							},selectPage(){
+								let that = this;
+								$.ajax({
+										url:"http://127.0.0.1:8080/car/SelectCx/",
+										type:"post",
+										dataType:"json",
+										success:function(result){
+												that.selet1=result;
+												
+											}
+									});
+									$.ajax({
+										url:"http://127.0.0.1:8080/car/SelectCxGs/",
+										type:"post",
+										dataType:"json", 
+										success:function(result){
+												that.selet2=result;
+												
+											}
+									});
+									$.ajax({
+										url:"http://127.0.0.1:8080/car/SelectQxgs/",
+										type:"post",
+										dataType:"json",
+										 
+										success:function(result){
+												that.selet3=result;
+												
+											}
+									});
+									$.ajax({
+										url:"http://127.0.0.1:8080/car/Selectsyxgs/",
+										type:"post",
+										dataType:"json",
+										success:function(result){
+												that.selet4=result;
+												
+											}
+									});
+									$.ajax({
+										url:"http://127.0.0.1:8080/car/SelectKh/",
+										type:"post",
+										dataType:"json",
+										success:function(result){
+												that.selet5=result;
+												
+											}
+									});
+							},findKhID(id){
+								let that = this;
+								alert("用户id"+id)
+								$.ajax({
+										url:"http://127.0.0.1:8080/car/SelectClID/",
+										data:{id:id},
+										type:"post",
+										dataType:"json",
+										success:function(result){
+												that.selet6=result;
+												alert("车辆信息"+JSON.stringify(that.selet6))
+											}
+									});
+							},remove(item){
+								let that = this;
+								var id = item.id;
+								alert(id)
+								$.ajax({
+										url:"http://127.0.0.1:8080/consumer/delect/",
+										data:{id:id},
+										type:"post",
+										success:function(){
+												that.find();
+											}
+									});
+									
+							},
+							toEdit(item){
+									this.edit = JSON.parse(JSON.stringify(item));
+									alert(JSON.stringify(this.edit));
+									this.findKhID(item.id);
+								},
+								editStudent(){
+										let that = this;
+										var json = JSON.stringify(that.edit);
+										$.ajax({
+												url:"http://127.0.0.1:8080/consumer/update/",
+												data:json,
+												type:"post", 
+												contentType:"application/json;charset=utf-8",
+												success:function(){
+														alert("修改成功")
+														that.find();
+													}
+											});
+											
+											
+								},
+								
+								
+								
+								
+							addStudent2s(){
+								let that = this;
+									var json = JSON.stringify(that.add);
+									alert(json)
+								$.ajax({
+										url:"http://127.0.0.1:8080/car/insert/",
+										data:json,
+										type:"post",
+										contentType:"application/json;charset=utf-8", 
+										success:function(){
+												alert("新增成功")
+												that.find();
+											},error:function(){
+												alert("车牌号重复，新增失败")
+											}
+								});
+									
+								},remove2(item){
+								let that = this;
+								var id = item.carCph;
+								alert(id)
+								$.ajax({
+										url:"http://127.0.0.1:8080/car/delect/",
+										data:{id:id},
+										type:"post",
+										success:function(){
+												that.find();
+											}
+									});
+									
+							},
+							toEdit2(item){
+									this.edit = JSON.parse(JSON.stringify(item));
+									this.findKhID(item.column3);
+								},
+								editStudent2(){
+										let that = this;
+										var json = JSON.stringify(that.edit);
+										$.ajax({
+												url:"http://127.0.0.1:8080/car/update/",
+												data:json,
+												type:"post", 
+												contentType:"application/json;charset=utf-8",
+												success:function(){
+														alert("修改成功");
+														that.find();
+													}
+											});
+											
+											
+								}
 				},
 				created() {
+					this.find();
+					this.selectPage();
 				}
 			});
 		</script>

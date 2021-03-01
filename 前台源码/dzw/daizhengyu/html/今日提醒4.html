@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link href="../../css/bootstrap.min.css" rel="stylesheet" />
+	</head>
+	<body>
+		<!--待入库旧件-->
+		<div id="ctx">
+		<table class="table table-striped">
+  			<tr>
+				<td>车牌号码333</td>
+				<td>车牌号码333</td>
+				<td>车牌号码333</td>
+				<td>车牌号码333</td>
+				<td>车牌号码333</td>
+				<td>车牌号码333</td>
+				<td>车牌号码333</td>
+				<td>车牌号码333</td>
+				<td>车牌号码333</td>
+				<td>车牌号码333</td>
+				<td>车牌号码333</td>
+				<td>车牌号码333</td>
+			</tr>
+			<tr  v-for="item in page">
+	 				<td>{{item.llId}}</td>
+	  				<td>{{item.llTime}}</td>
+	  				<td>{{item.llName}}</td>
+	  				<td>{{item.llWlBm}}</td>
+	  				<td>{{item.llWlName}}</td>
+	  				<td>{{item.llDanweiName}}</td>
+	  				<td>{{item.llJl}}</td>
+	  				<td>{{item.llSl}}</td>
+	  				<td>{{item.llDj}}</td>
+	  				<td>{{item.llE}}</td>
+	  				<td>{{item.llMdyl}}</td>
+	  				<td>{{item.llHszt}}</td>
+	  				
+	  		</tr>
+		</table>
+		</div>
+	</body>
+	<script type="text/javascript" src="../js/jquery.min.js" ></script>
+	<script type="text/javascript" src="../js/vue.js" ></script>
+	<script type="text/javascript" src="../js/bootstrap.min.js" ></script>
+	<script>
+		var vm = new Vue({
+			el:"#ctx",
+				data:{
+				page:{}
+				
+				},
+				methods:{
+						find(){
+								let that = this;
+								var car = that.clss;
+								alert("车辆搜索"+car);
+								$.ajax({
+										url:"http://127.0.0.1:8080/car/SelectLinliaoBiao/",
+										data:{car:car},
+										type:"post",
+										dataType:"json",
+										success:function(result){
+												that.page=result;
+												/*alert(JSON.stringify(that.page))
+												alert("查询成功")*/
+											}
+									});
+							}
+					},
+					created(){
+						this.find();
+						
+						}
+		})
+	</script>
+</html>

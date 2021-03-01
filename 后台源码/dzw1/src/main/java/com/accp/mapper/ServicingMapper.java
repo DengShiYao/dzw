@@ -12,5 +12,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2021-02-25
  */
 public interface ServicingMapper extends BaseMapper<Servicing> {
-
+    public  Servicing selBySernumber(String serNumber);
 }

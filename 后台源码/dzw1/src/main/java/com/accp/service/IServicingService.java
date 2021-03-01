@@ -12,5 +12,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2021-02-25
  */
 public interface IServicingService extends IService<Servicing> {
-
+    /**
+     * 自动生成维修单号
+     * @return
+     */
+    public String getServicingId(String servicingId);
 }
