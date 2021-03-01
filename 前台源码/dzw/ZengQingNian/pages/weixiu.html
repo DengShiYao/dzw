@@ -5,69 +5,74 @@
 		<title>维修项目</title>
 		<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"/>
 	</head>
+	<style type="text/css">
+	</style>
 	<body>
 		<div class="container-fluid" id="ctn">
-			<table class="table table-bordered table-striped table-hover">
-				<tr style="background-color: rgb(33,182,206); color: white;">
-					<td>选择</td>
-					<td>项目编码</td>
-					<td>项目名称</td>
-					<td>数量</td>
-					<td>价类</td>
-					<td>单价</td>
-					<td>金额</td>
-					<td>技师结算价</td>
-					<td>故障描述</td>
-					<td>故障原因</td>
-					<td>维修班组</td>
-					<td>作业人员</td>
-					<td>服务顾问</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>10002</td>
-					<td>修校驾驶室顶棚</td>
-					<td>1.00</td>
-					<td>自费</td>
-					<td>1.00</td>
-					<td>1.00</td>
-					<td>1.00</td>
-					<td>1</td>
-					<td>水箱漏水</td>
-					<td>机修1组</td>
-					<td></td>
-					<td>张三</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>合计</td>
-					<td></td>
-					<td>1.00</td>
-					<td></td>
-					<td>0.00</td>
-					<td>1.00</td>
-					<td>0.00</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-			</table>
+			<div class="row">
+				<table class="table table-bordered table-striped table-hover">
+					<tr style="background-color: rgb(33,182,206); color: white;">
+						<td>选择</td>
+						<td>项目编码</td>
+						<td>项目名称</td>
+						<td>数量</td>
+						<td>价类</td>
+						<td>单价</td>
+						<td>金额</td>
+						<td>技师结算价</td>
+						<td>故障描述</td>
+						<td>故障原因</td>
+						<td>维修班组</td>
+						<td>作业人员</td>
+						<td>服务顾问</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox"></td>
+						<td>10002</td>
+						<td>修校驾驶室顶棚</td>
+						<td>1.00</td>
+						<td>自费</td>
+						<td>1.00</td>
+						<td>1.00</td>
+						<td>1.00</td>
+						<td>1</td>
+						<td>水箱漏水</td>
+						<td>机修1组</td>
+						<td></td>
+						<td>张三</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox"></td>
+						<td>合计</td>
+						<td></td>
+						<td>1.00</td>
+						<td></td>
+						<td>0.00</td>
+						<td>1.00</td>
+						<td>0.00</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+				</table>
+			</div>
+			
 		</div>
-		<script src="js/jquery-1.12.4.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-		<script src="js/vue-2.6.js"></script>
+		<script src="../js/jquery-1.12.4.js"></script>
+		<script src="../js/bootstrap.min.js"></script>
+		<script src="../js/vue-2.6.js"></script>
 		<script>
 			new Vue({
 				el:"#ctn",
 				data(){
 					return {
-						
+					
 					}
 				},
 				methods:{
-					
+				
 				}
 			})
 		</script>

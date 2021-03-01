@@ -69,7 +69,7 @@ public class Cargoods extends Model<Cargoods> {
     @ApiModelProperty(value = "接车人")
     private String carJiecheuser;
 
-    @ApiModelProperty(value = "备用列1")
+    @ApiModelProperty(value = "维修单号")
     private String column1;
 
     @ApiModelProperty(value = "备用列2")
