@@ -1,15 +1,17 @@
 package com.accp.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>
@@ -26,6 +28,9 @@ import lombok.experimental.Accessors;
 public class SysMenu extends Model<SysMenu> {
 
     private static final long serialVersionUID=1L;
+
+    @TableField(exist = false)
+    private List<SysMenu> SysMenuC;
 
     @ApiModelProperty(value = "菜单ID")
     @TableId(value = "menu_id", type = IdType.AUTO)
@@ -53,7 +58,7 @@ public class SysMenu extends Model<SysMenu> {
     private String perms;
 
     @ApiModelProperty(value = "创建时间")
-    private LocalDateTime createTime;
+    private String createTime;
 
     @ApiModelProperty(value = "备注")
     private String remark;

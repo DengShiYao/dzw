@@ -18,6 +18,46 @@
         <result column="column2" property="column2" />
         <result column="column3" property="column3" />
     </resultMap>
+    <resultMap id="MyResultMap"  type="com.accp.domain.SysMenu" extends="BaseResultMap">
+        <collection property="SysMenuC"   column="{menu_id1=menu_id,user_id1=user_id}" ofType="com.accp.domain.SysMenu" autoMapping="true" javaType="java.util.List" select="findMenuC">
+            <result column="menu_id" property="menu_id"></result>
+        </collection>
+    </resultMap>
+    <select resultMap="MyResultMap" id="findMenuC">
+        SELECT *,@user_id:=#{user_id1} as user_id FROM sys_menu WHERE sys_menu.`menu_id`
+        IN (SELECT sys_role_menu.`menu_id` FROM sys_role_menu WHERE sys_role_menu.`role_id`
+        IN (SELECT role_id FROM sys_role WHERE role_id IN (SELECT sys_user_role.role_id FROM sys_user
+        INNER JOIN sys_user_role ON sys_user.`user_id` = sys_user_role.`user_id`
+        WHERE sys_user.`user_id` = #{user_id1}) and (del_flag != 2 and status != 1))) AND parent_id = #{menu_id1} AND (menu_type="C" || menu_type="D") and char1=0
+    </select>
+
+    <resultMap id="MyResultMap1"  type="com.accp.domain.SysMenu" extends="BaseResultMap">
+        <collection property="SysMenuC"   column="{user_id1=user_id}" ofType="com.accp.domain.SysMenu" autoMapping="true" javaType="java.util.List" select="findMenuC">
+            <result column="menu_id" property="menu_id"></result>
+        </collection>
+    </resultMap>
+
+    <select resultMap="MyResultMap1" id="findMenuM">
+        SELECT *,@user_id:=#{user_id1} as user_id FROM sys_menu WHERE sys_menu.`menu_id`
+        IN (SELECT sys_role_menu.`menu_id` FROM sys_role_menu WHERE sys_role_menu.`role_id`
+        IN (SELECT role_id FROM sys_role WHERE role_id IN (SELECT sys_user_role.role_id FROM sys_user
+        INNER JOIN sys_user_role ON sys_user.`user_id` = sys_user_role.`user_id`
+        WHERE sys_user.`user_id` = #{user_id1}) and (del_flag != 2 and status != 1))) AND menu_type="M" and char1=0
+    </select>
+
+    <select id="findMenuByRole" resultMap="BaseResultMap">
+        SELECT * FROM sys_menu WHERE menu_id IN (
+            SELECT menu_id FROM sys_role_menu WHERE role_id = #{role_id}
+        )
+    </select>
+
+    <select id="findPerms" resultMap="BaseResultMap">
+        SELECT * FROM sys_menu WHERE sys_menu.`menu_id`
+        IN (SELECT sys_role_menu.`menu_id` FROM sys_role_menu WHERE sys_role_menu.`role_id`
+        IN (SELECT role_id FROM sys_role WHERE role_id IN (SELECT sys_user_role.role_id FROM sys_user
+        INNER JOIN sys_user_role ON sys_user.`user_id` = sys_user_role.`user_id`
+        WHERE sys_user.`user_id` = #{user_id1}))) AND menu_type="F" AND char1=0
+    </select>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">

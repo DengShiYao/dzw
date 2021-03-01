@@ -1,399 +1,215 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title>首页</title>
-		<link href="../css/bootstrap.min.css" rel="stylesheet" />
-		<style type="text/css">
-			body,html{
-				margin:0px;
-				padding:0px;
-				height: 100%;
-				background-color: #2E6DA4;
-				color: white;
-			}
-			a{
-				color: white;
-			}
-			#ctn{
-				height: 100%;
-				width:100%;
-				border: 2px solid #e3e3e3;
-			}
-			.hreder{
-				height: 10%;
-				border-bottom: 1px solid #e3e3e3;
-				background-color: #286090;
-				color: white;
-			}
-			iframe{
-				background-color: white;
-			}
-			.nav{
-				margin-left:20px;
-			}
-			.row>div:nth-child(1){
-				border-right:1px solid #e3e3e3;
-			}
-			.a,#a{
-				padding:0px;
-				margin:0px;
-			}
-			iframe{
-				width:100%;
-				height:600px;
-				border:0px;
-			}
-			.tabclose{
-				position: absolute;
-				top:0px;
-				right: 0px;
-			}
-		</style>
-	</head>
-	<body>
-		<div id="ctn" class="container-fluid">
-			<h2 class="hreder">德召文</h2>
-			<div class="row">
-  			<div class="col-md-1"></div>
-  			<div class="col-md-11">
-	  			<ul class="nav nav-tabs">
-				  <li role="presentation"><a href="#" @click="cl_ick0()">服务接待</a></li>
-				  <li role="presentation"><a href="#" @click="cl_ick1()">备品管理</a></li>
-				  <li role="presentation"><a href="#" @click="cl_ick2()">结算中心</a></li>
-				  <li role="presentation"><a href="#" @click="cl_ick3()">客户档案</a></li>
-				  <li role="presentation"><a href="#" @click="cl_ick4()">基础数据</a></li>
-				  <li role="presentation"><a href="#" @click="cl_ick5()">财务管理</a></li>
-				  <li role="presentation"><a href="#" @click="cl_ick6()">行政人事</a></li>
+
+<head>
+	<meta charset="utf-8">
+	<title>首页</title>
+	<link href="../css/bootstrap.min.css" rel="stylesheet" />
+	<style type="text/css">
+		body,
+		html {
+			margin: 0px;
+			padding: 0px;
+			height: 100%;
+			background-color: #2E6DA4;
+			color: white;
+		}
+
+		a {
+			color: white;
+		}
+
+		#ctn {
+			height: 100%;
+			width: 100%;
+			border: 2px solid #e3e3e3;
+		}
+
+		.hreder {
+			height: 10%;
+			border-bottom: 1px solid #e3e3e3;
+			background-color: #286090;
+			color: white;
+		}
+
+		iframe {
+			background-color: white;
+		}
+
+		.nav {
+			margin-left: 20px;
+		}
+
+		.row>div:nth-child(1) {
+			border-right: 1px solid #e3e3e3;
+		}
+
+		.a,
+		#a {
+			padding: 0px;
+			margin: 0px;
+		}
+
+		iframe {
+			width: 100%;
+			height: 600px;
+			border: 0px;
+		}
+
+		.tabclose {
+			position: absolute;
+			top: 0px;
+			right: 0px;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="ctn" class="container-fluid">
+		<h2 class="hreder">德召文</h2>
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-11">
+				<ul class="nav nav-tabs" style="padding-left: 65px;">
+					<li role="presentation" v-for="item in menuM"><a href="#"  @click="find_MenuC(item.menuId)">{{item.menuName}}</a></li>
 				</ul>
 			</div>
-			
 			<div class="row">
 				<div class="col-xs-2">
 					<tree :menu="menu" @create-tab="createTab"></tree>
 				</div>
 				<div class="col-xs-10 a">
 					<ul class="nav nav-tabs" id="a">
-						<li :class="{active:item.active}" v-for="item,index in tabs"><a :href="'#'+item.ename" data-toggle="tab">{{item.name}}<span @click="removeTab(index)" class="close tabclose" data-dismiss="modal" v-if="index!=0">&times;</span></a></li>
+						<li :class="{active:item.active}" v-for="item,index in tabs"><a :href="'#'+item.column1"
+								data-toggle="tab">{{item.menuName}}<span @click="removeTab(index)" class="close tabclose"
+									data-dismiss="modal" v-if="index!=0">&times;</span></a></li>
 					</ul>
 					<div class="tab-content">
-						<div v-for="item in tabs" :id="item.ename" :class="['tab-pane',item.active?'active':'']">
-							<iframe :src="item.path"></iframe>
+						<div v-for="item in tabs" :id="item.column1" :class="['tab-pane',item.active?'active':'']">
+							<iframe :src="item.url"></iframe>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+	</div>
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
 	<script type="text/javascript" src="../js/vue.js"></script>
-	<script src="../static/js/bootstrap.min.js"></script>
-	<script type="text/javascript">	
-		Vue.component("tree",{
-			props:["menu"],
-			template:`
-				<ul class="nav nav-pills nav-stacked">
-					<li v-for="item in menu">
-						<a href="#" @click="createTab(item)">{{item.name}}</a>
-						<tree @create-tab="createTab" :menu="item.children"></tree>
-					</li>
-				</ul>
-			`,
-			methods:{
-				createTab(item){
-					this.$emit("create-tab",item);
+	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		var user = sessionStorage.getItem("user");
+		var basePath = "http://127.0.0.1:8080/";
+		Vue.component("tree", {
+			props: ["menu"],
+			template: `
+			<ul class="nav nav-pills nav-stacked">
+				<li v-for="item in menu">
+					<a href="#" @click="createTab(item)">{{item.menuName}}</a>
+					<tree @create-tab="createTab" :menu="item.sysMenuC"></tree>
+				</li>
+			</ul>
+		`,
+			methods: {
+				createTab(item) {
+					this.$emit("create-tab", item);
 				}
 			}
 		})
-		var menu1 = [{
-					id: 1,
-					name: "首页",
-					ename: "sys"
-				}, {
-					id: 2,
-					name: "服务接待",
-					ename: "sys",
-					children: [{
-						id: 4,
-						name: "维修接车",
-						ename: "wxjc",
-						path: "../../yangguang/html/Maintenance - Repair and Rescue - Maintenance Pick-up.html"
-					}, {
-						id: 5,
-						name: "竣工检验",
-						ename: "jgjy",
-						path: "Select.html"
-					},]
-				}];
-
-				var menu2 = [{
-					id: 1,
-					name: "首页",
-					ename: "sys"
-				}, {
-					id: 2,
-					name: "商品入库",
-					ename: "sys",
-					children: [{
-							id: 4,
-							name: "入库开单",
-							ename: "rkkd",
-							path: "Select.html"
-						}, {
-							id: 5,
-							name: "入库退货",
-							ename: "rkth",
-							path: "Select.html"
-						}, {
-							id: 6,
-							name: "入库审核",
-							ename: "rksh",
-							path: "Select.html"
-						},
-						{
-							id: 7,
-							name: "入库统计",
-							ename: "rktj",
-							path: "Select.html"
-						}
-					]
-				}];
-
-				var menu3 = [{
-					id: 1,
-					name: "首页",
-					ename: "sys"
-				}, {
-					id: 2,
-					name: "前台结算",
-					ename: "sys",
-					children: [{
-							id: 4,
-							name: "结算中心",
-							ename: "jszx",
-							path: "../../ZengQingNian/结算中心.html"
-						}, {
-							id: 5,
-							name: "会员充值卡",
-							ename: "kxtd",
-							path: "../../xjs/Member.html"
-						}, 
-					]
-				}];
-
-				var menu4 = [{
-					id: 1,
-					name: "首页",
-					ename: "sys"
-				}, {
-					id: 2,
-					name: "客户档案",
-					ename: "sys",
-					children: [{
-						id: 4,
-						name: "客户资料",
-						ename: "khzl",
-						path: "客户资料2.html"
-					}, {
-						id: 5,
-						name: "车辆资料",
-						ename: "clzl",
-						path: "车辆页面.html"
-					}]
-				}];
-
-				var menu5 = [{
-					id: 1,
-					name: "首页",
-					ename: "sys"
-				}, {
-					id: 2,
-					name: "主数据",
-					ename: "sys",
-					children: [{
-							id: 4,
-							name: "发动机品牌",
-							ename: "fdjpp",
-							path: "../../yf/engine_brand.html"
-						}, {
-							id: 5,
-							name: "车型档案",
-							ename: "cxda",
-							path: "../../yf/car_brand2.html"
-						},
-						{
-							id: 6,
-							name: "维修项目",
-							ename: "wxxm",
-							path: "../../yf/maintain_pro.html"
-						},
-						{
-							id: 7,
-							name: "商品资料",
-							ename: "spzl",
-							path: "../../yf/commodity_info.html"
-						},
-						{
-							id: 8,
-							name: "供货单位",
-							ename: "ghdw",
-							path: "../../yf/supplier.html"
-						}
-					]
-				}];
-
-				var menu6 = [{
-					id: 1,
-					name: "首页",
-					ename: "sys"
-				}, {
-					id: 2,
-					name: "财务管理",
-					ename: "sys",
-					children: [{
-							id: 4,
-							name: "售价种类",
-							ename: "sjzl",
-							path: "Select.html"
-						}, {
-							id: 5,
-							name: "商品售价表",
-							ename: "spsjb",
-							path: "Select.html"
-						},
-						{
-							id: 6,
-							name: "商品加价率",
-							ename: "spjjl",
-							path: "Select.html"
-						},
-						{
-							id: 7,
-							name: "商品促销设置",
-							ename: "spcx",
-							path: "Select.html"
-						},
-						{
-							id: 8,
-							name: "项目促销设置",
-							ename: "xmcx",
-							path: "Select.html"
-						},
-						{
-							id: 9,
-							name: "特许售价审批",
-							ename: "txsj",
-							path: "Select.html"
-						}
-					]
-				}];
-
-				var menu7 = [{
-					id: 1,
-					name: "首页",
-					ename: "sys"
-				}, {
-					id: 2,
-					name: "员工资料",
-					ename: "sys",
-					children: [{
-						id: 4,
-						name: "组织机构",
-						ename: "zcjg",
-						path: "../../xjs/OrganizationalStructure.html"
-					}, {
-						id: 5,
-						name: "岗位定义",
-						ename: "gwdy",
-						path: "../../xjs/JobDefinition.html"
-					}, {
-						id: 6,
-						name: "离职登记",
-						ename: "lzdj",
-						path: "../../xjs/ExitRegistration.html"
-					}, {
-						id: 7,
-						name: "通讯名录",
-						ename: "txml",
-						path: "../../xjs/Communication.html"
-					}]
-				}, {
-					id: 3,
-					name: "技工管理",
-					ename: "stady",
-					children: [{
-						id: 8,
-						name: "技工星级",
-						ename: "jgxj",
-						path: "../../ZengQingNian/技工星级.html"
-					}, {
-						id: 9,
-						name: "班组技工",
-						ename: "bzjg",
-						path: "../../ZengQingNian/班组技工.html"
-
-					}, {
-						id: 10,
-						name: "外勤车辆	",
-						ename: "wqcl",
-						path: "../../ZengQingNian/外勤车辆.html"
-
-					},]
-				}];
 		new Vue({
-			el:"#ctn",
-			data(){
-				return{
-					menu:menu1,
-					tabs:[
-						{id:0,name:"首页",ename:"index",active:true,path:"首页信息.html"}
-					]
+			el: "#ctn",
+			data() {
+				return {
+					menu: {},
+					tabs: [
+						{ id: 0, menuName: "首页", column1: "index", active: true, path: "首页信息.html" }
+					],
+					menuM:{},
 				}
 			},
-			methods:{
-				createTab(item){
-					if(item.children && item.children.length>0){
+			methods: {
+				find_Menu(){
+					let that = this;
+					$.ajax({
+						url:basePath + "sysMenu",
+						type:"post",
+						async:false,
+						xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+						dataType:"JSON",
+						success:function(result){
+							that.menuM = result;
+						}
+					})
+				},
+				find_MenuC(menuId){
+					let that = this;
+					$.ajax({
+						url:basePath + "sysMenu/"+menuId,
+						type:"post",
+						async:false,
+						xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+						dataType:"JSON",
+						success:function(result){
+							that.menu = result;
+						}
+					})
+				},
+				isLogin(){
+					var user1 = null;
+					$.ajax({
+						url:basePath + "sysUser/isUser",
+						type:"post",
+						async:false,
+						xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+						dataType:"JSON",
+						success:function(result){
+							user1 = result;
+						}
+					})
+					if(!user && (user1.loginName != null && user1.loginName != "null")){
+						alert("您还没有登录，请重新登录后在进入首页.....");
+						window.location.href="../../login/chahua3434/login.html";
+						return false;
+					}
+				},
+				createTab(item) {
+					if (item.sysMenuC && item.sysMenuC.length > 0) {
 						return;
 					}
-					this.tabs.forEach(item=>{item.active=false;});
-					this.$set(item,"active",true);
-					var bool = this.tabs.some(sitem=>sitem.ename==item.ename);
-					if(!bool){
-						
+					this.tabs.forEach(item => { item.active = false; });
+					this.$set(item, "active", true);
+					var filterItem = this.tabs.filter(sitem => sitem.column1 == item.column1);
+					if (filterItem && filterItem.length>0) {
+						this.$set(filterItem[0], "active", true);
+					}else{
 						this.tabs.push(item);
 					}
 				},
-				removeTab(index){
-					if(index==this.tabs.length-1){
-						this.tabs[index-1].active=true;
+				removeTab(index) {
+					if (index == this.tabs.length - 1) {
+						this.tabs[index - 1].active = true;
 					}
-					this.tabs.splice(index,1);
+					this.tabs.splice(index, 1);
 				},
-				cl_ick0(){
-					this.menu=menu1;
-				},
-				cl_ick1(){
-					this.menu=menu2;
-				},
-				cl_ick2(){
-					this.menu=menu3;
-				},
-				cl_ick3(){
-					this.menu=menu4;
-				},
-				cl_ick4(){
-					this.menu=menu5;
-				},
-				cl_ick5(){
-					this.menu=menu6;
-				},
-				cl_ick6(){
-					this.menu=menu7;
-				},
-				cl_ick7(){
-					this.menu=menu8;
+			},
+			created(){
+				var flag = this.isLogin();
+				if(flag == false){
+					return;
 				}
+				this.find_Menu();
+				this.find_MenuC(this.menuM[0].menuId);
 			}
 		});
 	</script>
-	</body>
+</body>
+
 </html>

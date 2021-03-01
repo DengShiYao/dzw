@@ -1,13 +1,13 @@
 package com.accp.domain;
 
 import com.baomidou.mybatisplus.extension.activerecord.Model;
-import java.time.LocalDateTime;
-import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
 
 /**
  * <p>
@@ -32,13 +32,15 @@ public class SysRole extends Model<SysRole> {
     private String roleName;
 
     @ApiModelProperty(value = "角色状态")
-    private String status;
+    private Integer status;
 
     @ApiModelProperty(value = "删除标志（0代表存在 2代表删除）")
-    private String delFlag;
+    private Integer delFlag;
 
     @ApiModelProperty(value = "创建时间")
-    private LocalDateTime createTime;
+    //@JsonFormat(pattern="yyyy-MM-dd hh:mm:ss",timezone="GMT+8")
+    //@TableField(fill= FieldFill.INSERT_UPDATE)
+    private String createTime;
 
     @ApiModelProperty(value = "备注")
     private String remark;

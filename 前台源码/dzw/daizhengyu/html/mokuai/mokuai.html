@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+
+<body>
+    <div id="app">
+        <template>
+            <el-table :data="menuM" style="width:100%;">
+                <el-table-column prop="menuId" fixed label="菜单id" width="120">
+                </el-table-column>
+                <el-table-column prop="menuName" fixed label="菜单名称" width="220">
+                </el-table-column>
+                <el-table-column prop="orderNum" label="显示顺序" width="120">
+                </el-table-column>
+                <el-table-column prop="menuType" label="菜单类型" width="120">
+                </el-table-column>
+                <el-table-column prop="char1" label="是否隐藏" width="100">
+                </el-table-column>
+                <el-table-column prop="createTime" label="创建时间" width="300">
+                </el-table-column>
+                <el-table-column prop="remark" label="备注" width="310">
+                </el-table-column>
+                <el-table-column fixed="right" label="操作" width="200">
+                    <template slot-scope="scope">
+                        <el-button @click="updateClick(scope.row)" type="text" size="small">修改</el-button>
+                        <el-button @click="handleClick(scope.row)" type="text" size="small">删除</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </template>
+
+
+
+        <div class="modal fade" id="modal-id">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">菜单修改</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-2 control-label">菜单id</label>
+                                <div class="col-sm-10">
+                                    <input type="email" class="form-control" v-model="updateMenu.menuId" id="inputEmail3" placeholder="菜单id" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-2 control-label">菜单名称</label>
+                                <div class="col-sm-10">
+                                    <input type="email"  class="form-control" v-model="updateMenu.menuName" id="inputEmail3" placeholder="菜单名称">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-2 control-label">显示顺序</label>
+                                <div class="col-sm-10">
+                                    <input type="email" v-model="updateMenu.orderNum" class="form-control" id="inputEmail3" placeholder="显示顺序">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-2 control-label">是否隐藏（0/1）</label>
+                                <div class="col-sm-10">
+                                    <input type="email" v-model="updateMenu.char1" class="form-control" id="inputEmail3" placeholder="0显示1隐藏">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-2 control-label">备注</label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" v-model="updateMenu.remark">{{updateMenu.remark}}</textarea>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" @click="updatemenuAllById">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/vue.js"></script>
+    <script src="http://unpkg.com/vue/dist/vue.js"></script>
+    <script src="http://unpkg.com/element-ui@2.15.1/lib/index.js"></script>
+    <script>
+        var basePath = "http://127.0.0.1:8080/";
+        var Main = {
+            data() {
+                return {
+                    menuM: {},
+                    updateMenu:{},
+                }
+            },
+            methods: {
+                handleClick(row) {
+                    let that = this;
+                    $.ajax({
+                        url: basePath + "sysMenu/deleteMenu",
+                        type: "post",
+                        async: false,
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        data:{menuId : row.menuId},
+                        dataType: "JSON",
+                        success: function (result) {
+                            if(result == true){
+                                alert("删除成功！");
+                                that.findMenu();
+                            }
+                        }
+                    })
+                },
+                updateClick(row) {
+                    let that = this;
+                    $.ajax({
+                        url: basePath + "sysMenu/selectFindById",
+                        type: "post",
+                        async: false,
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        data:{menuId : row.menuId},
+                        dataType: "JSON",
+                        success: function (result) {
+                            that.updateMenu = result;
+                        }
+                    })
+                    $("#modal-id").modal("show");
+                },
+                //查询数据
+                findMenu() {
+                    let that = this;
+                    $.ajax({
+                        url: basePath + "sysMenu/selectFindAllM",
+                        type: "post",
+                        async: false,
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        dataType: "JSON",
+                        success: function (result) {
+                            that.menuM = result;
+                        }
+                    })
+                },
+                updatemenuAllById(){
+                    let that = this;
+                    let pojo = JSON.parse(JSON.stringify(that.updateMenu));
+                    // this.updateMenu.SysMenuC=null;
+                    pojo.sysMenuC=[];
+                    $.ajax({
+                        url: basePath + "sysMenu/updateMenuById",
+                        type: "post",
+                        async: false,
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        data:pojo,
+                        async:false,
+                        crossDomain: true,
+                        success: function (result) {
+                            if(result == true){
+                                alert("修改成功！");
+                                $("#modal-id").modal("hide");
+                                that.findMenu();
+                            }
+                        }
+                    })
+                }
+            },
+            created() {
+                this.findMenu();
+            }
+        }
+        var Ctor = Vue.extend(Main)
+        new Ctor().$mount('#app')
+    </script>
+</body>
+
+</html>

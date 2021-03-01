@@ -151,71 +151,24 @@
         var Main = {
             data() {
                 return {
-										//车辆资料
-										carList[
-											{
-												carCph:"京B 6870",//车牌号
-												carClpp:"奥迪",//品牌
-												carType:"轿车",//型号
-												carJsy:"乔治",//车主
-												carfdj:"ax1000",//发动机号
-												carfdjpp:"ck1001",//发动机品牌
-												carlc:"1222",//上次里程
-												carjcsj:"2021-02-25 20:19",//进厂时间
-												carjcr:"超级用户"//接车人
-											},
-											{
-												carCph:"京B 6870",//车牌号
-												carClpp:"奥迪",//品牌
-												carType:"轿车",//型号
-												carJsy:"乔治",//车主
-												carfdj:"ax1000",//发动机号
-												carfdjpp:"ck1001",//发动机品牌
-												carlc:"1222",//上次里程
-												carjcsj:"2021-02-25 20:19",//进厂时间
-												carjcr:"超级用户"//接车人
-											},
-											{
-												carCph:"京B 6870",//车牌号
-												carClpp:"奥迪",//品牌
-												carType:"轿车",//型号
-												carJsy:"乔治",//车主
-												carfdj:"ax1000",//发动机号
-												carfdjpp:"ck1001",//发动机品牌
-												carlc:"1222",//上次里程
-												carjcsj:"2021-02-25 20:19",//进厂时间
-												carjcr:"超级用户"//接车人
-											},
-											{
-												carCph:"京B 6870",//车牌号
-												carClpp:"奥迪",//品牌
-												carType:"轿车",//型号
-												carJsy:"乔治",//车主
-												carfdj:"ax1000",//发动机号
-												carfdjpp:"ck1001",//发动机品牌
-												carlc:"1222",//上次里程
-												carjcsj:"2021-02-25 20:19",//进厂时间
-												carjcr:"超级用户"//接车人
-											}
-										],
                     tableColumn1: [
-                        { field: 'carStatus', title: '单据状态', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatCarStatus' },
-                        { field: 'carServicetype', title: '业务类型', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
-                        { field: 'carUsername', title: '客户名称', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
-                        { field: 'carChepai', title: '车牌号', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
-                        { field: 'carPhone', title: '手机', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
-                        { field: 'carVipnumber', title: '会员卡号', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
-												{ field: 'column1', title: '维修单号', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
-                        { field: 'carDjtype', title: '单据类型', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
-                        { field: 'carBegintime', title: '开单时间', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatDate' },
-                        { field: 'carExpecttime', title: '预计完工', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatDate' },
-                        { field: 'carEndtime', title: '完工时间', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatDate' },
-                        { field: 'carJstime', title: '结算时间', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatDate' },
-                        { field: 'carExpectmoney', title: '预估金额', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatAmount' },
-                        { field: 'carServiceguwen', title: '服务顾问', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
-                        { field: 'carJiecheuser', title: '接车人', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' }
+                        { field: 'id', title: '单据状态', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'name', title: '业务类型', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'name', title: '客户名称', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'name', title: '车牌号', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'name', title: '手机', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'name', title: '会员卡号', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'name', title: '单据类型', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'time', title: '开单时间', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatDate' },
+                        { field: 'time', title: '预计完工', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatDate' },
+                        { field: 'time', title: '完工时间', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatDate' },
+                        { field: 'time', title: '结算时间', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatDate' },
+                        { field: 'name', title: '预估金额', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatAmount' },
+                        { field: 'name', title: '服务顾问', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'name', title: '接车人', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' }
                     ],
                     tableData1: [
+                        { id: "1", name: "AA", time: "2020-11-11" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }
                     ],
                     tableColumn2: [
                         { field: 'id', title: '维修单号', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
@@ -228,6 +181,7 @@
                         { field: 'id', title: '会员卡号', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
                         { field: 'id', title: '结算时间', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatDate' },
                         { field: 'id', title: '消费金额', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatAmount' },
+
                     ],
                     tableData2: [
                         { id: "1", name: "AA", time: "2020-11-11" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }
@@ -374,10 +328,7 @@
                                 ],
                             ]
                         }
-                    },
-										//所有单据信息
-										list:[],
-										url:"http://127.0.0.1:8080/cargoods/"
+                    }
                 }
             },
             methods: {
@@ -410,20 +361,8 @@
                 contextMenuClickEvent5({ menu, row, column }) {
                     console.log(menu.code);
                 },
-								//查询所有单据
-								find(){
-									let that = this;
-									$.ajax({
-										url:that.url+"toFind",
-										success:function(result){
-											console.log(result);
-											that.tableData1 = result;
-										}
-									})
-								}
             },
             created() {
-							this.find();
             }
         };
         var Ctor = Vue.extend(Main);
@@ -434,17 +373,6 @@
             formatSex({ cellValue }) {
                 return cellValue ? (cellValue === '1' ? '男' : '女') : ''
             },
-						formatCarStatus({ cellValue }) {
-							if(cellValue === 1){
-								return "进行中"; 
-							}else if(cellValue === 2){
-								return "完工";
-							}else if(cellValue === 0){
-								return "接车";
-							}else{
-								return "-";
-							}
-						},
             formatNull({ cellValue }) {
                 return cellValue ? cellValue : '-'
             },
