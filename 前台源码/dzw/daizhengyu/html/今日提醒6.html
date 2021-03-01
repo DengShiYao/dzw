@@ -23,10 +23,37 @@
 				<td>车牌号码333</td>
 				<td>车牌号码333</td>
 			</tr>
-			<tr  v-for="item in page">
-	 				<td>{{item.engineId}}</td>
-	  				<td>{{item.engineName}}</td>
-	  				<td>{{item.isDelete}}</td>
+			<tr  v-for="item in page" @click="toEdit(item)">
+	 				<td>{{item.carCph}}</td>
+	  				<td>{{item.carClpp}}</td>
+	  				<td>{{item.carType}}</td>
+	  				<td>{{item.carJsy}}</td>
+	  				<td>{{item.carPhone}}</td>
+	  				<td>{{item.carCsrq}}</td>
+	  				<td>{{item.carClgs}}</td>
+	  				<td>{{item.carJsydz}}</td>
+	  				<td>{{item.carJzdq}}</td>
+	  				<td>{{item.carCjh}}</td>
+	  				<td>{{item.carFdjh}}</td>
+	  				<td>{{item.carFdjpph}}</td>
+	  				<td>{{item.carCllk}}</td>
+	  				<td>{{item.carLc}}</td>
+	  				<td>{{item.carZz}}</td>
+	  				<td>{{item.carCx}}</td>
+	  				<td>{{item.carGmrq}}</td>
+	  				<td>{{item.carSprq}}</td>
+	  				<td>{{item.carCjdq}}</td>
+	  				<td>{{item.carjqxbxgs}}</td>
+	  				<td>{{item.carJqxdq}}</td>
+	  				<td>{{item.carSf}}</td>
+	  				<td>{{item.carEwrq}}</td>
+	  				<td>{{item.carRylb}}</td>
+	  				<td>{{item.carXcbylc}}</td>
+	  				<td>{{item.carXcbyrq}}</td>
+	  				<td>{{item.carHym}}</td>
+	  				<td>{{item.column1}}</td>
+	  				<td>{{item.column2}}</td>
+	  				<td>{{item.column3}}</td>
 	  				
 	  				
 	  		</tr>
@@ -47,16 +74,15 @@
 						find(){
 								let that = this;
 								$.ajax({
-										url:"http://127.0.0.1:8080/car/Selectbrand/",
+										url:"http://127.0.0.1:8080/car/selectPagecl/",
 										type:"post",
 										dataType:"json",
 										success:function(result){
 												that.page=result;
-												/*alert(JSON.stringify(that.page))
-												alert("查询成功")*/
 											}
 									});
 							}
+							
 					},
 					created(){
 						this.find();

@@ -26,4 +26,5 @@
         uvehicleid, vtypeid, vbrandid, userid, affiliationid, ulicense, resdriver, driverphone, umileage, registereddate, buydate, khid, column1, column2, column3
     </sql>
 
+
 </mapper>

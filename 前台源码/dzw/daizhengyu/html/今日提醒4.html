@@ -24,10 +24,18 @@
 				<td>车牌号码333</td>
 			</tr>
 			<tr  v-for="item in page">
-	 				<td>{{item.engineId}}</td>
-	  				<td>{{item.engineName}}</td>
-	  				<td>{{item.isDelete}}</td>
-	  				
+	 				<td>{{item.llId}}</td>
+	  				<td>{{item.llTime}}</td>
+	  				<td>{{item.llName}}</td>
+	  				<td>{{item.llWlBm}}</td>
+	  				<td>{{item.llWlName}}</td>
+	  				<td>{{item.llDanweiName}}</td>
+	  				<td>{{item.llJl}}</td>
+	  				<td>{{item.llSl}}</td>
+	  				<td>{{item.llDj}}</td>
+	  				<td>{{item.llE}}</td>
+	  				<td>{{item.llMdyl}}</td>
+	  				<td>{{item.llHszt}}</td>
 	  				
 	  		</tr>
 		</table>
@@ -46,8 +54,11 @@
 				methods:{
 						find(){
 								let that = this;
+								var car = that.clss;
+								alert("车辆搜索"+car);
 								$.ajax({
-										url:"http://127.0.0.1:8080/car/Selectbrand/",
+										url:"http://127.0.0.1:8080/car/SelectLinliaoBiao/",
+										data:{car:car},
 										type:"post",
 										dataType:"json",
 										success:function(result){
