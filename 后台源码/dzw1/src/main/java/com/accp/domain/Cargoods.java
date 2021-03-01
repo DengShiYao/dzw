@@ -1,5 +1,6 @@
 package com.accp.domain;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
@@ -69,7 +70,7 @@ public class Cargoods extends Model<Cargoods> {
     @ApiModelProperty(value = "接车人")
     private String carJiecheuser;
 
-    @ApiModelProperty(value = "维修单号")
+    @ApiModelProperty(value = "备用列1")
     private String column1;
 
     @ApiModelProperty(value = "备用列2")
@@ -77,6 +78,9 @@ public class Cargoods extends Model<Cargoods> {
 
     @ApiModelProperty(value = "备用列3")
     private String column3;
+
+    @TableField(exist = false)
+    private  Servicing servicing;
 
 
     public static final String CAR_NUMBER = "car_number";

@@ -1,9 +1,12 @@
 package com.accp.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+import java.util.List;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -71,6 +74,15 @@ public class Servicingproject extends Model<Servicingproject> {
 
     @ApiModelProperty(value = "备用列3")
     private String column3;
+
+    @TableField(exist = false)
+    private List<Acquisition> listAcquisition;
+
+    @TableField(exist = false)
+    private Servicing servicing;
+
+    @TableField(exist = false)
+    private Cargoods cargoods;
 
 
     public static final String WX_ID = "wx_id";
