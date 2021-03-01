@@ -24,10 +24,23 @@
 				<td>车牌号码333</td>
 			</tr>
 			<tr  v-for="item in page">
-	 				<td>{{item.engineId}}</td>
-	  				<td>{{item.engineName}}</td>
-	  				<td>{{item.isDelete}}</td>
-	  				
+	 				<td>{{item.sid}}</td>
+	  				<td>{{item.ProvCode}}</td>
+	  				<td>{{item.ProvName}}</td>
+	  				<td>{{item.Address}}</td>
+	  				<td>{{item.Operation}}</td>
+	  				<td>{{item.HttpA}}</td>
+	  				<td>{{item.khyh}}</td>
+	  				<td>{{item.yhzh}}</td>
+	  				<td>{{item.pmId}}</td>
+	  				<td>{{item.fgId}}</td>
+	  				<td>{{item.zd2}}</td>
+	  				<td>{{item.scId}}</td>
+	  				<td>{{item.PreDay}}</td>
+	  				<td>{{item.Remark}}</td>
+	  				<td>{{item.regionId}}</td>
+	  				<td>{{item.blockUp}}</td>
+	  				<td>{{item.suppliersWidth}}</td>
 	  				
 	  		</tr>
 		</table>
@@ -49,7 +62,7 @@
 								var car = that.clss;
 								alert("车辆搜索"+car);
 								$.ajax({
-										url:"http://127.0.0.1:8080/car/Selectbrand/",
+										url:"http://127.0.0.1:8080/car/Selectregion/",
 										data:{car:car},
 										type:"post",
 										dataType:"json",

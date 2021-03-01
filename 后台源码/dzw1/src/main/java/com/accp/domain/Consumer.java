@@ -100,7 +100,7 @@ public class Consumer extends Model<Consumer> {
 
     @ApiModelProperty(value = "注册地址")
     private String zcadress;
-
+    //银行账号
     @ApiModelProperty(value = "备用列")
     private String column1;
 

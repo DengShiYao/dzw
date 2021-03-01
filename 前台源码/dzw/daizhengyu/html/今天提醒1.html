@@ -6,7 +6,19 @@
 		<link href="../css/bootstrap.min.css" rel="stylesheet" />
 	</head>
 	<body>
-		<table class="table table-striped">
+		<div class="row">
+  			<div class="col-md-2">
+  				<ul>
+  					<li>待入库旧件</li>engine_brand
+  					<li>账期超期</li>suppliers_region
+  					<li>班组备件超期</li>linliao_biao
+  					<li>需年审车辆</li>car
+  					<li>应作二维车辆 </li>wei_xiubiao
+  					
+  				</ul>
+  			</div>
+  			<div class="col-md-10">
+  				<table class="table table-striped">
   			<tr>
 				<td>车牌号码</td>
 				<td>车牌号码</td>
@@ -50,8 +62,234 @@
 				<td>车牌号码</td>
 			</tr>
 		</table>
+  			</div>
+		</div>
+		
 	</body>
 	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="../js/vue.js"></script>
 	<script src="../static/js/bootstrap.min.js"></script>
+	<script>
+		var vm = new Vue({
+			el:"#ctx",
+			data:{
+				clss:null,
+				page:{},
+				page2:{},
+				edit:{},
+				edit2:{},
+				by:{},
+				add:{},
+				add2:{},
+				pagePl:{},
+				selet1:{},
+				selet2:{},
+				selet3:{},
+				selet4:{},
+				selet5:{},
+				selet6:{}
+				},
+				methods:{
+						addStudent(){
+								let that = this;
+									var json = JSON.stringify(that.add);
+									alert(json)
+								$.ajax({
+										url:"http://127.0.0.1:8080/car/insert/",
+										data:json,
+										type:"post",
+										contentType:"application/json;charset=utf-8", 
+										success:function(){
+												alert("新增成功")
+												that.find();
+											},error:function(){
+												alert("车牌号重复，新增失败")
+											}
+								});
+									
+								},
+						find(){
+								let that = this;
+								var car = that.clss;
+								alert("车辆搜索"+car);
+								$.ajax({
+										url:"http://127.0.0.1:8080/car/selectPage/",
+										data:{car:car},
+										type:"post",
+										dataType:"json",
+										success:function(result){
+												that.page=result;
+												/*alert(JSON.stringify(that.page))
+												alert("查询成功")*/
+											}
+									});
+							},findKhID(id){
+								let that = this;
+								alert("用户id"+id)
+								$.ajax({
+										url:"http://127.0.0.1:8080/car/SelectKhID/",
+										data:{id:id},
+										type:"post",
+										dataType:"json",
+										success:function(result){
+												that.selet6=result;
+											}
+									});
+							},selectPage(){
+								let that = this;
+								$.ajax({
+										url:"http://127.0.0.1:8080/car/SelectCx/",
+										type:"post",
+										dataType:"json",
+										success:function(result){
+												that.selet1=result;
+												
+											}
+									});
+									$.ajax({
+										url:"http://127.0.0.1:8080/car/SelectCxGs/",
+										type:"post",
+										dataType:"json", 
+										success:function(result){
+												that.selet2=result;
+												
+											}
+									});
+									$.ajax({
+										url:"http://127.0.0.1:8080/car/SelectQxgs/",
+										type:"post",
+										dataType:"json",
+										 
+										success:function(result){
+												that.selet3=result;
+												
+											}
+									});
+									$.ajax({
+										url:"http://127.0.0.1:8080/car/Selectsyxgs/",
+										type:"post",
+										dataType:"json",
+										success:function(result){
+												that.selet4=result;
+												
+											}
+									});
+									$.ajax({
+										url:"http://127.0.0.1:8080/car/SelectKh/",
+										type:"post",
+										dataType:"json",
+										success:function(result){
+												that.selet5=result;
+												
+											}
+									});
+							},remove(item){
+								let that = this;
+								var id = item.carCph;
+								alert(id)
+								$.ajax({
+										url:"http://127.0.0.1:8080/car/delect/",
+										data:{id:id},
+										type:"post",
+										success:function(){
+												that.find();
+											}
+									});
+									
+							},
+							toEdit(item){
+									this.edit = JSON.parse(JSON.stringify(item));
+									this.by = JSON.parse(JSON.stringify(item));
+									this.findKhID(item.column3);
+								},
+								editStudent(){
+										let that = this;
+										var json = JSON.stringify(that.edit);
+										$.ajax({
+												url:"http://127.0.0.1:8080/car/update/",
+												data:json,
+												type:"post", 
+												contentType:"application/json;charset=utf-8",
+												success:function(){
+														alert("修改成功")
+														that.find();
+													}
+											});
+											
+											
+								},
+								
+								
+								
+								
+							addStudent2(cph){
+									let that = this;
+									that.add2.cheNumber=cph;
+									/*alert(that.add2.cheNumber)*/
+									var json = JSON.stringify(that.add2);
+									$.ajax({
+											url:"http://127.0.0.1:8080/maintenance/insert",
+											data:json,
+											type:"post",
+											contentType:"application/json;charset=utf-8",
+											success:function(){
+													that.find2();
+												}
+										});
+									},
+								find2(cph){
+									let that = this;
+									alert(cph)
+									$.ajax({
+											url:"http://127.0.0.1:8080/maintenance/selectPage/",
+											data:{cph:cph},
+											type:"get",
+											dataType:"json", 
+											success:function(result){
+													that.page2=result;
+													/*alert("保养表"+JSON.stringify(that.page2))*/
+												}
+										});
+								},remove2(item){
+									let that = this;
+									var id = item.id;
+									alert(id)
+									$.ajax({
+											url:"http://127.0.0.1:8080/maintenance/delect/",
+											data:{id:id},
+											type:"post",
+											success:function(){
+													that.find2();
+												}
+									});
+								},
+								
+								toEdit2(item){
+										this.edit2 = JSON.parse(JSON.stringify(item));
+									},
+									editStudent2(){
+											let that = this;
+											var json = JSON.stringify(that.edit2);
+											$.ajax({
+												url:"http://127.0.0.1:8080/maintenance/update/",
+												data:json,
+												type:"post", 
+												contentType:"application/json;charset=utf-8",
+												success:function(){
+														alert("修改成功")
+														that.find2();
+													}
+											});
+									}
+								
+								
+								
+								
+					},
+					created(){
+						this.find();
+						this.selectPage()
+						}
+		})
+	</script>
 </html>
