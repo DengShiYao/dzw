@@ -20,8 +20,11 @@
                 <div class="col-sm-12 clearfix nav-div" style="border: 0px solid rebeccapurple;">
                     <h3 class="clearfix" style="margin-top: 10px;">维修项目
                         <button class="btn btn-default pull-right btnexit" type="button">关闭</button>
-                        <div class="pull-right" style="margin-right: 10px !important;">
+                        <div class="pull-right" style="margin-right: 50px !important;">
                             <form class="form-inline">
+                                <button v-if="iframBtnVisible===false" type="button" class="btn btn-success selbtn"
+                                    style="margin-right: 50px;" @click="iframePrams"><span class="
+                                glyphicon glyphicon-ok"></span> 选择</button>
                                 <div class="form-group">
                                     <input type="text" class="form-control" style="width: 300px;"
                                         placeholder="匹配编码/名称/名称简写">
@@ -639,6 +642,9 @@
                     minor: { minorId: "", minorName: "", beforeId: "" },
                     coinSpray: { coinId: "", coinName: "", beforeId: "" },
                     upkeep: { upkeepId: "", upkeepName: "", beforeId: "" },
+                    iframCheckbox: false,
+                    columns: [],
+                    iframBtnVisible: false,
                     price: [],
                     //调价 价格*比例
                     countPrice: "",
@@ -648,6 +654,7 @@
                     serve: { seId: "", seName: "", brandId: "", remark: "", price: "", memberPrice: "", vipPrice: "", protocolPrice: "", claimPrice: "", insurancePrice: "", column1: "", column2: "", beforeId: "", iid: "" },
                     hintText: "",
                     tableColumn: [
+                        { type: "checkbox", sortable: true, width: "40", showOverflow: true, visible: false },
                         { num: 1, field: 'column1', title: '项目类别', sortable: true, showOverflow: true, visible: true },
                         { num: 1, field: 'seId', title: '项目编码', sortable: true, showOverflow: true, visible: true },
                         { num: 1, field: 'seName', title: '项目名称', sortable: true, showOverflow: true, visible: true },
@@ -666,6 +673,23 @@
                     ],
                     treeData: []
                 }
+            },
+            mounted() {
+                let that = this;
+                window.addEventListener('message', function (e) {
+                    let message = e.data;
+                    if (message[0]) {
+                        that.iframBtnVisible = true;
+                    } else {
+                        that.iframBtnVisible = false;
+                    }
+                    if (message[1]) {
+                        that.iframCheckbox = true;
+                        that.tableColumn.splice(0, 0, { type: 'checkbox', sortable: true, width: '40', showOverflow: true, visible: true });
+                        that.columns.splice(0, 0, { type: 'checkbox', sortable: true, width: '40', showOverflow: true, visible: true });
+                        that.$refs.xTable.refreshColumn();
+                    }
+                })
             },
             methods: {
                 //左侧表格点击更换背景色
@@ -1447,10 +1471,45 @@
                         s_x += '0';
                     }
                     return s_x;
-                }
+                },
+                //像父页面中传值调用父页面的方法
+                iframePrams() {
+                    //iframCheckbox==true 多个
+                    let code;
+                    if (this.iframCheckbox) {
+                        code = this.$refs.xTable.getCheckboxRecords();
+                        if (code.length == 0) {
+                            this.hintText = "请选择维修项目";
+                            $("#myModalalertupd").modal("show");
+                            setTimeout(() => {
+                                $("#myModalalertupd").modal("hide");
+                            }, 2000);
+                            return;
+                        }
+                    } else {
+                        code = this.$refs.xTable.getCurrentRecord();
+                        if (code == null) {
+                            this.hintText = "请选择维修项目";
+                            $("#myModalalertupd").modal("show");
+                            setTimeout(() => {
+                                $("#myModalalertupd").modal("hide");
+                            }, 2000);
+                            return;
+                        }
+                    }
+                    window.parent.postMessage(code, "*");
+                },
+                gettableColumns() {
+                    // 获取所有列配置
+                    this.$nextTick(() => {
+                        this.columns = this.$refs.xTable.getColumns();
+                    })
+                },
             },
             created() {
                 this.findepairing();
+                //获取列表可视的列
+                this.gettableColumns();
             }
         };
         var Ctor = Vue.extend(Main);

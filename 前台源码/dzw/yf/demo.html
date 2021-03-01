@@ -10,63 +10,48 @@
 </head>
 
 <body style="height: 100%; ">
-    <div class="container-fluid" style="height: 100% !important; border: 0px solid;">
-        <div class="row" style="height: 100% !important; ">
-            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true"
-                style="width: 240px; height: 100% !important;">
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingOne">
-                        <h4 class="panel-title">
-                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
-                                aria-expanded="true" aria-controls="collapseOne">
-                                Collapsible Group Item #1
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
-                        aria-labelledby="headingOne">
-                        <div class="panel-body">
-                            第一个
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingTwo">
-                        <h4 class="panel-title">
-                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
-                                href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                Collapsible Group Item #2
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                        <div class="panel-body">
-                            第一个
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingThree">
-                        <h4 class="panel-title">
-                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
-                                href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                Collapsible Group Item #3
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel"
-                        aria-labelledby="headingThree">
-                        <div class="panel-body">
-                            第三个
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div id="ctx">
+        <img :src="code" alt="" style="width: 100px; height: 100px;">
+        <button type="button" class="btn btn-large btn-block btn-success" @click="pay">提交</button>
     </div>
 
     <script src="js/jquery-1.12.4.js"></script>
     <script src="js/bootstrap.js"></script>
+    <script src="js/vue-2.6.js"></script>
+    <script>
+        new Vue({
+            el: "#ctx",
+            data() {
+                return {
+                    code: ""
+                }
+            },
+            methods: {
+                pay() {
+                    let that = this;
+                    $.ajax({
+                        url: "http://127.0.0.1:8080//qrcode?totalAmount=0.01&subject=支付宝扫码支付测试&storeId=123456&timeoutExpress=5m&outTradeNo=110112113114115",
+                        type: "get",
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        contentType: "application/json;charset=utf-8",
+                        dataType: "json",
+                        success: function (result) {
+                            that.code = result.qr_code;
+                            // console.log(result);
+                        }
+                    });
+                }
+            }, created() {
+
+            },
+
+
+        })
+
+    </script>
 </body>
 
 </html>
