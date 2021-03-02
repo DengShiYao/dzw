@@ -84,7 +84,7 @@ public class AlipayServiceImpl implements AlipayService {
     public QrServiceEntity alipayNotify(HttpServletRequest request) {
         Map<String, String> map = ParamsUtil.ParamstoMap(request);
         QrServiceEntity qrServiceEntity = new QrServiceEntity();
-        qrServiceEntity.setIsreceive(false);
+//        qrServiceEntity.setIsreceive(false);
         for (String key :map.keySet()) {
             System.out.println("[ "+key + " = "+map.get(key)+" ]");
         }
@@ -92,9 +92,11 @@ public class AlipayServiceImpl implements AlipayService {
             boolean flag = AlipaySignature.rsaCheckV1(map,alipayConfig.getAlipay_public_key() ,alipayConfig.getCharset(),
                     alipayConfig.getSign_type());
             String json = JSON.toJSONString(map);
-            logger.info("Alipay notify===>"+json);
+            logger.info(" Alipaynotify===>"+json);
             if (flag) {
                 qrServiceEntity.setTran_starus(map.get("trade_status"));
+                qrServiceEntity.setGmt_payment(map.get("gmt_payment"));
+                qrServiceEntity.setOut_trade_no(map.get("out_trade_no"));
                 return qrServiceEntity;
             }
             else {

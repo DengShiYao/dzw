@@ -26,7 +26,6 @@ public class IndexController {
     @RequestMapping(value = "refund")
     public String refund(RefundRequestParams refundRequestParams) {
         System.out.println(refundRequestParams);
-
         return JSON.toJSONString(alipayService.pcRefund(refundRequestParams));
     }
 
@@ -37,7 +36,6 @@ public class IndexController {
      */
     @RequestMapping(value = "refund_query")
     public String refundQuery(RefundQueryParams refundQueryParams) {
-
         return JSON.toJSONString(alipayService.refundQuery(refundQueryParams));
     }
 
@@ -48,7 +46,9 @@ public class IndexController {
      */
     @RequestMapping(value = "qrcode")
     public String qrcode(AlipayTradePrecreateModel model) {
-        return JSON.toJSONString(alipayService.qrcodePay(model));
+        System.out.println(model);
+        return JSON.toJSONString(alipayService.qrcodePay(model)
+        );
     }
 
     /**
@@ -56,15 +56,16 @@ public class IndexController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "notify_url",method = RequestMethod.POST)
-    public String notifyurl(HttpServletRequest request) {
-        QrServiceEntity qrServiceEntity = alipayService.alipayNotify(request);
-        if (qrServiceEntity.isIsreceive()) {
-            return "success";
-        } else {
-            return "failer";
-        }
-    }
+//    @RequestMapping(value = "notify_url",method = RequestMethod.POST)
+//    public String notifyurl(HttpServletRequest request) {
+//        QrServiceEntity qrServiceEntity = alipayService.alipayNotify(request);
+//       System.out.println(qrServiceEntity);
+//        if (qrServiceEntity.isIsreceive()) {
+//            return "success";
+//        } else {
+//            return "failer";
+//        }
+//    }
 
     /**
      * 跳转到支付宝官网支付
@@ -75,5 +76,10 @@ public class IndexController {
     public String pcPay(PreOrderParams preOrderParams) {
 
         return alipayService.pcPreOrder(preOrderParams);
+    }
+
+    @RequestMapping("/ddd")
+    public String temp(){
+        return "lsdjflsd";
     }
 }

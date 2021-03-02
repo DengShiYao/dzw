@@ -35,22 +35,22 @@ public class Dingdan extends Model<Dingdan> {
     private String orderid;
 
     @ApiModelProperty(value = "创建时间")
-    private LocalDateTime createTime;
+    private String createTime;
 
     @ApiModelProperty(value = "支付时间")
-    private LocalDateTime dealTime;
+    private String dealTime;
 
     @ApiModelProperty(value = "操作人")
     private Integer userid;
 
-    @ApiModelProperty(value = "备用列1")
-    private String column1;
+    @ApiModelProperty(value = "总金额")
+    private Double column1;
 
-    @ApiModelProperty(value = "备用列2")
-    private String column2;
+    @ApiModelProperty(value = "订单状态")
+    private Integer column2;
 
-    @ApiModelProperty(value = "备用列3")
-    private String column3;
+    @ApiModelProperty(value = "支付方式")
+    private Integer column3;
 
 
     public static final String ORDER_AUTO_ID = "order_auto_id";

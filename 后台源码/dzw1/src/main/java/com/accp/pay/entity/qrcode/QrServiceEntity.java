@@ -1,5 +1,8 @@
 package com.accp.pay.entity.qrcode;
 
+import lombok.Data;
+
+@Data
 public class QrServiceEntity {
 
     private boolean isreceive;
@@ -12,19 +15,9 @@ public class QrServiceEntity {
      */
     private String tran_starus;
 
-    public boolean isIsreceive() {
-        return isreceive;
-    }
+    //支付时间
+    private String gmt_payment;
+    //订单号
+    private String out_trade_no;
 
-    public void setIsreceive(boolean isreceive) {
-        this.isreceive = isreceive;
-    }
-
-    public String getTran_starus() {
-        return tran_starus;
-    }
-
-    public void setTran_starus(String tran_starus) {
-        this.tran_starus = tran_starus;
-    }
 }
