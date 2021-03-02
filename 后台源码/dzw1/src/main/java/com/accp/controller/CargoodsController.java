@@ -28,6 +28,16 @@ import java.util.List;
 @RestController
 @RequestMapping("/cargoods")
 public class CargoodsController {
+    @Autowired
+    CargoodsServiceImpl cargoodsService;
+
+    @GetMapping("/selCargoodsRecordByChepai/{chepai}")
+    public List<Cargoods> selCargoodsRecordByChepai(@PathVariable String chepai){
+        QueryWrapper<Cargoods> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().eq(Cargoods::getCarChepai,chepai).in(Cargoods::getCarStatus,1,2);
+        return cargoodsService.list(queryWrapper);
+    }
+
 
 }
 

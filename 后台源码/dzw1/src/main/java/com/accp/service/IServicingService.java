@@ -17,4 +17,10 @@ public interface IServicingService extends IService<Servicing> {
      * @return
      */
     public String getServicingId(String servicingId);
+
+
+    /**
+     * 维修接车
+     */
+    public boolean  serviceAdviser(Servicing servicing);
 }

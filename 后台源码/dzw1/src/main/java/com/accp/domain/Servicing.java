@@ -145,6 +145,7 @@ public class Servicing extends Model<Servicing> {
     private List<Servicingproject> list;
 
 
+
     public static final String SER_NUMBER = "ser_number";
 
     public static final String SER_CHEPAI = "ser_chepai";

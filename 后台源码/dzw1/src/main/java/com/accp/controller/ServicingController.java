@@ -5,11 +5,7 @@ import com.accp.domain.*;
 import com.accp.service.impl.*;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -45,10 +41,10 @@ public class ServicingController {
      */
     public String getServicingId(){
         QueryWrapper<Servicing> wrapper = new QueryWrapper<>();
-        wrapper.orderByDesc("serNumber");
+      /*  wrapper.orderByDesc("ser_number");*/
         List<Servicing> list= servicingService.list(wrapper);
         if(list!=null&&list.size()!=0){
-            String servicingId=list.get(0).getSerNumber();
+            String servicingId=list.get(list.size()-1).getSerNumber();
             return servicingService.getServicingId(servicingId);
         }
         return "00000RE210200001";
@@ -139,6 +135,66 @@ public class ServicingController {
         }
         return  list;
     }
+
+    /**
+     * 根据车牌查询该车上次维修记录
+     * @param chepai
+     * @return
+     */
+    @GetMapping("/selCarLastRecordByChepai/{chepai}")
+    public Servicing selCarLastRecordByChepai(@PathVariable String chepai){
+        QueryWrapper<Servicing> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().eq(Servicing::getSerChepai,chepai);
+        List<Servicing> list=servicingService.list(queryWrapper);
+        Servicing servicing = null;
+        if(list!=null&&list.size()>0){
+            servicing=list.get(list.size()-1);
+        }
+        return servicing;
+    }
+
+    @GetMapping("/selServicingById/{serNumber}")
+    public Servicing selServicingById(@PathVariable String serNumber){
+        QueryWrapper<Servicing> queryWrapper =new QueryWrapper<>();
+        queryWrapper.lambda().eq(Servicing::getSerNumber,serNumber);
+        Servicing servicing = servicingService.getOne(queryWrapper);
+        return  servicing;
+    }
+
+    /**
+     * 接车完成
+     * @return
+     */
+    @PostMapping("/takeCarFinish")
+    public boolean takeCarFinish(@RequestBody Servicing servicing){
+        try {
+            servicingService.saveOrUpdate(servicing);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        boolean b=cargoodsService.updateCargoodsToWork(servicing.getSerNumber());
+        return b;
+    }
+
+    @PostMapping("/testOnCompletion")
+    /**
+     * 竣工检验
+     */
+    public  boolean testOnCompletion(@RequestBody Servicing servicing){
+//        boolean a=  servicingService.saveOrUpdate(servicing);
+        boolean b=cargoodsService.updateCargoodsToSettlement(servicing.getSerNumber());
+        return b;
+    }
+
+    /**
+     * 维修接车
+     * @return
+     */
+    @PostMapping("/serviceAdviser")
+    public  boolean serviceAdviser( Servicing servicing){
+        return servicingService.serviceAdviser(servicing);
+    }
+
 
 }
 
