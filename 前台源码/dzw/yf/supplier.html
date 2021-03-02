@@ -86,7 +86,7 @@
                             </vxe-button>
                             <vxe-button icon="glyphicon glyphicon-remove-circle" class="btn-danger"
                                 v-if="iframBtnVisible" @click="delSupplier">删除</vxe-button>
-                            <vxe-button icon="glyphicon glyphicon-export">导出</vxe-button>
+                            <vxe-button icon="glyphicon glyphicon-export" @click="exportExcelModal">导出</vxe-button>
                             <vxe-button icon="glyphicon glyphicon-picture" data-toggle="modal" data-target="#myModel9">
                                 照片</vxe-button>
                             <vxe-button icon="
@@ -1159,6 +1159,58 @@
                     </div>
                 </div>
             </div>
+            <!-- 导出 -->
+            <div class="modal fade bs-example-modal-lg mytable-scrollbar" tabindex="-1" id="myModel14" role="dialog"
+                aria-labelledby="myLargeModalLabel">
+                <div class="modal-dialog modal-lg" role="document" style="width: 600px;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title clearfix" id="myModalLabel2">导出数据
+
+                            </h4>
+                        </div>
+                        <div class="modal-body row">
+                            <div class="col-sm-12" style="padding: 0px 60px ;">
+                                <div class="form-group" style="padding-bottom: 25px !important;">
+                                    <div class="col-sm-3" style="line-height: 35px; text-align: right;">
+                                        <strong>选择数据</strong>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <select class="form-control" v-model="exportAll">
+                                            <option value="0">当前数据</option>
+                                            <option value="1">全量数据</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="col-sm-3" style="line-height: 280px;text-align: right;">
+                                        <strong>选择字段</strong>
+                                    </div>
+                                    <div class="col-sm-9" style="height:280px;  overflow:auto;">
+                                        <template>
+                                            <vxe-grid border=outer :loading="loading" highlight-hover-row
+                                                highlight-current-row ref="xTable4" class="mytable-scrollbar"
+                                                auto-resize height="100%" :data="exportData" :columns="exportColumn"
+                                                :checkbox-config="{labelField:'column1',checkAll:'true',checkField:'column2'}"
+                                                @current-change="currentChangeEventExport" round show-header-overflow
+                                                show-overflow>
+                                            </vxe-grid>
+                                        </template>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12" style="text-align: right;padding-top: 10px;padding-right: 30px;">
+                                <button type="button" class="btn btn-info"
+                                    style="padding-right: 25px; padding-left: 25px;" data-dismiss="modal">取消</button>
+                                <button type=" button" class="btn btn-success" @click="getExportSelectEvent1"
+                                    style="padding-right: 25px; padding-left: 25px;">导出</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>
@@ -1182,7 +1234,17 @@
                     isLoad: true,    //只在加载使用一次
                     textHide: [false, false, false, false],
                     check_list: [],
+                    //导出列的字段
+                    exportData: [],
                     is_check_all: false,
+                    //导出当前数据还是导出全部
+                    exportAll: 0,
+                    //区分是按条件导出还是导出全部
+                    allColumn: true,
+                    //导出列的配置
+                    exportColumn: [
+                        { type: 'checkbox', title: "全部字段" }
+                    ],
                     pasymentMethod: [],    //付款方式
                     firmGradeList: [],       //厂商等级
                     tempRegionCity: {},  //选择分类
@@ -1247,6 +1309,9 @@
             },
             methods: {
                 currentChangeEventTree3({ row }) {
+
+                },
+                currentChangeEventExport({ row }) {
 
                 },
                 //获取焦点时显示文本框
@@ -1568,6 +1633,7 @@
                      查询具体供货商
                 */
                 toFind() {
+                    this.allColumn = true;
                     let regionId = this.$refs.xTree.getCurrentRecord().regionId
                     let that = this;
                     this.loading = true;
@@ -2125,7 +2191,7 @@
                 },
                 /*发送请求按条件查询*/
                 requestSupplier() {
-                    console.log(JSON.stringify(this.searchSupplier));
+                    this.allColumn = false;
                     let that = this;
                     this.loading = true;
                     $.ajax({
@@ -2151,6 +2217,76 @@
                             })
                         }
                     });
+                },
+                /* 商品信息导出模态框 */
+                exportExcelModal() {
+                    this.findExportColumn();
+                    this.exportAll = 0;
+                    $("#myModel14").modal("show");
+                },
+                findExportColumn() {
+                    this.loading = true;
+                    let that = this;
+                    $.ajax({
+                        url: "http://127.0.0.1:8080/dzwColumnController/showColumn",
+                        type: "get",
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        dataType: "json",
+                        success: function (result) {
+                            that.exportData = [];
+                            that.loading = false;
+                            handlerResult(result, () => {
+                                that.exportData = result.data;
+                                if (that.exportData) {
+                                    that.$refs.xTable4.setCheckboxRow(that.exportData, true);
+                                }
+                            })
+                        }
+                    });
+                },/*
+                    保存复选框选中结果
+                */
+                getExportSelectEvent1() {
+                    let selectRecords = this.$refs.xTable4.getCheckboxRecords();
+                    if (selectRecords.length == 0) {
+                        this.hintText = "请勾选要导出的列";
+                        $("#myModalalertupd").modal("show");
+                        setTimeout(() => {
+                            $("#myModalalertupd").modal("hide");
+                        }, 2000);
+                    } else {
+                        $("#myModel14").modal("hide");
+                        if (this.exportAll === 0) {
+                            console.log("当前");
+                            //当前内容导出时 如果没有按条件搜索则按当前商品分类查找
+                            //allColumn 为false时 按多条件查询搜索 否则按分类进行查找
+                            if (this.allColumn) {
+                                let regionId = this.$refs.xTree.getCurrentRecord().regionId;
+                                let json = JSON.stringify(selectRecords);
+                                var form = $('<form />', { action: 'http://127.0.0.1:8080/suppliersRegion/downloadexceleearch', method: "get", style: "display:none;" }).appendTo('body');
+                                form.append('<input type="hidden" name="regionId" value="' + regionId + '" />');
+                                form.append('<textarea name="exportColumn" id="" cols="30" rows="10">"' + json + '"</textarea>');
+                                form.submit().remove();
+                            } else {
+                                let json = JSON.stringify(selectRecords);
+                                let goods = JSON.stringify(this.searchSupplier);
+                                var form = $('<form />', { action: 'http://127.0.0.1:8080/suppliersRegion/downloadexcel', method: "get", style: "display:none;" }).appendTo('body');
+                                form.append('<textarea name="jsonGoods" id="" cols="30" rows="10">"' + goods + '"</textarea>');
+                                form.append('<textarea name="exportColumn" id="" cols="30" rows="10">"' + json + '"</textarea>');
+                                form.submit().remove();
+                            }
+                        } else {
+                            console.log("全部");
+                            let json = JSON.stringify(selectRecords);
+                            var form = $('<form />', { action: 'http://127.0.0.1:8080/suppliersRegion/downloadexcelall', method: "get", style: "display:none;" }).appendTo('body');
+                            // form.append('<input type="hidden" name="exportColumn" value="' + format + '" />');
+                            form.append('<textarea name="exportColumn" id="" cols="30" rows="10">"' + json + '"</textarea>');
+                            form.submit().remove();
+                        }
+                    }
                 }
             },
             created() {
@@ -2171,7 +2307,7 @@
                 }
             }
         }
-				
+
         var Ctor = Vue.extend(Main);
         new Ctor().$mount('.container-fluid');
         // bootstarp下拉框

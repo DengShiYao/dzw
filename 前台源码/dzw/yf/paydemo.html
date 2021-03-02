@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <title>Document</title>
+</head>
+
+<body style="height: 100%; ">
+    <div id="ctx">
+        <div style="width: 200px;">
+            <div id="code"></div>
+            <button type="button" class="btn btn-large btn-block btn-success" @click="btnFactoryOrder">结算</button>
+        </div>
+    </div>
+    <script src="js/jquery-1.12.4.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/qrcode.js"></script>
+    <script src="js/vue-2.6.js"></script>
+    <script>
+        new Vue({
+            el: "#ctx",
+            data() {
+                return {
+                    code: "",
+                    settimebool: true,
+                    //防止重复提交
+                    post_flag: false,
+                    order: {
+                        orderid: '',
+                        column1: 0.01,
+                        column3: 1,
+                        subject: "DZW结算"
+                    }
+                }
+            },
+            methods: {
+                btnFactoryOrder() {
+                    if (this.post_flag) {
+                        return;
+                    }
+                    this.post_flag = true;
+                    this.insertOrder();
+                },
+                pay() {
+                    let that = this;
+                    // console.log("http://127.0.0.1:8080//qrcode?totalAmount=" + this.order.totalAmount + "&subject=" + this.order.subject + "&storeId=123456&timeoutExpress=5m&outTradeNo=" + this.order.orderid);
+                    $.ajax({
+                        // url: "http://127.0.0.1:8080//qrcode?totalAmount=0.00&subject=支付宝扫码支付测试&storeId=123456&timeoutExpress=5m&outTradeNo=132131313132",
+                        url: "http://127.0.0.1:8080//qrcode?totalAmount=" + this.order.column1 + "&subject=" + this.order.subject + "&storeId=123456&timeoutExpress=5m&outTradeNo=" + this.order.orderid,
+                        type: "get",
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        contentType: "application/json;charset=utf-8",
+                        dataType: "json",
+                        success: function (result) {
+                            that.code = result.qr_code;
+                            // new QRCode(document.getElementById("code"), result.qr_code);
+                            var qrcode = new QRCode("code", {
+                                text: result.qr_code,
+                                width: 128,
+                                height: 128,
+                                colorDark: "#000000",
+                                colorLight: "#ffffff",
+                                correctLevel: QRCode.CorrectLevel.H
+                            });
+                            that.requestPya(that.order.orderid);
+                        }
+                    });
+                },
+                /*给数据库中新增订单*/
+                insertOrder() {
+                    let that = this;
+                    $.ajax({
+                        url: "http://127.0.0.1:8080/dingdan/factoryorderid",
+                        type: "post",
+                        data: that.order,
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        dataType: "json",
+                        success: function (result) {
+                            that.post_flag = true;
+                            if (result.code == "1000") {
+                                console.log("成功" + result.data);
+                                that.order.orderid = result.data;
+                                //生成二维码
+                                that.pay();
+                            } else if (result.code == "3000") {
+                                alert('重新尝试');
+                            } else if (result.code == "2002") {
+                                alert('未登录');
+                            }
+                        }
+                    });
+                },
+                /*
+                    查询订单当前的支付状态
+                */
+                requestPya(orderid) {
+                    var interval = setInterval(() => {
+                        let that = this;
+                        $.ajax({
+                            url: "http://127.0.0.1:8080/dingdan/findorderid",
+                            type: "post",
+                            data: { orderid: orderid },
+                            xhrFields: {
+                                withCredentials: true
+                            },
+                            crossDomain: true,
+                            dataType: "json",
+                            success: function (result) {
+                                console.log(JSON.stringify(result))
+                                if (result.code == "1000") {
+                                    if (result.data === 1) {
+                                        console.log("未支付");
+                                    } else if (result.data === 2) {
+                                        clearInterval(interval);
+                                        console.log("支付成功");
+                                        return;
+                                    } if (result.data === 3) {
+                                        clearInterval(interval);
+                                        console.log("支付超时，二维码失效");
+                                    }
+                                }
+                            }
+                        });
+                    }, 500);
+                },
+
+
+            }, created() {
+
+            }
+        })
+
+    </script>
+</body>
+
+</html>

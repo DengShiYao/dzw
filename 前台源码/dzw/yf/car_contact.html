@@ -13,7 +13,7 @@
     <!-- 引入样式 -->
     <link rel="stylesheet" href="package/lib/style.css">
     <style>
-       /*  .modal-dialog{
+        /*  .modal-dialog{
             width: 95%;
             height:100%;
         } */
@@ -43,7 +43,7 @@
                 <div style="display: inline-block;">
                     <vxe-toolbar>
                         <template v-slot:buttons>
-                            <vxe-button icon="fa fa-file-powerpoint-o"@click="openServicingInform" >维修接车</vxe-button>
+                            <vxe-button icon="fa fa-file-powerpoint-o" @click="openServicingInform">维修接车</vxe-button>
                             <vxe-button icon="fa fa-file-word-o">救援开单</vxe-button>
                         </template>
                     </vxe-toolbar>
@@ -91,7 +91,7 @@
                     <vxe-radio-button label="tab2" content="维修历史" @click="selServicingHistory"></vxe-radio-button>
                     <vxe-radio-button label="tab3" content="维修项目"></vxe-radio-button>
                     <vxe-radio-button label="tab4" content="领料情况"></vxe-radio-button>
-                    <vxe-radio-button label="tab5" content="历史回访"@click="dd"></vxe-radio-button>
+                    <vxe-radio-button label="tab5" content="历史回访" @click="dd"></vxe-radio-button>
                 </vxe-radio-group>
             </div>
             <div class="col-sm-12 tableX">
@@ -145,12 +145,14 @@
                 共<span v-text="tableData1.length"></span>条数据
             </div>
             <!--车辆页面模态框-->
-            <div class="modal fade bs-example-modal-lg" data-backdrop = "static" id="carInformation" style="width: 100%;height: 100%;">
-				<div class="modal-dialog" style="width: 100%;height: 100%;">
-					<div class="modal-content" style="display:inline-block;width: 100%;" >
-						<div class="modal-header" style="width: 100%;height: 100%;">车资料</div>  
+            <div class="modal fade bs-example-modal-lg" data-backdrop="static" id="carInformation"
+                style="width: 100%;height: 100%;">
+                <div class="modal-dialog" style="width: 100%;height: 100%;">
+                    <div class="modal-content" style="display:inline-block;width: 100%;">
+                        <div class="modal-header" style="width: 100%;height: 100%;">车资料</div>
                         <div class="modal-body" style="width: 100%;height: 500px;">
-                            <iframe src="../daizhengyu/html/车辆页面.html" frameborder="0" width="100%" height="100%" scrolling:no></iframe>
+                            <iframe src="../daizhengyu/html/车辆页面.html" frameborder="0" width="100%" height="100%"
+                                scrolling:no></iframe>
                         </div>
                         <div class="modal-footer">
                             <button class="btn btn-danger" @click="closeCarInformation">关闭</button>
@@ -158,13 +160,15 @@
                     </div>
                 </div>
             </div>
-             <!--维修接车模态框-->
-             <div class="modal fade bs-example-modal-lg" data-backdrop = "static"  id="ServicingInformation" style="width: 100%;height: 100%;">
-				<div class="modal-dialog" style="width: 100%;height: 100%;">
-					<div class="modal-content" style="display:inline-block;width: 100%;" >
-						<div class="modal-header" style="width: 100%;height: 100%;">车资料</div>  
+            <!--维修接车模态框-->
+            <div class="modal fade bs-example-modal-lg" data-backdrop="static" id="ServicingInformation"
+                style="width: 100%;height: 100%;">
+                <div class="modal-dialog" style="width: 100%;height: 100%;">
+                    <div class="modal-content" style="display:inline-block;width: 100%;">
+                        <div class="modal-header" style="width: 100%;height: 100%;">车资料</div>
                         <div class="modal-body" style="width: 100%;height: 500px;">
-                           <iframe src="../ZengQingNian/维修单.html" ref="iframe" frameborder="0" width="100%" height="100%" scrolling:no></iframe>
+                            <iframe src="../ZengQingNian/维修单.html" ref="iframe" frameborder="0" width="100%"
+                                height="100%" scrolling:no></iframe>
                         </div>
                         <div class="modal-footer">
                             <button class="btn btn-danger" @click="closeServicingInform">关闭</button>
@@ -186,6 +190,35 @@
             data() {
                 return {
                     tableColumn1: [
+                        { field: 'id', title: '单据状态', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'name', title: '业务类型', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'name', title: '客户名称', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'name', title: '车牌号', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'name', title: '手机', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'name', title: '会员卡号', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'name', title: '单据类型', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'time', title: '开单时间', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatDate' },
+                        { field: 'time', title: '预计完工', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatDate' },
+                        { field: 'time', title: '完工时间', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatDate' },
+                        { field: 'time', title: '结算时间', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatDate' },
+                        { field: 'name', title: '预估金额', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatAmount' },
+                        { field: 'name', title: '服务顾问', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'name', title: '接车人', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' }
+                    ],
+                    tableData1: [
+                        { id: "1", name: "AA", time: "2020-11-11" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }
+                    ],
+                    tableColumn2: [
+                        { field: 'id', title: '维修单号', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'id', title: '接车时间', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatDate' },
+                        { field: 'id', title: '业务类型', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'id', title: '完工时间', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatDate' },
+                        { field: 'id', title: '客户名称', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'id', title: '车牌号', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'id', title: '手机', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'id', title: '会员卡号', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+                        { field: 'id', title: '结算时间', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatDate' },
+                        { field: 'id', title: '消费金额', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatAmount' },
                         { field: 'cargoods.carStatus', title: '单据状态', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatCarStatus' },
                         { field: 'cargoods.carServicetype', title: '业务类型', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
                         { field: 'cargoods.carUsername', title: '客户名称', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
@@ -363,18 +396,19 @@
                                 ],
                             ]
                         }
+
                     },
                     //维修接车对象
-                    iframeVue: {chepai:"津"}
+                    iframeVue: { chepai: "津" }
                 }
             },
             methods: {
-                dd(){
+                dd() {
                     console.log("DDDDDDDDDD")
                 },
                 currentChangeEvent1({ row }) {
                     //获取选中行
-                   console.log(this.$refs.xTable1.getCurrentRecord());
+                    console.log(this.$refs.xTable1.getCurrentRecord());
                 }, currentChangeEvent2({ row }) {
 
                 }, currentChangeEvent3({ row }) {
@@ -404,19 +438,19 @@
                 },
                 //查询作业中的车辆
                 selWorkingCar(){
-                    let that=this;
+                    let that = this;
                     $.ajax({
-                        url:"http://127.0.0.1:8080/servicing/selAll",
-                        type:"get",
-                        dataType:"json",
+                        url: "http://127.0.0.1:8080/servicing/selAll",
+                        type: "get",
+                        dataType: "json",
                         xhrFields: {
-							withCredentials: true
-						},
-						crossDomain: true,
-						async:false,
-                        success:function(result){
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        async: false,
+                        success: function (result) {
                             console.log(result);
-                            that.tableData1=result;
+                            that.tableData1 = result;
                         }
                     });
                 },
@@ -431,13 +465,13 @@
                 },
                 //打开维修接车
                 openServicingInform(){
-                        var chepai=this.iframeVue.chepai;
-                        if(chepai==null||chepai==""){
-                           alert("必须选择车牌号,才能接车");
-                           return;
-                        }
+                    var chepai = this.iframeVue.chepai;
+                    if (chepai == null || chepai == "") {
+                        alert("必须选择车牌号,才能接车");
+                        return;
+                    }
                     $("#ServicingInformation").modal("show");
-                     //像子页面传值
+                    //像子页面传值
                     this.iframe = this.$refs.iframe;
                     this.iframeWindow = this.iframe.contentWindow;
                     let message = false;
@@ -448,97 +482,97 @@
                 },
                 //查询维修历史
                 selServicingHistory(){
-                    var chepai="津";
-                    let that=this;
-                    if(chepai==""||chepai==null){
+                    var chepai = "津";
+                    let that = this;
+                    if (chepai == "" || chepai == null) {
                         //将查询历史的数据源置空
-                       that.tableData2=[];
+                        that.tableData2 = [];
                         return;
                     }
                     $.ajax({
-                        url:"http://127.0.0.1:8080/servicing/selHistoryByChepai/"+chepai,
-                        type:"get",
-                        dataType:"json",
+                        url: "http://127.0.0.1:8080/servicing/selHistoryByChepai/" + chepai,
+                        type: "get",
+                        dataType: "json",
                         xhrFields: {
-							withCredentials: true
-						},
-						crossDomain: true,
-						async:false,
-                        success:function(result){
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        async: false,
+                        success: function (result) {
                             console.log(result);
-                            that.tableData2=result;
-                        } 
+                            that.tableData2 = result;
+                        }
                     });
                 },
                 //查询维修项目
                 selProjectByChepai(){
-                    var chepai="津";
-                    let that=this;
-                    if(chepai==""||chepai==null){
+                    var chepai = "津";
+                    let that = this;
+                    if (chepai == "" || chepai == null) {
                         //将查询历史的数据源置空
                         /* alert("111111"); */
-                        that.tableData3=[];
+                        that.tableData3 = [];
                         return;
                     }
                     $.ajax({
-                        url:"http://127.0.0.1:8080/servicingproject/selProjectByChepai/"+chepai,
-                        type:"get",
-                        dataType:"json",
+                        url: "http://127.0.0.1:8080/servicingproject/selProjectByChepai/" + chepai,
+                        type: "get",
+                        dataType: "json",
                         xhrFields: {
-							withCredentials: true
-						},
-						crossDomain: true,
-						async:false,
-                        success:function(result){
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        async: false,
+                        success: function (result) {
                             console.log(result);
-                            that.tableData3=result;
-                        } 
+                            that.tableData3 = result;
+                        }
                     });
                 },
                 //查询领料
                 selAcquisitionByChepai(){
-                    var chepai="津";
-                    let that=this;
-                    if(chepai==""||chepai==null){
+                    var chepai = "津";
+                    let that = this;
+                    if (chepai == "" || chepai == null) {
                         //将查询历史的数据源置空
                         /* alert("111111"); */
-                        that.tableData4=[];
+                        that.tableData4 = [];
                         return;
                     }
                     $.ajax({
-                        url:"http://127.0.0.1:8080/acquisition/selAcquisitionByChepai/"+chepai,
-                        type:"get",
-                        dataType:"json",
+                        url: "http://127.0.0.1:8080/acquisition/selAcquisitionByChepai/" + chepai,
+                        type: "get",
+                        dataType: "json",
                         xhrFields: {
-							withCredentials: true
-						},
-						crossDomain: true,
-						async:false,
-                        success:function(result){
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        async: false,
+                        success: function (result) {
                             console.log(result);
-                            that.tableData4=result;
-                        } 
+                            that.tableData4 = result;
+                        }
                     });
-                }
+                },
             },
-            watch:{
-                selectTab(){
-                    if(this.selectTab==="tab1"){
+            watch: {
+                selectTab() {
+                    if (this.selectTab === "tab1") {
                         this.selWorkingCar();
-                    }else if(this.selectTab==="tab2"){
+                    } else if (this.selectTab === "tab2") {
                         this.selServicingHistory();
-                    }else if(this.selectTab==="tab3"){
+                    } else if (this.selectTab === "tab3") {
                         this.selProjectByChepai();
-                    }else if(this.selectTab==="tab4"){
-                        this. selAcquisitionByChepai();
-                    }else{
+                    } else if (this.selectTab === "tab4") {
+                        this.selAcquisitionByChepai();
+                    } else {
                         console.log("5");
                     }
                     console.log(this.selectTab)
                 }
             },
             created() {
-                this.selectTab="tab1";
+                this.selectTab = "tab1";
                 this.selWorkingCar();
             }
         };

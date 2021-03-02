@@ -7,9 +7,20 @@ import com.accp.service.impl.SuppliersRegionServiceImpl;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -152,11 +163,157 @@ public class CarController {
         List<LinliaoBiao> list =service2.list();
         return list;
     }
-    //今日提醒wei_xiubiao 查询
-    /*@RequestMapping("SelectLinliaoBiao")
-    public List<LinliaoBiao> SelectLinliaoBiao(){
-        List<LinliaoBiao> list =service2.list();
-        return list;
-    }*/
+    @RequestMapping("/downloadExcel")
+    public ResponseEntity<byte []> downloadExcel(Car stu) throws IOException {
+        List<Car> list = zz.list();
+        Workbook book = new XSSFWorkbook();
+        Sheet sheet = book.createSheet();
+        //导出excel头部
+        Row rowTitle = sheet.createRow(0);
+        Cell carCph = rowTitle.createCell(0);
+        Cell carClpp = rowTitle.createCell(1);
+        Cell carType = rowTitle.createCell(2);
+        Cell carJsy = rowTitle.createCell(3);
+        Cell carPhone = rowTitle.createCell(4);
+        Cell carCsrq = rowTitle.createCell(5);
+        Cell carClgs = rowTitle.createCell(6);
+        Cell carJsydz = rowTitle.createCell(7);
+        Cell carJzdq = rowTitle.createCell(8);
+        Cell carCjh = rowTitle.createCell(9);
+        Cell carFdjh = rowTitle.createCell(10);
+        Cell carFdjpph = rowTitle.createCell(11);
+        Cell carCllk = rowTitle.createCell(12);
+        Cell carLc = rowTitle.createCell(13);
+        Cell carZz = rowTitle.createCell(14);
+        Cell carCx = rowTitle.createCell(15);
+        Cell carGmrq = rowTitle.createCell(16);
+        Cell carSprq = rowTitle.createCell(17);
+        Cell carCjdq = rowTitle.createCell(18);
+        Cell carjqxbxgs = rowTitle.createCell(19);
+        Cell carJqxdq = rowTitle.createCell(20);
+        Cell carSf = rowTitle.createCell(21);
+        Cell carEwrq = rowTitle.createCell(22);
+        Cell carRylb = rowTitle.createCell(23);
+        Cell carXcbylc = rowTitle.createCell(24);
+        Cell carXcbyrq = rowTitle.createCell(25);
+        Cell carHym = rowTitle.createCell(26);
+        Cell column1 = rowTitle.createCell(27);
+        Cell column2 = rowTitle.createCell(28);
+        Cell column3 = rowTitle.createCell(29);
+        carCph.setCellValue("车牌号码");
+        carClpp.setCellValue("车辆品牌");
+        carType.setCellValue("车辆型号");
+        carJsy.setCellValue("驾驶员");
+        carPhone.setCellValue("驾驶员电话");
+        carCsrq.setCellValue("出生日期");
+        carClgs.setCellValue("车辆归属");
+        carJsydz.setCellValue("驾驶员地址");
+        carJzdq.setCellValue("驾照到期日期");
+        carCjh.setCellValue("车架号");
+        carFdjh.setCellValue("发动机号");
+        carFdjpph.setCellValue("发动机品牌号");
+        carCllk.setCellValue("车辆年款");
+        carLc.setCellValue("里程");
+        carZz.setCellValue("载重");
+        carCx.setCellValue("车系");
+        carGmrq.setCellValue("购买日期");
+        carSprq.setCellValue("上牌日期");
+        carCjdq.setCellValue("车检到期");
+        carjqxbxgs.setCellValue("交强险保险公司");
+        carJqxdq.setCellValue("交强险到期日期");
+        carSf.setCellValue("是否在我投保车中");
+        carEwrq.setCellValue("二维日期");
+        carRylb.setCellValue("燃油类别");
+        carXcbylc.setCellValue("下次保养里程");
+        carXcbyrq.setCellValue("下次保养日期");
+        carHym.setCellValue("会员码");
+        column1.setCellValue("商业保险");
+        column2.setCellValue("商业险到期");
+        column3.setCellValue("客户");
+
+
+        //组装导出的学生数据，如果是其他业务，请根据业务情况进行编写
+        if(list!=null){
+            for (int i = 1; i < list.size(); i++) {
+                Car stuValue = list.get(i-1);
+
+                //导出excel数据
+                Row rowValue = sheet.createRow(i);
+                Cell carCphValue = rowValue.createCell(0);
+                Cell carClppValue = rowValue.createCell(1);
+                Cell carTypeValue = rowValue.createCell(2);
+                Cell carJsyValue = rowValue.createCell(3);
+                Cell carPhoneValue = rowValue.createCell(4);
+                Cell carCsrqValue = rowValue.createCell(5);
+                Cell carClgsValue = rowValue.createCell(6);
+                Cell carJsydzValue = rowValue.createCell(7);
+                Cell carJzdqValue = rowValue.createCell(8);
+                Cell carCjhValue = rowValue.createCell(9);
+                Cell carFdjhValue = rowValue.createCell(10);
+                Cell carFdjpphValue = rowValue.createCell(11);
+                Cell carCllkValue = rowValue.createCell(12);
+                Cell carLcValue = rowValue.createCell(13);
+                Cell carZzValue = rowValue.createCell(14);
+                Cell carCxValue = rowValue.createCell(15);
+                Cell carGmrqValue = rowValue.createCell(16);
+                Cell carSprqValue = rowValue.createCell(17);
+                Cell carCjdqValue = rowValue.createCell(18);
+                Cell carjqxbxgsValue = rowValue.createCell(19);
+                Cell carJqxdqValue = rowValue.createCell(20);
+                Cell carSfValue = rowValue.createCell(21);
+                Cell carEwrqValue = rowValue.createCell(22);
+                Cell carRylbValue = rowValue.createCell(23);
+                Cell carXcbylcValue = rowValue.createCell(24);
+                Cell carXcbyrqValue = rowValue.createCell(25);
+                Cell carHymValue = rowValue.createCell(26);
+                Cell column1Value = rowValue.createCell(27);
+                Cell column2Value = rowValue.createCell(28);
+                Cell column3Value = rowValue.createCell(29);
+                carCphValue.setCellValue(stuValue.getCarCph());
+                carClppValue.setCellValue(stuValue.getCarClpp());
+                carTypeValue.setCellValue(stuValue.getCarType());
+                carJsyValue.setCellValue(stuValue.getCarJsy());
+                carPhoneValue.setCellValue(stuValue.getCarPhone());
+                carCsrqValue.setCellValue(stuValue.getCarCsrq());
+                carClgsValue.setCellValue(stuValue.getCarClgs());
+                carJsydzValue.setCellValue(stuValue.getCarJsydz());
+                carJzdqValue.setCellValue(stuValue.getCarJzdq());
+                carCjhValue.setCellValue(stuValue.getCarCjh());
+                carFdjhValue.setCellValue(stuValue.getCarFdjh());
+                carFdjpphValue.setCellValue(stuValue.getCarFdjpph());
+                carCllkValue.setCellValue(stuValue.getCarCllk());
+                carLcValue.setCellValue(stuValue.getCarLc());
+                carZzValue.setCellValue(stuValue.getCarZz());
+                carCxValue.setCellValue(stuValue.getCarCx());
+                carGmrqValue.setCellValue(stuValue.getCarGmrq());
+                carSprqValue.setCellValue(stuValue.getCarSprq());
+                carCjdqValue.setCellValue(stuValue.getCarCjdq());
+                carjqxbxgsValue.setCellValue(stuValue.getCarjqxbxgs());
+                carJqxdqValue.setCellValue(stuValue.getCarJqxdq());
+                carSfValue.setCellValue(stuValue.getCarSf());
+                carEwrqValue.setCellValue(stuValue.getCarEwrq());
+                carRylbValue.setCellValue(stuValue.getCarRylb());
+                carXcbylcValue.setCellValue(stuValue.getCarXcbylc());
+                carXcbyrqValue.setCellValue(stuValue.getCarXcbyrq());
+                carHymValue.setCellValue(stuValue.getCarHym());
+                column1Value.setCellValue(stuValue.getColumn1());
+                column2Value.setCellValue(stuValue.getColumn2());
+                column3Value.setCellValue(stuValue.getColumn3());
+
+
+
+            }
+        }
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        book.write(byteArrayOutputStream);
+
+        HttpHeaders headers = new HttpHeaders();
+        //设置响应内容为文件流模式
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        String fileName = new String("车辆导出数据.xlsx".getBytes("utf-8"),"iso-8859-1");
+        //设置响应的文件的名称
+        headers.setContentDispositionFormData("attachment",fileName);
+        return new ResponseEntity(byteArrayOutputStream.toByteArray(), headers, HttpStatus.OK);
+    }
 }
 

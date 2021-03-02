@@ -1,19 +1,24 @@
 package com.accp.interceptor;
 
-import com.accp.domain.SysUser;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @Component
 public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        System.out.println(request.getSession().getId());
-        //存储用户 查询显示字段
-        request.getSession().setAttribute("user",new SysUser().setUserId(1));
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("text/html;charset=utf-8");
+        HttpSession session = request.getSession();
+        Object obj = session.getAttribute("user");
+        if(obj != null){
+            return true;
+        }
+        //response.getWriter().print("你还没有登录，请登录！");
         return true;
     }
 }

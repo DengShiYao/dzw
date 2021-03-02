@@ -31,7 +31,8 @@
                     <div style="display: inline-block;">
                         <vxe-toolbar>
                             <template v-slot:buttons>
-                                <vxe-button icon="glyphicon glyphicon-plus" @click="engine={}">增加
+                                <vxe-button icon="glyphicon glyphicon-plus" @click="engine={}"
+                                    v-perms="'engine_brand:add'">增加
                                 </vxe-button>
                                 <vxe-button icon="glyphicon glyphicon-floppy-disk" @click="toEngineBrandIns">保存
                                 </vxe-button>
@@ -94,16 +95,13 @@
     </div>
     <script src="js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
     <script src="js/bootstrap.js"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    <script src="https://cdn.jsdelivr.net/npm/xe-utils"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vxe-table"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="https://cdn.jsdelivr.net/npm/xe-utils"></script>
     <script src="https://cdn.jsdelivr.net/npm/vxe-table@3.1.4"></script>
+    <script src="js/vue-perms.js"></script>
     <script src="js/bootstrap-treeview.js"></script>
     <script src="js/common.js"></script>
     <script type="text/javascript">
-
         //获取字段名和属性名
         // SELECT COLUMN_NAME,column_comment FROM INFORMATION_SCHEMA.Columns WHERE table_name='student' AND table_schema='myschool1913'
         var Main = {
