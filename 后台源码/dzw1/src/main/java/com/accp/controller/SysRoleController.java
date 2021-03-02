@@ -2,6 +2,7 @@ package com.accp.controller;
 
 
 import com.accp.domain.SysRole;
+import com.accp.domain.SysUserRole;
 import com.accp.service.impl.SysRoleServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,6 @@ import java.util.List;
 public class SysRoleController {
     @Autowired
     SysRoleServiceImpl sysRoleService;
-
     @GetMapping
     public List<SysRole> findRole(){
         return sysRoleService.list();
@@ -69,7 +69,14 @@ public class SysRoleController {
 
     @PostMapping("addRole")
     public boolean addRole1(SysRole addRole){
-        return addRole.setDelFlag(0).insert();
+        boolean flag = addRole.setDelFlag(0).insert();
+        SysUserRole sysUserRole = new SysUserRole();
+        sysUserRole.setRoleId(addRole.getRoleId());
+        sysUserRole.setUserId(1);
+        flag = sysUserRole.insert();
+        return flag;
     }
+
+
 }
 

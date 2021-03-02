@@ -9,13 +9,12 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="js/jstree/themes/default/style.min.css" />
 </head>
-
 <body>
     <div id="ctn">
         <button class="btn btn-primary" data-toggle="modal" @click="selectSelectRole" href='#modal-id'>修改</button>
         <button class="btn btn-success" data-toggle="modal" @click="" href='#modalAdd'>新增</button>
-        <button class="btn btn-danger" @click="deleteRole">删除</button>
-        <button class="btn btn-danger" @click="rollBack">回滚</button>
+        <button class="btn btn-danger" @click="deleteRole" :disabled="select_roleId == 1 ? true : false" >删除</button>
+        <button class="btn btn-danger" @click="rollBack" :disabled="select_roleId == 1 ? true : false" >回滚</button>
         <!-- 修改模态框 -->
         <div class="modal fade" id="modal-id">
             <div class="modal-dialog">
@@ -32,7 +31,7 @@
                         <!-- <p><input type="text" v-model="updateRole.status" class="form-control"
                                 placeholder="角色状态(0正常 1停用)："></p> -->
                         <p>
-                            <select :disabled="updateRole.delFlag == 2 ? true : false" class="form-control"
+                            <select :disabled="select_roleId == 1 ? true : false" class="form-control"
                                 v-model="updateRole.status">
                                 <option :value="0">正常</option>
                                 <option :value="1">停用</option>
@@ -41,7 +40,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                        <button type="button" class="btn btn-primary" @click="updateRole1()">保存</button>
+                        <button type="button" class="btn btn-primary" @click="updateRole1()"  :disabled="updateRole.delFlag == 2 ? true : false">保存</button>
                     </div>
                 </div>
             </div>
@@ -57,7 +56,6 @@
                         <h4 class="modal-title">角色新增</h4>
                     </div>
                     <div class="modal-body">
-                      
                         <p><input type="text" v-model="addRole.roleName" class="form-control" placeholder="角色名称：">
                         </p>
                         <p>

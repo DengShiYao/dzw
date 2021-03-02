@@ -2,6 +2,8 @@ package com.accp.controller;
 
 
 import com.accp.domain.SysUser;
+import com.accp.domain.SysUserRole;
+import com.accp.service.impl.SysUserRoleServiceImpl;
 import com.accp.service.impl.SysUserServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,7 +30,8 @@ import java.util.List;
 public class SysUserController {
     @Autowired
     SysUserServiceImpl sysUserService;
-
+    @Autowired
+    SysUserRoleServiceImpl sysUserRoleService;
     //登录
     @GetMapping("selectUser")
     public SysUser selectFind(SysUser sysUser, HttpSession httpSession){
@@ -50,6 +55,37 @@ public class SysUserController {
         return sysUserService.list();
     }
 
+    @PostMapping("selectUserById")
+    public SysUser selectUserById(Integer select_userId){
+        QueryWrapper<SysUser> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id",select_userId);
+        return sysUserService.getOne(queryWrapper);
+    }
+
+    @PostMapping("updateUser")
+    public boolean updateUser(SysUser updateUser){
+        if("".equals(updateUser.getCreateTime()) || updateUser.getCreateTime() == null){
+            updateUser.setCreateTime(null);
+        }
+        QueryWrapper<SysUser> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id",updateUser.getUserId());
+        return updateUser.update(queryWrapper);
+    }
+
+    @PostMapping("addUser")
+    public boolean addUser(SysUser addUser){
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        addUser.setCreateTime(simpleDateFormat.format(date));
+        return addUser.insert();
+    }
+    @PostMapping("deleteUser")
+    public boolean deleteUser(Integer select_userId){
+        QueryWrapper<SysUserRole> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id",select_userId);
+        sysUserRoleService.remove(queryWrapper);
+        return sysUserService.removeById(select_userId);
+    }
 
 }
 

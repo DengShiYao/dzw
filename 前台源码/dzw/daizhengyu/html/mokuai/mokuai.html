@@ -12,6 +12,67 @@
 
 <body>
     <div id="app">
+        <button type="button" class="btn btn-primary" data-toggle="modal" href='#modal-id1'>添加</button>
+        <div class="modal fade" id="modal-id1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                            @click="clearSelect">&times;</button>
+                        <h4 class="modal-title">模块添加</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p style="margin-top: 10px;">
+                            <template>
+                                <el-select clearable v-model="value" placeholder="所属权限类型：" @change="findSysMenu">
+                                    <el-option v-for="item in dataM" :key="item.value" :label="item.label"
+                                        :value="item.value">
+                                        <span style="float: left">{{item.label }}</span>
+                                        <span style="float: right; color: #8492a6; font-size: 13px">{{ item.value
+                                            }}</span>
+                                    </el-option>
+                                </el-select>
+                            </template>
+                            <template>
+                                <el-select clearable v-model="value1" placeholder="请选择所属权限模块"
+                                    :disabled=" value!='' && value != null ? disabled:'' ">
+                                    <el-option :key="item.menuId" :label="item.menuName" :value="item.menuId"
+                                        v-for="item in selectMenu">
+                                        {{item.menuName }}
+                                    </el-option>
+                                </el-select>
+                            </template>
+                        </p>
+                        <p>
+                            <el-input v-if="value== 'M'" v-model="addMenu.menuType" disabled title="所属类型为：菜单顶层 D"></el-input>
+                            <el-input v-if="value== 'D'" v-model="addMenu.menuType" disabled title="所属类型为：菜单底层 C"></el-input>
+                            <el-input v-if="value== 'C'" v-model="addMenu.menuType" disabled title="所属类型为：按钮权限 F"></el-input>
+                        </p>
+                        <p>
+                            <el-input v-model="addMenu.menuName" placeholder="请输入模块名称"></el-input>
+                        </p>
+                        <p>
+                            <el-input v-model="addMenu.orderNum" placeholder="请输入显示顺序"></el-input>
+                        </p>
+                        <p>
+                            <el-input v-model="addMenu.char1" placeholder="请输入是否隐藏(0 显示/1 隐藏)"></el-input>
+                        </p>
+                        <p>
+                            <el-input v-if="value == 'C'" v-model="addMenu.perms" placeholder="请输入权限标识"></el-input>
+                        </p>
+                        <p>
+                            <el-input v-model="addMenu.column1" placeholder="请输入唯一标识"></el-input>
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal"
+                            @click="clearSelect">取消</button>
+                        <button type="button" class="btn btn-primary" @click="addSysMenu">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <template>
             <el-table :data="menuM" style="width:100%;">
                 <el-table-column prop="menuId" fixed label="菜单id" width="120">
@@ -52,31 +113,36 @@
                             <div class="form-group">
                                 <label for="inputEmail3" class="col-sm-2 control-label">菜单id</label>
                                 <div class="col-sm-10">
-                                    <input type="email" class="form-control" v-model="updateMenu.menuId" id="inputEmail3" placeholder="菜单id" disabled>
+                                    <input type="email" class="form-control" v-model="updateMenu.menuId"
+                                        id="inputEmail3" placeholder="菜单id" disabled>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="inputEmail3" class="col-sm-2 control-label">菜单名称</label>
                                 <div class="col-sm-10">
-                                    <input type="email"  class="form-control" v-model="updateMenu.menuName" id="inputEmail3" placeholder="菜单名称">
+                                    <input type="email" class="form-control" v-model="updateMenu.menuName"
+                                        id="inputEmail3" placeholder="菜单名称">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="inputEmail3" class="col-sm-2 control-label">显示顺序</label>
                                 <div class="col-sm-10">
-                                    <input type="email" v-model="updateMenu.orderNum" class="form-control" id="inputEmail3" placeholder="显示顺序">
+                                    <input type="email" v-model="updateMenu.orderNum" class="form-control"
+                                        id="inputEmail3" placeholder="显示顺序">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="inputEmail3" class="col-sm-2 control-label">是否隐藏（0/1）</label>
                                 <div class="col-sm-10">
-                                    <input type="email" v-model="updateMenu.char1" class="form-control" id="inputEmail3" placeholder="0显示1隐藏">
+                                    <input type="email" v-model="updateMenu.char1" class="form-control" id="inputEmail3"
+                                        placeholder="0显示1隐藏">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="inputEmail3" class="col-sm-2 control-label">备注</label>
                                 <div class="col-sm-10">
-                                    <textarea class="form-control" v-model="updateMenu.remark">{{updateMenu.remark}}</textarea>
+                                    <textarea class="form-control"
+                                        v-model="updateMenu.remark">{{updateMenu.remark}}</textarea>
                                 </div>
                             </div>
                         </form>
@@ -89,8 +155,6 @@
                 </div>
             </div>
         </div>
-
-
     </div>
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -99,11 +163,27 @@
     <script src="http://unpkg.com/element-ui@2.15.1/lib/index.js"></script>
     <script>
         var basePath = "http://127.0.0.1:8080/";
+        var data = [{
+            value: 'M',
+            label: '模块菜单'
+        }, {
+            value: 'D',
+            label: '菜单顶层'
+        }, {
+            value: 'C',
+            label: '菜单底层'
+        }];
         var Main = {
             data() {
                 return {
                     menuM: {},
-                    updateMenu:{},
+                    updateMenu: {},
+                    addMenu: {},
+                    dataM: data,
+                    value: '',
+                    value1: '',
+                    selectMenu: {},
+                    disabled: false,
                 }
             },
             methods: {
@@ -117,10 +197,10 @@
                             withCredentials: true
                         },
                         crossDomain: true,
-                        data:{menuId : row.menuId},
+                        data: { menuId: row.menuId },
                         dataType: "JSON",
                         success: function (result) {
-                            if(result == true){
+                            if (result == true) {
                                 alert("删除成功！");
                                 that.findMenu();
                             }
@@ -137,7 +217,7 @@
                             withCredentials: true
                         },
                         crossDomain: true,
-                        data:{menuId : row.menuId},
+                        data: { menuId: row.menuId },
                         dataType: "JSON",
                         success: function (result) {
                             that.updateMenu = result;
@@ -159,14 +239,16 @@
                         dataType: "JSON",
                         success: function (result) {
                             that.menuM = result;
+                            that.selectMenu = {};
                         }
                     })
                 },
-                updatemenuAllById(){
+                //修改模块菜单
+                updatemenuAllById() {
                     let that = this;
                     let pojo = JSON.parse(JSON.stringify(that.updateMenu));
                     // this.updateMenu.SysMenuC=null;
-                    pojo.sysMenuC=[];
+                    pojo.sysMenuC = [];
                     $.ajax({
                         url: basePath + "sysMenu/updateMenuById",
                         type: "post",
@@ -174,18 +256,75 @@
                         xhrFields: {
                             withCredentials: true
                         },
-                        data:pojo,
-                        async:false,
+                        data: pojo,
+                        async: false,
                         crossDomain: true,
                         success: function (result) {
-                            if(result == true){
+                            if (result == true) {
                                 alert("修改成功！");
                                 $("#modal-id").modal("hide");
+                                that.findMenu();
+
+                            }
+                        }
+                    })
+                },
+                //添加菜单模块
+                addSysMenu() {
+                    let that = this;
+                    this.addMenu.parentId = this.value1;
+                    $.ajax({
+                        url: basePath + "sysMenu/addSysMenu",
+                        type: "post",
+                        async: false,
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        data: that.addMenu,
+                        async: false,
+                        crossDomain: true,
+                        success: function (result) {
+                            if (result == true) {
+                                alert("新增成功！");
+                                $("#modal-id1").modal("hide");
                                 that.findMenu();
                             }
                         }
                     })
-                }
+                },
+                findSysMenu() {
+                    let that = this;
+                    $.ajax({
+                        url: basePath + "sysMenu/selectMenuBySel",
+                        type: "post",
+                        async: false,
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        data: { menuType: that.value },
+                        crossDomain: true,
+                        dataType: "JSON",
+                        success: function (result) {
+                            that.selectMenu = result;
+                            that.value1 = "";
+                            if (that.value == "M") {
+                              
+                                that.$set(that.addMenu, "menuType", "D")
+                            }
+                            if (that.value == "D") {
+                                that.$set(that.addMenu, "menuType", "C")
+                            }
+                            if (that.value == "C") {
+                                that.$set(that.addMenu, "menuType", "F")
+                            }
+                        }
+                    })
+                },
+                clearSelect() {
+                    console.log(this.value + "" + this.value1);
+                    this.value = "";
+                    this.value1 = "";
+                },
             },
             created() {
                 this.findMenu();

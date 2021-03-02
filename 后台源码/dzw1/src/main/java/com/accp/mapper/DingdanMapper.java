@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author dsy
- * @since 2021-03-01
+ * @since 2021-03-02
  */
 public interface DingdanMapper extends BaseMapper<Dingdan> {
 

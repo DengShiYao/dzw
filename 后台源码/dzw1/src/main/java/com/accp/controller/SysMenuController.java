@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -105,5 +107,27 @@ public class SysMenuController {
     public List<SysMenu> findPerms(HttpSession session){
         SysUser user = (SysUser) session.getAttribute("user");
         return SysMenuService.findPerms(user.getUserId());
+    }
+
+    @PostMapping("selectMenuBySel")
+    public List<SysMenu> selectMenuBySel(String menuType){
+        QueryWrapper<SysMenu> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("menu_type",menuType);
+        return SysMenuService.list(queryWrapper);
+    }
+
+    @PostMapping("addSysMenu")
+    public boolean addSysMenu(SysMenu addMenu){
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String dateTime = simpleDateFormat.format(date);
+        addMenu.setCreateTime(dateTime);
+        boolean flag= addMenu.insert();
+        SysRoleMenu sysRoleMenu = new SysRoleMenu();
+        sysRoleMenu.setRoleId(1);
+        sysRoleMenu.setMenuId(addMenu.getMenuId());
+        flag = sysRoleMenuService.save(sysRoleMenu);
+
+        return flag;
     }
 }
