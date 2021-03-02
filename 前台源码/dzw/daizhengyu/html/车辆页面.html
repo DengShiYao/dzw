@@ -50,8 +50,10 @@
 	<div class="col-md-3">
 	<div class="btn-group" role="group" aria-label="...">
   		<button type="button"  data-toggle="modal" href="#Bymodal" class="btn btn-default" @click="find2(by.carCph)">保养</button>
-  		<button type="button" class="btn btn-default">导出</button>
-		</div>
+  		<button type="button" class="btn btn-default" @click="daochu()">导出</button>
+  		<!--选择按钮用于维修接车-->
+        <button v-if="chooseLogo" type="button" class="btn btn-default" @click="chooseThisCar">选择</button>
+	</div>
 	</div>
 		</div>
 		<div id="cl">
@@ -497,7 +499,6 @@
 								<button type="button"   data-toggle="modal" href="#Byxzmodal" class="btn btn-default">新增</button>
 						  		<button type="button"  data-toggle="modal" href="#Byxgmodal" class="btn btn-default">修改</button>
 						  		<button type="button" class="btn btn-default" @click="remove2(edit2)">删除</button>
-						  		<button type="button" class="btn btn-default">导出</button>
 								<table class="table table-bordered">
 									<tr>
 										<td>车牌号码</td>
@@ -725,13 +726,31 @@
 				selet3:{},
 				selet4:{},
 				selet5:{},
-				selet6:{}
+				selet6:{},
+				carObject:{},
+				chooseLogo:false
 				},
+				//接收维修接车传递过来的值,用于判断选择按钮是否显示
+                mounted() {
+                    let that = this;
+                    window.addEventListener("message", function (e) {
+                        //console.log(e.data);
+                        /* alert("11111"); */
+                        let iframeVue = JSON.parse(JSON.stringify(e.data));
+                        console.log(iframeVue);
+                        that.chooseLogo = iframeVue;
+                        //置空将要传递的车对象
+                        this.carObject={};
+                    });
+                },
 				methods:{
+					daochu(){
+						window.location.href="http://127.0.0.1:8080/car/downloadExcel";
+					},
 						addStudent(){
 								let that = this;
 									var json = JSON.stringify(that.add);
-									alert(json)
+								
 								$.ajax({
 										url:"http://127.0.0.1:8080/car/insert/",
 										data:json,
@@ -749,7 +768,8 @@
 						find(){
 								let that = this;
 								var car = that.clss;
-								alert("车辆搜索"+car);
+								this.carObject={};
+							
 								$.ajax({
 										url:"http://127.0.0.1:8080/car/selectPage/",
 										data:{car:car},
@@ -763,7 +783,7 @@
 									});
 							},findKhID(id){
 								let that = this;
-								alert("用户id"+id)
+								
 								$.ajax({
 										url:"http://127.0.0.1:8080/car/SelectKhID/",
 										data:{id:id},
@@ -824,7 +844,7 @@
 							},remove(item){
 								let that = this;
 								var id = item.carCph;
-								alert(id)
+								
 								$.ajax({
 										url:"http://127.0.0.1:8080/car/delect/",
 										data:{id:id},
@@ -839,6 +859,8 @@
 									this.edit = JSON.parse(JSON.stringify(item));
 									this.by = JSON.parse(JSON.stringify(item));
 									this.findKhID(item.column3);
+									//将选中的车付给传递的车对象
+									this.carObject=item;
 								},
 								editStudent(){
 										let that = this;
@@ -877,7 +899,7 @@
 									},
 								find2(cph){
 									let that = this;
-									alert(cph)
+									
 									$.ajax({
 											url:"http://127.0.0.1:8080/maintenance/selectPage/",
 											data:{cph:cph},
@@ -891,7 +913,7 @@
 								},remove2(item){
 									let that = this;
 									var id = item.id;
-									alert(id)
+									
 									$.ajax({
 											url:"http://127.0.0.1:8080/maintenance/delect/",
 											data:{id:id},
@@ -918,8 +940,13 @@
 														that.find2();
 													}
 											});
-									}
-								
+									},
+								//选择车辆用于维修接车
+                                    chooseThisCar(){
+                                        console.log(this.carObject);
+                                        let message = this.carObject;
+                                        window.parent.postMessage(message, "*");
+                                    }  
 								
 								
 								

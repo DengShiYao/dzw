@@ -84,8 +84,6 @@
 						<button type="button" @click="showmo4()" class="btn btn-default">增加客户</button>
 						<button type="button" @click="showmo5()" class="btn btn-default">修改客户</button>
 						<button type="button" class="btn btn-default" @click="remove(edit)">删除客户</button>
-						<button type="button" @click="ba1" class="btn btn-default">相关证照</button>
-						<button type="button" class="btn btn-default">设置密码</button>
 					</div>
 				</div>
 			</div>
@@ -103,34 +101,34 @@
 							<div class="modal-body" style="background-color: #F7F7F7;">
 								<table class="table table-hover">
 									<tr>
-										<td>*<label style="margin-left: 10px;">客户编码</label><input  style="width: 120px;margin-left: 7px;margin-right: 10px;"  v-model="add.carCsrq"/>*
-											<label style="margin-left: 10px;">客户名称</label><input style="width: 120px; margin-left: 10px;" v-model="add.carCsrq">
-											<label style="margin-left: 10px;">联系人</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;" v-model="add.carCsrq">*
-												<label style="margin-left: 10px;">手机号码</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;" v-model="add.carCsrq"></td>
+										<td>*<label style="margin-left: 10px;">客户编码</label><input  style="width: 120px;margin-left: 7px;margin-right: 10px;"  v-model="add.khid"/>*
+											<label style="margin-left: 10px;">客户名称</label><input style="width: 120px; margin-left: 10px;" v-model="add.khName">
+											<label style="margin-left: 10px;">联系人</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;" v-model="add.lxpeople">*
+												<label style="margin-left: 10px;">手机号码</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;" v-model="add.phone"></td>
 									</tr>
 
 									<tr>
-										<td><label style="margin-left: 10px;">客户地址</label><input style="width: 340px;margin-left: 7px;margin-right: 10px;" v-model="add.carCsrq"/>
-										<label style="margin-left: 11px;">客户生日</label><input type="date" style="width: 120px; margin-left: 10px;margin-right: 10px;" v-model="add.carCsrq"></td>
+										<td><label style="margin-left: 10px;">客户地址</label><input style="width: 340px;margin-left: 7px;margin-right: 10px;" v-model="add.adress"/>
+										<label style="margin-left: 11px;">客户生日</label><input type="date" style="width: 120px; margin-left: 10px;margin-right: 10px;" v-model="add.birthday"></td>
 									</tr>
 									<tr>
-										<td><label style="margin-left: 11px;">账期</label><input type="number" style="width: 50px;margin-left: 7px;margin-right: 10px;" v-model="add.carCsrq"/>
-										<label style="margin-left: 11px;">挂账额度</label><input style="width: 120px; margin-left: 10px;margin-right: 10px;" v-model="add.carCsrq">
-										<label style="margin-left: 11px;">专属顾问</label><input style="width: 80px;margin-left: 7px;margin-right: 10px;" v-model="add.carCsrq">
-										<label style="margin-left: 11px;">顾问电话</label><input style="width: 155px;margin-left: 7px;margin-right: 10px;" v-model="add.carCsrq">
+										<td><label style="margin-left: 11px;">账期</label><input type="number" style="width: 50px;margin-left: 7px;margin-right: 10px;" v-model="add.zq"/>
+										<label style="margin-left: 11px;">挂账额度</label><input style="width: 120px; margin-left: 10px;margin-right: 10px;" v-model="add.gzmoeny">
+										<label style="margin-left: 11px;">专属顾问</label><input style="width: 80px;margin-left: 7px;margin-right: 10px;" v-model="add.fwgw">
+										<label style="margin-left: 11px;">顾问电话</label><input style="width: 155px;margin-left: 7px;margin-right: 10px;" v-model="add.ywphone">
 									</tr>
 									<tr>
 										<td>
 											<label>省</label>
-											<input v-model="add.carCsrq"><img @click="showmo" src="img/20210125084610.png" height="23" width="16px" style="margin-top:-4.5px;margin-left: 0px;" />
+											<input v-model="add.khsheng"><img @click="showmo" src="img/20210125084610.png" height="23" width="16px" style="margin-top:-4.5px;margin-left: 0px;" />
 											<label>市</label>
-											<input v-model="add.carCsrq"/><img @click="showmo1" src="img/20210125084610.png"  height="23" width="16px" style="margin-top:-4.5px;margin-left: 0px;" />
+											<input v-model="add.khshi"/><img @click="showmo1" src="img/20210125084610.png"  height="23" width="16px" style="margin-top:-4.5px;margin-left: 0px;" />
 											<label>区</label>
-											<input  v-model="add.carCsrq"><img @click="showmo2" src="img/20210125084610.png"  height="23" width="16px" style="margin-top:-4.5px;margin-left: 0px;"/>
+											<input  v-model="add.khq"><img @click="showmo2" src="img/20210125084610.png"  height="23" width="16px" style="margin-top:-4.5px;margin-left: 0px;"/>
 										</td>
 									</tr>
 									<tr>
-										<td><label style="margin-left: 11px;">备注</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;" v-model="add.carCsrq"></td>
+										<td><label style="margin-left: 11px;">备注</label><input style="width: 120px;margin-left: 7px;margin-right: 10px;" v-model="add.remarks"></td>
 									</tr>
 								</table>
 								<div class="form-group">
@@ -880,10 +878,7 @@
 	<div class="btn-group" role="group" aria-label="...">
 		<button type="button" @click="khbj" class="btn btn-default">客户编辑</button>
   		<button type="button" @click="czl" class="btn btn-default">车资料</button>
-  		<button type="button" class="btn btn-default">客户分类</button>
-  		<button type="button" class="btn btn-default">查询</button>
-  		<button type="button" class="btn btn-default">导出</button>
-  		<button type="button" class="btn btn-default">字段设置</button>
+  		<button type="button" class="btn btn-default" @click="daochu()">导出</button>
 		</div>
 	</div>
 		</div>
@@ -1580,13 +1575,15 @@
 					
 					
 					
-					
+					daochu(){
+						window.location.href="http://127.0.0.1:8080/consumer/downloadExcelBy";
+					},
 					
 					addStudentdc(){
 								let that = this;
 									var json = JSON.stringify(that.add);
 									var json2 = JSON.stringify(that.add2);
-									alert(json)
+									
 								$.ajax({
 										url:"http://127.0.0.1:8080/consumer/insert/",
 										data:json,
@@ -1614,7 +1611,7 @@
 					addStudent(){
 								let that = this;
 									var json = JSON.stringify(that.add);
-									alert(json)
+									
 								$.ajax({
 										url:"http://127.0.0.1:8080/consumer/insert/",
 										data:json,
@@ -1630,7 +1627,7 @@
 						find(){
 								let that = this;
 								var kehu = that.clss;
-								alert("用户搜索"+kehu);
+							
 								$.ajax({
 										url:"http://127.0.0.1:8080/consumer/selectPage/",
 										data:{kehu:kehu},
@@ -1638,8 +1635,7 @@
 										dataType:"json",
 										success:function(result){
 												that.page=result;
-												alert(JSON.stringify(that.page))
-												alert("查询成功")
+												
 											}
 									});
 							},selectPage(){
@@ -1692,7 +1688,7 @@
 									});
 							},findKhID(id){
 								let that = this;
-								alert("用户id"+id)
+								
 								$.ajax({
 										url:"http://127.0.0.1:8080/car/SelectClID/",
 										data:{id:id},
@@ -1700,13 +1696,13 @@
 										dataType:"json",
 										success:function(result){
 												that.selet6=result;
-												alert("车辆信息"+JSON.stringify(that.selet6))
+												
 											}
 									});
 							},remove(item){
 								let that = this;
 								var id = item.id;
-								alert(id)
+								
 								$.ajax({
 										url:"http://127.0.0.1:8080/consumer/delect/",
 										data:{id:id},
@@ -1719,7 +1715,7 @@
 							},
 							toEdit(item){
 									this.edit = JSON.parse(JSON.stringify(item));
-									alert(JSON.stringify(this.edit));
+									
 									this.findKhID(item.id);
 								},
 								editStudent(){
@@ -1745,7 +1741,7 @@
 							addStudent2s(){
 								let that = this;
 									var json = JSON.stringify(that.add);
-									alert(json)
+									
 								$.ajax({
 										url:"http://127.0.0.1:8080/car/insert/",
 										data:json,
@@ -1762,7 +1758,7 @@
 								},remove2(item){
 								let that = this;
 								var id = item.carCph;
-								alert(id)
+								
 								$.ajax({
 										url:"http://127.0.0.1:8080/car/delect/",
 										data:{id:id},

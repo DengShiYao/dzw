@@ -16,17 +16,15 @@
 			今日提醒
 		</h1>
 		<div class="row">
-  		<div class="col-md-3">
+  		<div class="col-md-2">
   			<ul>
-  				<li @click="cl_ick0('今天提醒1.html')">wqdadadas</li>
-  				<li @click="cl_ick0('今天提醒2.html')">wqdadadas</li>
-  				<li @click="cl_ick0('今天提醒2.html')">wqdadadas</li>
-  				<li @click="cl_ick0('今天提醒2.html')">wqdadadas</li>
-  				<li @click="cl_ick0('今天提醒2.html')">wqdadadas</li>
-  				<li @click="cl_ick0('今天提醒2.html')">wqdadadas</li>
+  				<li @click="cl_ick0('今天提醒2.html')">待入库旧件</li>
+  				<li @click="cl_ick0('今日提醒3.html')">账期超期</li>
+  				<li @click="cl_ick0('今日提醒4.html')">班组备件超期</li>
+  				<li @click="cl_ick0('今日提醒5.html')">需年审车辆</li>
   			</ul>
   		</div>
-  		<div class="col-md-9">
+  		<div class="col-md-10">
 
 			<iframe :src="path"></iframe>
 
@@ -51,7 +49,7 @@
 				},
 				
 			},created(){
-				this.path="今天提醒1.html"
+				this.path="今天提醒2.html"
 			}
 		});
 	</script>
