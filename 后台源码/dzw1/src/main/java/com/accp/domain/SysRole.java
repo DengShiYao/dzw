@@ -1,5 +1,7 @@
 package com.accp.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -26,6 +28,7 @@ public class SysRole extends Model<SysRole> {
     private static final long serialVersionUID=1L;
 
     @ApiModelProperty(value = "角色id")
+    @TableId(value = "role_id", type = IdType.AUTO)
     private Integer roleId;
 
     @ApiModelProperty(value = "角色名称")
