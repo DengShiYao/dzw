@@ -48,7 +48,7 @@ public class ListOfSales extends Model<ListOfSales> {
     private String settlementUser;
 
     @ApiModelProperty(value = "结算金额")
-    private Integer settlementMoney;
+    private Double settlementMoney;
 
     @ApiModelProperty(value = "业务类型")
     private String serviceType;
@@ -97,6 +97,13 @@ public class ListOfSales extends Model<ListOfSales> {
     @ApiModelProperty(value = "备用列")
     private String column3;
 
+    @TableField(exist = false)
+    @ApiModelProperty(value = "开单起始日期")
+    private String settlementBenginTime;
+
+    @TableField(exist = false)
+    @ApiModelProperty(value = "开单结束日期")
+    private String settlementEndTime;
 
     public static final String SALES_ORDER = "sales_order";
 

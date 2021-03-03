@@ -11,11 +11,7 @@ import com.accp.service.impl.ServicingServiceImpl;
 import com.accp.service.impl.ServicingprojectServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +39,7 @@ public class ServicingprojectController {
      * @param chepai
      * @return
      */
-    @GetMapping("//selProjectByChepai/{chepai}")
+    @GetMapping("/selProjectByChepai/{chepai}")
     public  List<Servicingproject> selByChepai(@PathVariable String chepai){
         QueryWrapper<Servicing> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda().eq(Servicing::getSerChepai,chepai);
@@ -54,6 +50,53 @@ public class ServicingprojectController {
         }
         List<Servicingproject> list1 =servicingprojectService.selByArray(array);
         return  list1;
+    }
+
+    /**
+     *新增单个项目
+     */
+    @PostMapping("/addWxProject")
+    public boolean  addWxProject(Servicingproject servicingproject){
+         boolean a=servicingprojectService.save(servicingproject);
+        return  a;
+    }
+
+    /**
+     *新增多个维修项目
+     */
+    @PostMapping("/addProjectList")
+    public boolean addProjectList(@RequestBody List<Servicingproject> list){
+        boolean a= servicingprojectService.saveBatch(list);
+        return  a;
+    }
+
+    @GetMapping("/selBySerNumber/{serNumber}")
+    /**
+     * 根据维修单号查询当前单号下的所有维修项目
+     */
+    public  List<Servicingproject> selBySerNumber(@PathVariable String serNumber){
+        QueryWrapper<Servicingproject> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().eq(Servicingproject::getColumn1,serNumber);
+        List<Servicingproject> list = servicingprojectService.list(queryWrapper);
+        return  list;
+    }
+
+    /**
+     * 计算当前维修单所有项目的金额
+     * @param serNumber
+     * @return
+     */
+    @GetMapping("/getPrice/{serNumber}")
+    public Double selSumPrice(@PathVariable String serNumber){
+        QueryWrapper<Servicingproject> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().eq(Servicingproject::getWxGdannumber,serNumber);
+        List<Servicingproject> list = servicingprojectService.list(queryWrapper);
+        Double price = 0.00;
+        for(Servicingproject servicingproject:list){
+            price+=servicingproject.getWxGsdanjia();
+            price+=servicingproject.getWxJsjies();
+        }
+        return price;
     }
 }
 
