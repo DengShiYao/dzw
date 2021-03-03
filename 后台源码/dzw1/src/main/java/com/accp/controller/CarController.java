@@ -52,6 +52,8 @@ public class CarController {
     SuppliersRegionServiceImpl service;
     @Autowired
     ILinliaoBiaoService service2;
+    @Autowired
+    IListOfSalesService js;
     //查询车辆
     @RequestMapping("/selectPage")
     @ResponseBody
@@ -314,6 +316,15 @@ public class CarController {
         //设置响应的文件的名称
         headers.setContentDispositionFormData("attachment",fileName);
         return new ResponseEntity(byteArrayOutputStream.toByteArray(), headers, HttpStatus.OK);
+    }
+
+
+    //结算中心查询
+    @RequestMapping("Selectjs")
+    public List<ListOfSales> Selectjs(){
+        QueryWrapper<ListOfSales> query =  new QueryWrapper<>();
+        List<ListOfSales> list =js.list(query);
+        return list;
     }
 }
 

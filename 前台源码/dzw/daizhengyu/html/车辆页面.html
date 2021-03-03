@@ -60,17 +60,33 @@
 		<table class="table table-bordered">
 			<tr>
 				<td>车牌号码</td>
-				<td>车牌号码</td>
-				<td>车牌号码</td>
-				<td>车牌号码</td>
-				<td>车牌号码</td>
-				<td>车牌号码</td>
-				<td>车牌号码</td>
-				<td>车牌号码</td>
-				<td>车牌号码</td>
-				<td>车牌号码</td>
-				<td>车牌号码</td>
-				<td>车牌号码</td>
+							<td>车辆品牌</td>
+							<td>车辆型号</td>
+							<td>驾驶员</td>
+							<td>驾驶员电话</td>
+							<td>出生日期</td>
+							<td>驾驶员地址</td>
+							<td>车辆归属</td>
+							<td>驾证到期</td>
+							<td>车架号</td>
+							<td>发动机号</td>
+							<td>发动机品牌号</td>
+							<td>车辆年款</td>
+							<td>里程</td>
+							<td>载重</td>
+							<td>车系</td>
+							<td>购买日期</td>
+							<td>上牌日期</td>
+							<td>车检到期</td>
+							<td>交强险保险公司</td>
+							<td>交强险到期</td>
+							<td>商业保险公司</td>
+							<td>商业险到期</td>
+							<td>在我投保车</td>
+							<td>二维日期</td>
+							<td>燃油类别</td>
+							<td>下次保养里程</td>
+							<td>会员码</td>
 			</tr>
 			<tr  v-for="item in page" @click="toEdit(item)">
 	 				<td>{{item.carCph}}</td>
@@ -113,22 +129,38 @@
 
 
 		<button type="button" class="btn btn-default">客户信息</button>
-  		<button type="button" class="btn btn-default">历史维修</button>
+  		
 		<div id="kh">
 		<table class="table table-bordered">
 			<tr>
-				<td>车牌号码</td>
-				<td>车牌号码</td>
-				<td>车牌号码</td>
-				<td>车牌号码</td>
-				<td>车牌号码</td>
-				<td>车牌号码</td>
-				<td>车牌号码</td>
-				<td>车牌号码</td>
-				<td>车牌号码</td>
-				<td>车牌号码</td>
-				<td>车牌号码</td>
-				<td>车牌号码</td>
+				<td class="wrap" style="width: 50px;">客户编码</td>
+						<td style="width: 120px">客户名称</td>
+						<td style="width: 120px">详细地址</td>
+						<td style="width: 120px">联系人</td>
+						<td style="width: 120px">手机</td>
+						<td style="width: 90px">客户生日</td>
+						<td style="width: 90px">客户类别</td>
+						<td style="width: 90px">会员卡号</td>
+						<td style="width: 90px">入会日期</td>
+						<td style="width: 90px">会员到期</td>
+						<td style="width: 90px">备注</td>
+						<td style="width: 90px">建档日期</td>
+						<td style="width: 90px">服务顾问</td>
+						<td style="width: 120px">业务员电话</td>
+						<td style="width: 90px">账期(天)</td>
+						<td style="width: 90px">挂账额度</td>
+						<td style="width: 90px">客户省</td>
+						<td style="width: 90px">客户市</td>
+						<td style="width: 90px">客户区</td>
+						<td style="width:120px">纳税人识别号</td>
+						<td style="width: 90px">注册电话</td>
+						<td style="width: 90px">开户银行</td>
+						<td style="width: 90px">银行账号</td>
+						<td style="width: 90px">注册地址</td>
+						<td style="width: 90px">其它一</td>
+						<td style="width: 90px">其它二</td>
+						<td style="width: 90px">其它三</td>
+						<td style="width: 90px">其它四</td>
 			</tr>
 			<tr  v-for="item in selet6">
 	 			<td>{{item.khid}}</td>
@@ -942,11 +974,14 @@
 											});
 									},
 								//选择车辆用于维修接车
-                                    chooseThisCar(){
-                                        console.log(this.carObject);
-                                        let message = this.carObject;
-                                        window.parent.postMessage(message, "*");
-                                    }  
+						            chooseThisCar() {
+						                console.log(this.carObject);
+						                message = {
+						                    aa: "car",
+						                    val: this.carObject
+						                }
+						                window.parent.postMessage(message, "*");
+						            }  
 								
 								
 								
