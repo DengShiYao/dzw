@@ -200,67 +200,67 @@
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 							<span class="modal-title" style="font-size: 20px;"><strong>维修项目</strong></span>
-							<button style="margin-left: 70%;" class="btn btn-success">保存</button>
+							<button style="margin-left: 70%;" class="btn btn-success" @click="saveWxProject">保存</button>
 						</div>
 						<div class="modal-body" style="background-color: rgb(247,247,247);">
 							<form class="form-horizontal">
 							  <div class="form-group">
 							    <label for="inputEmail3" class="col-sm-2 control-label">维修项目</label>
 									<div class="col-sm-8">
-									  <input type="text" class="form-control" id="inputPassword3">
+									  <input type="text" class="form-control" id="inputPassword3" v-model="serproject.wxProjectnae">
 									</div>
-									<button class="btn btn-default" style="margin-left: 30px;" @click="xzWeiXiu()">选择</button>
+									<button class="btn btn-success" style="margin-left: 30px;" @click="xzWeiXiu()">选择</button>
 							  </div>
 							  <div class="form-group">
 							    <label for="inputPassword3" class="col-sm-2 control-label">价类</label>
 							    <div class="col-sm-4">
-							      <input type="text" class="form-control" id="inputPassword3">
+							      <input type="text" class="form-control" id="inputPassword3" v-model="serproject.wxJialei">
 							    </div>
 									<label for="inputPassword3" class="col-sm-2 control-label">免单原因</label>
 									<div class="col-sm-4">
-									  <input type="text" class="form-control" id="inputPassword3">
+									  <input type="text" class="form-control" id="inputPassword3" v-model="serproject.wxMiandan">
 									</div>
 							  </div>
 								<div class="form-group">
 								  <label for="inputPassword3" class="col-sm-2 control-label">服务顾问</label>
 								  <div class="col-sm-3">
-								    <input type="text" class="form-control" id="inputPassword3">
+								    <input type="text" class="form-control" id="inputPassword3" v-model="serproject.wxServiceuser">
 								  </div>
 									<label for="inputPassword3" class="col-sm-3 control-label">技师结算标价</label>
 									<div class="col-sm-3">
-									  <input type="text" class="form-control" id="inputPassword3">
+									  <input type="text" class="form-control" id="inputPassword3" v-model="serproject.wxJsjies">
 									</div>
 								</div>
 								<div class="form-group">
 								  <label for="inputPassword3" class="col-sm-2 control-label">数量</label>
 								  <div class="col-sm-4">
-								    <input type="text" class="form-control" id="inputPassword3">
+								    <input type="text" class="form-control" id="inputPassword3" v-model="serproject.wxNumber">
 								  </div>
 									<label for="inputPassword3" class="col-sm-2 control-label">工时单价</label>
 									<div class="col-sm-4">
-									  <input type="text" class="form-control" id="inputPassword3">
+									  <input type="text" class="form-control" id="inputPassword3" v-model="serproject.wxGsdanjia">
 									</div>
 								</div>
 								<div class="form-group">
 								  <label for="inputEmail3" class="col-sm-2 control-label">故障描述</label>
 								  <div class="col-sm-10">
-								    <input type="text" class="form-control" id="inputEmail3">
+								    <input type="text" class="form-control" id="inputEmail3" v-model="serproject.wxGzmiaoshu">
 								  </div>
 								</div>
 								<div class="form-group">
 								  <label for="inputEmail3" class="col-sm-2 control-label">故障原因</label>
 								  <div class="col-sm-10">
-								    <input type="text" class="form-control" id="inputEmail3">
+								    <input type="text" class="form-control" id="inputEmail3"  v-model="serproject.wxGzyuanyin">
 								  </div>
 								</div>
 								<div class="form-group">
 								  <label for="inputPassword3" class="col-sm-2 control-label">维修班组</label>
 								  <div class="col-sm-4">
-								    <input type="text" class="form-control" id="inputPassword3">
+								    <input type="text" class="form-control" id="inputPassword3"  v-model="serproject.wxWeixiubz">
 								  </div>
 									<label for="inputPassword3" class="col-sm-2 control-label">工单号</label>
 									<div class="col-sm-4">
-									  <input type="text" class="form-control" id="inputPassword3">
+									  <input type="text" class="form-control" id="inputPassword3"  v-model="serproject.wxGdannumber">
 									</div>
 								</div>
 							</form>
@@ -272,7 +272,51 @@
 
 				</div>
 			</div>
+			<!--维修项目模态框2-->
 
+			<div class="modal fade" id="wxdMoal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<!-- <div class="modal-dialog" role="document" style="width: 1200px;">
+				  <div class="modal-content">
+				   <div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<span class="modal-title" style="font-size: 20px;"><strong>物料需求</strong></span>
+					<button style="margin-left: 71%;" class="btn btn-default">选择</button>
+					<button style="margin-left: 10px;" class="btn btn-success">保存</button>
+				   </div>
+				   <div class="modal-body" style="background-color: rgb(247,247,247);height: 450px important;">
+					<div class="modal-body " style="padding: 0px !important;">
+						<div style="width: 100%; height: 580px;">
+							<iframe src="../yf/maintain_pro.html" width="100%" height="100%"></iframe>
+						</div>
+			   >
+					</div>
+					
+				   </div>
+				   <div class="modal-footer">
+				   </div>
+				  </div>
+			 
+				 </div> -->
+				<div class="modal-dialog modal-lg" role="document" style="width: 1200px;">
+				 <div class="modal-content">
+				  <div class="modal-header">
+				   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+					 aria-hidden="true">&times;</span></button>
+				   <h4 class="modal-title clearfix" id="myModalLabel">供货单位
+				   </h4>
+				  </div>
+				  <div class="modal-body " style="padding: 0px !important;">
+				   <div style="width: 100%; height: 580px;">
+					<iframe id="iframe" src="../yf/maintain_pro.html" width="100%" ref="iframe" height="100%"
+					 frameborder="no" border="0" style="border: none;"></iframe>
+					<!-- transform:scale(1.1,1.1) -->
+				   </div>
+				   <!-- <iframe src="supplier.html" frameborder="0" style="width: 100%;  height: 550px;"></iframe> -->
+				  </div>
+			 
+				 </div>
+				</div>
+			   </div>   
 
 			<!--领料模态框-->
 			<div class="modal fade" id="llMoal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -431,7 +475,9 @@
 							serExpectmoney:"",
 							serJdbeizu:"",
 							//关闭模态框标识,告知维修接车页面关闭模态框
-							closeLogin:true
+							closeLogin:true,
+							//根据单号查询到的维修项目list
+							ServicingProjectList:[]
 						},
 						//判断是否是打开单据
 						billsTrue:true,
@@ -454,9 +500,9 @@
 				mounted() {
 					let that = this;
 					window.addEventListener("message", function (e) {
-						// console.log(e.data);
 						let iframeVue = JSON.parse(JSON.stringify(e.data));
-						if(iframeVue.aa="aa"){
+						console.log(iframeVue);
+						if(iframeVue.aa=="aa"){
 							//维修接车传递的数据
 							console.log(iframeVue);
 							that.setButtonStatus1=false;
@@ -487,6 +533,7 @@
 							}
 							that.selServicingById();
 							that.selCarLastRecordByChepai(that.addServicing.serChepai);
+							that.selSumPrice();
 							console.log(that);
 							/* if(that.addServicing.serNumber!=null){
 								that.selServicingById();
@@ -499,30 +546,55 @@
 							alert("11111");
 							//
 							if(that.modalIndex === 0){
-								that.serproject.wxProjectnae = iframeVue.seName;
-								that.serproject.wxGsdanjia = iframeVue.price;
-								that.serproject.wxJsjies = iframeVue.vipPrice;
+								alert("2222222");
+								that.serproject.column1=iframeVue.code.seId;//项目号
+								that.serproject.wxProjectnae = iframeVue.code.seName;//项目名称
+								that.serproject.wxGdannumber=that.addServicing.serNumber;//工单号
+								console.log(that.serproject);
+								/* $("#wxdMoal").modal("hide");//关闭选择模态框 */
+								that.selServicingProjectBySerNumber();
+								that.selSumPrice();
 							}else{
-								that.sjList = iframeVue;
-								var json = JSON.stringify(that.sjList);
+								that.sjList = iframeVue.code;
+								console.log(that.sjList);
+								//定义一个数组，里面存储维修项目对象
+								var projectList=[];
+								for(var i=0;i<that.sjList.length;i++){
+										var project={};
+										project.wxProjectnae=that.sjList[i].seName;
+										project.wxNumber=1;
+										project.wxGsdanjia = that.sjList[i].price;//工时单价
+										project.wxJsjies = that.sjList[i].vipPrice;//技师结算单价
+										project.wxJialei="自费";
+										project.column1=that.sjList[i].seId;//项目号
+										project.wxGdannumber=that.addServicing.serNumber;//工单号
+										/* project.wxGdannumber="00000RE210200001";//工单号 */
+										projectList.push(project);
+									}
+								console.log(projectList);
+								var json=JSON.stringify(projectList);
 								console.log(json);
 								$.ajax({
-									url:that.url+"addProjectList",
+									url:"http://127.0.0.1:8080/servicingproject/addProjectList",
 									type:"post",
 									data:json,
 									xhrFields: {
 										withCredentials: true
 									},
-									contentType:"application/json",
+									crossDomain: true,
+									async:false,
+									contentType:"application/json;charset=utf-8",
 									success:function(result){
 										if(result){
 											alert("保存成功！")
 										}else{
 											alert("保存失败！")
 										}
-										location.reload();
+										/* location.reload(); */
 									}
-								})
+								});
+								that.selServicingProjectBySerNumber();
+								that.selSumPrice();
 							}
 							if(iframeVue)
 							$("#wxdMoal").modal("hide");
@@ -543,9 +615,26 @@
 					},
 					//维修模态框得显示
 					wxModalShow(index) {
-						this.modalIndex = index;
 						$("#iframe").get(0).contentWindow.location.reload(true);
+						this.modalIndex = index;
+						alert("222");
 						$("#wxMoal").modal("show");
+					},
+					//维修多选框
+					wxModalShow1(){
+					$("#iframe").get(0).contentWindow.location.reload(true);
+					setTimeout(()=>{
+						this.modalIndex = 1;
+						this.iframCheckbox = false;
+						//像子页面传值
+						this.iframe = this.$refs.iframe
+						this.iframeWindow = this.iframe.contentWindow;
+						let message= [false, true];
+						console.log(message);
+						this.iframeWindow.postMessage(message, '*');
+						$("#wxdMoal").modal("show");
+					},500)
+				   
 					},
 					//领料模态框显示
 					llModalShow(){
@@ -626,16 +715,25 @@
 					//保存维修项目
 					saveWxProject(){
 						let that = this;
+						alert("保存单个项目");
+						console.log(this.serproject);
 							$.ajax({
-								url:that.url+"addProject",
+								url:"http://127.0.0.1:8080/servicingproject/addWxProject",
+								type:"post",
 								data:that.serproject,
+								xhrFields: {
+								withCredentials: true
+								},
+								crossDomain: true,
+								async:false,
 								success:function(result){
 									if(result){
 										alert("保存成功！")
 									}else{
 										alert("保存失败！")
 									}
-									location.reload();
+									$("#wxMoal").modal("hide");
+									/* location.reload(); */
 								}
 							})
 						
@@ -656,8 +754,9 @@
 					takeCarFinish(){
 						let that=this;
 						var json=JSON.stringify(that.addServicing);
-						console.log(json);
-						$.ajax({
+						var flag= confirm("是否接车完毕?");
+						if(flag){
+							$.ajax({
 							url:"http://127.0.0.1:8080/servicing/takeCarFinish",
 							data:json,
 							type:"post",
@@ -671,13 +770,13 @@
 								alert(result);
 							}
 						});
-						/* alert("接车完成"); */
+						/* alert("竣工检验"); */
 						var message={
 								aa:'bb',
 								val:this.closeLogin,
-								
 						}
 						window.parent.postMessage(message, "*");
+						}
 					},
 					//竣工检验
 					testOnCompletion(){
@@ -701,14 +800,72 @@
 						var message={
 								aa:'bb',
 								val:this.closeLogin,
-								
 						}
 						window.parent.postMessage(message, "*");
 					},
 					//结算
 					settlement(){
-
+						var serNumber=this.addServicing.serNumber;
+						let that=this;
+						$.ajax({
+							url:"http://127.0.0.1:8080/listOfSales/addListOfSale/"+serNumber,
+							type:"post",
+							xhrFields: {
+								withCredentials: true
+							},
+							crossDomain: true,
+							async:false,
+							success:function(result){
+								if(result){
+									alert("成功");
+									var message={
+											aa:'cc',
+											val:this.closeLogin,
+									}
+									window.parent.postMessage(message, "*");
+								}else{
+									alert("失败");
+								}
+							}
+						});
 						alert("结算");
+					},
+					//根据维修单号查询当前单号下的维修项目
+					selServicingProjectBySerNumber(){
+						let that=this;
+						var serNumber=that.addServicing.serNumber;
+						$.ajax({
+							url:"http://127.0.0.1:8080/servicingproject/selBySerNumber/"+serNumber,
+							type:"get",
+							xhrFields: {
+								withCredentials: true
+							},
+							crossDomain: true,
+							async:false,
+							dataType:"json",
+							success:function(result){
+								that.ServicingProjectList=result;
+							}
+						});
+					},
+					//查询该维修单的预计金额
+					selSumPrice(){
+						let that=this;
+						var serNumber=that.addServicing.serNumber;
+						/* alert(serNumber); */
+						$.ajax({
+							url:"http://127.0.0.1:8080/servicingproject/getPrice/"+serNumber,
+							type:"get",
+							xhrFields: {
+								withCredentials: true
+							},
+							crossDomain: true,
+							async:false,
+							success:function(result){
+								console.log(result);
+								that.addServicing.serExpectmoney=result;
+							}
+						});
 					}
 				},
 				created(){
