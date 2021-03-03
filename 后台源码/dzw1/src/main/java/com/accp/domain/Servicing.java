@@ -144,6 +144,12 @@ public class Servicing extends Model<Servicing> {
     @TableField(exist = false)
     private List<Servicingproject> list;
 
+    @TableField(exist = false)
+    private  String ywlx;
+
+    @TableField(exist = false)
+    private String djlx;
+
 
 
     public static final String SER_NUMBER = "ser_number";

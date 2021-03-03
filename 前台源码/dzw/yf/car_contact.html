@@ -30,10 +30,10 @@
                         <div class="pull-right" style="margin-right: 10px !important;">
                             <form class="form-inline">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" style="width: 300px;"
+                                    <input type="text" class="form-control" style="width: 300px;" id="search"
                                         placeholder="匹配车牌号/车架号/手机/客户">
                                 </div>
-                                <button type="button" class="btn btn-warning selbtn">搜索</button>
+                                <button type="button" class="btn btn-warning selbtn" @click="selByParse">搜索</button>
                             </form>
                         </div>
                     </h3>
@@ -57,30 +57,61 @@
                         <input type="text" class="form-control">
                     </div>
                     <p style="margin-top: 10px;color: rgb(57, 206, 222) ">车主信息：<span>一般用户</span></p>
-                    <p>车主：<span>A</span></p>
-                    <p>地址：<span>A</span></p>
-                    <p>驾驶员：<span>A</span>手机：<span>12346579877</span></p>
+                    <p>车主：
+                        <span v-if="iframeVue.carzhuname" v-text="iframeVue.carzhuname"></span>
+                        <span v-else>--</span>
+                    </p>
+                    <p>地址：
+                        <span v-if="iframeVue.jsydz" v-text="iframeVue.jsydz"></span>
+                        <span v-else>--</span>
+                    </p>
+                    <p>驾驶员：
+                        <span v-if="iframeVue.driver" v-text="iframeVue.driver"></span>
+                        <span v-else>--</span>
+                        手机：
+                        <span v-if="iframeVue.lianxiphone" v-text="iframeVue.lianxiphone"></span>
+                        <span v-else>--</span>
+                    </p>
                 </div>
                 <div class="col-sm-2 textsize" style="width: 380px;">
                     <h5><strong>车牌号</strong></h5>
                     <div>
-                        <input type="text" class="form-control" style="width: 230px;" @click="openCarInformation">
+                        <input type="text" class="form-control" style="width: 230px;" @click="openCarInformation"
+                            v-model="iframeVue.chepai">
                     </div>
                     <p style="margin-top: 10px;">
                         <span style="color: rgb(57, 206, 222)">车辆信息</span>
-                        <span style="margin-left: 15px;">购买日期：<span>2020-12-12</span></span>
+                        <span style="margin-left: 15px;">购买日期：
+                            <span v-if="iframeVue.gmrq" v-text="iframeVue.gmrq"></span>
+                            <span v-else>--</span>
+                        </span>
                     </p>
                     <p style="margin-top: 10px;">
-                        品牌：<span>中国重汽</span>
-                        <span style="margin-left: 15px;">车型：<span>德汽汕重卡</span></span>
+                        品牌：
+                        <span v-if="iframeVue.carbrand" v-text="iframeVue.carbrand"></span>
+                        <span v-else>--</span>
+                        <span style="margin-left: 15px;">车型：
+                            <span v-if="iframeVue.chexinghao" v-text="iframeVue.chexinghao"></span>
+                            <span v-else>--</span>
+                        </span>
                     </p>
                     <p style="margin-top: 10px;">
-                        发动机品牌：<span>DDD</span>
-                        <span style="margin-left: 15px;">发动机：<span>DDDD</span></span>
+                        发动机品牌：
+                        <span v-if="iframeVue.motorbrand" v-text="iframeVue.motorbrand"></span>
+                        <span v-else>--</span>
+                        <span style="margin-left: 15px;">发动机：
+                            <span v-if="iframeVue.motornumber" v-text="iframeVue.motornumber"></span>
+                            <span v-else></span>
+                        </span>
                     </p>
                     <p style="margin-top: 10px;">
-                        保险日期：<span>2020-12-12</span>
-                        <span style="margin-left: 15px;">保养日期：<span>2020-12-12</span></span>
+                        保险日期：
+                        <span v-if="iframeVue.gmrq" v-text="iframeVue.gmrq"></span>
+                        <span v-else></span>
+                        <span style="margin-left: 15px;">保养日期：
+                            <span v-if="iframeVue.xcbyrq" v-text="iframeVue.xcbyrq"></span>
+                            <span v-else></span>
+                        </span>
                     </p>
                 </div>
             </div>
@@ -151,8 +182,8 @@
                     <div class="modal-content" style="display:inline-block;width: 100%;">
                         <div class="modal-header" style="width: 100%;height: 100%;">车资料</div>
                         <div class="modal-body" style="width: 100%;height: 500px;">
-                            <iframe src="../daizhengyu/html/车辆页面.html" frameborder="0" width="100%" height="100%"
-                                scrolling:no></iframe>
+                            <iframe src="../daizhengyu/html/车辆页面.html" ref="iframe1" frameborder="0" width="100%"
+                                height="100%" scrolling:no></iframe>
                         </div>
                         <div class="modal-footer">
                             <button class="btn btn-danger" @click="closeCarInformation">关闭</button>
@@ -190,35 +221,6 @@
             data() {
                 return {
                     tableColumn1: [
-                        { field: 'id', title: '单据状态', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
-                        { field: 'name', title: '业务类型', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
-                        { field: 'name', title: '客户名称', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
-                        { field: 'name', title: '车牌号', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
-                        { field: 'name', title: '手机', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
-                        { field: 'name', title: '会员卡号', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
-                        { field: 'name', title: '单据类型', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
-                        { field: 'time', title: '开单时间', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatDate' },
-                        { field: 'time', title: '预计完工', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatDate' },
-                        { field: 'time', title: '完工时间', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatDate' },
-                        { field: 'time', title: '结算时间', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatDate' },
-                        { field: 'name', title: '预估金额', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatAmount' },
-                        { field: 'name', title: '服务顾问', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
-                        { field: 'name', title: '接车人', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' }
-                    ],
-                    tableData1: [
-                        { id: "1", name: "AA", time: "2020-11-11" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }
-                    ],
-                    tableColumn2: [
-                        { field: 'id', title: '维修单号', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
-                        { field: 'id', title: '接车时间', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatDate' },
-                        { field: 'id', title: '业务类型', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
-                        { field: 'id', title: '完工时间', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatDate' },
-                        { field: 'id', title: '客户名称', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
-                        { field: 'id', title: '车牌号', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
-                        { field: 'id', title: '手机', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
-                        { field: 'id', title: '会员卡号', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
-                        { field: 'id', title: '结算时间', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatDate' },
-                        { field: 'id', title: '消费金额', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatAmount' },
                         { field: 'cargoods.carStatus', title: '单据状态', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatCarStatus' },
                         { field: 'cargoods.carServicetype', title: '业务类型', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
                         { field: 'cargoods.carUsername', title: '客户名称', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
@@ -249,7 +251,7 @@
                         { field: 'cargoods.carVipnumber', title: '会员卡号', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
                         { field: 'cargoods.carJstime', title: '结算时间', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatDate' },
                         { field: 'cargoods.carExpectmoney', title: '消费金额', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatAmount' },
-
+ 
                     ],
                     tableData2: [
                         //{ id: "1", name: "AA", time: "2020-11-11" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }
@@ -396,11 +398,62 @@
                                 ],
                             ]
                         }
-
                     },
                     //维修接车对象
-                    iframeVue: { chepai: "津" }
+                    iframeVue: {
+                        chepai: "",
+                        chejia: "",
+                        chexinghao: "",
+                        carbrand: "",
+                        motornumber: "",
+                        carzhuname: "",
+                        driver: "",
+                        lianxiphone: "",
+                        motorbrand: "",
+                        jsydz: "",//驾驶员地址
+                        gmrq: "",//车辆购买日期
+                        xcbyrq: ""//车辆保养日期
+                    },
+                    //车辆页面选择按钮标识
+                    chooseLogo: true,
+                    //根据车牌查询到的车记录
+                    carGoodsRecord: [],
+                    //维修接车按钮触发传递到后台的维修接车对象
+                    newServicing: {}
                 }
+            },
+            //获取从车辆页面传递过来的车对象
+            mounted() {
+                let that = this;
+                window.addEventListener("message", function (e) {
+                    console.log(e.data);
+                    let iframeVue1 = JSON.parse(JSON.stringify(e.data));
+                    /*  let iframeVue1 = JSON.stringify(e.data); */
+                    console.log(iframeVue1);
+                    if (iframeVue1.aa == "car") {
+                        console.log("dd")
+
+                        //车辆页面传输过来的数据
+                        that.iframeVue.chepai = iframeVue1.val.carCph;
+                        that.iframeVue.chejia = iframeVue1.val.carCjh;
+                        that.iframeVue.chexinghao = iframeVue1.val.carType;
+                        that.iframeVue.carbrand = iframeVue1.val.carClpp;
+                        that.iframeVue.motornumber = iframeVue1.val.carFdjh;
+                        that.iframeVue.carzhuname = iframeVue1.val.carJsy;
+                        that.iframeVue.driver = iframeVue1.val.carJsy;
+                        that.iframeVue.lianxiphone = iframeVue1.val.car_Phone;
+                        that.iframeVue.motorbrand = iframeVue1.val.carFdjpph;
+                        that.iframeVue.jsydz = iframeVue1.val.carJsydz;
+                        that.iframeVue.gmrq = iframeVue1.val.carGmrq;
+                        that.iframeVue.xcbyrq = iframeVue1.val.carXcbyrq;
+                        console.log(that.iframeVue);
+                        $("#carInformation").modal("hide");
+                    } else if (iframeVue1.aa == "bb") {
+                        console.log("ssddd")
+                        $("#ServicingInformation").modal("hide");
+                        location.reload();
+                    }
+                });
             },
             methods: {
                 dd() {
@@ -422,7 +475,21 @@
                     右键菜单
                 */
                 contextMenuClickEvent1({ menu, row, column }) {
-                    console.log(menu.code);
+                    console.log(row);
+                    var serNumber = row.serNumber;
+                    var billStatus = row.cargoods.carStatus;
+                    /*设置维修接车按钮的显示及功能,0标识接车,按钮为接车完成;
+                   1标识作业中,按钮为竣工检验;2标识竣工,按钮为结算*/
+                    this.iframeVue.setButtonStatus = billStatus;
+                    this.iframeVue.serNumber = serNumber;
+                    $("#ServicingInformation").modal("show");
+                    this.iframe = this.$refs.iframe;
+                    this.iframeWindow = this.iframe.contentWindow;
+                    message = {
+                        aa: 'aa',
+                        val: this.iframeVue,
+                    }
+                    this.iframeWindow.postMessage(message, '*');
                 },
                 contextMenuClickEvent2({ menu, row, column }) {
                     console.log(menu.code);
@@ -437,7 +504,8 @@
                     console.log(menu.code);
                 },
                 //查询作业中的车辆
-                selWorkingCar(){
+                selWorkingCar() {
+                    /* alert("11111"); */ 
                     let that = this;
                     $.ajax({
                         url: "http://127.0.0.1:8080/servicing/selAll",
@@ -455,34 +523,89 @@
                     });
                 },
                 //打开选择车辆模态框
-                openCarInformation(){
+                openCarInformation() {
                     // $("#carInformation").modal({remote: "../daizhengyu/html/车辆页面.html"});
                     $("#carInformation").modal("show");
+                    this.iframe1 = this.$refs.iframe1;
+                    this.iframeWindow = this.iframe1.contentWindow;
+                    let message = this.chooseLogo;
+                    this.iframeWindow.postMessage(message, '*');
                 },
                 //关闭选择车辆模态框
-                closeCarInformation(){
+                closeCarInformation() {
                     $("#carInformation").modal("hide");
                 },
                 //打开维修接车
-                openServicingInform(){
+                openServicingInform() {
                     var chepai = this.iframeVue.chepai;
                     if (chepai == null || chepai == "") {
                         alert("必须选择车牌号,才能接车");
                         return;
                     }
-                    $("#ServicingInformation").modal("show");
-                    //像子页面传值
-                    this.iframe = this.$refs.iframe;
-                    this.iframeWindow = this.iframe.contentWindow;
-                    let message = false;
-                    this.iframeWindow.postMessage(message, '*')
+                    this.selCargoodsRecordByChepai();
+                    if (this.carGoodsRecord.length > 0) {
+                        var flag = confirm("该车存在接车或者作业中的车,是否继续接车?");
+                        if (!flag) {
+                            return;
+                        }
+                    }
+                    this.getSerNumber();
+                    //给要传递的维修接车对象赋值
+                    this.newServicing.serChepai = this.iframeVue.chepai;
+                    this.newServicing.serChejia = this.iframeVue.chejia;
+                    this.newServicing.serChexinhao = this.iframeVue.chexinghao;
+                    this.newServicing.serCarbrand = this.iframeVue.carbrand;
+                    this.newServicing.serMotornumber = this.iframeVue.motornumber;
+                    this.newServicing.serMotorbrand = this.iframeVue.motorbrand;
+                    this.newServicing.serCarzhuname = this.iframeVue.carzhuname;
+                    this.newServicing.serDriver = this.iframeVue.driver;
+                    this.newServicing.serLianxiphone = this.iframeVue.lianxiphone;
+                    this.newServicing.ywlx=this.iframeVue.chexinghao;
+                    this.newServicing.djlx="维修";
+                    let that = this;
+                    var json = JSON.stringify(that.newServicing);
+                    console.log(json);
+                    $.ajax({
+                        url: "http://127.0.0.1:8080/servicing/serviceAdviser",
+                        data: that.newServicing,
+                        type: "post",
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        async: false,
+                        /* contentType:"applicatiton/json;charset=utf-8", */
+                        success: function (result) {
+                            if (result) {
+                                alert("成功");
+                                $("#ServicingInformation").modal("show");
+                                //像子页面传值
+                                that.iframe = that.$refs.iframe;
+                                that.iframeWindow = that.iframe.contentWindow;
+                                /*设置维修接车按钮的显示及功能,0标识接车,按钮为接车完成;
+                                1标识作业中,按钮为竣工检验;2标识竣工,按钮为结算*/
+                                that.iframeVue.setButtonStatus = 0;
+                                that.iframeVue.serNumber=that.newServicing.serNumber;
+                                console.log(that.iframeVue);
+                                message = {
+                                    aa: 'aa',
+                                    val: that.iframeVue,
+                                }
+                                that.iframeWindow.postMessage(message, '*');
+                            } else {
+                                alert("失败");
+                            }
+                        }
+
+                    });
                 },
-                closeServicingInform(){
+                closeServicingInform() {
                     $("#ServicingInformation").modal("hide");
+                    location.reload();
                 },
                 //查询维修历史
-                selServicingHistory(){
-                    var chepai = "津";
+                selServicingHistory() {
+                    var chepai = this.iframeVue.chepai;
                     let that = this;
                     if (chepai == "" || chepai == null) {
                         //将查询历史的数据源置空
@@ -505,8 +628,8 @@
                     });
                 },
                 //查询维修项目
-                selProjectByChepai(){
-                    var chepai = "津";
+                selProjectByChepai() {
+                    var chepai = this.iframeVue.chepai;
                     let that = this;
                     if (chepai == "" || chepai == null) {
                         //将查询历史的数据源置空
@@ -530,8 +653,8 @@
                     });
                 },
                 //查询领料
-                selAcquisitionByChepai(){
-                    var chepai = "津";
+                selAcquisitionByChepai() {
+                    var chepai = this.iframeVue.chepai;
                     let that = this;
                     if (chepai == "" || chepai == null) {
                         //将查询历史的数据源置空
@@ -554,6 +677,66 @@
                         }
                     });
                 },
+                //根据车牌查询车单据记录，判断该车是否存在接车或者作业中的记录
+                selCargoodsRecordByChepai() {
+                    let that = this;
+                    var chepai = this.iframeVue.chepai;
+                    $.ajax({
+                        url: "http://127.0.0.1:8080/cargoods/selCargoodsRecordByChepai/" + chepai,
+                        type: "get",
+                        dataType: "json",
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        async: false,
+                        success: function (result) {
+                            console.log(result);
+                            that.carGoodsRecord = result;
+                        }
+                    });
+                },
+                //自动获取维修单号
+                getSerNumber() {
+                    let that = this;
+                    console.log(that);
+                    $.ajax({
+                        url: "http://127.0.0.1:8080/servicing/getServicingId",
+                        type: "get",
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        async: false,
+                        success: function (result) {
+                            console.log(result);
+                            that.newServicing.serNumber = result;
+                        }
+                    });
+                },
+                //根据条件进行右上侧搜索框进行搜索
+                selByParse(){
+                    var parse=$("#search").val();
+                    alert(parse);
+                    if(parse==""||parse==null){
+                        parse="我是空数据";
+                    }
+                    let that=this;
+                    $.ajax({
+                        url: "http://127.0.0.1:8080/servicing/selByParse/"+parse,
+                        type: "get",
+                        dataType: "json",
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        async: false,
+                        success: function (result) {
+                            console.log(result);
+                            that.tableData1 = result;
+                        }
+                    });
+                }
             },
             watch: {
                 selectTab() {
@@ -585,13 +768,13 @@
                 return cellValue ? (cellValue === '1' ? '男' : '女') : ''
             },
             formatCarStatus({ cellValue }) {
-                if(cellValue===0){
+                if (cellValue === 0) {
                     return "接车";
-                }else if(cellValue===1){
+                } else if (cellValue === 1) {
                     return "作业中"
-                }else if(cellValue===2){
+                } else if (cellValue === 2) {
                     return "完工"
-                }else{
+                } else {
                     return "-"
                 }
             },

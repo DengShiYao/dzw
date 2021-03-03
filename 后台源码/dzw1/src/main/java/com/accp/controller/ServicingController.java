@@ -196,5 +196,27 @@ public class ServicingController {
     }
 
 
+    /**
+     * 作业中的车辆条件查询
+     * @return
+     */
+    @GetMapping("/selByParse/{parse}")
+    public  List<Servicing> selByParse(@PathVariable String parse){
+        if(parse.equals("我是空数据")){
+            return  this.selAll();
+        }
+        QueryWrapper<Servicing> queryWrapper =new QueryWrapper<>();
+        queryWrapper.lambda().like(Servicing::getSerChepai,parse).or().like(Servicing::getSerChejia,parse).or().like(Servicing::getSerDriver,parse).or().like(Servicing::getSerLianxiphone,parse);
+        List<Servicing> list = servicingService.list(queryWrapper);
+        for(Servicing servicing :list){
+            QueryWrapper<Cargoods> queryWrapper1 = new QueryWrapper<>();
+            queryWrapper1.lambda().eq(Cargoods::getColumn1,servicing.getSerNumber());
+            Cargoods cargoods = cargoodsService.getOne(queryWrapper1);
+            //cargoods.selectOne(queryWrapper);
+            servicing.setCargoods(cargoods);
+        }
+        return  list;
+    }
+
 }
 
