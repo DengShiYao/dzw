@@ -4,6 +4,11 @@
 		<meta charset="UTF-8">
 		<title>通讯名录</title>
 		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		 <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+		 <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		
+		 <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+		 <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 		<style type="text/css">
 			.clear1{
 				display: block;
@@ -84,16 +89,31 @@
 				<div class="headDiv_left">通讯名录</div>
 				<div class="headDiv_right">
 				<input type="text" class="search" placeholder="匹配工号/姓名/手机" id="searchtext"/>
-				<button class="btn btn-success" @click="search">搜索</button>
-				<button class="btn btn-danger">关闭</button>
+				<button class="btn btn-success" @click="search">
+					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+					搜索
+				</button>
+				<button class="btn btn-danger">
+					<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+					关闭
+				</button>
 				</div>
 			</div>
 			<div class="bodyDiv">
 				<div>
 					<div class="buttonMenus">
-						<button class="btn btn-success" @click="save">保存</button>
-						<button class="btn btn-info" @click="openSelBy">查询</button>
-						<button class="btn btn-default" @click="daoChu">导出</button>
+						<button class="btn btn-success" @click="save">
+							<span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+							保存
+						</button>
+						<button class="btn btn-info" @click="openSelBy">
+							<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+							查询
+						</button>
+						<button class="btn btn-default" @click="daoChu">
+							<span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
+							导出
+						</button>
 					</div>
 					<div>
 						<table class="table">
@@ -129,8 +149,14 @@
 						<div class="modal-header">
 							<h3 class="col-lg-offset-1 col-lg-4">员工查询</h3>
 								<div class="text-right">
-									<button class="btn btn-success" @click="sel">确定</button>
-									<button class="btn btn-danger" @click="closeSelBy">关闭</button>
+									<button class="btn btn-success" @click="sel">
+										<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+										确定
+									</button>
+									<button class="btn btn-danger" @click="closeSelBy">
+										<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+										关闭
+									</button>
 								</div>
 						</div>
 						<div class="modal-body">
@@ -339,8 +365,14 @@
 						<div class="modal-header">
 							<h3 class="col-lg-4">部门选择</h3>
 		            		<div class="text-right">
-		            			<button class="btn btn-success" @click="savedepartList">选择</button>
-								<button class="btn btn-danger" @click="closedepartDiv">关闭</button>
+		            			<button class="btn btn-success" @click="savedepartList">
+									<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+									选择
+								</button>
+								<button class="btn btn-danger" @click="closedepartDiv">
+									<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+									关闭
+								</button>
 		            		</div>
 						</div>
 						<div class="modal-body">

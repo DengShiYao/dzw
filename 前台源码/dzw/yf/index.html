@@ -233,6 +233,7 @@
     <!-- <script:::: src="js/vue-2.6.js" type="text/javascript" charset="utf-8"></script::::> -->
 
     <script>
+        var user = sessionStorage.getItem("user");
         Vue.component("tree", {
             props: ["menu", "index1"],
             template: `	
@@ -272,6 +273,28 @@
                 handleClose(key, keyPath) {
                     console.log(key, keyPath);
                 },
+                //判断是否登录
+                isLogin(){
+					var user1 = null;
+					$.ajax({
+						url:basePath + "sysUser/isUser",
+						type:"post",
+						async:false,
+						xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+						dataType:"JSON",
+						success:function(result){
+							user1 = result;
+						}
+					})
+					if(!user && (user1.loginName == null && user == null)){
+						alert("您还没有登录，请重新登录后在进入首页.....");
+						window.location.href="../../login/chahua3434/login.html";
+						return false;
+					}
+				},
                 //标签页的关闭
                 handleCloseTag(tag) {
                     this.tabs.forEach((item, index) => {
@@ -344,6 +367,10 @@
                 },
             },
             created() {
+                var flag = this.isLogin();
+				if(flag == false){
+					return;
+				}
                 this.find_Menu();
                 this.find_MenuC(1);
             }

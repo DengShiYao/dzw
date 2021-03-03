@@ -5,6 +5,11 @@
 		<title>组织架构</title>
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
 		<link rel="stylesheet" type="text/css" href="css/aaa.css"/>
+		 <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+		<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		
+		<!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+		<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 		<style type="text/css">
 			.headDiv{
 				background-color:ghostwhite;width: 100%;height:80px;
@@ -140,7 +145,8 @@
 			}
 			.bg {
   			  background-color:lightyellow;
-  			}			
+  			}
+						
 		</style>
 	</head>
 	<body>
@@ -149,24 +155,66 @@
 				<div class="headDiv_left">组织架构</div>
 				<div class="headDiv_right">
 				<input type="text" class="search" placeholder="匹配工号/姓名/手机" id="searchtext"/>
-				<button class="btn btn-info" @click="selByNamePhone">搜索</button>
-				<button class="btn btn-danger">关闭</button>
+				<button class="btn btn-info" @click="selByNamePhone">
+				<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+					搜索
+				</button>
+				<button class="btn btn-danger">
+				<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+					关闭
+				</button>
 				</div>
 			</div>
 			<div class="bodyDiv">
 				<div class="buttonMenus">
-					<button class="btn btn-primary" @click="addEploy">增加员工</button>
-					<button class="btn btn-danger" @click="updateEploy">修改</button>
-					<button class="btn btn-danger"@click="remove">删除</button>
-					<button class="btn btn-info" @click="openSel">查询</button>
-					<button class="btn btn-danger" @click="clearPwd">置空密码</button>
-					<button class="btn btn-success" @click="daoChu">导出</button>
-					<button class="btn btn-default" @click="daoRu">导入</button>
-					<button class="btn btn-danger" @click="role">员工角色</button>
-					<button class="btn btn-info" @click="openZd">字段设置</button>
-					<button class="btn btn-primary" @click="openNewStore">新增门店</button>
-					<button class="btn btn-danger" @click="openUpdateStore">修改门店</button>
-					<button class="btn btn-danger" @click="remoceStore">删除门店</button>
+					<button class="btn btn-primary" @click="addEploy">
+					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>	
+						增加员工
+					</button>
+					<button class="btn btn-danger" @click="updateEploy">
+					<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+						修改
+					</button>
+					<button class="btn btn-danger"@click="remove">
+					<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+						删除
+					</button>
+					<button class="btn btn-info" @click="openSel">
+					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+						查询
+					</button>
+					<button class="btn btn-danger" @click="clearPwd">
+					<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+						置空密码
+					</button>
+					<button class="btn btn-success" @click="daoChu">
+					<span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
+						导出
+					</button>
+					<button class="btn btn-default" @click="daoRu">
+					<span class="glyphicon glyphicon-floppy-open" aria-hidden="true"></span>
+						导入
+					</button>
+					<button class="btn btn-danger" @click="role">
+					<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+						员工角色
+					</button>
+					<button class="btn btn-info" @click="openZd">
+					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+						字段设置
+					</button>
+					<button class="btn btn-primary" @click="openNewStore">
+					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+						新增门店
+					</button>
+					<button class="btn btn-danger" @click="openUpdateStore">
+					<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>	
+						修改门店
+					</button>
+					<button class="btn btn-danger" @click="remoceStore">
+					<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+						删除门店
+					</button>
 				</div>
 				<div>
 					<div style="width: 10%;">
@@ -242,10 +290,22 @@
 						<div class="modal-header" id="addHead">
 							<h3 class="col-lg-offset-1 col-lg-4">员工卡片</h3>
 							<div class="text-right addEployDivHeadButton">
-								<button class="btn btn-success" @click="insertEploy">保存</button>
-								<button class="btn btn-primary" @click="addPrint">打印</button>
-								<button class="btn btn-default">实名验证</button>
-								<button class="btn btn-danger" @click="closeAddEploy">关闭</button>
+								<button class="btn btn-success" @click="insertEploy">
+								<span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+									保存
+								</button>
+								<button class="btn btn-primary" @click="addPrint">
+								<span class="glyphicon glyphicon-print" aria-hidden="true"></span>
+									打印
+								</button>
+								<button class="btn btn-default">
+								<span class="glyphicon glyphicon-qrcode" aria-hidden="true"></span>
+									实名验证
+								</button>
+								<button class="btn btn-danger" @click="closeAddEploy">
+								<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+									关闭
+								</button>
 							</div>
 						</div>
 						<div class="modal-body">
@@ -276,7 +336,9 @@
 														<select name="" id="sex" class="form-control" v-model="addEmploy.sexId">
 															<option v-for="item in sexList" :value="item.sexId">{{item.sexName}}</option>
 														</select>
-														<a class="btn" @click="openSexDiv">进入</a>
+														<a class="btn" @click="openSexDiv">
+														<span class="glyphicon glyphicon-open" aria-hidden="true"></span>
+														</a>
 													</div>
 												</td>
 											</tr>
@@ -336,7 +398,9 @@
 														<select name="" id="nplace" class="form-control" v-model="addEmploy.nplaceId">
 															<option v-for="item in nplaceList" :value="item.nplaceId">{{item.nplaceName}}</option>
 														</select>
-														<a class="btn" @click="openNplaceDiv">进入</a>
+														<a class="btn" @click="openNplaceDiv">
+														<span class="glyphicon glyphicon-open" aria-hidden="true"></span>
+														</a>
 													</div>
 												</td>
 												<td colspan="4">
@@ -345,7 +409,10 @@
 														<select name="" id="national" class="form-control" v-model="addEmploy.nationalId">
 															<option v-for="item in nationalList" :value="item.nationId">{{item.nationalName}}</option>
 														</select>
-														<a class="btn" @click="openNationalDiv">进入</a>
+														<a class="btn" @click="openNationalDiv">
+														<span class="glyphicon glyphicon-open" aria-hidden="true"></span>
+															
+														</a>
 													</div>
 												</td>
 											</tr>
@@ -365,7 +432,10 @@
 														<select name="" class="form-control" id="education" v-model="addEmploy.educationId">
 															<option v-for="item in educationList" :value="item.educationId">{{item.educationName}}</option>
 														</select>
-														<a class="btn" @click="openEducationDiv">进入</a>
+														<a class="btn" @click="openEducationDiv">
+															<span class="glyphicon glyphicon-open" aria-hidden="true"></span>
+															
+														</a>
 													</div>
 												</td>
 												<td colspan="4">
@@ -374,7 +444,10 @@
 														<select name="" class="form-control" id="education" v-model="addEmploy.schoolId">
 															<option v-for="item in schoolList" :value="item.schoolId">{{item.schoolName}}</option>
 														</select>
-														<a class="btn" @click="openSchoolDiv">进入</a>
+														<a class="btn" @click="openSchoolDiv">
+															<span class="glyphicon glyphicon-open" aria-hidden="true"></span>
+															
+														</a>
 													</div>		
 												</td>
 											</tr>
@@ -385,7 +458,10 @@
 														<select name="" class="form-control" id="major"  v-model="addEmploy.majorId">
 															<option v-for="item in majorList" :value="item.majorId">{{item.majorName}}</option>
 														</select>
-														<a class="btn" @click="openMajorDiv">进入</a>
+														<a class="btn" @click="openMajorDiv">
+															<span class="glyphicon glyphicon-open" aria-hidden="true"></span>
+															
+														</a>
 													</div>
 												</td>
 												<td colspan="3">
@@ -394,7 +470,10 @@
 														<select name="" class="form-control" id="PQ"  v-model="addEmploy.PQId">
 															<option v-for="item in PQList" :value="item.PQId">{{item.PQName}}</option>
 														</select>
-														<a class="btn" @click="openPQDiv">进入</a>
+														<a class="btn" @click="openPQDiv">
+															<span class="glyphicon glyphicon-open" aria-hidden="true"></span>
+															
+														</a>
 													</div>
 												</td>
 												<td colspan="3">
@@ -411,7 +490,10 @@
 														<select name="" class="form-control" id="degree" v-model="addEmploy.degreeId">
 															<option v-for="item in degreeList" :value="item.degreeId">{{item.degreeName}}</option>
 														</select>
-														<a class="btn" @click="openDegreeDiv">进入</a>
+														<a class="btn" @click="openDegreeDiv">
+															<span class="glyphicon glyphicon-open" aria-hidden="true"></span>
+															
+														</a>
 													</div>
 												</td>
 											</tr>
@@ -468,7 +550,10 @@
 														<select name="" class="form-control" id="bank" v-model="addEmploy.bankId">
 															<option v-for="item in bankList" :value="item.bankId">{{item.bankName}}</option>
 														</select>
-														<a class="btn" @click="openBankDiv">进入</a>
+														<a class="btn" @click="openBankDiv">
+															<span class="glyphicon glyphicon-open" aria-hidden="true"></span>
+															
+														</a>
 											 		</div>
 											 	</td>
 											 	<td colspan="4">
@@ -628,10 +713,22 @@
 						<div class="modal-header" id="updateHead">
 							<h3 class="col-lg-offset-1 col-lg-4">员工卡片</h3>
 							<div class="text-right addEployDivHeadButton">
-								<button class="btn btn-success" @click="xiuEploy">保存</button>
-								<button class="btn btn-primary" @click="updatePrint">打印</button>
-								<button class="btn btn-default">实名验证</button>
-								<button class="btn btn-danger" @click="closeUpdateEploy">关闭</button>
+								<button class="btn btn-success" @click="xiuEploy">
+									<span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+									保存
+								</button>
+								<button class="btn btn-primary" @click="updatePrint">
+									<span class="glyphicon glyphicon-print" aria-hidden="true"></span>
+									打印
+								</button>
+								<button class="btn btn-default">
+									<span class="glyphicon glyphicon-qrcode" aria-hidden="true"></span>
+									实名验证
+								</button>
+								<button class="btn btn-danger" @click="closeUpdateEploy">
+									<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+									关闭
+								</button>
 							</div>
 						</div>
 						<div class="modal-body">
@@ -662,7 +759,10 @@
 														<select name="" id="sex" class="form-control" v-model="updateEmploy.sexId">
 															<option v-for="item in sexList" :value="item.sexId">{{item.sexName}}</option>
 														</select>
-														<a class="btn" @click="openSexDiv">进入</a>
+														<a class="btn" @click="openSexDiv">
+															<span class="glyphicon glyphicon-open" aria-hidden="true"></span>
+															
+														</a>
 													</div>
 												</td>
 											</tr>
@@ -722,7 +822,9 @@
 														<select name="" class="form-control" id="nplace" v-model="updateEmploy.nplaceId">
 															<option v-for="item in nplaceList" :value="item.nplaceId">{{item.nplaceName}}</option>
 														</select>
-														<a class="btn" @click="openNplaceDiv">进入</a>
+														<a class="btn" @click="openNplaceDiv">
+															<span class="glyphicon glyphicon-open" aria-hidden="true"></span>
+														</a>
 													</div>
 												</td>
 												<td colspan="4">
@@ -731,7 +833,9 @@
 														<select class="form-control" id="national" v-model="updateEmploy.nationalId">
 															<option v-for="item in nationalList" :value="item.nationalId">{{item.nationalName}}</option>
 														</select>
-														<a class="btn" @click="openNationalDiv">进入</a>
+														<a class="btn" @click="openNationalDiv">
+															<span class="glyphicon glyphicon-open" aria-hidden="true"></span>
+														</a>
 													</div>
 												</td>
 											</tr>
@@ -750,7 +854,9 @@
 														<select name="" class="form-control" id="education" v-model="updateEmploy.educationId">
 															<option v-for="item in educationList" :value="item.educationId">{{item.educationName}}</option>
 														</select>
-														<a class="btn" @click="openEducationDiv">进入</a>
+														<a class="btn" @click="openEducationDiv">
+															<span class="glyphicon glyphicon-open" aria-hidden="true"></span>
+														</a>
 													</div>
 												</td>
 												<td colspan="4">
@@ -759,7 +865,9 @@
 														<select name="" class="form-control" id="school" v-model="updateEmploy.schoolId">
 															<option v-for="item in schoolList" :value="item.schoolId">{{item.schoolName}}</option>
 														</select>
-														<a class="btn" @click="openSchoolDiv">进入</a>
+														<a class="btn" @click="openSchoolDiv">
+															<span class="glyphicon glyphicon-open" aria-hidden="true"></span>
+														</a>
 													</div>
 												</td>
 											</tr>
@@ -770,7 +878,9 @@
 														<select name="" class="form-control" id="major" v-model="updateEmploy.majorId">
 															<option v-for="item in majorList" :value="item.majorId">{{item.majorName}}</option>
 														</select>
-														<a class="btn" @click="openMajorDiv">进入</a>
+														<a class="btn" @click="openMajorDiv">
+															<span class="glyphicon glyphicon-open" aria-hidden="true"></span>
+														</a>
 													</div>
 												</td>
 												<td colspan="3">
@@ -779,7 +889,9 @@
 														<select name="" class="form-control" id="PQ" v-model="updateEmploy.PQId">
 															<option v-for="item in PQList" :value="item.PQId">{{item.PQName}}</option>
 														</select>
-														<a class="btn" @click="openPQDiv">进入</a>
+														<a class="btn" @click="openPQDiv">
+															<span class="glyphicon glyphicon-open" aria-hidden="true"></span>
+														</a>
 													</div>
 												</td>
 												<td colspan="3">
@@ -796,7 +908,9 @@
 														<select name="" class="form-control" id="degree" v-model="updateEmploy.degreeId">
 															<option v-for="item in degreeList" :value="item.degreeId">{{item.degreeName}}</option>
 														</select>
-														<a class="btn" @click="openDegreeDiv">进入</a>
+														<a class="btn" @click="openDegreeDiv">
+															<span class="glyphicon glyphicon-open" aria-hidden="true"></span>
+														</a>
 													</div>
 												</td>
 											</tr>
@@ -853,7 +967,9 @@
 														<select name="" class="form-control" id="bank" v-model="updateEmploy.bankId">
 															<option v-for="item in bankList" :value="item.bankId">{{item.bankName}}</option>
 														</select>
-														<a class="btn" @click="openBankDiv">进入</a>
+														<a class="btn" @click="openBankDiv">
+															<span class="glyphicon glyphicon-open" aria-hidden="true"></span>
+														</a>
 											 		</div>
 											 	</td>
 											 	<td colspan="4">
@@ -1013,14 +1129,26 @@
 						<div class="modal-header">
 							<h3 class="col-lg-offset-1 col-lg-4">员工角色</h3>
 							<div class="text-right addEployDivHeadButton">
-								<button class="btn btn-success" @click="updateRole">保存</button>
-								<button class="btn btn-danger" @click="closeRole">关闭</button>
+								<button class="btn btn-success" @click="updateRole">
+									<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+									保存
+								</button>
+								<button class="btn btn-danger" @click="closeRole">
+									<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+									关闭
+								</button>
 							</div>
 						</div>
 						<div class="modal-body">
 							<div class="text-right roleDivHeadButton">						
-								<button  class="btn btn-primary" @click="changeRole(true)">全部选择</button>
-								<button class="btn btn-primary" @click="changeRole(false)">全部取消</button>
+								<button  class="btn btn-primary" @click="changeRole(true)">
+									<span class="glyphicon glyphicon-sort-by-attributes" aria-hidden="true"></span>
+									全部选择
+								</button>
+								<button class="btn btn-primary" @click="changeRole(false)">
+									<span class="glyphicon glyphicon-sort-by-attributes-alt" aria-hidden="true"></span>
+									全部取消
+								</button>
 							</div>
 							<!--角色table-->
 							<div>
@@ -1051,8 +1179,14 @@
 						<div class="modal-header">
 							<h3 class="col-lg-offset-1 col-lg-4">员工查询</h3>
 							<div class="text-right">
-								<button class="btn btn-success" @click="sel">确定</button>
-								<button class="btn btn-danger" @click="closeSelBy">关闭</button>
+								<button class="btn btn-success" @click="sel">
+									<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+									确定
+								</button>
+								<button class="btn btn-danger" @click="closeSelBy">
+									<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+									关闭
+								</button>
 							</div>
 						</div>
 						<div class="modal-body">
@@ -1259,14 +1393,26 @@
 						<div class="modal-header">
 							<h3 class="col-lg-offset-1 col-lg-3">字段设置</h3>
 		            		<div class="text-right">            			
-		            			<button class="btn btn-danger" @click="closeZd">关闭</button>
+		            			<button class="btn btn-danger" @click="closeZd">
+									<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+									关闭
+								</button>
 		            		</div>
 						</div>
 						<div class="modal-body">
 							<div class="zdButtonDiv">
-		            			<button class="btn btn-success" @click="primaryZd()">确定</button>
-		            			<button class="btn btn-primary" @click="changeZd(true)">全部选择</button>
-		            			<button class="btn btn-primary" @click="changeZd(false)">全部取消</button>
+		            			<button class="btn btn-success" @click="primaryZd()">
+									<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+									确定
+								</button>
+		            			<button class="btn btn-primary" @click="changeZd(true)">
+									<span class="glyphicon glyphicon-sort-by-attributes" aria-hidden="true"></span>
+									全部选择
+								</button>
+		            			<button class="btn btn-primary" @click="changeZd(false)">
+									<span class="glyphicon glyphicon-sort-by-attributes-alt" aria-hidden="true"></span>
+									全部取消
+								</button>
 		            		</div>
 		            		<div>
 			            		<table border="" cellspacing="" cellpadding="" class="table">
@@ -1300,13 +1446,22 @@
 						<div class="modal-header">
 							<h3 class="col-lg-4">请选择内容设置</h3>
 		            		<div class="text-right">
-								<button class="btn btn-danger" @click="closeSexDiv">关闭</button>
+								<button class="btn btn-danger" @click="closeSexDiv">
+									<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+									关闭
+								</button>
 		            		</div>
 						</div>
 						<div class="modal-body">
 							<div class="text-right sexModel_centernDiv">
-			            		<button class="btn btn-primary" @click="addSexList">修改</button>
-			            		<button class="btn btn-success" @click="saveSexList">保存</button>
+			            		<button class="btn btn-primary" @click="addSexList">
+									<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+									修改
+								</button>
+			            		<button class="btn btn-success" @click="saveSexList">
+									<span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+									保存
+								</button>
 			            	</div>
 			            	<div>
 			            		<table border="" cellspacing="" cellpadding="" class="table table2">
@@ -1329,7 +1484,10 @@
 						</div>
 						<div class="modal-footer">
 							<div class="text-right">
-			            		<button class="btn btn-success" @click="sexOk">选择</button>
+			            		<button class="btn btn-success" @click="sexOk">
+									<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+									选择
+								</button>
 			            	</div>
 						</div>
 					</div>
@@ -1342,8 +1500,14 @@
 						<div class="modal-header">
 							<h3 class="col-lg-4">部门选择</h3>
 		            		<div class="text-right">
-		            			<button class="btn btn-success" @click="savedepartList">选择</button>
-								<button class="btn btn-danger" @click="closedepartDiv">关闭</button>
+		            			<button class="btn btn-success" @click="savedepartList">
+									<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+									选择
+								</button>
+								<button class="btn btn-danger" @click="closedepartDiv">
+									<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+									关闭
+								</button>
 		            		</div>
 						</div>
 						<div class="modal-body">
@@ -1382,13 +1546,22 @@
 						<div class="modal-header">
 							<h3 class="col-lg-4">请选择内容设置</h3>
 		            		<div class="text-right">
-								<button class="btn btn-danger" @click="closeNationalDiv">关闭</button>
+								<button class="btn btn-danger" @click="closeNationalDiv">
+									<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+									关闭
+								</button>
 		            		</div>
 						</div>
 						<div class="modal-body">
 							<div class="text-right sexModel_centernDiv">
-			            		<button class="btn btn-primary" @click="addNationalList">修改</button>
-			            		<button class="btn btn-success" @click="saveNationList">保存</button>
+			            		<button class="btn btn-primary" @click="addNationalList">
+									<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+									修改
+								</button>
+			            		<button class="btn btn-success" @click="saveNationList">
+									<span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+									保存
+								</button>
 			            	</div>
 			            	<div>
 			            		<table border="" cellspacing="" cellpadding="" class="table table2">
@@ -1411,7 +1584,10 @@
 						</div>
 						<div class="modal-footer">
 							<div class="text-right">
-			            		<button class="btn btn-success" @click="nationalOk">选择</button>
+			            		<button class="btn btn-success" @click="nationalOk">
+									<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+									选择
+								</button>
 			            	</div>
 						</div>
 					</div>
@@ -1424,13 +1600,22 @@
 						<div class="modal-header">
 							<h3 class="col-lg-4">请选择内容设置</h3>
 		            		<div class="text-right">
-								<button class="btn btn-danger" @click="closeNplaceDiv">关闭</button>
+								<button class="btn btn-danger" @click="closeNplaceDiv">
+									<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+									关闭
+								</button>
 		            		</div>
 						</div>
 						<div class="modal-body">
 							<div class="text-right sexModel_centernDiv">
-			            		<button class="btn btn-primary" @click="addNplaceList">修改</button>
-			            		<button class="btn btn-success" @click="saveNplaceList">保存</button>
+			            		<button class="btn btn-primary" @click="addNplaceList">
+									<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+									修改
+								</button>
+			            		<button class="btn btn-success" @click="saveNplaceList">
+									<span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+									保存
+								</button>
 			            	</div>
 			            	<div>
 			            		<table border="" cellspacing="" cellpadding="" class="table table2">
@@ -1453,7 +1638,10 @@
 						</div>
 						<div class="modal-footer">
 							<div class="text-right">
-			            		<button class="btn btn-success" @click="nplaceOk">选择</button>
+			            		<button class="btn btn-success" @click="nplaceOk">
+									<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+									选择
+								</button>
 			            	</div>
 						</div>
 					</div>
@@ -1466,13 +1654,22 @@
 						<div class="modal-header">
 							<h3 class="col-lg-4">请选择内容设置</h3>
 		            		<div class="text-right">
-								<button class="btn btn-danger" @click="closeEducationDiv">关闭</button>
+								<button class="btn btn-danger" @click="closeEducationDiv">
+									<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+									关闭
+								</button>
 		            		</div>
 						</div>
 						<div class="modal-body">
 							<div class="text-right sexModel_centernDiv">
-			            		<button class="btn btn-primary" @click="addEducationList">修改</button>
-			            		<button class="btn btn-success" @click="saveEducationList">保存</button>
+			            		<button class="btn btn-primary" @click="addEducationList">
+									<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+									修改
+								</button>
+			            		<button class="btn btn-success" @click="saveEducationList">
+									<span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+									保存
+								</button>
 			            	</div>
 			            	<div>
 			            		<table border="" cellspacing="" cellpadding="" class="table table2">
@@ -1495,7 +1692,10 @@
 						</div>
 						<div class="modal-footer">
 							<div class="text-right">
-			            		<button class="btn btn-success" @click="educationOk">选择</button>
+			            		<button class="btn btn-success" @click="educationOk">
+									<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+									选择
+								</button>
 			            	</div>
 						</div>
 					</div>
@@ -1508,13 +1708,22 @@
 						<div class="modal-header">
 							<h3 class="col-lg-4">请选择内容设置</h3>
 		            		<div class="text-right">
-								<button class="btn btn-danger" @click="closeSchoolDiv">关闭</button>
+								<button class="btn btn-danger" @click="closeSchoolDiv">
+									<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+									关闭
+								</button>
 		            		</div>
 						</div>
 						<div class="modal-body">
 							<div class="text-right sexModel_centernDiv">
-			            		<button class="btn btn-primary" @click="addSchoolList">修改</button>
-			            		<button class="btn btn-success" @click="saveSchoolList">保存</button>
+			            		<button class="btn btn-primary" @click="addSchoolList">
+									<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+									修改
+								</button>
+			            		<button class="btn btn-success" @click="saveSchoolList">
+									<span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+									保存
+								</button>
 			            	</div>
 			            	<div>
 			            		<table border="" cellspacing="" cellpadding="" class="table table2">
@@ -1537,7 +1746,10 @@
 						</div>
 						<div class="modal-footer">
 							<div class="text-right">
-			            		<button class="btn btn-success" @click="schoolOk">选择</button>
+			            		<button class="btn btn-success" @click="schoolOk">
+									<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+									选择
+								</button>
 			            	</div>
 						</div>
 					</div>
@@ -1550,13 +1762,22 @@
 						<div class="modal-header">
 							<h3 class="col-lg-4">请选择内容设置</h3>
 		            		<div class="text-right">
-								<button class="btn btn-danger" @click="closeMajorDiv">关闭</button>
+								<button class="btn btn-danger" @click="closeMajorDiv">
+									<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+									关闭
+								</button>
 		            		</div>
 						</div>
 						<div class="modal-body">
 							<div class="text-right sexModel_centernDiv">
-			            		<button class="btn btn-primary" @click="addMajorList">修改</button>
-			            		<button class="btn btn-success" @click="saveMajorList">保存</button>
+			            		<button class="btn btn-primary" @click="addMajorList">
+									<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+									修改
+								</button>
+			            		<button class="btn btn-success" @click="saveMajorList">
+									<span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+									保存
+								</button>
 			            	</div>
 			            	<div>
 			            		<table border="" cellspacing="" cellpadding="" class="table table2">
@@ -1579,7 +1800,10 @@
 						</div>
 						<div class="modal-footer">
 							<div class="text-right">
-			            		<button class="btn btn-success" @click="majorOk">选择</button>
+			            		<button class="btn btn-success" @click="majorOk">
+									<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+									选择
+								</button>
 			            	</div>
 						</div>
 					</div>
@@ -1592,13 +1816,22 @@
 						<div class="modal-header">
 							<h3 class="col-lg-4">请选择内容设置</h3>
 		            		<div class="text-right">
-								<button class="btn btn-danger" @click="closePQDiv">关闭</button>
+								<button class="btn btn-danger" @click="closePQDiv">
+									<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+									关闭
+								</button>
 		            		</div>
 						</div>
 						<div class="modal-body">
 							<div class="text-right sexModel_centernDiv">
-			            		<button class="btn btn-primary" @click="addPQList">修改</button>
-			            		<button class="btn btn-success" @click="savePQList">保存</button>
+			            		<button class="btn btn-primary" @click="addPQList">
+									<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+									修改
+								</button>
+			            		<button class="btn btn-success" @click="savePQList">
+									<span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+									保存
+								</button>
 			            	</div>
 			            	<div>
 			            		<table border="" cellspacing="" cellpadding="" class="table table2">
@@ -1621,7 +1854,10 @@
 						</div>
 						<div class="modal-footer">
 							<div class="text-right">
-			            		<button class="btn btn-success" @click="PQOk">选择</button>
+			            		<button class="btn btn-success" @click="PQOk">
+									<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+									选择
+								</button>
 			            	</div>
 						</div>
 					</div>
@@ -1634,13 +1870,22 @@
 						<div class="modal-header">
 							<h3 class="col-lg-4">请选择内容设置</h3>
 		            		<div class="text-right">
-								<button class="btn btn-danger" @click="closeDegreeDiv">关闭</button>
+								<button class="btn btn-danger" @click="closeDegreeDiv">
+									<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+									关闭
+								</button>
 		            		</div>
 						</div>
 						<div class="modal-body">
 							<div class="text-right sexModel_centernDiv">
-			            		<button class="btn btn-primary" @click="addDegreeList">修改</button>
-			            		<button class="btn btn-success" @click="saveDegreeList">保存</button>
+			            		<button class="btn btn-primary" @click="addDegreeList">
+									<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+									修改
+								</button>
+			            		<button class="btn btn-success" @click="saveDegreeList">
+									<span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+									保存
+								</button>
 			            	</div>
 			            	<div>
 			            		<table border="" cellspacing="" cellpadding="" class="table table2">
@@ -1663,7 +1908,10 @@
 						</div>
 						<div class="modal-footer">
 							<div class="text-right">
-			            		<button class="btn btn-success" @click="degreeOk">选择</button>
+			            		<button class="btn btn-success" @click="degreeOk">
+									<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+									选择
+								</button>
 			            	</div>
 						</div>
 					</div>
@@ -1676,13 +1924,22 @@
 						<div class="modal-header">
 							<h3 class="col-lg-4">请选择内容设置</h3>
 		            		<div class="text-right">
-								<button class="btn btn-danger" @click="closeBankDiv">关闭</button>
+								<button class="btn btn-danger" @click="closeBankDiv">
+									<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+									关闭
+								</button>
 		            		</div>
 						</div>
 						<div class="modal-body">
 							<div class="text-right sexModel_centernDiv">
-			            		<button class="btn btn-primary" @click="addBankList">修改</button>
-			            		<button class="btn btn-success" @click="saveBankList">保存</button>
+			            		<button class="btn btn-primary" @click="addBankList">
+									<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+									修改
+								</button>
+			            		<button class="btn btn-success" @click="saveBankList">
+									<span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+									保存
+								</button>
 			            	</div>
 			            	<div>
 			            		<table border="" cellspacing="" cellpadding="" class="table table2">
@@ -1705,7 +1962,10 @@
 						</div>
 						<div class="modal-footer">
 							<div class="text-right">
-			            		<button class="btn btn-success" @click="bankOk">选择</button>
+			            		<button class="btn btn-success" @click="bankOk">
+									<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+									选择
+								</button>
 			            	</div>
 						</div>
 					</div>
@@ -1718,8 +1978,14 @@
 						<div class="modal-header">
 							<h3 class="col-lg-3">门店编辑</h3>
 		            		<div class="text-right">
-		            			<button class="btn btn-success" @click="newStore">保存</button>
-		            			<button class="btn btn-danger" @click="closeNewStore">关闭</button>
+		            			<button class="btn btn-success" @click="newStore">
+									<span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+									保存
+								</button>
+		            			<button class="btn btn-danger" @click="closeNewStore">
+									<span class="glyphicon glyphicon-floppy-remove" aria-hidden="true"></span>
+									关闭
+								</button>
 		            		</div>
 						</div>
 						<div class="modal-body">
@@ -1764,8 +2030,14 @@
 						<div class="modal-header">
 							<h3 class="col-lg-3">门店编辑</h3>
 		            		<div class="text-right">
-		            			<button class="btn btn-success" @click="saveStore">保存</button>
-		            			<button class="btn btn-danger" @click="closeUpdateStore">关闭</button>
+		            			<button class="btn btn-success" @click="saveStore">
+									<span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+									保存
+								</button>
+		            			<button class="btn btn-danger" @click="closeUpdateStore">
+									<span class="glyphicon glyphicon-floppy-remove" aria-hidden="true"></span>
+									关闭
+								</button>
 		            		</div>
 						</div>
 						<div class="modal-body">
@@ -3292,6 +3564,11 @@
                		},
                		//打开修改门店
                		openUpdateStore(){
+						var mId= this.updateOrAddStore.storeId;
+               			if(mId==null||mId==""){
+               			alert("请先选择门店");
+               					return;
+               			}
                			this.selUpdateStoreByMid();
                			$("#updateStore").modal("show");
                		},

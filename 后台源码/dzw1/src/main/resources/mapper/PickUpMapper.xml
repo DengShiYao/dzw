@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.accp.mapper.PickUpMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.accp.domain.PickUp">
+        <id column="id" property="id" />
+        <result column="userName" property="userName" />
+        <result column="plate_number" property="plateNumber" />
+        <result column="phone" property="phone" />
+        <result column="position" property="position" />
+        <result column="fault_description" property="faultDescription" />
+        <result column="status" property="status" />
+        <result column="column1" property="column1" />
+        <result column="column2" property="column2" />
+        <result column="column3" property="column3" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, userName, plate_number, phone, position, fault_description, status, column1, column2, column3
+    </sql>
+
+</mapper>

@@ -70,7 +70,7 @@ public class DingdanController {
         String dateTime = simpleDateFormat.format(date);
         dingdan.setCreateTime(dateTime);
 
-        session.setAttribute("user",new SysUser().setUserId(1));
+//        session.setAttribute("user",new SysUser().setUserId(1));
         SysUser user = (SysUser) session.getAttribute("user");
         //用户未登录
         if (user == null) {return new ResultVO(ResultCode.USER_NOT_LOGIN);}

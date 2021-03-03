@@ -31,4 +31,10 @@
     <select id="selByCloumn" resultMap="BaseResultMap">
          SELECT * FROM cargoods WHERE column1 =#{column1}
     </select>
+    <update id="updateCargoodsToWork">
+        UPDATE cargoods SET car_status =1 WHERE column1=#{column1}
+    </update>
+    <update id="updateCargoodsToSettlement">
+        UPDATE cargoods SET car_status =2 WHERE column1=#{column1}
+    </update>
 </mapper>

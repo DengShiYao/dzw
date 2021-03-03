@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -150,7 +151,8 @@ public class SuppliersRegionController {
     @RequestMapping("/downloadexcelall")
     public ResponseEntity downloadExcelAll(String exportColumn) throws IOException {
         //查询要导出的数据
-        return toExcel(exportColumn, service.list());
+        List<SuppliersRegion> suppliersRegions = service.toFind("0");
+        return toExcel( exportColumn,suppliersRegions );
     }
 
     /**
@@ -191,6 +193,7 @@ public class SuppliersRegionController {
      */
     public ResponseEntity toExcel(String exportColumn, List<SuppliersRegion> suppliersRegionList) throws IOException {
         exportColumn = exportColumn.substring(1, exportColumn.length() - 1);
+//        System.out.println(exportColumn);
         List<DzwColumnController> list = objectMapper.readValue(exportColumn, new TypeReference<List<DzwColumnController>>() {/**/
         });
         Workbook book = new XSSFWorkbook();
@@ -205,7 +208,8 @@ public class SuppliersRegionController {
         if (suppliersRegionList != null) {
             for (int i = suppliersRegionList.size() - 1; i >= 0; i--) {
                 SuppliersRegion suppliersRegion = suppliersRegionList.get(i);
-                List<SuppliersContacts> relation = suppliersRegion.getRelation();
+                List<SuppliersContacts> relation=new ArrayList<>();
+                relation = suppliersRegion.getRelation();
                 Row rowValue = sheet.createRow(i + 1);
                 for (int k = 0; k < list.size(); k++) {
                     switch (list.get(k).getColumn1()) {
@@ -243,28 +247,29 @@ public class SuppliersRegionController {
                             rowValue.createCell(k).setCellValue(suppliersRegion.getRegionCity().getRegionName());
                             break;
                         case "联系人":
-                            if (relation != null || relation.size() > 0) {
+                            if (relation.size() > 0) {
+                                System.out.println(relation);
                                 rowValue.createCell(k).setCellValue(relation.get(0).getScName());
                             } else {
                                 rowValue.createCell(k).setCellValue("");
                             }
                             break;
                         case "电话":
-                            if (relation != null || relation.size() > 0) {
+                            if (relation.size() > 0) {
                                 rowValue.createCell(k).setCellValue(relation.get(0).getScTelephone());
                             } else {
                                 rowValue.createCell(k).setCellValue("");
                             }
                             break;
                         case "手机":
-                            if (relation != null || relation.size() > 0) {
+                            if (relation.size() > 0) {
                                 rowValue.createCell(k).setCellValue(relation.get(0).getScPhone());
                             } else {
                                 rowValue.createCell(k).setCellValue("");
                             }
                             break;
                         case "Email":
-                            if (relation != null || relation.size() > 0) {
+                            if (relation.size() > 0) {
                                 rowValue.createCell(k).setCellValue(relation.get(0).getEmail());
                             } else {
                                 rowValue.createCell(k).setCellValue("");
