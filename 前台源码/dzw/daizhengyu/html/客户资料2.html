@@ -74,7 +74,7 @@
 					<div id="che" style="background-color: #EFF7FF; float: left;width: 1500px;height: 25px; margin-top: 10px;display: none;">
 						<button type="button"   data-toggle="modal" href="#insertmodal" class="btn btn-default">新增</button>
   						<button type="button"  data-toggle="modal" href="#updatamodal" class="btn btn-default">修改</button>
-  						<button type="button" class="btn btn-default" @click="remove(edit)">删除</button>
+  						<button type="button" class="btn btn-default" @click="remove2(edit)">删除</button>
 					</div>
 				</div>
 				<div style="float: left;width: 1490px;height: 40px;margin-top: -5px;">
@@ -339,7 +339,7 @@
 							<div class="modal-header">
 								<span class="close" data-dismiss="modal" @click="gbxg()">&times;</span>
 								<h5 class="col-xs-10">客户资料修改</h5>
-								<button class="btn btn-default col-xs-1" style="background-color:#82D921 ;" @click="addStudent()">保存</button>
+								<button class="btn btn-default col-xs-1" style="background-color:#82D921 ;" @click="editStudent()">保存</button>
 							</div>
 							<div class="modal-body" style="background-color: #F7F7F7;">
 								<table class="table table-hover">
@@ -1468,7 +1468,7 @@
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button @click="editStudent()">保存</button>
+							<button @click="editStudent2()">保存</button>
 							<button>关闭</button>
 						</div>
 					</div>
@@ -1606,6 +1606,8 @@
 												alert("车牌号重复，新增失败")
 											}
 										})
+								that.add={};
+								that.add2={};
 									
 							},
 					addStudent(){
@@ -1622,6 +1624,7 @@
 												that.find();
 											}
 								});
+								that.add={};
 									
 								},
 						find(){
@@ -1765,6 +1768,7 @@
 										type:"post",
 										success:function(){
 												that.find();
+												alert("删除成功")
 											}
 									});
 									

@@ -54,6 +54,10 @@ public class CarController {
     ILinliaoBiaoService service2;
     @Autowired
     IListOfSalesService js;
+    @Autowired
+    IWeiXiubiaoService wx;
+    @Autowired
+    IGoodsService sp;
     //查询车辆
     @RequestMapping("/selectPage")
     @ResponseBody
@@ -88,7 +92,7 @@ public class CarController {
     //删除车辆
     @RequestMapping("delect")
     @ResponseBody
-    public boolean delect(int id){
+    public boolean delect(String id){
         System.out.println(id);
         return zz.removeById(id);
     }
@@ -324,6 +328,21 @@ public class CarController {
     public List<ListOfSales> Selectjs(){
         QueryWrapper<ListOfSales> query =  new QueryWrapper<>();
         List<ListOfSales> list =js.list(query);
+        return list;
+    }
+    //维修表查询wei_xiubiao
+    @RequestMapping("Selectwx")
+    public List<WeiXiubiao> Selectwx(){
+        QueryWrapper<WeiXiubiao> query =  new QueryWrapper<>();
+        List<WeiXiubiao> list =wx.list(query);
+        return list;
+    }
+
+    //商品表查询goods
+    @RequestMapping("Selectsp")
+    public List<Goods> Selectsp(){
+        QueryWrapper<Goods> query =  new QueryWrapper<>();
+        List<Goods> list =sp.list(query);
         return list;
     }
 }
