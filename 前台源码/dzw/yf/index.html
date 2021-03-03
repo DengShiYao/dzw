@@ -8,10 +8,21 @@
     <!-- 引入样式 -->
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/public-y.css">
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vxe-table/lib/style.css">
     <style>
         .el-menu-vertical-demo:not(.el-menu--collapse) {
             width: 220px;
             height: 100%;
+        }
+
+        sup.el-badge__content.is-fixed {
+            position: relative;
+            left: -30px;
+            top: -5px;
+            width: 18px;
+            padding: 0px;
         }
 
         .el-menu-vertical-demo {
@@ -50,9 +61,6 @@
         .adminimg>span {
             vertical-align: middle;
         }
-
-
-
 
         .scrollContent::-webkit-scrollbar-track-piece {
             background-color: #FFFFFF;
@@ -146,6 +154,8 @@
 <body>
     <script src="http://unpkg.com/vue/dist/vue.js"></script>
     <script src="http://unpkg.com/element-ui@2.15.1/lib/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xe-utils"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vxe-table@3.1.4"></script> 
     <script src="js/menu.js"></script>
     <script src="js/jquery-1.12.4.js"></script>
     <!-- <script src="js/vue-2.6.js"></script> -->
@@ -180,25 +190,10 @@
                                 </ul>
                             </div>
                         </el-col>
-                        <el-col :span="3" :offset="2">
-                            <div class="grid-content bg-purple ">
-                                <el-dropdown>
-                                    <div class="adminimg">
-                                        <span> <strong style="color: #ffffff;">超级管理员</strong></span>
-                                        <img src="../imags/3AA159DD714F65B532595C955DEB5356.jpg" alt="">
-                                    </div>
-                                    <!-- <el-button type="primary">
-                                    </el-button> -->
-                                    <el-dropdown-menu slot="dropdown">
-                                        <el-dropdown-item>黄金糕</el-dropdown-item>
-                                        <el-dropdown-item>狮子头</el-dropdown-item>
-                                        <el-dropdown-item>螺蛳粉</el-dropdown-item>
-                                        <el-dropdown-item>双皮奶</el-dropdown-item>
-                                        <el-dropdown-item>蚵仔煎</el-dropdown-item>
-                                    </el-dropdown-menu>
-                                </el-dropdown>
-                            </div>
-                        </el-col>
+                        <el-badge :value="pickUpNum" class="item" :hidden="pickUpNum == 0 ? true:false">
+                            <el-button size="small" data-toggle="modal" href='#modal-id3 ' @click="findPickUp1">场外接车
+                            </el-button>
+                        </el-badge>
                     </el-row>
                 </el-header>
                 <el-main class="sectionmin">
@@ -222,17 +217,91 @@
 
                                 <!-- <iframe src="commodity_info.html" width="100%" height="100%" frameborder="no"
                                     border="0"></iframe> -->
-
                             </div>
                         </el-col>
                     </el-row>
                 </el-main>
             </el-container>
         </el-container>
+
+        <!-- 场外接车弹框 -->
+        <div class="modal fade" id="modal-id3">
+            <div class="modal-dialog" style="width: 800px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" style="color: black;">场外接车</h4>
+                    </div>
+                    <div class="modal-body" style="width: 800px;height: 350px;">
+                        <!-- <template>
+                            <el-table style="width: 100%" :data="pickUp" max-height="250">
+                                <el-table-column fixed prop="id" label="编号" width="120">
+                                </el-table-column>
+                                <el-table-column prop="userName" label="姓名" width="120">
+                                </el-table-column>
+                                <el-table-column prop="plateNumber" label="车牌号" width="120">
+                                </el-table-column>
+                                <el-table-column prop="phone" label="电话" width="120">
+                                </el-table-column>
+                                <el-table-column prop="position" label="地址" width="300">
+                                </el-table-column>
+                                <el-table-column prop="faultDescription" label="故障原因" width="120">
+                                </el-table-column>
+                                <el-table-column prop="status" label="状态" width="120">
+                                </el-table-column>
+                                <el-table-column prop="column1" label="是否读取" width="120">
+                                </el-table-column>
+                                <el-table-column fixed="right" label="操作" width="85">
+                                    <template slot-scope="scope">
+                                        <el-button @click.native.prevent="deleteRow(scope.$index, tableData)"
+                                            type="text" size="small">
+                                            <el-button type="success" plain>接车</el-button>
+                                        </el-button>
+                                    </template>
+                                </el-table-column>
+                            </el-table>
+                        </template> -->
+                        <!-- <vxe-table border resizable height="300" highlight-hover-row :data="tableData">
+                            <vxe-table-column type="seq" width="60" fixed="left"></vxe-table-column>
+                            <vxe-table-column field="name" title="Name" width="300"></vxe-table-column>
+                            <vxe-table-column field="role" title="Role" width="300"></vxe-table-column>
+                            <vxe-table-column field="sex" title="Sex" width="300"></vxe-table-column>
+                            <vxe-table-column field="date" title="Date" width="300"></vxe-table-column>
+                            <vxe-table-column title="操作" fixed="right" width="200">
+                                <template v-slot>
+                                    <vxe-button type="text">按钮1</vxe-button>
+                                    <vxe-button type="text">按钮2</vxe-button>
+                                </template>
+                            </vxe-table-column>
+                        </vxe-table> -->
+                        <div style="height: 100%">
+                            <template>
+                                <vxe-grid border :loading="loading" stripe highlight-hover-row 
+                                    resizable ref="xTable" class="mytable-scrollbar" auto-resize height="100%"
+                                    :data="tableData" :columns="tableColumn" @current-change="currentChangeEvent" round
+                                    show-header-overflow show-overflow>
+                                    <template  v-slot:user-slot="{ row }">
+                                        <vxe-button type="text" status="primary" content="接车"></vxe-button>
+                                    </template>
+                                </vxe-grid>
+                            </template>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+
+
     <!-- <script:::: src="js/vue-2.6.js" type="text/javascript" charset="utf-8"></script::::> -->
 
     <script>
+
         var user = sessionStorage.getItem("user");
         Vue.component("tree", {
             props: ["menu", "index1"],
@@ -250,8 +319,8 @@
             }
         })
         var perms = [];
-        menuApi.findPerms(function(result){
-            perms=result;
+        menuApi.findPerms(function (result) {
+            perms = result;
         });
         var basePath = "http://127.0.0.1:8080/";
         var Main = {
@@ -263,10 +332,28 @@
                     isCollapseIcon: "el-icon-s-fold",
                     tabs: [
                         { id: 0, menuName: "首页", column1: "index", active: true, path: "首页信息.html" }
-                    ]
+                    ],
+                    pickUpNum: 0,
+                    pickNum: 0,
+                    tableColumn:[
+                        { field: 'id', title: '编号', showOverflow: true, width: 150, visible: true},
+                        { field: 'userName', title: '客户姓名', showOverflow: true, width: 150, visible: true},
+                        { field: 'plateNumber', title: '车牌号码', showOverflow: true, width: 150, visible: true},
+                        { field: 'phone', title: '联系电话', showOverflow: true, width: 150, visible: true},
+                        { field: 'position', title: '地理位置', showOverflow: true, width: 150, visible: true},
+                        { field: 'faultDescription', title: '故障原因', showOverflow: true, width: 150, visible: true},
+                        { field: 'status', title: '状态', showOverflow: true, width: 150, visible: true},
+                        { field: 'column1', title: '是否已读', showOverflow: true, width: 150, visible: true},
+                        { field: '', title: '操作', showOverflow: true, width: 150, visible: true,slots: { default: 'user-slot' } }
+                    ], 
+                    tableData: [],
+                    loading:false
                 };
             },
             methods: {
+                currentChangeEvent({row}){
+                        console.log(JSON.stringify(this.$refs.xTable.getCurrentRecord()));;
+                },
                 handleOpen(key, keyPath) {
                     console.log(key, keyPath);
                 },
@@ -274,27 +361,27 @@
                     console.log(key, keyPath);
                 },
                 //判断是否登录
-                isLogin(){
-					var user1 = null;
-					$.ajax({
-						url:basePath + "sysUser/isUser",
-						type:"post",
-						async:false,
-						xhrFields: {
+                isLogin() {
+                    var user1 = null;
+                    $.ajax({
+                        url: basePath + "sysUser/isUser",
+                        type: "post",
+                        async: false,
+                        xhrFields: {
                             withCredentials: true
                         },
                         crossDomain: true,
-						dataType:"JSON",
-						success:function(result){
-							user1 = result;
-						}
-					})
-					if(!user && (user1.loginName == null && user == null)){
-						alert("您还没有登录，请重新登录后在进入首页.....");
-						window.location.href="../../login/chahua3434/login.html";
-						return false;
-					}
-				},
+                        dataType: "JSON",
+                        success: function (result) {
+                            user1 = result;
+                        }
+                    })
+                    if (!user && (user1.loginName == null && user == null)) {
+                        alert("您还没有登录，请重新登录后在进入首页.....");
+                        window.location.href = "../../login/chahua3434/login.html";
+                        return false;
+                    }
+                },
                 //标签页的关闭
                 handleCloseTag(tag) {
                     this.tabs.forEach((item, index) => {
@@ -307,6 +394,7 @@
 
                     });
                 },
+                //查看
                 /* 左侧树形展开折叠 */
                 toUnfoldAndFold() {
                     this.isCollapse = this.isCollapse ? false : true;
@@ -332,7 +420,6 @@
                         }
                     })
                 },
-                //
                 find_MenuC(menuId) {
                     let that = this;
                     $.ajax({
@@ -350,6 +437,50 @@
                         }
                     })
                 },
+                //点击时查询所有的
+                findPickUp1() {
+                    this.loading=true;
+                    let that = this;
+                    $.ajax({
+                        url: basePath + "pickUp",
+                        type: "post",
+                        async: false,
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        dataType: "JSON",
+                        success: function (result) {
+                            that.loading=false;
+                            that.tableData = result;
+                            console.log(that.tableData);
+                        }
+                    });
+                },
+                //查询是否有新数据
+                findPickUpNum() {
+                    let that = this;
+                    $.ajax({
+                        url: basePath + "pickUp/findPickNum",
+                        type: "post",
+                        async: false,
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        dataType: "JSON",
+                        success: function (result) {
+                            that.pickUpNum = result;
+                        }
+                    });
+                },
+                open1() {
+                    const h = this.$createElement;
+                    this.$notify({
+                        title: '场外接车',
+                        message: h('i', { style: 'color: teal' }, '有一个用户现在需要接车，请查看！')
+                    });
+                },
                 //创建标签叶
                 createTab(item) {
                     if (item.sysMenuC && item.sysMenuC.length > 0) {
@@ -361,22 +492,44 @@
                     if (filterItem && filterItem.length > 0) {
                         this.$set(filterItem[0], "active", true);
                     } else {
-                        console.log(item);
                         this.tabs.push(item);
                     }
                 },
             },
             created() {
                 var flag = this.isLogin();
-				if(flag == false){
-					return;
-				}
+                if (flag == false) {
+                    return;
+                }
                 this.find_Menu();
                 this.find_MenuC(1);
+                this.findPickUpNum();
+                setInterval(() => {
+                    let that = this;
+                    $.ajax({
+                        url: basePath + "pickUp/findPickNum",
+                        type: "post",
+                        async: false,
+                        xhrFields: {
+                            withCredentials: true
+                        },
+                        crossDomain: true,
+                        dataType: "JSON",
+                        success: function (result) {
+                            if (that.pickUpNum < result) {
+                                that.findPickUpNum();
+                                that.open1();
+                            } else if (that.pickUpNum > result) {
+
+                            }
+                        }
+                    });
+                }, 5000);
             }
         }
         var Ctor = Vue.extend(Main)
         new Ctor().$mount('#app')
+
     </script>
 
 

@@ -51,6 +51,18 @@ public class ConsumerController {
         System.out.println("用户"+list);
         return list;
     }
+    @RequestMapping("/selectcl")
+    @ResponseBody
+    public List<Consumer> selectcl(String kehu){
+        System.out.println("查询条件"+kehu);
+        QueryWrapper<Consumer> query =  new QueryWrapper<>();
+        if (kehu!=null){
+            query.lambda().like(Consumer::getKhid,kehu);
+        }
+        List<Consumer> list = zz.list(query);
+        System.out.println("用户"+list);
+        return list;
+    }
     @RequestMapping("/insert")
     @ResponseBody
     public boolean insert(@RequestBody Consumer user){

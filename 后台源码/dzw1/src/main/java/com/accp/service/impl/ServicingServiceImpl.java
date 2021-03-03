@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.rmi.server.UID;
 import java.text.DecimalFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
@@ -55,6 +57,13 @@ public class ServicingServiceImpl extends ServiceImpl<ServicingMapper, Servicing
             cargoods.setColumn1(servicing.getSerNumber());
             cargoods.setCarUsername(servicing.getSerDriver());
             cargoods.setCarPhone(servicing.getSerLianxiphone());
+            cargoods.setCarChepai(servicing.getSerChepai());
+            String timeStr= LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            String timeStr1= LocalDateTime.now().minusDays(-3).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            cargoods.setCarExpecttime(timeStr1);
+            cargoods.setCarBegintime(timeStr);
+            cargoods.setCarServicetype(servicing.getYwlx());
+            cargoods.setCarDjtype(servicing.getDjlx());
             int a1= cargoodsMapper.insert(cargoods);
             return true;
         } catch (Exception e) {
