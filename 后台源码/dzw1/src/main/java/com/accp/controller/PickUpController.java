@@ -1,9 +1,12 @@
 package com.accp.controller;
 
 
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import com.accp.domain.PickUp;
+import com.accp.result.ResultCode;
+import com.accp.result.ResultVO;
+import com.accp.service.impl.PickUpServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -17,5 +20,27 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/pickUp")
 public class PickUpController {
 
+    @Autowired
+    PickUpServiceImpl service;
+
+    /**
+     * ‘查询当前手机号是否有接车
+     * @return
+     */
+    @GetMapping("/find")
+    public ResultVO selPicupList(){
+//        PickUp one = service.getOne(new QueryWrapper<PickUp>().lambda().eq(PickUp::getPhone, phone));
+//        if (one == null) {
+//            return new ResultVO(ResultCode.SUCCESS,one );
+//        }
+
+        return new ResultVO(ResultCode.SUCCESS,service.list() );
+    }
+
+    @RequestMapping("/savepicup")
+    public ResultVO insPuup(@RequestBody PickUp pickUp){
+        service.save(pickUp);
+        return new ResultVO(ResultCode.SUCCESS);
+    }
 }
 
