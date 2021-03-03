@@ -18,6 +18,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         if(obj != null){
             return true;
         }
+        System.out.println(1);
         //response.getWriter().print("你还没有登录，请登录！");
         return true;
     }
