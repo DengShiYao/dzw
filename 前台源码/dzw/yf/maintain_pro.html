@@ -22,7 +22,7 @@
                         <button class="btn btn-default pull-right btnexit" type="button">关闭</button>
                         <div class="pull-right" style="margin-right: 50px !important;">
                             <form class="form-inline">
-                                <button v-if="iframBtnVisible===true" type="button" class="btn btn-success selbtn"
+                                <button v-if="iframBtnVisible" type="button" class="btn btn-success selbtn"
                                     style="margin-right: 50px;" @click="iframePrams"><span class="
                                 glyphicon glyphicon-ok"></span> 选择</button>
                                 <div class="form-group">
@@ -678,11 +678,14 @@
                 let that = this;
                 window.addEventListener('message', function (e) {
                     let message = e.data;
+                    console.log(message);
                     if (message[0]) {
-                        that.iframBtnVisible = true;
-                    } else {
                         that.iframBtnVisible = false;
+                    } else {
+                        that.iframBtnVisible = true;
                     }
+                    that.iframBtnVisible = true;
+
                     if (message[1]) {
                         that.iframCheckbox = true;
                         that.tableColumn.splice(0, 0, { type: 'checkbox', sortable: true, width: '40', showOverflow: true, visible: true });
@@ -1497,7 +1500,11 @@
                             return;
                         }
                     }
-                    window.parent.postMessage(code, "*");
+                    let message={
+                        aa:"bb",
+                        code:code
+                    }
+                    window.parent.postMessage(message, "*");
                 },
                 gettableColumns() {
                     // 获取所有列配置

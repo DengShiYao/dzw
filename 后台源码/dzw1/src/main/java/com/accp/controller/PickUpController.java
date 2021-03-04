@@ -49,6 +49,8 @@ public class PickUpController {
 
     @RequestMapping("/savepicup")
     public ResultVO insPuup(@RequestBody PickUp pickUp) {
+        System.out.println(pickUp);
+        pickUp.setColumn1("未读");
         service.save(pickUp);
         return new ResultVO(ResultCode.SUCCESS);
     }

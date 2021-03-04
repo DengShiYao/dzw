@@ -6,194 +6,61 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vxe-table@3.1.4/lib/style.css">
+    <style>
+        .vxe-button.type--button.theme--my-purple,
+        .vxe-button.type--button.theme--my-purple:hover {
+          color: #fff;
+        }
+        .vxe-button.type--button.theme--my-purple {
+          background-color: #800080;
+        }
+        .vxe-button.type--button.theme--my-purple:active {
+          background-color: #a50aa5;
+        }
+        .my-green {
+          color: #008000;
+        }
+        .my-primary {
+          color: #3196ff;
+        }
+        .my-success {
+          color: #67c23a;
+        }
+        .my-info {
+          color: #909399;
+        }
+        .my-warning {
+          color: #e6a23c;
+        }
+        .my-danger {
+          color: #f56c6c;
+        }
+    </style>
 </head>
 
 <body>
+    <script src="https://cdn.jsdelivr.net/npm/vue">
+    </script>
+       <script src="https://cdn.jsdelivr.net/npm/xe-utils@2.8.1"></script>
 
-    <script src="">
-        // pages/touchcar/touchcar.js
-        Page({
+    <script src="https://cdn.jsdelivr.net/npm/vxe-table@3.1.4"></script>
+   <div class="app">
+     <vxe-button status="primary" icon="fa fa-download">图标按钮</vxe-button>
+   </div>
+   
+    <script>
+        var Main = {
+            el:"#app",
+            data(){
+                return{
 
-            /**
-             * 页面的初始数据
-             */
-            data: {
-                active: 0,
-                icon: {
-                    normal: 'https://img.yzcdn.cn/vant/user-inactive.png',
-                    active: 'https://img.yzcdn.cn/vant/user-active.png',
-                },
-                //控制当前输入框error显示
-                booexit: [false, false, false],
-                //控制回到当前位置显示
-                isShow: false,
-                longitude: "",
-                latitude: "",
-                markers: [],
-                picup: {
-                    id: "",
-                    userName: "",
-                    plateNumber: "",
-                    phone: "",
-                    position: "",
-                    faultDescription: "",
-                    status: ""
-                },
-                bbb: ""
-            },
-
-            /**
-             * 生命周期函数--监听页面加载
-             */
-            onLoad: function (options) {
-
-            },
-            /**
-             * 生命周期函数--监听页面初次渲染完成
-             */
-            onReady: function () {
-
-            },
-
-            /**
-             * 生命周期函数--监听页面显示
-             */
-            onShow: function () {
-                var pages = getCurrentPages();
-                var currPage = pages[pages.length - 1]; //当前页面
-                console.log(currPage.data)//为传过来的值
-                wx.setNavigationBarTitle({
-                    title: '接车登记'
-                })
-                wx.setNavigationBarColor({
-                    frontColor: '#000000', // 必写项
-                    backgroundColor: '#ffffff', // 传递的颜色值
-                })
-            },
-
-            /**
-             * 生命周期函数--监听页面隐藏
-             */
-            onHide: function () {
-
-            },
-
-            /**
-             * 生命周期函数--监听页面卸载
-             */
-            onUnload: function () {
-
-            },
-
-            /**
-             * 页面相关事件处理函数--监听用户下拉动作
-             */
-            onPullDownRefresh: function () {
-
-            },
-
-            /**
-             * 页面上拉触底事件的处理函数
-             */
-            onReachBottom: function () {
-
-            },
-
-            /**
-             * 用户点击右上角分享
-             */
-            onShareAppMessage: function () {
-
-            },
-            onChange(event) {
-                this.setData({ active: event.detail });
-                // wx.showToast({
-                //   title: `点击标签 ${event.detail + 1}`,
-                //   icon: 'none',
-                // });
-                let index = event.detail;//当前点击标题的index
-                this.setData({
-                    currentIndex: index
-                })
-            },
-            btnclick() {
-                console.log(this.data.bbb);
-                return;
-                wx.request({
-                    url: "http://127.0.0.1:8080/carDj",
-                    method: 'GET', //请求方式
-                    header: {
-                        'Content-Type': 'application/json',
-                    },
-                    success: function (res) {
-                        console.log(res.data);
-                    },
-                    fail: function () {
-                        app.consoleLog("请求数据失败");
-                    },
-                    complete: function () {
-                        // complete 
-                    }
-                })
-
-            },
-            getMyLocation: function () {
-                wx.chooseLocation({
-                    success(res) {
-                        console.log(res)
-                    }
-                })
-            },
-            xuanzheweizhi() {
-                var that = this;
-                //获取用户当前的授权状态
-                wx.getSetting({
-                    success(res) {
-                        //若用户没有授权地理位置
-                        if (!res.authSetting['scope.userLocation']) {
-                            //在调用需授权 API 之前，提前向用户发起授权请求
-                            wx.authorize({
-                                scope: 'scope.userLocation',
-                                //用户同意授权
-                                success() {
-                                    // 用户已经同意小程序使用地理位置，后续调用 wx.getLocation 接口不会弹窗询问
-                                    that.getMyLocation();
-                                },
-                                fail() {
-                                    wx.showModal({
-                                        title: '提示',
-                                        content: '此功能需获取位置信息，请授权',
-                                        success: function (res) {
-                                            if (res.confirm == false) {
-                                                return false;
-                                            }
-                                            wx.openSetting({
-                                                success(res) {
-                                                    //如果再次拒绝则返回页面并提示
-                                                    if (!res.authSetting['scope.userLocation']) {
-                                                        wx.showToast({
-                                                            title: '此功能需获取位置信息，请重新设置',
-                                                            duration: 3000,
-                                                            icon: 'none'
-                                                        })
-                                                    } else {
-                                                        //允许授权，调用地图
-                                                        that.onLoad()
-                                                    }
-                                                }
-                                            })
-                                        }
-                                    })
-                                }
-                            })
-                        }
-                        else {
-                            that.getMyLocation();
-                        }
-                    }
-                })
+                }
             }
-        })
+        }
+        var Ctor = Vue.extend(Main);
+        new Ctor().$mount('.container-fluid');
+
     </script>
 </body>
 

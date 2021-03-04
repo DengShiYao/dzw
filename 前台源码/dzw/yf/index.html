@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="css/public-y.css">
     <!-- 引入样式 -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vxe-table/lib/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vxe-table@3.1.4/lib/style.css">
     <style>
         .el-menu-vertical-demo:not(.el-menu--collapse) {
             width: 220px;
@@ -281,7 +281,7 @@
                                     :data="tableData" :columns="tableColumn" @current-change="currentChangeEvent" round
                                     show-header-overflow show-overflow>
                                     <template  v-slot:user-slot="{ row }">
-                                        <vxe-button type="text" status="primary" content="接车"></vxe-button>
+                                        <vxe-button status="primary" style="color: black;" icon="fa fa-download"  @click="clickFooterItem(row)">接车</vxe-button>
                                     </template>
                                 </vxe-grid>
                             </template>
@@ -495,6 +495,9 @@
                         this.tabs.push(item);
                     }
                 },
+                clickFooterItem(row){
+                    console.log(row);
+                }
             },
             created() {
                 var flag = this.isLogin();

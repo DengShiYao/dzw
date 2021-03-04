@@ -34,9 +34,12 @@
                                 <vxe-button icon="glyphicon glyphicon-plus" @click="engine={}"
                                     v-perms="'engine_brand:add'">增加
                                 </vxe-button>
-                                <vxe-button icon="glyphicon glyphicon-floppy-disk" @click="toEngineBrandIns">保存
+                                <vxe-button icon="glyphicon glyphicon-floppy-disk" @click="toEngineBrandIns"
+                                v-perms="'engine_brand:update'">保存
                                 </vxe-button>
-                                <vxe-button icon="glyphicon glyphicon-remove-circle" @click="clickRemove">删除
+                                <vxe-button icon="glyphicon glyphicon-remove-circle" @click="clickRemove"
+                                v-perms="'engine_brand:delete'"
+                                >删除
                                 </vxe-button>
                                 <vxe-button icon="glyphicon glyphicon-export">导出</vxe-button>
                             </template>
