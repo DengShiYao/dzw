@@ -10,6 +10,8 @@ import com.accp.result.ResultCode;
 import com.accp.result.ResultVO;
 import com.accp.service.impl.DingdanServiceImpl;
 import com.accp.utils.OrderCodeFactory;
+import com.alibaba.fastjson.JSON;
+import com.alipay.api.domain.AlipayTradePrecreateModel;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
@@ -48,7 +50,6 @@ public class DingdanController {
     @PostMapping("/factoryorderid")
     public ResultVO factoryOrderId(HttpSession session, Dingdan dingdan) {
         //点击结算增加订单并生成二维码返回
-
 
         //column2   1  等待付款
         //column2   2  交易成功
@@ -137,6 +138,20 @@ public class DingdanController {
             return "success";
         }
         return "failer";
+    }
+
+    /**
+     * 二维码生成
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "qrcode")
+    public String qrcode(AlipayTradePrecreateModel model) {
+        Dingdan one = service.getOne(new QueryWrapper<Dingdan>().lambda().eq(Dingdan::getOrderid, model.getOutTradeNo()));
+        model.setTotalAmount(one.getColumn1().toString());
+        model.setSubject("DZW结算");
+        return JSON.toJSONString(alipayService.qrcodePay(model)
+        );
     }
 }
 
