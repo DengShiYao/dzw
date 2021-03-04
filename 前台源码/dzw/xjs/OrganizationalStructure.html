@@ -1168,7 +1168,7 @@
 										<td></td>
 										<td>{{item.postitionName}}</td>
 										<td>
-											<input type="checkbox" name="" id="" :value="item.postitionId" v-model="jobChecks" />
+											<input type="checkbox" name="" id="" :value="item.postitionId" v-model="jobChecks"/>
 										</td>
 									</tr>
 								</table>
@@ -3028,7 +3028,10 @@
 								this.jobChecks=[];
 						   }else{
 							   alert("全选");
-								 this.jobChecks= this.jobList.map(item=>item.id);
+							   	 /* this.jobChecks=[]; */
+								 this. selAllPostition();
+								 console.log(this.postitionList);
+								 this.jobChecks= this.postitionList.map(item=>item.postitionId);
 							   }
 					 },
                     //字段显示全部选择与取消
@@ -3045,6 +3048,8 @@
 					 	$("#showZd").modal("hide");
 					 },
 					 openZd(){
+						 alert("功能开发中");
+						 return;
 					 	$("#showZd").modal("show");
 					 },
 					 primaryZd(){
