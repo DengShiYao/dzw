@@ -79,7 +79,7 @@ public class CarController {
     @RequestMapping("/insert")
     @ResponseBody
     public boolean insert(@RequestBody Car user){
-        System.out.println(user);
+        System.out.println("车辆新增"+user);
         return zz.save(user);
     }
     //修改车辆
