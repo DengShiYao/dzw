@@ -53,9 +53,10 @@ public class PickUpController {
     }
 
     @RequestMapping("/savepicup")
-    public ResultVO insPuup(@RequestBody PickUp pickUp){
+    public ResultVO insPuup(@RequestBody PickUp pickUp) {
         service.save(pickUp);
         return new ResultVO(ResultCode.SUCCESS);
+    }
     @PostMapping("findPickNum")
     public Integer findPickNum(){
         QueryWrapper<PickUp> queryWrapper = new QueryWrapper<>();
