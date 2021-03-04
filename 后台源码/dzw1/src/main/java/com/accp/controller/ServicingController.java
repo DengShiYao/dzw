@@ -7,6 +7,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
@@ -167,11 +169,9 @@ public class ServicingController {
      */
     @PostMapping("/takeCarFinish")
     public boolean takeCarFinish(@RequestBody Servicing servicing){
-        try {
-            servicingService.saveOrUpdate(servicing);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        QueryWrapper<Servicing> queryWrapper= new QueryWrapper<>();
+        queryWrapper.lambda().eq(Servicing::getSerNumber,servicing.getSerNumber());
+        boolean a=  servicingService.update(servicing,queryWrapper);
         boolean b=cargoodsService.updateCargoodsToWork(servicing.getSerNumber());
         return b;
     }
@@ -181,7 +181,11 @@ public class ServicingController {
      * 竣工检验
      */
     public  boolean testOnCompletion(@RequestBody Servicing servicing){
-//        boolean a=  servicingService.saveOrUpdate(servicing);
+        String timeStr= LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        servicing.setSerSgtime(timeStr);
+        QueryWrapper<Servicing> queryWrapper= new QueryWrapper<>();
+        queryWrapper.lambda().eq(Servicing::getSerNumber,servicing.getSerNumber());
+        boolean a=  servicingService.update(servicing,queryWrapper);
         boolean b=cargoodsService.updateCargoodsToSettlement(servicing.getSerNumber());
         return b;
     }

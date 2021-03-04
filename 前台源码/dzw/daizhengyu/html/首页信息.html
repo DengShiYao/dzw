@@ -22,7 +22,7 @@
 		<div class="row">
 		  <div class="col-md-4">
 		  	<img src="../img/123456.png">
-		  	<p @click="jrqt()">今日前台:￥6651313</p>
+		  	<p @click="jrqt()">今日前台:￥{{xfje}}</p>
 		  </div>
 		  <div class="col-md-4">
 		  	<img src="../img/123456.png">
@@ -30,7 +30,7 @@
 		  </div>
 		  <div class="col-md-4">
 		  	<img src="../img/123456.png">
-		  	<p @click="jrjs()">今日结算:￥6651313</p>
+		  	<p @click="jrjs()">今日结算:￥{{jsje}}</p>
 		  </div>
 		</div>
 		
@@ -43,29 +43,14 @@
 		  		<div style="margin-left: 20px;" v-if="qt">
 		  			<h4>今日前台</h4>
 		  			<ul>
-		  				<li>接车台次:2</li>
-		  				<li>结算台次:2</li>
-		  				<li>在修台次:2</li>
-		  				<li>首保台次:2</li>
-		  				<li>返修台次:2</li>
-		  				<li>站内维修台次:2</li>
-		  				<li>站外维修台次:2</li>
-		  				<li>自费维修产值:￥4132</li>
-		  				<li>保险理赔产值:￥4132</li>
-		  				<li>索赔申报金额:￥4132</li>
+		  				<li>结算台次:{{jstc}}</li>
+		  				<li>消费金额:￥{{xfje}}</li>
 		  			</ul>
 		  		</div>
 		  		
 		  		<div  style="margin-left: 20px;" v-if="kf">
 		  			<h4>今日库房</h4>
 		  			<ul>
-		  				<li>现金入库数量:0  金额:￥532元</li>
-		  				<li>挂账入库数量:0  金额:￥532元</li>
-		  				<li>配件销售数量:0  金额:￥532元</li>
-		  				<li>自费出库数量:0  </li>
-		  				<li>自费出库金额:￥532元</li>
-		  				<li>三包入库数量:0</li>
-		  				<li>三包出库金额:￥532元</li>
 		  				<li>当前库存数量:0</li>
 		  				<li>当前库存金额:￥532元</li>
 		  			</ul>
@@ -74,12 +59,8 @@
 		  		<div  style="margin-left: 20px;" v-if="js">
 		  			<h4>今日结算</h4>
 		  			<ul>
-		  				<li>现金收入:￥531元</li>
-		  				<li>客户挂账:￥531元</li>
-		  				<li>银行账户:￥531元</li>
-		  				<li>微信账号:￥531元</li>
-		  				<li>支付宝:￥531元</li>
-		  				<li>三包金额:￥531元</li>
+		  				<li>现金收入:￥{{jsje}}元</li>
+		  				<li>银行账户:￥{{jsje}}元</li>
 		  			</ul>
 		  			</div>
 		  		</div>
@@ -94,7 +75,13 @@
 			el:"#ctx",
 			data:{
 				page:{},
-				js:0,
+				page2:{},
+				page3:{},
+				jsje:0,
+				jstc:0,
+				xfje:0,
+				dqkc:0,
+				kcje:0,
 				qt:true,
 				kf:false,
 				js:false
@@ -116,28 +103,50 @@
 					this.js=true;
 				},
 				find(){
-					let that = this;
-								var car = that.clss;
-								this.carObject={};
-							
+								let that = this;
 								$.ajax({
 										url:"http://127.0.0.1:8080/car/Selectjs/",
-										data:{car:car},
 										type:"post",
 										dataType:"json",
 										success:function(result){
 												that.page=result;
-												page.forEach(function (item, index) {
-													this.js+=item.settlementMoney
-   													 alert(this.js)
-												});
+												$.each(that.page,function(i,obj){
+             												that.jsje+=obj.settlementMoney;
+          										})
 											}
 								});
+								$.ajax({
+										url:"http://127.0.0.1:8080/car/Selectwx/",
+										type:"post",
+										dataType:"json",
+										success:function(result){
+												that.page2=result;
+												$.each(that.page2,function(i,obj){
+															that.jstc++;
+             												that.xfje+=obj.wxXhje;
+          										})
+												alert("查询成功")
+											}
+								});
+								$.ajax({
+										url:"http://127.0.0.1:8080/car/Selectsp/",
+										type:"post",
+										dataType:"json",
+										success:function(result){
+												that.page3=result;
+												$.each(that.page3,function(i,obj){
+															that.jstc++;
+             												that.xfje+=obj.wxXhje;
+          										})
+												alert("查询成功")
+											}
+								});
+
 
 							}
 				
 			},created(){
-				this.ks();
+				this.find();
 			}
 		});
 	</script>

@@ -367,6 +367,7 @@
 										<option :value="item.qbxid">{{item.qbxname}}</option>
 
 									</select>
+<<<<<<< HEAD
 								</div>
 								<div class="form-group">
 									<label for="exampleInputEmail2">强险到期日期 </label>
@@ -378,6 +379,17 @@
 									<select v-model="add.column3" class="form-control" v-for="item in selet5">
 										<option :value="item.id">{{item.khName}}</option>
 
+=======
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">强险到期日期 </label>
+    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="add.carJqxdq">
+  									</div>
+  									<div class="form-group">
+    								<label for="exampleInputName2">客户名称</label>
+    								<select v-model="add.column3" class="form-control" v-for="item in selet5">
+  											<option :value="item.id">{{item.khName}}</option>
+>>>>>>> 8963ae1984eb738a7e5b650505fe4a2f08ca71f1
 									</select>
 								</div>
 							</form>

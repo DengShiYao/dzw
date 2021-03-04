@@ -452,6 +452,10 @@
                         console.log("ssddd")
                         $("#ServicingInformation").modal("hide");
                         location.reload();
+                    }else if(iframeVue1.aa == "cc"){
+                        alert("即将跳转结算中心");
+                        $("#ServicingInformation").modal("hide");
+                        window.location.href="../../ZengQingNian/结算中心.html";
                     }
                 });
             },

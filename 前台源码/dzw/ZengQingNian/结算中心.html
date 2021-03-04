@@ -4,6 +4,11 @@
 		<meta charset="utf-8">
 		<title>结算中心</title>
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+		<style>
+			.bg {
+  			  background-color:red;
+  			}
+		</style>
 	</head>
 	<body>
 		<div id="ctn" class="container-fluid">
@@ -93,6 +98,7 @@
 						<td>结算金额</td>
 						<td>业务类型</td>
 						<td>客户名称</td>
+						<td>车牌号</td>
 						<td>车型</td>
 						<td>车架号</td>
 						<td>联系电话</td>
@@ -103,26 +109,46 @@
 						<td>完工时间</td>
 						<td>备注</td>
 					</tr>
-						<tr>
-							<td>00000RE210100023</td>
-							<td>救援</td>
-							<td>现结</td>
-							<td>完工</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td>1.00</td>
-							<td>饭喷</td>
-							<td>a</td>
-							<td>藏</td>
-							<td>重汽汕德卡</td>
-							<td>dasdas</td>
-							<td>adas</td>
-							<td></td>
-							<td></td>
-							<td>张三</td>
-							<td>2021-01-19 11:20</td>
-							<td></td>
+						<tr v-for="(item,index) in saleTable" :class='{bg:index==isactive}' @click="fn(index)">
+							<td v-text="item.salesOrder" @click="chooseTableTr(item)"></td>
+							<td  v-if="item.billsType" v-text="item.billsType" @click="chooseTableTr(item)"></td>
+							<td v-else @click="chooseTableTr(item)"></td>
+							<td v-if="item.balance" v-text="item.balance" @click="chooseTableTr(item)"></td>
+							<td v-else @click="chooseTableTr(item)"></td>
+							<td v-if="item.billstatus" v-text="item.billstatus" @click="chooseTableTr(item)"></td>
+							<td v-else @click="chooseTableTr(item)"></td>
+							<td v-if="item.settlementStatus" v-text="item.settlementStatus" @click="chooseTableTr(item)"></td>
+							<td v-else @click="chooseTableTr(item)"></td>
+							<td v-if="item.settlementTime" v-text="item.settlementTime" @click="chooseTableTr(item)"></td>
+							<td v-else @click="chooseTableTr(item)"></td>
+							<td v-if="item.settlementUser" v-text="item.settlementUser" @click="chooseTableTr(item)"></td>
+							<td v-else @click="chooseTableTr(item)"></td>
+							<td v-if="item.settlementMoney" v-text="item.settlementMoney" @click="chooseTableTr(item)"></td>
+							<td v-else @click="chooseTableTr(item)"></td>
+							<td v-if="item.serviceType" v-text="item.serviceType" @click="chooseTableTr(item)"></td>
+							<td v-else @click="chooseTableTr(item)"></td>
+							<td v-if="item.username" v-text="item.username" @click="chooseTableTr(item)"></td>
+							<td v-else @click="chooseTableTr(item)"></td>
+							<td v-if="item.plateNumber" v-text="item.plateNumber" @click="chooseTableTr(item)"></td>
+							<td v-else @click="chooseTableTr(item)"></td>
+							<td v-if="item.motorcycleType" v-text="item.motorcycleType" @click="chooseTableTr(item)"></td>
+							<td v-else @click="chooseTableTr(item)"></td>
+							<td v-if="item.frame" v-text="item.frame" @click="chooseTableTr(item)"></td>
+							<td v-else @click="chooseTableTr(item)"></td>
+							<td v-if="item.phone" v-text="item.phone" @click="chooseTableTr(item)"></td>
+							<td v-else @click="chooseTableTr(item)"></td>
+							<td v-if="item.insurer" v-text="item.insurer" @click="chooseTableTr(item)"></td>
+							<td v-else @click="chooseTableTr(item)"></td>
+							<td v-if="item.indemnityCompany" v-text="item.indemnityCompany" @click="chooseTableTr(item)"></td>
+							<td v-else @click="chooseTableTr(item)"></td>
+							<td v-if="item.licensePlate" v-text="item.licensePlate" @click="chooseTableTr(item)"></td>
+							<td v-else @click="chooseTableTr(item)"></td>
+							<td v-if="item.serviceAdviser" v-text="item.serviceAdviser" @click="chooseTableTr(item)"></td>
+							<td v-else @click="chooseTableTr(item)"></td>
+							<td v-if="item.completionTime" v-text="item.completionTime" @click="chooseTableTr(item)"></td>
+							<td v-else @click="chooseTableTr(item)"></td>
+							<td v-if="item.remarks" v-text="item.remarks" @click="chooseTableTr(item)"></td>
+							<td v-else @click="chooseTableTr(item)"></td>
 						</tr>
 					
 				</table>
@@ -138,7 +164,7 @@
 							<h3>前台收银</h3>
 						</div>
 						<div class="modal-body" style="display: flex;justify-content: center;">
-								<div>
+								<!-- <div>
 									支付方式：<button class="btn btn-default" @click="weixin1()">微信</button><button @click="zhifubao1()" class="btn btn-default" style="margin-left:30px" >支付宝</button>
 									<div v-if="weixin">
 										<img src="img/微信图片_20210126113650.png" >
@@ -146,7 +172,8 @@
 									<div v-if="zhifubao">
 										<img src="img/微信图片_20210126113715.png" >
 									</div>
-								</div>
+								</div> -->
+								<iframe src="../../yf/paydemo.html" ref="iframe" frameborder="0" width="100%" height="100%"></iframe>
 						</div>
 						<div class="modal-footer">
 						</div>
@@ -236,12 +263,28 @@
 				data(){
 					return {
 						weixin:true,
-						zhifubao:false
+						zhifubao:false,
+						//销售单list
+						saleTable:[],
+						//被选择的销售单
+						chooseSaleTr:{},
+						isactive:0
 					}
 				},
 				methods:{
 					sy(){
+						/* if(this.chooseSaleTr==null||this.chooseSaleTr==""||this.chooseSaleTr==undefined){
+							alert("请先单击选择要操作行");
+							return;
+						} */
 						$("#mymodal").modal("show");
+						this.iframe = this.$refs.iframe;
+						this.iframeWindow = this.iframe.contentWindow;
+						message = {
+							aa: 'dd',
+							val: this.chooseSaleTr.settlementMoney,
+						}
+						this.iframeWindow.postMessage(message, '*');
 					},
 					weixin1(){
 						this.weixin = true;
@@ -253,10 +296,37 @@
 					},
 					mendian(){
 						$("#mymodal2").modal("show");
+					},
+					//查询所有的销售单信息
+					selAllXiaoShou(){
+						let that=this;
+						$.ajax({
+							url:"http://127.0.0.1:8080/listOfSales/selAll",
+							type:"get",
+							xhrFields: {
+								withCredentials: true
+							},
+							crossDomain: true,
+							async:false,
+							dataType:"json",
+							success:function(result){
+								that.saleTable=result;
+							}
+						});
+					},
+					//选择table某列将数据传入，用于获取销售单信息
+                    chooseTableTr(item){
+                    	this.chooseSaleTr=item;
+                    	console.log(this.chooseSaleTr);
+                    },
+					//点击tr背景变色
+                    fn (index) {
+					      //点击切换 变量的值 赋值为 index
+					      this.isactive=index;
 					}
 				},
 				created(){
-					
+					this.selAllXiaoShou();
 				}
 			})
 		</script>
