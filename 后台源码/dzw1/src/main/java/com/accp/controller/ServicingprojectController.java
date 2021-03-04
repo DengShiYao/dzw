@@ -12,6 +12,7 @@ import com.accp.service.impl.ServicingprojectServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import sun.security.smartcardio.SunPCSC;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -97,6 +98,33 @@ public class ServicingprojectController {
             price+=servicingproject.getWxJsjies();
         }
         return price;
+    }
+
+    /**
+     * 根据id查询项目
+     * @return
+     */
+    @GetMapping("/selById/{id}")
+    public  Servicingproject selById(@PathVariable Integer id){
+        return  servicingprojectService.getById(id);
+    }
+
+    /**
+     * 修改项目
+     * @return
+     */
+    @PostMapping("/updateServicingProject")
+    public  boolean updateServicingProject(@RequestBody Servicingproject servicingproject){
+        boolean a= servicingprojectService.updateById(servicingproject);
+        return  a;
+    }
+
+    /**
+     * 删除项目
+     * @return
+     */
+    public boolean removeServicingProject(@PathVariable Integer id){
+        return servicingprojectService.removeById(id);
     }
 }
 

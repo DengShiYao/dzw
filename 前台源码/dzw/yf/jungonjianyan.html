@@ -27,7 +27,7 @@
 		<div class="zbu">
 			<div class="col-md-10" style="color: aqua;">
 				<span>
-					开单日期<input size="15" v-model="jg.date1"><input size="15" v-model="jg.date2">
+					开单日期<input size="15" type="date" v-model="jg.date1"><input type="date" size="15" v-model="jg.date2">
 				</span>
 				<span>
 					维修单号<input size="15" v-model="jg.reserved3">
@@ -77,22 +77,22 @@
 						</tr>
 						<tr v-for="item in list" @dblclick="shishiClick(item)">
 							<td class="dygtd"></td>
-							<td>{{item.reserved3}}</td>
-							<td>{{item.dstate}}</td>
-							<td>{{item.yewulx}}</td>
-							<td>{{item.shigonbanci}}</td>
-							<td>{{item.chezhuxm}}</td>
-							<td>{{item.chepai}}</td>
-							<td>{{item.chexin}}</td>
-							<td>{{item.chejiaoNo}}</td>
-							<td>{{item.sctime}}</td>
-							<td>{{item.yujitime}}</td>
-							<td>{{item.completionTime}}</td>
+							<td>{{item.serNumber}}</td>
+							<td>{{item.cargoods.carDjtype}}</td>
+							<td>{{item.cargoods.carServicetype}}</td>
+							<td>{{item.serSgbanci}}</td>
+							<td>{{item.serCarzhuname}}</td>
+							<td>{{item.serChepai}}</td>
+							<td>{{item.serChexinhao}}</td>
+							<td>{{item.serChejia}}</td>
+							<td>{{item.serJctime}}</td>
+							<td>{{item.serExpecttime}}</td>
+							<td>{{item.serSgtime}}</td>
 							<td>无</td>
 							<td>无</td>
 							<td>无</td>
-							<td>{{item.reserved4}}</td>
-							<td>{{item.reserved5}}</td>
+							<td>无</td>
+							<td>无</td>
 						</tr>
 					</table>
 				</div>
@@ -1122,8 +1122,14 @@
 				find() {
 					let that = this;
 					$.ajax({
-						url: BaseUrl + "weixdan/find",
-						data: that.jg,
+						url:"http://127.0.0.1:8080/servicing/junGongSel",
+						type:"get",
+						dataType:"json",
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						async:false,
 						success: function (result) {
 							console.log(result);
 							that.list = result;
