@@ -9,6 +9,8 @@ import com.accp.service.impl.CargoodsServiceImpl;
 import com.accp.service.impl.ListOfSalesServiceImpl;
 import com.accp.service.impl.ServicingServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -99,15 +101,22 @@ public class ListOfSalesController {
         return  listOfSalesService.list();
     }
 
-    @PostMapping("/updateListOfSale")
     /**
      * 修改销售单结算状态，结算时间，结算人
      */
-    public  boolean updateListOfSale(ListOfSales listOfSales){
+    @PostMapping("/updateListOfSale")
+    public  boolean updateListOfSale( String json) throws JsonProcessingException {
+        ObjectMapper objectMapper =new ObjectMapper();
+         ListOfSales listOfSales= objectMapper.readValue(json,ListOfSales.class);
+        System.out.println(listOfSales);
+        String timeStr= LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        listOfSales.setSettlementTime(timeStr);
         QueryWrapper<ListOfSales> queryWrapper =new QueryWrapper<>();
         queryWrapper.lambda().eq(ListOfSales::getSalesOrder,listOfSales.getSalesOrder());
         boolean a= listOfSalesService.update(listOfSales,queryWrapper);
         return  a;
+//        System.out.println(json);
+//        return true;
     }
 //    @GetMapping("/selBy")
     /**
