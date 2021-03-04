@@ -209,6 +209,7 @@
 
 
 		<!--新增-->
+<<<<<<< HEAD
 		<div class="modal" data-backdrop="true" id="insertmodal">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -283,6 +284,72 @@
 									<select v-model="add.carFdjpph" class="form-control" v-for="item in selet1">
 										<option :value="item.carId">{{item.engineName}}</option>
 
+=======
+			<div class="modal" data-backdrop="true" id="insertmodal">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">车辆资料编辑</div>
+						<div class="modal-body">
+							<div class="editStudent">
+									<form class="form-inline">
+  									<div class="form-group">
+    								<label for="exampleInputName2">车牌号码</label>
+    								<input type="text" class="form-control" id="exampleInputEmail2" v-model="add.carCph">
+  									</div>
+  									<div class="form-group">
+    								<label for="exampleInputName2">车辆品牌</label>
+    								<select v-model="add.carClpp" class="form-control" >
+  											<option v-for="item in selet1" :value="item.carId">{{item.brandName}}</option>
+  											
+									</select>
+  									</div>
+  									<div class="form-group">
+										<div class="form-group">
+    									<label for="exampleInputEmail2">车辆型号</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="add.carType">
+  									</div>
+    									<button type="button"   data-toggle="modal" href="#ppcx" class="btn btn-default">x</button>
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">驾驶员</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="add.carJsy">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">驾驶员电话</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="add.carPhone">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">出生日期</label>
+    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="add.carCsrq">
+  									</div>
+  									<div class="form-group">
+    								<label for="exampleInputName2">车辆归属</label>
+    								<select v-model="add.carClgs" class="form-control" >
+  											<option v-for="item in selet2" :value="item.affiliationid">{{item.affiliationname}}</option>
+									</select>
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">驾驶员地址</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="add.carJsydz">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">驾照到期</label>
+    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="add.carJzdq">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">车架号</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="add.carCjh">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">发动机号</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="add.carFdjh">
+  									</div>
+  									<div class="form-group">
+    								<label for="exampleInputName2">发动机品牌</label>
+    								<select v-model="add.carFdjpph" class="form-control" >
+  											<option v-for="item in selet1" :value="item.carId">{{item.engineName}}</option>
+  											
+>>>>>>> 4857c4b312e163bd8ff32f272550017d3920fb33
 									</select>
 								</div>
 								<div class="form-group">
@@ -338,6 +405,7 @@
 										<option value="柴油">柴油</option>
 										<option value="汽油">汽油</option>
 									</select>
+<<<<<<< HEAD
 								</div>
 								<div class="form-group">
 									<label for="exampleInputEmail2"> 下次保养里程</label>
@@ -354,6 +422,22 @@
 									<select v-model="add.column1" class="form-control" v-for="item in selet4">
 										<option :value="item.sybxid">{{item.sybxname}}</option>
 
+=======
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2"> 下次保养里程</label>
+    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="add.carXcbylc">
+  									</div>
+  									<div class="form-group">
+    									<label for="exampleInputEmail2">下次保养日期 </label>
+    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="add.carXcbyrq">
+  									</div>
+  									<div class="form-group">
+    								<label for="exampleInputName2">交商业保险公司</label>
+    								<select v-model="add.column1" class="form-control" >
+  											<option v-for="item in selet4" :value="item.sybxid">{{item.sybxname}}</option>
+  											
+>>>>>>> 4857c4b312e163bd8ff32f272550017d3920fb33
 									</select>
 								</div>
 								<div class="form-group">
@@ -384,8 +468,8 @@
   									</div>
   									<div class="form-group">
     								<label for="exampleInputName2">客户名称</label>
-    								<select v-model="add.column3" class="form-control" v-for="item in selet5">
-  											<option :value="item.id">{{item.khName}}</option>
+    								<select v-model="add.column3" class="form-control" >
+  											<option v-for="item in selet5" :value="item.id">{{item.khName}}</option>
 									</select>
 								</div>
 							</form>

@@ -137,8 +137,8 @@
   									</div>
   									<div class="form-group">
     								<label for="exampleInputName2">车辆品牌</label>
-    								<select v-model="add2.carClpp" class="form-control" v-for="item in selet1">
-  											<option :value="item.carId">{{item.brandName}}</option>
+    								<select v-model="add2.carClpp" class="form-control" >
+  											<option v-for="item in selet1" :value="item.carId">{{item.brandName}}</option>
   											
 									</select>
   									</div>
@@ -163,8 +163,8 @@
   									</div>
   									<div class="form-group">
     								<label for="exampleInputName2">车辆归属</label>
-    								<select v-model="add2.carClgs" class="form-control" v-for="item in selet2">
-  											<option :value="item.affiliationid">{{item.affiliationname}}</option>
+    								<select v-model="add2.carClgs" class="form-control" >
+  											<option v-for="item in selet2" :value="item.affiliationid">{{item.affiliationname}}</option>
 									</select>
   									</div>
   									<div class="form-group">
@@ -185,8 +185,8 @@
   									</div>
   									<div class="form-group">
     								<label for="exampleInputName2">发动机品牌</label>
-    								<select v-model="add2.carFdjpph" class="form-control" v-for="item in selet1">
-  											<option :value="item.carId">{{item.engineName}}</option>
+    								<select v-model="add2.carFdjpph" class="form-control" >
+  											<option v-for="item in selet1" :value="item.carId">{{item.engineName}}</option>
   											
 									</select>
   									</div>
@@ -246,8 +246,8 @@
   									</div>
   									<div class="form-group">
     								<label for="exampleInputName2">交商业保险公司</label>
-    								<select v-model="add2.column1" class="form-control" v-for="item in selet4">
-  											<option :value="item.sybxid">{{item.sybxname}}</option>
+    								<select v-model="add2.column1" class="form-control" >
+  											<option v-for="item in selet4" :value="item.sybxid">{{item.sybxname}}</option>
   											
 									</select>
   									</div>
@@ -257,8 +257,8 @@
   									</div>
   									<div class="form-group">
     								<label for="exampleInputName2">交强险保险公司</label>
-    								<select v-model="add2.carjqxbxgs" class="form-control" v-for="item in selet3">
-  											<option :value="item.qbxid">{{item.qbxname}}</option>
+    								<select v-model="add2.carjqxbxgs" class="form-control" >
+  											<option v-for="item in selet3" :value="item.qbxid">{{item.qbxname}}</option>
   											
 									</select>
   									</div>
@@ -268,8 +268,8 @@
   									</div>
   									<div class="form-group">
     								<label for="exampleInputName2">客户名称</label>
-    								<select v-model="add2.column3" class="form-control" v-for="item in selet5">
-  											<option :value="item.id">{{item.khName}}</option>
+    								<select v-model="add2.column3" class="form-control" >
+  											<option v-for="item in selet5" :value="item.id">{{item.khName}}</option>
   											
 									</select>
   									</div>
@@ -1596,7 +1596,7 @@
 								});
 								$.ajax({
 										url:"http://127.0.0.1:8080/car/insert/",
-										data:json,
+										data:json2,
 										type:"post",
 										contentType:"application/json;charset=utf-8", 
 										success:function(){
