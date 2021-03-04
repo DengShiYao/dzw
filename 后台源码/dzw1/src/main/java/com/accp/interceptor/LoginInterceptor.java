@@ -1,6 +1,5 @@
 package com.accp.interceptor;
 
-import com.accp.domain.SysUser;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -16,7 +15,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         response.setContentType("text/html;charset=utf-8");
         HttpSession session = request.getSession();
         Object obj = session.getAttribute("user");
-        session.setAttribute("user",new SysUser().setUserId(1));
+//        session.setAttribute("user",new SysUser().setUserId(1));
         if(obj != null){
             return true;
         }
