@@ -51,8 +51,8 @@ public class SysUserController {
     }
     //查询所有用户
     @PostMapping
-    public List<SysUser> findUser(){
-        return sysUserService.list();
+    public List<SysUser> findUser(String name){
+        return sysUserService.list(new QueryWrapper<SysUser>().like("user_name",name == null ? "" : name ));
     }
 
     @PostMapping("selectUserById")
