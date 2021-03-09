@@ -429,10 +429,9 @@
                     console.log(e.data);
                     let iframeVue1 = JSON.parse(JSON.stringify(e.data));
                     /*  let iframeVue1 = JSON.stringify(e.data); */
-                    console.log(iframeVue1);
+//                  console.log(iframeVue1);
                     if (iframeVue1.aa == "car") {
-                        console.log("dd")
-
+//                      console.log("dd")
                         //车辆页面传输过来的数据
                         that.iframeVue.chepai = iframeVue1.val.carCph;
                         that.iframeVue.chejia = iframeVue1.val.carCjh;
@@ -448,10 +447,11 @@
                         that.iframeVue.xcbyrq = iframeVue1.val.carXcbyrq;
                         console.log(that.iframeVue);
                         $("#carInformation").modal("hide");
-                    } else if (iframeVue1.aa == "bb") {
+                    } else if (iframeVue1.aa == "dd") {
                         console.log("ssddd")
                         $("#ServicingInformation").modal("hide");
-                        location.reload();
+                        that.selWorkingCar();
+//                      location.reload();
                     }else if(iframeVue1.aa == "cc"){
                         $("#ServicingInformation").modal("hide");
                         window.location.href="../../ZengQingNian/结算中心.html";

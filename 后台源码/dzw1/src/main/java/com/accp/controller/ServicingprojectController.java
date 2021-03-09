@@ -73,7 +73,7 @@ public class ServicingprojectController {
      */
     public  List<Servicingproject> selBySerNumber(@PathVariable String serNumber){
         QueryWrapper<Servicingproject> queryWrapper = new QueryWrapper<>();
-        queryWrapper.lambda().eq(Servicingproject::getColumn1,serNumber);
+        queryWrapper.lambda().eq(Servicingproject::getWxGdannumber,serNumber);
         List<Servicingproject> list = servicingprojectService.list(queryWrapper);
         return  list;
     }

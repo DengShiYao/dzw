@@ -11,11 +11,16 @@
         <result column="column1" property="column1" />
         <result column="column2" property="column2" />
         <result column="column3" property="column3" />
+        <result column="ac_people" property="acPeople" />
+        <result column="ac_number" property="acNumber" />
+        <result column="ac_sumPrice" property="acSumprice" />
+        <result column="ac_serviceAdvice" property="acServiceadvice" />
+        <result column="ac_miandan" property="acMiandan" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ac_id, ac_repairid, ac_time, ac_goods, column1, column2, column3
+        ac_id, ac_repairid, ac_time, ac_goods, column1, column2, column3, ac_people, ac_number, ac_sumPrice, ac_serviceAdvice, ac_miandan
     </sql>
     <resultMap id="BaseResultMap1" type="com.accp.domain.Acquisition" extends="BaseResultMap">
         <!--<association property="goods" column="acGoods" select="" ></association>-->

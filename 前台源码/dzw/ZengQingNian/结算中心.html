@@ -5,9 +5,11 @@
 	<meta charset="utf-8">
 	<title>结算中心</title>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+	<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<style>
 		.bg {
-			background-color: red;
+			background-color: blanchedalmond;
 		}
 	</style>
 </head>
@@ -16,8 +18,14 @@
 	<div id="ctn" class="container-fluid">
 		<div class="row" style="background-color: rgb(247,255,255);display: flex; align-items: center;height: 50px;">
 			<span style="font-size: 25px;margin-left: 20px;">结算中心</span>
-			<button class="btn btn-success" style="margin-left: 83%;">查询</button>
-			<button class="btn" style="margin-left: 10px;">关闭</button>
+			<button class="btn btn-success" style="margin-left: 80%;" @click="selSalStatusByParse">
+				<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+				查询
+			</button>
+			<button class="btn" style="margin-left: 10px;">
+				<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+				关闭
+			</button>
 		</div>
 		<div class="row" style="background-color: rgb(247,247,247);height: 40px;"></div>
 		<div class="row" style="border-top: 1px solid rgb(33,182,206);">
@@ -25,55 +33,48 @@
 				<div style="margin-top: 10px;">
 					<div class="form-group" style="margin-left: 35px;">
 						<label for="exampleInputName2" style="color: rgb(33,182,206);">开单日期</label>
-						<input type="date" class="form-control" id="exampleInputName2" style="width: 150px;">
-						<input type="date" class="form-control" id="exampleInputName2" style="width: 150px;">
+						<input type="date" class="form-control" id="exampleInputName2" style="width: 150px;" v-model="saleQuerry.settlementBenginTime">
+						<input type="date" class="form-control" id="exampleInputName2" style="width: 150px;" v-model="saleQuerry.settlementEndTime">
 					</div>
 					<div class="form-group" style="margin-left: 10px;">
 						<label for="exampleInputEmail2" style="color: rgb(33,182,206);">销售单号</label>
-						<input type="text" class="form-control" id="exampleInputEmail2" style="width: 120px;">
+						<input type="text" class="form-control" id="exampleInputEmail2" style="width: 120px;" v-model="saleQuerry.salesOrder">
 					</div>
 					<div class="form-group" style="margin-left: 10px;">
 						<label for="exampleInputEmail2" style="color: rgb(33,182,206);">结算状态</label>
-						<input type="text" class="form-control" id="exampleInputEmail2" style="width: 120px;">
+						<input type="text" class="form-control" id="exampleInputEmail2" style="width: 120px;"  v-model="saleQuerry.settlementStatus">
 					</div>
 					<div class="form-group" style="margin-left: 10px;">
 						<label for="exampleInputEmail2" style="color: rgb(33,182,206);">车牌号</label>
-						<input type="text" class="form-control" id="exampleInputEmail2" style="width: 150px;">
+						<input type="text" class="form-control" id="exampleInputEmail2" style="width: 150px;"  v-model="saleQuerry.plateNumber">
 					</div>
 				</div>
 
 				<div style="margin-top: 10px;margin-bottom: 10px;">
 					<div class="form-group" style="margin-left: 34px;">
 						<label for="exampleInputEmail2" style="color: rgb(33,182,206);">客户名称</label>
-						<select name="" class="form-control" id="exampleInputEmail2" style="width: 150px;">
-							<option value=""></option>
-							<option value=""></option>
-						</select>
+						<input class="form-control"  style="width: 150px;" v-model="saleQuerry.username"/>
 					</div>
 					<div class="form-group" style="margin-left: 10px;">
 						<label for="exampleInputEmail2" style="color: rgb(33,182,206);">服务顾问</label>
-						<select name="" class="form-control" id="exampleInputEmail2" style="width: 150px;">
-							<option value=""></option>
-							<option value=""></option>
-						</select>
+						<input name="" class="form-control" id="exampleInputEmail2" style="width: 150px;"  v-model="saleQuerry.serviceAdviser"/>
 					</div>
 					<div class="form-group" style="margin-left: 10px;">
 						<label for="exampleInputEmail2" style="color: rgb(33,182,206);">业务类型</label>
-						<select name="" class="form-control" id="exampleInputEmail2" style="width: 150px;">
-							<option value=""></option>
-							<option value=""></option>
+						<select name="" class="form-control" id="exampleInputEmail2" style="width: 150px;"  v-model="saleQuerry.serviceType">
+							<option value="item.serviceType" v-for="item in serviceTypeList" v-text="item.serviceType"></option>
 						</select>
 					</div>
 					<div class="form-group" style="margin-left: 10px;">
 						<label for="exampleInputEmail2" style="color: rgb(33,182,206);">单据类型</label>
-						<select name="" class="form-control" id="exampleInputEmail2" style="width: 150px;">
-							<option value=""></option>
-							<option value=""></option>
+						<select name="" class="form-control" id="exampleInputEmail2" style="width: 150px;"  v-model="saleQuerry.billsType">
+							<option value="维修">维修</option>
+							<option value="救援">救援</option>
 						</select>
 					</div>
 					<div class="form-group" style="margin-left: 10px;">
 						<label for="exampleInputEmail2" style="color: rgb(33,182,206);">备注</label>
-						<input type="text" class="form-control" id="exampleInputEmail2" style="width: 150px;">
+						<input type="text" class="form-control" id="exampleInputEmail2" style="width: 150px;"  v-model="saleQuerry.remarks">
 					</div>
 			</form>
 		</div>
@@ -81,18 +82,26 @@
 
 
 	<div class="row" style="height: 40px;background-color: rgb(247,247,247);display: flex; align-items: center;">
-		<a href="#" style="font-size: 20px;color: black;margin-left: 20px;" @click="mendian()"><img
-				src="img/513d2798454719071e0f1ae34102d3fc.jpeg" style="width: 20px;margin-right: 6px;">门店选择</a>
-		<a href="#" style="font-size: 20px;color: black;margin-left: 66.5%;" @click="sy()"><img
-				src="img/033bc0f8ab625ceafdcfee32af9fbd67.jpeg" style="width: 20px;margin-right: 6px;">收银</a>
-		<a href="维修单.html" style="font-size: 20px;color: black;margin-left: 100px;"><img
-				src="img/9c7fd9b4fd5666dcda308b03c648bcb3.jpeg" style="width: 20px;margin-right:6px;">打开单据</a>
-		<a href="#" style="font-size: 20px;color: black;margin-left: 35px;"><img
-				src="img/9c7fd9b4fd5666dcda308b03c648bcb3.jpeg" style="width: 20px;margin-right: 6px;">导出</a>
+		<a  class="btn btn-primary"  style="font-size: 20px;color: black;margin-left: 20px;" @click="mendian()">
+			<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+			门店选择
+		</a>
+		<a  class="btn btn-primary" style="font-size: 20px;color: black;margin-left: 60.5%;" @click="sy()">
+			<span class="glyphicon glyphicon-yen" aria-hidden="true"></span>
+			收银
+		</a>
+		<a class="btn btn-primary"  style="font-size: 20px;color: black;margin-left: 100px;" @click="showRepair">
+			<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+			打开单据
+		</a>
+		<a class="btn btn-primary"  style="font-size: 20px;color: black;margin-left: 35px;" @click="daochu" >
+			<span class="glyphicon glyphicon-cloud-download" aria-hidden="true"></span>
+			导出
+		</a>
 	</div>
 
 	<div class="row">
-		<table class="table table-bordered table-striped table-hover">
+		<table class="table table-bordered">
 			<tr style="background-color: rgb(33,182,206); color: white;">
 				<td>销售单号</td>
 				<td>单据类型</td>
@@ -187,17 +196,17 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<span class="close" data-dismiss="modal">&times;</span>
-					<span style="font-size: 25px;margin-left: 10px;">班组技工</span>
-					<input type="text" placeholder="匹配工号/姓名/手机" style="margin-left: 25%;width: 150px;height: 33px;">
-					<button class="btn btn-primary" style="margin-left: 10px;">搜索</button>
-					<button class="btn" style="margin-left: 10px;">关闭</button>
+					<span style="font-size: 25px;margin-left: 10px;">门店选择</span>
+					<input type="text" placeholder="匹配门店编码/门店" id="searchStore" style="margin-left: 25%;width: 150px;height: 33px;">
+					<button class="btn btn-primary" style="margin-left: 10px;" @click="searchStore">搜索</button>
+					<button class="btn" style="margin-left: 10px;" @click="closeStoreChoose">关闭</button>
 				</div>
 				<div class="modal-body">
 					<div class="container-fluid">
 						<div class="row">
-							<button class="btn btn-success">确定</button>
-							<button class="btn btn-default" style="margin-left: 60%;">全部选择</button>
-							<button class="btn btn-default">全部取消</button>
+							<button class="btn btn-success"  @click="selSaleByStore">确定</button>
+							<button class="btn btn-default" style="margin-left: 60%;"@click="checkAllStore(true)" >全部选择</button>
+							<button class="btn btn-default" @click="checkAllStore(false)">全部取消</button>
 						</div>
 						<div class="row">
 							<table class="table table-bordered table-striped table-hover">
@@ -207,34 +216,12 @@
 									<td>门店名称</td>
 									<td>所在城市</td>
 								</tr>
-								<tr>
-									<td><input type="checkbox"></td>
-									<td>00000</td>
-									<td>总厂</td>
-									<td>北京市</td>
-								</tr>
-								<tr>
-									<td><input type="checkbox"></td>
-									<td>00001</td>
-									<td>成高卡修</td>
-									<td>天津市</td>
-								</tr>
-								<tr>
-									<td><input type="checkbox"></td>
-									<td>00002</td>
-									<td>ddm</td>
-									<td>天津市</td>
-								</tr>
-								<tr>
-									<td><input type="checkbox"></td>
-									<td>00003</td>
-									<td>机电组</td>
-									<td></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox"></td>
-									<td>00004</td>
-									<td>11</td>
+								<tr v-for="item in storeList">
+									<td>
+										<input type="checkbox" id="" :value="item.storeId" v-model="storeChecks" />
+									</td>
+									<td>{{item.storeId}}</td>
+									<td>{{item.storeName}}</td>
 									<td></td>
 								</tr>
 							</table>
@@ -247,7 +234,25 @@
 			</div>
 		</div>
 	</div>
-
+	
+	<div class="modal fade bs-example-modal-lg" id="repairModal"  style="width: 100%;height: 100%;">
+		<div class="modal-dialog" style="width: 100%;height: 100%;">
+			<div class="modal-content" style="display:inline-block;width: 100%;">
+				<div class="modal-header" style="width: 100%;height: 100%;">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Modal title</h4>
+				</div>
+				<div class="modal-body" style="width: 100%;height: 500px;">
+					<iframe src="维修单.html"  ref="iframe" frameborder="0" width="100%"
+					height="100%" scrolling:no></iframe>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 
 
 
@@ -278,7 +283,16 @@
 						column1: 0.01,
 						column3: 1,
 						subject: "DZW结算"
-					}
+					},
+					//销售单查询对象
+					saleQuerry:{},
+					//业务类型list
+					serviceTypeList:[],
+					//门店list
+					storeList:[],
+					storeChecks:[],
+					//传输维修单对象
+					repair:{}
 				}
 			},
 			methods: {
@@ -305,6 +319,7 @@
 					this.zhifubao = true
 				},
 				mendian() {
+					this.selStoreList();
 					$("#mymodal2").modal("show");
 				},
 				//查询所有的销售单信息
@@ -320,7 +335,9 @@
 						async: false,
 						dataType: "json",
 						success: function (result) {
+							console.log(result);
 							that.saleTable = result;
+							that.selServiceTypeList();
 						}
 					});
 				},
@@ -456,7 +473,149 @@
 							alert(result);
 						}
 					});
-				}
+				},
+				//多条件查询
+				selSalStatusByParse(){
+					if(this.saleQuerry.settlementBenginTime>=this.saleQuerry.settlementEndTime){	
+						alert("开单结束时间不能前于开单开始时间");
+						return;
+					}
+					let that = this;
+					$.ajax({
+						url: "http://127.0.0.1:8080/listOfSales/selBy",
+						type: "get",
+						data: { json: JSON.stringify(that.saleQuerry)},
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						success: function (result) {
+							that.saleTable=result;
+							that.selServiceTypeList();
+						}
+					});
+				},
+				//查询业务类型
+				selServiceTypeList(){
+					let that = this;
+					$.ajax({
+						url: "http://127.0.0.1:8080/listOfSales/selAllServiceType",
+						type: "get",
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						success: function (result) {
+							that.serviceTypeList=result;
+						}
+					});
+				},
+				//查询所有的门店
+				selStoreList(){
+					let that = this;
+					$.ajax({
+						url: "http://127.0.0.1:8080/store",
+						type: "get",
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						success: function (result) {
+							that.storeList=result;
+						}
+					});
+				},
+				//全选门店或者全部取消
+				checkAllStore(c){
+					if(!c){
+						 alert("取消全选");
+						 this.storeChecks=[];
+					}else{
+						alert("全选");
+						this.storeChecks= this.storeList.map(item=>item.storeId);
+					}
+				},
+				//按条件查询门店
+				searchStore(){
+					var parse = $("#searchStore").val();
+					if(parse==null||parse==''){
+						this.selStoreList();
+						return;
+					}
+					let that=this;
+					$.ajax({
+						url:"http://127.0.0.1:8080/store/selStoreFuzzy/"+parse,
+						dataType:"json",
+						type:"get",
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						async:false,
+						success:function(result){
+							console.log(result);
+							that.storeList=result;
+							console.log(that.storeList);
+						}
+					});
+				},
+				//关闭门店模态框
+				closeStoreChoose(){
+					$("#mymodal2").modal("hide");
+				},		
+			  //根据门店查询销售单记录
+			  selSaleByStore(){
+				alert("11111");
+				let that=this;
+					$.ajax({
+						url:"http://127.0.0.1:8080/listOfSales/selByStore",
+						data:JSON.stringify(that.storeChecks),
+						dataType:"json",
+						type:"post",
+						xhrFields: {
+							withCredentials: true
+						},
+						crossDomain: true,
+						async:false,
+						contentType:"application/json;charset=utf-8",
+						success:function(result){
+							console.log(result);
+							that.saleTable=result;
+							$("#mymodal2").modal("hide");
+						}
+					});
+			  },
+			  //显示维修单模态框
+			  showRepair(){
+				if(this.chooseSaleTr.column1==""||this.chooseSaleTr.column1==null||this.chooseSaleTr.column1==undefined){
+					alert("请选择要操作的行");
+					return;
+				  }
+				$("#repairModal").modal("show");
+				 //像子页面传值
+				 this.iframe = this.$refs.iframe;
+                 this.iframeWindow = this.iframe.contentWindow;
+				 this.repair.serNumber=this.chooseSaleTr.column1;
+				 this.repair.setButtonStatus=2;
+				 this.repair.jsLogo=true;
+				 message = {
+                    aa: 'jiesuan',
+                    val: this.repair,
+                    }
+                this.iframeWindow.postMessage(message, '*');
+			  },
+			  //导出
+			  daochu(){
+					var eList=[];
+					this.saleTable.forEach(
+						item=>{eList.push(item.salesOrder);
+					});
+					console.log(eList);
+					var lzList=eList.toString();
+					alert(lzList);
+					window.location.href="http://127.0.0.1:8080/listOfSales/downLoadExportExcel?lzList="+List;
+			  }
+
 			},
 			created() {
 				this.chooseSaleTr = {};
