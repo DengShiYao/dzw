@@ -1,6 +1,7 @@
 package com.accp.controller;
 
 
+import com.accp.domain.FieldVehicles;
 import com.accp.domain.PickUp;
 import com.accp.result.ResultCode;
 import com.accp.result.ResultVO;
@@ -60,5 +61,22 @@ public class PickUpController {
         queryWrapper.eq("column1","未读");
         return pickUpService.count(queryWrapper);
     }
+
+    @PostMapping("updatePick_upStatus")
+    public boolean updatePick(Integer id,String carObj,Integer carObjId){
+        QueryWrapper<FieldVehicles> queryWrapper1 = new QueryWrapper<>();
+        queryWrapper1.eq("column1",carObjId);
+        FieldVehicles fieldVehicles = new FieldVehicles();
+        fieldVehicles.setColumn3("接车中");
+        fieldVehicles.update(queryWrapper1);
+        QueryWrapper<PickUp> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("id",id);
+        PickUp pickUp = new PickUp();
+        pickUp.setColumn2(carObj);
+        pickUp.setStatus("接车中");
+        pickUp.setColumn1("已读");
+        return pickUp.update(queryWrapper);
+    }
+
 }
 
