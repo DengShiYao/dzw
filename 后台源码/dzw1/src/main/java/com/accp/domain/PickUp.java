@@ -1,15 +1,16 @@
 package com.accp.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
 
 /**
  * <p>
@@ -59,6 +60,15 @@ public class PickUp extends Model<PickUp> {
     @ApiModelProperty(value = "备用列3")
     private String column3;
 
+    @ApiModelProperty(value = "距离")
+    private String distance;
+
+    @ApiModelProperty(value = "价格")
+    private double price;
+
+    @ApiModelProperty(value = "时间")
+    private String submissionTime;
+
 
     public static final String ID = "id";
 
@@ -79,6 +89,12 @@ public class PickUp extends Model<PickUp> {
     public static final String COLUMN2 = "column2";
 
     public static final String COLUMN3 = "column3";
+
+    public static final String DISTANCE = "distance";
+
+    public static final String PRICE = "price";
+
+    public static final String SUBMISSIONTIME = "submissionTime";
 
     @Override
     protected Serializable pkVal() {
