@@ -9,6 +9,12 @@
 		
 		 <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
 		 <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+		
+		 <link rel="stylesheet" type="text/css" href="../yf/css/font-awesome.css" />
+		<link rel="stylesheet" href="../yf/css/public-y.css">
+		<link rel="stylesheet" href="../yf/css/car_contact.css">
+		<!-- 引入样式 -->
+		<link rel="stylesheet" href="../yf/package/lib/style.css">
 		<style type="text/css">
 			.headDiv{
 				background-color:ghostwhite;width: 100%;height:80px;
@@ -71,51 +77,48 @@
 				<div class="headDiv_left">会员卡充值</div>
 				<div class="headDiv_right">
 				<input type="text" class="search" placeholder="匹配会员号/姓名" id="searchtext"/>
-				<button class="btn btn-info" @click="searchMember">
+				<vxe-button  @click="searchMember">
 					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 					搜索
-				</button>
-				<button class="btn btn-danger">
+				</vxe-button>
+				<vxe-button >
 					<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
 					关闭
-				</button>
+				</vxe-button>
 				</div>
 			</div>
 			<div class="bodyDiv">
-				<button class="btn btn-primary" @click="openRechargeWindow">
+				<vxe-button  @click="openRechargeWindow">
 					<span class="glyphicon glyphicon-yen" aria-hidden="true"></span>
 					会员卡充值
-				</button>
-				<button class="btn btn-danger" @click="openRectifyWindow">
+				</vxe-button>
+				<vxe-button  @click="openRectifyWindow">
 					<span class="glyphicon glyphicon-jpy" aria-hidden="true"></span>
 					会员余额校正
-				</button>
-				<button class="btn btn-primary" @click="openSelRechargeWindow">
+				</vxe-button>
+				<vxe-button  @click="openSelRechargeWindow">
 					<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
 					查看会员充值记录
-				</button>
-				<button class="btn btn-primary" @click="openSelRectifyWindow">
+				</vxe-button>
+				<vxe-button  @click="openSelRectifyWindow">
 					<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
 					查看会员矫正记录
-				</button>
+				</vxe-button>
 			</div>
-			<div>
-				<table border="" cellspacing="" cellpadding="" class="table">
-					<tr>
-						<th></th>
-						<th>会员卡号</th>
-						<th>会员姓名</th>
-						<th>会员余额</th>
-						<th>注册时间</th>
-					</tr>
-					<tr v-for="(item,index) in list"  :class='{bg:index==isactive}' @click="fn(index)">
-						<td @click="chooseTableTr(item)"></td>
-						<td @click="chooseTableTr(item)">{{item.mId}}</td>
-						<td @click="chooseTableTr(item)">{{item.mName}}</td>
-						<td @click="chooseTableTr(item)">{{item.mPrice}}</td>
-						<td @click="chooseTableTr(item)">{{item.createDate}}</td>
-					</tr>
-				</table>
+			<div>	
+				<vxe-table
+				border
+				highlight-hover-row
+				highlight-current-row
+				ref="xTable"
+				:data="list"
+				@cell-click="getChangeMember"
+				@current-change="currentChangeEvent">
+				<vxe-table-column field="mId" title="会员卡号"></vxe-table-column>
+				<vxe-table-column field="mName" title="会员姓名"></vxe-table-column>
+				<vxe-table-column field="mPrice" title="会员余额"></vxe-table-column>
+				<vxe-table-column field="createDate" title="注册时间" show-overflow></vxe-table-column>
+				</vxe-table>
 			</div>
 			<!--充值窗口-->
 			<div class="modal" data-backdrop = "static" id="rechargeWindow">
@@ -125,10 +128,10 @@
 							<div>
 								<h3 class="col-lg-3">会员卡充值</h3>
 								<div class="text-right">
-									<button class="btn btn-danger" @click="closeRechargeWindow">
+									<vxe-button  @click="closeRechargeWindow">
 										<span class="glyphicon glyphicon-off" aria-hidden="true"></span>	
 										关闭
-									</button>
+									</vxe-button>
 								</div>
 							</div>
 						</div>
@@ -157,10 +160,10 @@
 											</div>
 										</td>
 										<td colspan="6">
-											<button class="btn btn-success" @click="openRecharge">
+											<vxe-button class="btn btn-success" @click="openRecharge">
 												<span class="glyphicon glyphicon-check" aria-hidden="true"></span>
 												选择金额充值 
-											</button>
+											</vxe-button>
 										</td>
 									</tr>
 									<tr>
@@ -190,14 +193,14 @@
 													</tr>
 													<tr>
 														<td>
-															<button class="btn btn-success" @click="recharge">
+															<vxe-button class="btn btn-success" @click="recharge">
 																<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>	
 																充值
-															</button>
-															<button class="btn btn-danger" @click="closeRecharge">
+															</vxe-button>
+															<vxe-button class="btn btn-danger" @click="closeRecharge">
 																<span class="glyphicon glyphicon-off" aria-hidden="true"></span>	
 																关闭
-															</button>
+															</vxe-button>
 														</td>
 													</tr>
 												</table>
@@ -252,14 +255,14 @@
 						</div>
 						<div class="modal-footer">
 							<div class="text-right">
-								<button class="btn btn-success" @click="rectify">
+								<vxe-button  @click="rectify">
 									<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>	
 									校正
-								</button>
-								<button class="btn btn-danger" @click="closeRectifyWindow">
+								</vxe-button>
+								<vxe-button  @click="closeRectifyWindow">
 									<span class="glyphicon glyphicon-off" aria-hidden="true"></span>	
 									关闭
-								</button>
+								</vxe-button>
 							</div>
 						</div>
 					</div>
@@ -274,27 +277,25 @@
 						<div class="modal-header">
 							<h3>会员充值记录查询</h3>
 							<div class="text-right">
-									<button class="btn btn-danger" @click="closeSelRechargeWindow">
+									<vxe-button  @click="closeSelRechargeWindow">
 										<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
 										关闭
-									</button>
+									</vxe-button>
 							</div>
 						</div>
 						<div class="modal-body">
-							<table border="" cellspacing="" cellpadding="" class="table">
-								<tr>
-									<th>会员卡号</th>
-									<th>充值金额</th>
-									<th>操作人</th>
-									<th>充值时间</th>
-								</tr>
-								<tr v-for="item in czList">
-									<td>{{item.mId}}</td>
-									<td>{{item.money}}</td>
-									<td>{{item.eId}}</td>
-									<td>{{item.rechargeDate}}</td>
-								</tr>
-							</table>
+							<vxe-table
+							border
+							highlight-hover-row
+							highlight-current-row
+							ref="xTable"
+							:data="czList"
+							@current-change="currentChangeEvent">
+							<vxe-table-column field="mId" title="会员卡号"></vxe-table-column>
+							<vxe-table-column field="money" title="充值金额"></vxe-table-column>
+							<vxe-table-column field="eId" title="操作人"></vxe-table-column>
+							<vxe-table-column field="rechargeDate" title="充值时间" show-overflow></vxe-table-column>
+							</vxe-table>
 						</div>
 						<div class="modal-footer"></div>
 					</div>
@@ -307,29 +308,27 @@
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h3>会员充值记录查询</h3>
+							<h3>会员矫正记录查询</h3>
 							<div class="text-right">
-									<button class="btn btn-danger" @click="closeSelRectifyWindow">
+									<vxe-button  @click="closeSelRectifyWindow">
 										<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
 										关闭
-									</button>
+									</vxe-button>
 							</div>
 						</div>
 						<div class="modal-body">
-							<table border="" cellspacing="" cellpadding="" class="table">
-								<tr>
-									<th>会员卡号</th>
-									<th>校正金额</th>
-									<th>操作人</th>
-									<th>校正时间</th>
-								</tr>
-								<tr v-for="item in checkList ">
-									<td>{{item.mId}}</td>
-									<td>{{item.money}}</td>
-									<td>{{item.eId}}</td>
-									<td>{{item.rectifyDate}}</td>
-								</tr>
-							</table>
+							<vxe-table
+							border
+							highlight-hover-row
+							highlight-current-row
+							ref="xTable"
+							:data="checkList"
+							@current-change="currentChangeEvent">
+							<vxe-table-column field="mId" title="会员卡号"></vxe-table-column>
+							<vxe-table-column field="money" title="校正金额"></vxe-table-column>
+							<vxe-table-column field="eId" title="操作人"></vxe-table-column>
+							<vxe-table-column field="rectifyDate" title="校正时间" show-overflow></vxe-table-column>
+							</vxe-table>
 						</div>
 						<div class="modal-footer"></div>
 					</div>
@@ -340,12 +339,15 @@
             -->
 		</div>
 	</body>
-	<script src="js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
-	<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
-	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="js/vue.js"></script>
+	<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="https://cdn.jsdelivr.net/npm/xe-utils"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vxe-table@3.1.4"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script type="text/javascript">
-		new Vue({
-			el:"#ctx",
+		var Main={
+		
 			data(){
 				return{
 					//会员列表
@@ -369,9 +371,16 @@
 				}
 			},
 			methods:{
+				//获取选中的会员
+				getChangeMember({row}){
+					this.memberClos=JSON.parse(JSON.stringify(row));
+				},
+				currentChangeEvent (){
+
+				},
 				openRechargeWindow(){
 					var mId=this.memberClos.mId;
-					if(mId==null||mId==""){
+					if(mId==null||mId==""||mId==undefined){
 						alert("请先选择要操作的会员");
 						return;
 					}
@@ -542,7 +551,7 @@
 				},
 				openRectifyWindow(){
 					var mId=this.memberClos.mId;
-					if(mId==null||mId==""){
+					if(mId==null||mId==""||mId==undefined){
 						alert("请先选择要操作的会员");
 						return;
 					}
@@ -705,6 +714,47 @@
 			created(){
 				this.find();
 			}
-		})
+		};
+		var Ctor = Vue.extend(Main);
+	new Ctor().$mount('#ctx');
+
+	VXETable.formats.mixin({
+		// 格式化性别
+		formatSex({ cellValue }) {
+			return cellValue ? (cellValue === '1' ? '男' : '女') : ''
+		},
+		formatNull({ cellValue }) {
+			return cellValue ? cellValue : '-'
+		},
+		// 格式化下拉选项
+		formatSelect({ cellValue }, list) {
+			const item = list.find(item => item.value === cellValue)
+			return item ? item.label : ''
+		},
+		// 格式化日期，默认 yyyy-MM-dd HH:mm:ss
+		formatDate({ cellValue }, format) {
+			return XEUtils.toDateString(cellValue, format || 'yyyy-MM-dd HH:mm:ss')
+		},
+		// 四舍五入金额，每隔3位逗号分隔，默认2位数
+		formatAmount({ cellValue }, digits = 2) {
+			return XEUtils.commafy(XEUtils.toNumber(cellValue), { digits })
+		},
+		// 格式化银行卡，默认每4位空格隔开
+		formatBankcard({ cellValue }) {
+			return XEUtils.commafy(XEUtils.toString(cellValue), { spaceNumber: 4, separator: ' ' })
+		},
+		// 四舍五入,默认两位数
+		formatFixedNumber({ cellValue }, digits = 2) {
+			return XEUtils.toFixed(XEUtils.round(cellValue, digits), digits)
+		},
+		// 向下舍入,默认两位数
+		formatCutNumber({ cellValue }, digits = 2) {
+			return XEUtils.toFixed(XEUtils.floor(cellValue, digits), digits)
+		},
+		// 转换 moment 类型为字符串
+		toMomentString({ cellValue }, format) {
+			return cellValue ? cellValue.format(format) : ''
+		}
+	})
 	</script>
 </html>

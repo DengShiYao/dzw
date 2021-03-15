@@ -9,6 +9,12 @@
 		
 		 <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
 		 <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+		
+		 <link rel="stylesheet" type="text/css" href="../yf/css/font-awesome.css" />
+		 <link rel="stylesheet" href="../yf/css/public-y.css">
+		 <link rel="stylesheet" href="../yf/css/car_contact.css">
+		 <!-- 引入样式 -->
+		 <link rel="stylesheet" href="../yf/package/lib/style.css">
 		<style type="text/css">
 			.text-right{
 				margin-top: 30px;
@@ -94,7 +100,7 @@
 			.form-inline{
 				width: 80%;
 				height: auto;
-				border: 1px solid blue;
+				/* border: 1px solid blue; */
 				margin: 20px auto;
 			}
 			.form-control1{
@@ -109,15 +115,6 @@
 			    border: 1px solid #ccc;
 			    border-radius: 4px;
 			    outline: none;
-			}
-			#lzdj{
-				/*border: 1px solid red;width: 80%;height: auto;margin: 20px auto;display:none;*/
-			}
-			#xzyg{
-				/*border: 1px solid red;width: 70%;height: auto;margin: 10px auto;display: none;*/
-			}
-			#storeLogin{
-				/*border: 1px solid red;width: 60%;height: auto;margin: 20px auto;display: none;*/
 			}
 			.centerButton{
 				/*margin-left: 40px;*/
@@ -169,72 +166,66 @@
 				<div class="headDiv_left">离职登记</div>
 				<div class="headDiv_right">
 				<input type="text" class="search" placeholder="匹配工号/姓名/手机" id="search"/>
-				<button class="btn btn-success" @click="sel">
+				<vxe-button  @click="sel">
 					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 					搜索
-				</button>
-				<button class="btn btn-danger">
+				</vxe-button>
+				<vxe-button >
 					<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
 					关闭
-				</button>
+				</vxe-button>
 				</div>
 			</div>
 			<div class="bodyDiv">
 				<div class="buttonMenus">
-					<button class="btn"@click="openStoreChoose">
+					<vxe-button  @click="openStoreChoose">
 						<span class="glyphicon glyphicon-random" aria-hidden="true"></span>
 						门店选择
-					</button>
-					<button class="btn btn-danger" @click="openFireLogin">
+					</vxe-button>
+					<vxe-button  @click="openFireLogin">
 						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 						离职登记
-					</button>
-					<button class="btn btn-danger" @click="huiGun">
+					</vxe-button>
+					<vxe-button  @click="huiGun">
 						<span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
 						回滚
-					</button>
-					<button class="btn btn-info">
+					</vxe-button>
+					<vxe-button >
 						<span class="glyphicon glyphicon-inbox" aria-hidden="true"></span>
 						打开
-					</button>
-					<button class="btn btn-danger" @click="remove">
+					</vxe-button>
+					<vxe-button  @click="remove">
 						<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 						删除
-					</button>
-					<button class="btn btn-info" @click="openSel">
+					</vxe-button>
+					<vxe-button  @click="openSel">
 						<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 						查询
-					</button>
-					<button class="btn btn-default" @click="daoChu">
+					</vxe-button>
+					<vxe-button  @click="daoChu">
 						<span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
 						导出
-					</button>
+					</vxe-button>
 				</div>
 				<div>
-					<table class="table table2">
-						<tr>
-							<th></th>
-							<th>部门</th>
-							<th>员工编号</th>
-							<th>姓名</th>
-							<th>性别</th>
-							<th>职位</th>
-							<th>离职日期</th>
-							<th>离职原因</th>
-						</tr>
-						<tr v-for="item,index in list" :class='{bg:index==isactive}' @click="fn(index)">
-							<td></td>
-							<td @click="chooseYgTr(item)" v-if="item.department">{{item.department.dName}}</td>
-							<td v-else></td>
-							<td @click="chooseYgTr(item)">{{item.eId}}</td>
-							<td @click="chooseYgTr(item)">{{item.name}}</td>
-							<td @click="chooseYgTr(item)">{{item.sex}}</td>
-							<td @click="chooseYgTr(item)" v-if="item.job">{{item.job.jobName}}</td>
-							<td v-else></td>
-							<td @click="chooseYgTr(item)">{{item.dismissDate}}</td>
-							<td @click="chooseYgTr(item)">{{item.dismissReason}}</td>
-						</tr>
-					</table>
+					<vxe-table
+					border
+					show-header-overflow
+					show-overflow
+					highlight-hover-row
+					highlight-current-row
+					auto-resize="true"
+					@cell-click="getTable1Cell"
+					:data="list">
+					<vxe-table-column type="seq" title="序号" width=""></vxe-table-column>
+					<vxe-table-column field="department.dName" title="部门"></vxe-table-column>
+					<vxe-table-column field="eId" title="员工编号"></vxe-table-column>
+					<vxe-table-column field="name" title="姓名"></vxe-table-column>
+					<vxe-table-column field="sex" title="性别"></vxe-table-column>
+					<vxe-table-column field="job.jobName" title="职位"></vxe-table-column>
+					<vxe-table-column field="dismissDate" title="离职日期"></vxe-table-column>
+					<vxe-table-column field="dismissReason" title="离职原因"></vxe-table-column>
+					</vxe-table>
 				</div>
 			</div>
 			<div>
@@ -248,14 +239,14 @@
 						<div class="modal-header">
 							<h3 class="col-lg-offset-1 col-lg-4">员工查询</h3>
 							<div class="text-right">
-								<button class="btn btn-success" @click="selByDiv">
+								<vxe-button  @click="selByDiv">
 									<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
 									确定
-								</button>
-								<button class="btn btn-danger" @click="closeSel">
+								</vxe-button>
+								<vxe-button  @click="closeSel">
 									<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 									关闭
-								</button>
+								</vxe-button>
 							</div>
 						</div>
 						<div class="modal-body">
@@ -443,14 +434,14 @@
 						<div class="modal-header">
 							<h3 class="col-lg-offset-1 col-lg-3">离职登记</h3>
 							<div class="text-right">
-								<button class="btn btn-success" @click="fireLogin">
+								<vxe-button  @click="fireLogin">
 									<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
 									确定
-								</button>
-								<button class="btn btn-danger" @click="closeFireLogin">
+								</vxe-button>
+								<vxe-button  @click="closeFireLogin">
 									<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 									关闭
-								</button>
+								</vxe-button>
 							</div>
 						</div>
 						<div class="modal-body">
@@ -459,14 +450,14 @@
 									<label class="control-label">员工姓名</label>
 									<input type="text" name="" id="" class="form-control"  readonly="readonly" v-model="exit.eId"/>
 									<input type="text" name="" id="" value="" class="form-control" readonly="readonly" v-model="exit.name"/>
-									<a class="btn" @click="openChooseEploy">
+									<vxe-button  @click="openChooseEploy">
 										<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
 										选择员工
-									</a>
-									<a class="btn" @click="openJgDiv">
+									</vxe-button>
+									<vxe-button  @click="openJgDiv">
 										<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
 										选择技工
-									</a>
+									</vxe-button>
 									<label class="control-label">离职日期</label>
 									<input type="date" name="" id="" value=""class="form-control" v-model="exit.dismissDate" />
 								</div>
@@ -487,14 +478,14 @@
 						<div class="modal-header">
 							<h3 class="col-lg-offset-1 col-lg-3">选择员工</h3>
 							<div class="text-right">
-								<button class="btn btn-success" @click="chooseEploy">
+								<vxe-button  @click="chooseEploy">
 									<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
 									确定
-								</button>
-								<button class="btn btn-danger" @click="closeChooseEploy">
+								</vxe-button>
+								<vxe-button  @click="closeChooseEploy">
 									<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 									关闭
-								</button>
+								</vxe-button>
 							</div>
 						</div>
 						<div class="modal-body">
@@ -506,18 +497,19 @@
 								<option value="">所有</option>
 								<option v-for="item in departmentList" :value="item.dId">{{item.dName}}</option>
 							</select>
-							<table border="" cellspacing="" cellpadding="" class="table table1">
-								<tr>
-									<th>部门</th>
-									<th>工号</th>
-									<th>姓名</th>
-								</tr>
-								<tr v-for="(item,index) in yg"  :class='{bg:index==isactive}' @click="fn(index)">
-									<td  @click="chooseEmployTableTr(item)">{{item.department.dName}}</td>
-									<td  @click="chooseEmployTableTr(item)">{{item.eId}}</td>
-									<td  @click="chooseEmployTableTr(item)">{{item.eName}}</td>
-								</tr>
-							</table>
+							<vxe-table
+							border
+							highlight-hover-row
+							highlight-current-row
+							ref="xTable"
+							:data="yg"
+							@cell-click="getYgCell"
+							auto-resize="true"
+							@current-change="currentChangeEvent">
+							<vxe-table-column field="department.dName" title="部门"></vxe-table-column>
+							<vxe-table-column field="eId" title="工号"></vxe-table-column>
+							<vxe-table-column field="eName" title="姓名"></vxe-table-column>
+							</vxe-table>
 						</div>
 						<div class="modal-footer"></div>
 					</div>
@@ -531,49 +523,44 @@
 							<h3 class="col-lg-offset-1 col-lg-3">门店选择</h3>
 							<div class="text-right">
 								<input type="text" name="" id="searchStore" placeholder="匹配门店编码/门店" class="search"/>
-								<button class="btn btn-success" @click="searchStore">
+								<vxe-button  @click="searchStore">
 									<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 									搜索
-								</button>
-								<button class="btn btn-danger" @click="closeStoreChoose">
+								</vxe-button>
+								<vxe-button  @click="closeStoreChoose">
 									<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
 									关闭
-								</button>
+								</vxe-button>
 							</div>
 						</div>
 						<div class="modal-body">
 							<div class="text-right">
-								<button class="btn btn-success" @click="storeChoose">
+								<vxe-button  @click="getSelectEvent">
+									<!-- @click="storeChoose" -->
 									<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
 									确定
-								</button>
-								<button class="btn btn-primary" @click="checkAllStore(true)">
+								</vxe-button>
+								<vxe-button  @click="$refs.xTable1.setAllCheckboxRow(true)">
 									<span class="glyphicon glyphicon-sort-by-attributes" aria-hidden="true"></span>
 									全部选择
-								</button>
-								<button class="btn btn-primary" @click="checkAllStore(false)">
+								</vxe-button>
+								<vxe-button  @click="$refs.xTable1.clearCheckboxRow()">
 									<span class="glyphicon glyphicon-sort-by-attributes-alt" aria-hidden="true"></span>
 									全部取消
-								</button>
+								</vxe-button>
 							</div>
-							<table border="" cellspacing="" cellpadding="" class="table table1">
-								<tr>
-									<th></th>
-									<th>选择</th>
-									<th>门店代码</th>
-									<th>门店名称</th>
-									<th>所属城市</th>
-								</tr>
-								<tr v-for="item in storeList">
-									<td></td>
-									<td>
-										<input type="checkbox" id="" :value="item.storeId" v-model="storeChecks" />
-									</td>
-									<td>{{item.storeId}}</td>
-									<td>{{item.storeName}}</td>
-									<td></td>
-								</tr>
-							</table>
+							<vxe-table
+							border
+							ref="xTable1"
+							:data="storeList"
+							@checkbox-all="selectAllEvent"
+							auto-resize="true"
+							@checkbox-change="selectChangeEvent">
+							<vxe-table-column type="checkbox" title="选择"></vxe-table-column>
+							<vxe-table-column field="storeId" title="门店代码"></vxe-table-column>
+							<vxe-table-column field="storeName" title="门店名称"></vxe-table-column>
+							<vxe-table-column field="city" title="所属城市"></vxe-table-column>
+							</vxe-table>
 						</div>
 						<div class="modal-footer"></div>
 					</div>
@@ -585,26 +572,26 @@
 					<div class="modal-content">
 						<div class="modal-header">
 							<h3 class="col-lg-offset-1 col-lg-2">班组技工</h3>
-							<button class="btn btn-success centerButton" @click="chooseJg">
+							<vxe-button class="centerButton" @click="chooseJg">
 								<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
 								确定
-							</button>
+							</vxe-button>
 							<input type="text" name="" id="searchJg" value="" class="search" placeholder="匹配工号/姓名/手机"/>
-							<button class="btn btn-default" @click="searchWorkMan">
+							<vxe-button  @click="searchWorkMan">
 								<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 								搜索
-							</button>
-							<button class="btn btn-danger" @click="closeJgDiv">
+							</vxe-button>
+							<vxe-button  @click="closeJgDiv">
 								<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 								关闭
-							</button>
+							</vxe-button>
 						</div>
 						<div class="modal-body">
 							<div class="jg_centernDiv">
-								<button class="btn btn-info">
+								<vxe-button>
 									<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 									查询
-								</button>
+								</vxe-button>
 							</div>
 						<div class="jg_bottonDiv">
 								<!--左侧树状-->
@@ -658,39 +645,35 @@
 						<div class="modal-header">
 							<h3 class="col-lg-4">部门选择</h3>
 		            		<div class="text-right">
-		            			<button class="btn btn-success" @click="savedepartList">
+		            			<vxe-button  @click="savedepartList">
 									<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
 									选择
-								</button>
-								<button class="btn btn-danger" @click="closedepartDiv">
+								</vxe-button>
+								<vxe-button  @click="closedepartDiv">
 									<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 									关闭
-								</button>
+								</vxe-button>
 		            		</div>
 						</div>
 						<div class="modal-body">
 							<div>
 			            		<select name="" class="form-control" v-model="selStoorId" @change="getDepartmentList(selStoorId)">
 			            			<option :value="item.storeId" v-for="item in storeList">{{item.storeId}}-{{item.storeName}}</option>
-			            			<!--<option value="">0001-成高</option>
-			            			<option value="">0002-成高1</option>-->
 			            		</select>
 			            	</div>
 			            	<div>
-			            		<table border="" cellspacing="" cellpadding="" class="table table2">
-			            			<tr>
-			            				<th></th>
-			            				<th>部门编码</th>
-			            				<th>部门名称</th>
-			            				<th>部门分类</th>
-			            			</tr>
-			            			<tr v-for="(item,index) in departList" :class='{bg:index==isactive}' @click="fn(index)">
-			            				<td  @click="chooseDepartmentTr(item)"></td>
-			            				<td  @click="chooseDepartmentTr(item)">{{item.dId}}</td>
-			            				<td  @click="chooseDepartmentTr(item)">{{item.dName}}</td>
-			            				<td  @click="chooseDepartmentTr(item)">{{item.departmentType.tName}}</td>
-			            			</tr>
-			            		</table>
+								<vxe-table
+								border
+								highlight-hover-row
+								highlight-current-row
+								:data="departList"
+								@cell-click="getBumenCell"
+								auto-resize="true"
+								@current-change="currentChangeEvent">
+								<vxe-table-column field="dId" title="部门编码"></vxe-table-column>
+								<vxe-table-column field="dName" title="部门名称"></vxe-table-column>
+								<vxe-table-column field="departmentType.tName" title="部门分类"></vxe-table-column>
+								</vxe-table>
 			            	</div>
 						</div>
 						<div class="modal-footer"></div>
@@ -699,12 +682,14 @@
 			</div>
 		</div>
 	</body>
-	<script type="text/javascript" src="js/jquery-1.12.4.js" ></script>
-	<script type="text/javascript" src="js/bootstrap.min.js" ></script>
-	<script type="text/javascript" src="js/vue.js" ></script>
+	<script type="text/javascript" src="js/vue.js"></script>
+	<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="https://cdn.jsdelivr.net/npm/xe-utils"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vxe-table@3.1.4"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script type="text/javascript">
-		new Vue({
-			el:"#ctx",
+		var Main={
 			data(){
 				return{
 					//员工list
@@ -721,39 +706,18 @@
 						name:"成高",
 						city:"北京市"
 					}],
-					//班组模拟数据
-					/*bz:[{
-						id:10,
-						name:"自建",
-						children:[{
-							id:1000,
-							name:"机修1组"
-						},{
-							id:1001,
-							name:"机修2组"
-						},{
-							id:1004,
-							name:"机电1组"
-						}]
-					},{
-						id:11,
-						name:"联队",
-						children:[{
-							id:1002,
-							name:"华山队"
-						}]
-					},{
-						id:12,
-						name:"加盟",
-						children:[{
-							id:1003,
-							name:"武昌队"
-						}]
-					}],*/
 					//门店部门条件对象
 					employ:{},
 					//部门list
-					departmentList:[],
+					departmentList:[
+						{
+							dId:"",
+							dName:"",
+							departmentType:{
+								tName:""
+							}
+						}
+					],
 					//离职登记对象
 					exit:{},
 					//操作的员工行
@@ -777,6 +741,50 @@
 				}
 			},
 			methods:{
+				//选中部门行
+				getBumenCell({row}){
+					console.log(row);
+					this.updateOrAddDepartment=JSON.parse(JSON.stringify(row));
+				},
+				//
+				currentChangeEvent({row}){
+					console.log(row);
+				},
+				//门店选择如果全中则是全选
+				selectAllEvent({ checked, records }){
+					/* console.log(checked?'所有勾选事件':'所有取消事件',records); */
+				},
+				//
+				selectChangeEvent({ checked, records }){
+					/* console.log(checked?'勾选事件':'取消事件',records); */
+				},
+				//获取选中的门店数组
+				getSelectEvent () {
+					let selectRecords={};
+					selectRecords= this.$refs.xTable1.getCheckboxRecords()
+					console.log("获取选中的门店筛选");
+				  console.log(selectRecords);
+				  /* this.storeChecks=JSON.parse(JSON.stringify(selectRecords)); */
+				  this.storeChecks=[];
+				  selectRecords.forEach(item=>{
+					  this.storeChecks.push(item.storeId);
+				  })
+				  this.selBySid();
+				  $("#storeLogin").modal("hide");
+          	    },
+				//获取员工table选中行
+				getYgCell({row}){
+					console.log(row);
+					this.checkedEclos=JSON.parse(JSON.stringify(row));
+				},
+				//获取技工table选中行
+
+				//获取离职table选中行
+				getTable1Cell({row}){
+					console.log(row);
+					var changePeople=JSON.parse(JSON.stringify(row));
+					this.changeEid=changePeople.eId;
+				},
 				//条件查询方法
 				sel(){
 					var parse = $("#search").val();
@@ -803,12 +811,12 @@
 					alert("正在进行条件查询");
 				},
 				huiGun(){
-					var flag=window.confirm("你确定要将该员工复职么?");
-					if(flag){
-						if(this.changeEid==null||this.changeEid==""){
+					if(this.changeEid==null||this.changeEid==""||this.changeEid==undefined){
 							alert("请先选择要操作的列");
 							return;
-						}
+					}
+					var flag=window.confirm("你确定要将该员工复职么?");
+					if(flag){	
 						let that=this;
 						$.ajax({
 							url:"http://127.0.0.1:8080/departure/employBack/"+that.changeEid,
@@ -830,12 +838,12 @@
 					this.find();
 				},
 				remove(){
-					var flag1 =window.confirm("你确定要将该员工删除么？该员工所有信息都将被删除");
-					if(flag1){
-						if(this.changeEid==null||this.changeEid==""){
+					if(this.changeEid==null||this.changeEid==""||this.changeEid==undefined){
 							alert("请先选择要操作的列");
 							return;
-						}
+					}
+					var flag1 =window.confirm("你确定要将该员工删除么？该员工所有信息都将被删除");
+					if(flag1){
 						let that=this;
 						$.ajax({
 							url:"http://127.0.0.1:8080/departure/remove/"+that.changeEid,
@@ -932,8 +940,16 @@
 				},
 				//离职登记
 				fireLogin(){
-					if(this.exit.eId==null||this.exit.eId==""){
+					if(this.exit.eId==null||this.exit.eId==""||this.exit.eId==undefined){
 						alert("离职员工编号不能为空!");
+						return;
+					}
+					if(this.exit.dismissDate==null||this.exit.dismissDate==''||this.exit.dismissDate==undefined){
+						alert("离职日期不能为空!");
+						return;
+					}
+					if(this.exit.dismissReason==null||this.exit.dismissReason==''||this.exit.dismissReason==undefined){
+						alert("离职原因不能为空!");
 						return;
 					}
 					var json=JSON.stringify(this.exit);
@@ -995,21 +1011,24 @@
 					$("#storeLogin").modal("hide");
 				},
 				//选择门店进行门店条件查询
-				storeChoose(){
+				/* storeChoose(){
 					alert("已选中这些门店，将对这些门店作为条件进行离职登记查询");
 					this.selBySid();
 					$("#storeLogin").modal("hide");
-				},
+				}, */
 				//全选门店或者全部取消
-				checkAllStore(c){
+				/* checkAllStore(c){
 					if(!c){
 						 alert("取消全选");
+						 console.log(this.$refs);
+						 this.$refs.xTable1.records=[];
 						 this.storeChecks=[];
 					}else{
 						alert("全选");
+						this.$refs.xTable1.records=JSON.parse(JSON.stringify(this.storeList));
 						this.storeChecks= this.storeList.map(item=>item.storeId);
 					}
-				},
+				}, */
 				//对门店进行查询
 				searchStore(){
 					var parse = $("#searchStore").val();
@@ -1250,8 +1269,8 @@
                	},
                	//打开部门框子
                	opendepartDiv(){
-               			this.getAllDepartmentList();
-               			this.getStoreList();
+						this.getStoreList();
+						this.getAllDepartmentList();
                			$("#departDiv").modal("show");
                	},
                	closedepartDiv(){
@@ -1276,6 +1295,9 @@
                    },
                    //获取当前门店的部门
                    getDepartmentList(mId){
+					 if(mId==null||mId==''||mId==undefined){
+						mId=1;
+					 }
                    	 let that=this;
                    	 $.ajax({
                     		url:"http://127.0.0.1:8080/department/findBySid/"+mId,
@@ -1322,6 +1344,47 @@
 				/*this.shux();*/
 				this.findTuanDui();
 			}
-		});
+		};
+		var Ctor = Vue.extend(Main);
+		new Ctor().$mount('#ctx');
+
+	VXETable.formats.mixin({
+		// 格式化性别
+		formatSex({ cellValue }) {
+			return cellValue ? (cellValue === '1' ? '男' : '女') : ''
+		},
+		formatNull({ cellValue }) {
+			return cellValue ? cellValue : '-'
+		},
+		// 格式化下拉选项
+		formatSelect({ cellValue }, list) {
+			const item = list.find(item => item.value === cellValue)
+			return item ? item.label : ''
+		},
+		// 格式化日期，默认 yyyy-MM-dd HH:mm:ss
+		formatDate({ cellValue }, format) {
+			return XEUtils.toDateString(cellValue, format || 'yyyy-MM-dd HH:mm:ss')
+		},
+		// 四舍五入金额，每隔3位逗号分隔，默认2位数
+		formatAmount({ cellValue }, digits = 2) {
+			return XEUtils.commafy(XEUtils.toNumber(cellValue), { digits })
+		},
+		// 格式化银行卡，默认每4位空格隔开
+		formatBankcard({ cellValue }) {
+			return XEUtils.commafy(XEUtils.toString(cellValue), { spaceNumber: 4, separator: ' ' })
+		},
+		// 四舍五入,默认两位数
+		formatFixedNumber({ cellValue }, digits = 2) {
+			return XEUtils.toFixed(XEUtils.round(cellValue, digits), digits)
+		},
+		// 向下舍入,默认两位数
+		formatCutNumber({ cellValue }, digits = 2) {
+			return XEUtils.toFixed(XEUtils.floor(cellValue, digits), digits)
+		},
+		// 转换 moment 类型为字符串
+		toMomentString({ cellValue }, format) {
+			return cellValue ? cellValue.format(format) : ''
+		}
+	})
 	</script>
 </html>
