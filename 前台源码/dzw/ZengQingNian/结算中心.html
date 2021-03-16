@@ -7,25 +7,34 @@
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
 	<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
 	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	
+	<link rel="stylesheet" type="text/css" href="../yf/css/font-awesome.css" />
+	<link rel="stylesheet" href="../yf/css/public-y.css">
+	<link rel="stylesheet" href="../yf/css/car_contact.css">
+	<!-- 引入样式 -->
+	<link rel="stylesheet" href="../yf/package/lib/style.css">
 	<style>
 		.bg {
 			background-color: blanchedalmond;
+		}
+		body,html{
+			height: 80%;
 		}
 	</style>
 </head>
 
 <body>
-	<div id="ctn" class="container-fluid">
+	<div id="ctn" class="container-fluid" style="height: 100%;">
 		<div class="row" style="background-color: rgb(247,255,255);display: flex; align-items: center;height: 50px;">
 			<span style="font-size: 25px;margin-left: 20px;">结算中心</span>
-			<button class="btn btn-success" style="margin-left: 80%;" @click="selSalStatusByParse">
+			<vxe-button  style="margin-left: 80%;" @click="selSalStatusByParse">
 				<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 				查询
-			</button>
-			<button class="btn" style="margin-left: 10px;">
+			</vxe-button>
+			<vxe-button  style="margin-left: 10px;">
 				<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
 				关闭
-			</button>
+			</vxe-button>
 		</div>
 		<div class="row" style="background-color: rgb(247,247,247);height: 40px;"></div>
 		<div class="row" style="border-top: 1px solid rgb(33,182,206);">
@@ -80,93 +89,56 @@
 		</div>
 	</div>
 
-
 	<div class="row" style="height: 40px;background-color: rgb(247,247,247);display: flex; align-items: center;">
-		<a  class="btn btn-primary"  style="font-size: 20px;color: black;margin-left: 20px;" @click="mendian()">
+		<vxe-button   style="font-size: 20px;color: black;margin-left: 20px;" @click="mendian()">
 			<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
 			门店选择
-		</a>
-		<a  class="btn btn-primary" style="font-size: 20px;color: black;margin-left: 60.5%;" @click="sy()">
+		</vxe-button>
+		<vxe-button  style="font-size: 20px;color: black;margin-left: 56.5%;" @click="sy()">
 			<span class="glyphicon glyphicon-yen" aria-hidden="true"></span>
 			收银
-		</a>
-		<a class="btn btn-primary"  style="font-size: 20px;color: black;margin-left: 100px;" @click="showRepair">
+		</vxe-button>
+		<vxe-button   style="font-size: 20px;color: black;margin-left: 100px;" @click="showRepair">
 			<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 			打开单据
-		</a>
-		<a class="btn btn-primary"  style="font-size: 20px;color: black;margin-left: 35px;" @click="daochu" >
+		</vxe-button>
+		<vxe-button  style="font-size: 20px;color: black;margin-left: 35px;" @click="daochu" >
 			<span class="glyphicon glyphicon-cloud-download" aria-hidden="true"></span>
 			导出
-		</a>
+		</vxe-button>
 	</div>
 
-	<div class="row">
-		<table class="table table-bordered">
-			<tr style="background-color: rgb(33,182,206); color: white;">
-				<td>销售单号</td>
-				<td>单据类型</td>
-				<td>结算方式</td>
-				<td>单据状态</td>
-				<td>结算状态</td>
-				<td>结算时间</td>
-				<td>结算人</td>
-				<td>结算金额</td>
-				<td>业务类型</td>
-				<td>客户名称</td>
-				<td>车牌号</td>
-				<td>车型</td>
-				<td>车架号</td>
-				<td>联系电话</td>
-				<td>保险公司</td>
-				<td>赔款公司</td>
-				<td>对方车牌</td>
-				<td>服务顾问</td>
-				<td>完工时间</td>
-				<td>备注</td>
-			</tr>
-			<tr v-for="(item,index) in saleTable" :class='{bg:index==isactive}' @click="fn(index)">
-				<td v-text="item.salesOrder" @click="chooseTableTr(item)"></td>
-				<td v-if="item.billsType" v-text="item.billsType" @click="chooseTableTr(item)"></td>
-				<td v-else @click="chooseTableTr(item)"></td>
-				<td v-if="item.balance" v-text="item.balance" @click="chooseTableTr(item)"></td>
-				<td v-else @click="chooseTableTr(item)"></td>
-				<td v-if="item.billstatus" v-text="item.billstatus" @click="chooseTableTr(item)"></td>
-				<td v-else @click="chooseTableTr(item)"></td>
-				<td v-if="item.settlementStatus" v-text="item.settlementStatus" @click="chooseTableTr(item)"></td>
-				<td v-else @click="chooseTableTr(item)"></td>
-				<td v-if="item.settlementTime" v-text="item.settlementTime" @click="chooseTableTr(item)"></td>
-				<td v-else @click="chooseTableTr(item)"></td>
-				<td v-if="item.settlementUser" v-text="item.settlementUser" @click="chooseTableTr(item)"></td>
-				<td v-else @click="chooseTableTr(item)"></td>
-				<td v-if="item.settlementMoney" v-text="item.settlementMoney" @click="chooseTableTr(item)"></td>
-				<td v-else @click="chooseTableTr(item)"></td>
-				<td v-if="item.serviceType" v-text="item.serviceType" @click="chooseTableTr(item)"></td>
-				<td v-else @click="chooseTableTr(item)"></td>
-				<td v-if="item.username" v-text="item.username" @click="chooseTableTr(item)"></td>
-				<td v-else @click="chooseTableTr(item)"></td>
-				<td v-if="item.plateNumber" v-text="item.plateNumber" @click="chooseTableTr(item)"></td>
-				<td v-else @click="chooseTableTr(item)"></td>
-				<td v-if="item.motorcycleType" v-text="item.motorcycleType" @click="chooseTableTr(item)"></td>
-				<td v-else @click="chooseTableTr(item)"></td>
-				<td v-if="item.frame" v-text="item.frame" @click="chooseTableTr(item)"></td>
-				<td v-else @click="chooseTableTr(item)"></td>
-				<td v-if="item.phone" v-text="item.phone" @click="chooseTableTr(item)"></td>
-				<td v-else @click="chooseTableTr(item)"></td>
-				<td v-if="item.insurer" v-text="item.insurer" @click="chooseTableTr(item)"></td>
-				<td v-else @click="chooseTableTr(item)"></td>
-				<td v-if="item.indemnityCompany" v-text="item.indemnityCompany" @click="chooseTableTr(item)"></td>
-				<td v-else @click="chooseTableTr(item)"></td>
-				<td v-if="item.licensePlate" v-text="item.licensePlate" @click="chooseTableTr(item)"></td>
-				<td v-else @click="chooseTableTr(item)"></td>
-				<td v-if="item.serviceAdviser" v-text="item.serviceAdviser" @click="chooseTableTr(item)"></td>
-				<td v-else @click="chooseTableTr(item)"></td>
-				<td v-if="item.completionTime" v-text="item.completionTime" @click="chooseTableTr(item)"></td>
-				<td v-else @click="chooseTableTr(item)"></td>
-				<td v-if="item.remarks" v-text="item.remarks" @click="chooseTableTr(item)"></td>
-				<td v-else @click="chooseTableTr(item)"></td>
-			</tr>
-
-		</table>
+	<div class="row" style="height: 100%;">
+		<vxe-table
+		border
+		highlight-hover-row
+		highlight-current-row
+		ref="xTable"
+		height="100%"
+		:data="saleTable"
+		@cell-click="getSaleCell"
+		@current-change="currentChangeEvent">
+		<vxe-table-column field="salesOrder" title="销售单号" width="160"></vxe-table-column>
+		<vxe-table-column field="billsType" title="单据类型" width="100"></vxe-table-column>
+		<vxe-table-column field="balance" title="结算方式" width="100"></vxe-table-column>
+		<vxe-table-column field="billstatus" title="单据状态" width="100"></vxe-table-column>
+		<vxe-table-column field="settlementStatus" title="结算状态" width="100"></vxe-table-column>
+		<vxe-table-column field="settlementTime" title="结算时间" width="200"></vxe-table-column>
+		<vxe-table-column field="settlementUser" title="结算人" width="100"></vxe-table-column>
+		<vxe-table-column field="settlementMoney" title="结算金额" width="100"></vxe-table-column>
+		<vxe-table-column field="serviceType" title="业务类型" width="100"></vxe-table-column>
+		<vxe-table-column field="username" title="客户名称" width="100"></vxe-table-column>
+		<vxe-table-column field="plateNumber" title="车牌号" width="100"></vxe-table-column>
+		<vxe-table-column field="motorcycleType" title="车型" width="100"></vxe-table-column>
+		<vxe-table-column field="frame" title="车架号" width="100"></vxe-table-column>
+		<vxe-table-column field="phone" title="联系电话" width="100"></vxe-table-column>
+		<vxe-table-column field="insurer" title="保险公司" width="100"></vxe-table-column>
+		<vxe-table-column field="indemnityCompany" title="赔款公司" width="100"></vxe-table-column>
+		<vxe-table-column field="licensePlate" title="对方车牌" width="100"></vxe-table-column>
+		<vxe-table-column field="serviceAdviser" title="服务顾问" width="100"></vxe-table-column>
+		<vxe-table-column field="completionTime" title="完工时间" width="200"></vxe-table-column>
+		<vxe-table-column field="remarks" title="备注" show-overflow width="100"></vxe-table-column>
+	  </vxe-table>
 	</div>
 
 
@@ -191,40 +163,51 @@
 
 
 	<!--模态框-->
-	<div class="modal" data-backdrop="static" id="mymodal2">
-		<div class="modal-dialog">
+	<div class="modal fade bs-example-modal-lg" data-backdrop="static" id="mymodal2">
+		<div class="modal-dialog" style="width: 100%;height: 100%;">
 			<div class="modal-content">
 				<div class="modal-header">
 					<span class="close" data-dismiss="modal">&times;</span>
 					<span style="font-size: 25px;margin-left: 10px;">门店选择</span>
-					<input type="text" placeholder="匹配门店编码/门店" id="searchStore" style="margin-left: 25%;width: 150px;height: 33px;">
-					<button class="btn btn-primary" style="margin-left: 10px;" @click="searchStore">搜索</button>
-					<button class="btn" style="margin-left: 10px;" @click="closeStoreChoose">关闭</button>
+					<input type="text" placeholder="匹配门店编码/门店" id="searchStore" style="margin-left: 65%;width: 150px;height: 33px;">
+					<vxe-button  style="margin-left: 10px;" @click="searchStore">
+						<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+						搜索
+					</vxe-button>
+					<vxe-button style="margin-left: 10px;" @click="closeStoreChoose">
+						<span class="glyphicon glyphicon-off" aria-hidden="true"></span>	
+						关闭
+					</vxe-button>
 				</div>
 				<div class="modal-body">
-					<div class="container-fluid">
-						<div class="row">
-							<button class="btn btn-success"  @click="selSaleByStore">确定</button>
-							<button class="btn btn-default" style="margin-left: 60%;"@click="checkAllStore(true)" >全部选择</button>
-							<button class="btn btn-default" @click="checkAllStore(false)">全部取消</button>
+					<div>
+						<div>
+							<vxe-button   @click="getSelectEvent"><!-- selSaleByStore -->
+								<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>	
+								确定
+							</vxe-button>
+							<vxe-button  style="margin-left: 79%;"@click="$refs.xTable1.setAllCheckboxRow(true)" >
+								<span class="glyphicon glyphicon-sort-by-attributes" aria-hidden="true"></span>
+								全部选择
+							</vxe-button>
+							<vxe-button  @click="$refs.xTable1.clearCheckboxRow()">
+								<span class="glyphicon glyphicon-sort-by-attributes-alt" aria-hidden="true"></span>
+								全部取消
+							</vxe-button>
 						</div>
 						<div class="row">
-							<table class="table table-bordered table-striped table-hover">
-								<tr style="background-color: rgb(33,182,206); color: white;">
-									<td>选择</td>
-									<td>门店代码</td>
-									<td>门店名称</td>
-									<td>所在城市</td>
-								</tr>
-								<tr v-for="item in storeList">
-									<td>
-										<input type="checkbox" id="" :value="item.storeId" v-model="storeChecks" />
-									</td>
-									<td>{{item.storeId}}</td>
-									<td>{{item.storeName}}</td>
-									<td></td>
-								</tr>
-							</table>
+							<vxe-table
+							border
+							ref="xTable1"
+							:data="storeList"
+							@checkbox-all="selectAllEvent"
+							auto-resize="true"
+							@checkbox-change="selectChangeEvent">
+							<vxe-table-column type="checkbox" title="选择"></vxe-table-column>
+							<vxe-table-column field="storeId" title="门店代码"></vxe-table-column>
+							<vxe-table-column field="storeName" title="门店名称"></vxe-table-column>
+							<vxe-table-column field="city" title="所属城市"></vxe-table-column>
+							</vxe-table>
 						</div>
 					</div>
 
@@ -258,13 +241,16 @@
 
 	</div>
 
-	<script src="js/jquery-1.12.4.js"></script>
-	<script src="js/qrcode.js"></script>
+	<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/vue-2.6.js"></script>
+	<!--引入-->
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="https://cdn.jsdelivr.net/npm/xe-utils"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vxe-table@3.1.4"></script>
+	<script src="../yf/js/common.js"></script>
 	<script>
-		new Vue({
-			el: "#ctn",
+		var Main={
 			data() {
 				return {
 					weixin: true,
@@ -296,6 +282,29 @@
 				}
 			},
 			methods: {
+				//门店选择如果全中则是全选
+				selectAllEvent({ checked, records }){
+					/* console.log(checked?'所有勾选事件':'所有取消事件',records); */
+				},
+				//
+				selectChangeEvent({ checked, records }){
+					/* console.log(checked?'勾选事件':'取消事件',records); */
+				},
+				//获取选中的门店组
+				getSelectEvent(){
+					let selectRecords={};
+					selectRecords= this.$refs.xTable1.getCheckboxRecords()
+					console.log("获取选中的门店筛选");
+					this.storeChecks=[];
+				  	selectRecords.forEach(item=>{
+					  this.storeChecks.push(item.storeId);
+				 	 });
+					this.selSaleByStore();
+				},
+				currentChangeEvent (){},
+				getSaleCell({row}){
+					this.chooseSaleTr=JSON.parse(JSON.stringify(row));
+				},
 				sy() {
 					/* if(this.chooseSaleTr==null||this.chooseSaleTr==""||this.chooseSaleTr==undefined){
 						alert("请先单击选择要操作行");
@@ -565,7 +574,7 @@
 				},		
 			  //根据门店查询销售单记录
 			  selSaleByStore(){
-				alert("11111");
+				/* alert("11111"); */
 				let that=this;
 					$.ajax({
 						url:"http://127.0.0.1:8080/listOfSales/selByStore",
@@ -621,7 +630,58 @@
 				this.chooseSaleTr = {};
 				this.selAllXiaoShou();
 			}
-		})
+		};
+		var Ctor = Vue.extend(Main);
+		new Ctor().$mount('#ctn');
+		VXETable.formats.mixin({
+					// 格式化性别
+					formatSex({ cellValue }) {
+						return cellValue ? (cellValue === '1' ? '男' : '女') : ''
+					},
+					formatCarStatus({ cellValue }) {
+						if(cellValue === 0) {
+							return "接车";
+						} else if(cellValue === 1) {
+							return "作业中"
+						} else if(cellValue === 2) {
+							return "完工"
+						} else {
+							return "-"
+						}
+					},
+					formatNull({ cellValue }) {
+						return cellValue ? cellValue : '-'
+					},
+					// 格式化下拉选项
+					formatSelect({ cellValue }, list) {
+						const item = list.find(item => item.value === cellValue)
+						return item ? item.label : ''
+					},
+					// 格式化日期，默认 yyyy-MM-dd HH:mm:ss
+					formatDate({ cellValue }, format) {
+						return XEUtils.toDateString(cellValue, format || 'yyyy-MM-dd HH:mm:ss')
+					},
+					// 四舍五入金额，每隔3位逗号分隔，默认2位数
+					formatAmount({ cellValue }, digits = 2) {
+						return XEUtils.commafy(XEUtils.toNumber(cellValue), { digits })
+					},
+					// 格式化银行卡，默认每4位空格隔开
+					formatBankcard({ cellValue }) {
+						return XEUtils.commafy(XEUtils.toString(cellValue), { spaceNumber: 4, separator: ' ' })
+					},
+					// 四舍五入,默认两位数
+					formatFixedNumber({ cellValue }, digits = 2) {
+						return XEUtils.toFixed(XEUtils.round(cellValue, digits), digits)
+					},
+					// 向下舍入,默认两位数
+					formatCutNumber({ cellValue }, digits = 2) {
+						return XEUtils.toFixed(XEUtils.floor(cellValue, digits), digits)
+					},
+					// 转换 moment 类型为字符串
+					toMomentString({ cellValue }, format) {
+						return cellValue ? cellValue.format(format) : ''
+					}
+				})
 	</script>
 </body>
 
