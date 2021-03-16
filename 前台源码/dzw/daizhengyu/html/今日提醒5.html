@@ -4,24 +4,47 @@
 		<meta charset="UTF-8">
 		<title></title>
 		<link href="../../css/bootstrap.min.css" rel="stylesheet" />
+		<style>
+			nav{
+				margin-left: 600px;
+			}
+			table{
+				 width: 2910px; max-width: 2920px;
+			}
+			table tr:nth-child(1) td{
+				background-color: #31B0D5;
+			}
+			#cl{
+				min-height:200px;overflow-y:auto;max-height:300px;
+			}
+			#kh{
+				min-height:50px;overflow-y:auto;max-height:300px;
+			}
+		</style>
 	</head>
 	<body>
 		<!--待入库旧件-->
 		<div id="ctx">
-		<table class="table table-striped">
-  			<tr>
-				<td>车牌号码333</td>
-				<td>车牌号码333</td>
-				<td>车牌号码333</td>
-				<td>车牌号码333</td>
-				<td>车牌号码333</td>
-				<td>车牌号码333</td>
-				<td>车牌号码333</td>
-				<td>车牌号码333</td>
-				<td>车牌号码333</td>
-				<td>车牌号码333</td>
-				<td>车牌号码333</td>
-				<td>车牌号码333</td>
+		<table class="table table-bordered">
+  			<tr class="wrap" style="width: 50px;">
+				<td>车牌号码</td>
+				<td>车辆品牌</td>
+				<td>车辆型号</td>
+				<td>驾驶员</td>
+				<td>驾驶员电话</td>
+				<td>出生日期</td>
+				<td>车辆归属</td>
+				<td>驾驶员地址</td>
+				<td>驾照到期日期</td>
+				<td>车架号</td>
+				<td>发动机号</td>
+				<td>发动机品牌号</td>
+				<td>车辆年款</td>
+				<td>里程</td>
+				<td>载重</td>
+				<td>车系</td>
+				<td> 购买日期</td>
+				
 			</tr>
 			<tr  v-for="item in page" @click="toEdit(item)">
 	 				<td>{{item.carCph}}</td>
@@ -40,20 +63,6 @@
 	  				<td>{{item.carLc}}</td>
 	  				<td>{{item.carZz}}</td>
 	  				<td>{{item.carCx}}</td>
-	  				<td>{{item.carGmrq}}</td>
-	  				<td>{{item.carSprq}}</td>
-	  				<td>{{item.carCjdq}}</td>
-	  				<td>{{item.carjqxbxgs}}</td>
-	  				<td>{{item.carJqxdq}}</td>
-	  				<td>{{item.carSf}}</td>
-	  				<td>{{item.carEwrq}}</td>
-	  				<td>{{item.carRylb}}</td>
-	  				<td>{{item.carXcbylc}}</td>
-	  				<td>{{item.carXcbyrq}}</td>
-	  				<td>{{item.carHym}}</td>
-	  				<td>{{item.column1}}</td>
-	  				<td>{{item.column2}}</td>
-	  				<td>{{item.column3}}</td>
 	  				
 	  				
 	  		</tr>

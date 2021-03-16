@@ -4,29 +4,35 @@
 		<meta charset="UTF-8">
 		<title></title>
 		<link href="../../css/bootstrap.min.css" rel="stylesheet" />
+		<style>
+			nav{
+				margin-left: 600px;
+			}
+			table{
+				 width: 2910px; max-width: 2920px;
+			}
+			table tr:nth-child(1) td{
+				background-color: #31B0D5;
+			}
+			#cl{
+				min-height:200px;overflow-y:auto;max-height:300px;
+			}
+			#kh{
+				min-height:50px;overflow-y:auto;max-height:300px;
+			}
+		</style>
 	</head>
 	<body>
 		<!--待入库旧件-->
 		<div id="ctx">
-		<table class="table table-striped">
-  			<tr>
-				<td>车牌号码333</td>
-				<td>车牌号码333</td>
-				<td>车牌号码333</td>
-				<td>车牌号码333</td>
-				<td>车牌号码333</td>
-				<td>车牌号码333</td>
-				<td>车牌号码333</td>
-				<td>车牌号码333</td>
-				<td>车牌号码333</td>
-				<td>车牌号码333</td>
-				<td>车牌号码333</td>
-				<td>车牌号码333</td>
+		<table class="table table-bordered">
+  			<tr class="wrap" style="width: 50px;">
+				<td>编号</td>
+				<td>名称</td>
 			</tr>
 			<tr  v-for="item in page">
 	 				<td>{{item.engineId}}</td>
 	  				<td>{{item.engineName}}</td>
-	  				<td>{{item.isDelete}}</td>
 	  				
 	  				
 	  		</tr>

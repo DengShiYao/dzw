@@ -150,6 +150,17 @@ public class CarController {
         List<Car> list =zz.list(query);
         return list;
     }
+    //根据客户名字查询客户
+    @RequestMapping("SelectKhName")
+    @ResponseBody
+    public List<Consumer> SelectKhName(@RequestBody Consumer user){
+        System.out.println(user);
+        QueryWrapper<Consumer> query =  new QueryWrapper<>();
+        query.lambda().like(Consumer::getKhid,user.getKhid());
+        List<Consumer> list =cc.list(query);
+        System.out.println("查询数组"+list);
+        return list;
+    }
     //今日提醒：engine_brand查询EngineBrand
     @RequestMapping("Selectbrand")
     public List<EngineBrand> Selectbrand(){

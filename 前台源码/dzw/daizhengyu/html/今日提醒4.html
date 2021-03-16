@@ -4,24 +4,41 @@
 		<meta charset="UTF-8">
 		<title></title>
 		<link href="../../css/bootstrap.min.css" rel="stylesheet" />
+		<style>
+			nav{
+				margin-left: 600px;
+			}
+			table{
+				 width: 2910px; max-width: 2920px;
+			}
+			table tr:nth-child(1) td{
+				background-color: #31B0D5;
+			}
+			#cl{
+				min-height:200px;overflow-y:auto;max-height:300px;
+			}
+			#kh{
+				min-height:50px;overflow-y:auto;max-height:300px;
+			}
+		</style>
 	</head>
 	<body>
 		<!--待入库旧件-->
 		<div id="ctx">
-		<table class="table table-striped">
-  			<tr>
-				<td>车牌号码333</td>
-				<td>车牌号码333</td>
-				<td>车牌号码333</td>
-				<td>车牌号码333</td>
-				<td>车牌号码333</td>
-				<td>车牌号码333</td>
-				<td>车牌号码333</td>
-				<td>车牌号码333</td>
-				<td>车牌号码333</td>
-				<td>车牌号码333</td>
-				<td>车牌号码333</td>
-				<td>车牌号码333</td>
+		<table class="table table-bordered">
+  			<tr class="wrap" style="width: 50px;">
+				<td>编号</td>
+				<td>领料时间</td>
+				<td>领料人</td>
+				<td> 物料编码</td>
+				<td>物料名称</td>
+				<td>单位名称</td>
+				<td>价类</td>
+				<td>数量</td>
+				<td>单价</td>
+				<td>金额</td>
+				<td>免单原因</td>
+				<td>免单原因</td>
 			</tr>
 			<tr  v-for="item in page">
 	 				<td>{{item.llId}}</td>
@@ -55,7 +72,6 @@
 						find(){
 								let that = this;
 								var car = that.clss;
-								alert("车辆搜索"+car);
 								$.ajax({
 										url:"http://127.0.0.1:8080/car/SelectLinliaoBiao/",
 										data:{car:car},
@@ -63,8 +79,6 @@
 										dataType:"json",
 										success:function(result){
 												that.page=result;
-												/*alert(JSON.stringify(that.page))
-												alert("查询成功")*/
 											}
 									});
 							}

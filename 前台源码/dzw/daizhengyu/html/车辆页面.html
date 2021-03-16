@@ -4,13 +4,16 @@
 		<meta charset="UTF-8">
 		<title>车辆管理</title>
 		<link rel="stylesheet" href="../css/bootstrap.min.css" />
+		<link rel="stylesheet" href="../css/element.css" />
 		<style>
 			nav{
 				margin-left: 600px;
 			}
+			table{
+				 width: 2910px; max-width: 2920px;
+			}
 			table tr:nth-child(1) td{
 				background-color: #31B0D5;
-				height: 50px;
 			}
 			#cl{
 				min-height:200px;overflow-y:auto;max-height:300px;
@@ -87,6 +90,7 @@
 							<td>燃油类别</td>
 							<td>下次保养里程</td>
 							<td>会员码</td>
+							<td>日期</td>
 			</tr>
 			<tr  v-for="item in page" @click="toEdit(item)">
 	 				<td>{{item.carCph}}</td>
@@ -118,7 +122,6 @@
 	  				<td>{{item.carHym}}</td>
 	  				<td>{{item.column1}}</td>
 	  				<td>{{item.column2}}</td>
-	  				<td>{{item.column3}}</td>
 	  				
 	  				
 	  		</tr>
@@ -202,149 +205,116 @@
 						<div class="modal-header">车辆资料编辑</div>
 						<div class="modal-body">
 							<div class="editStudent">
-									<form class="form-inline">
-  									<div class="form-group">
-    								<label for="exampleInputName2">车牌号码</label>
-    								<input type="text" class="form-control" id="exampleInputEmail2" v-model="add.carCph">
-  									</div>
-  									<div class="form-group">
-    								<label for="exampleInputName2">车辆品牌</label>
-    								<select v-model="add.carClpp" class="form-control" >
-  											<option v-for="item in selet1" :value="item.carId">{{item.brandName}}</option>
-  											
-									</select>
-  									</div>
-  									<div class="form-group">
-										<div class="form-group">
-    									<label for="exampleInputEmail2">车辆型号</label>
-    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="add.carType">
-  									</div>
-    									<button type="button"   data-toggle="modal" href="#ppcx" class="btn btn-default">x</button>
-  									</div>
-  									<div class="form-group">
-    									<label for="exampleInputEmail2">驾驶员</label>
-    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="add.carJsy">
-  									</div>
-  									<div class="form-group">
-    									<label for="exampleInputEmail2">驾驶员电话</label>
-    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="add.carPhone">
-  									</div>
-  									<div class="form-group">
-    									<label for="exampleInputEmail2">出生日期</label>
-    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="add.carCsrq">
-  									</div>
-  									<div class="form-group">
-    								<label for="exampleInputName2">车辆归属</label>
-    								<select v-model="add.carClgs" class="form-control" >
-  											<option v-for="item in selet2" :value="item.affiliationid">{{item.affiliationname}}</option>
-									</select>
-  									</div>
-  									<div class="form-group">
-    									<label for="exampleInputEmail2">驾驶员地址</label>
-    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="add.carJsydz">
-  									</div>
-  									<div class="form-group">
-    									<label for="exampleInputEmail2">驾照到期</label>
-    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="add.carJzdq">
-  									</div>
-  									<div class="form-group">
-    									<label for="exampleInputEmail2">车架号</label>
-    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="add.carCjh">
-  									</div>
-  									<div class="form-group">
-    									<label for="exampleInputEmail2">发动机号</label>
-    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="add.carFdjh">
-  									</div>
-  									<div class="form-group">
-    								<label for="exampleInputName2">发动机品牌</label>
-    								<select v-model="add.carFdjpph" class="form-control" >
-  											<option v-for="item in selet1" :value="item.carId">{{item.engineName}}</option>
-  											
-									</select>
-  									</div>
-  									<div class="form-group">
-    									<label for="exampleInputEmail2">车辆年款</label>
-    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="add.carCllk">
-  									</div>
-  									<div class="form-group">
-    									<label for="exampleInputEmail2">里程</label>
-    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="add.carLc">
-  									</div>
-  									<div class="form-group">
-    									<label for="exampleInputEmail2">载重</label>
-    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="add.carZz">
-  									</div>
-  									<div class="form-group">
-    									<label for="exampleInputEmail2">车系</label>
-    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="add.carCx">
-  									</div>
-  									<div class="form-group">
-    									<label for="exampleInputEmail2">购买日期</label>
-    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="add.carGmrq">
-  									</div>
-  									<div class="form-group">
-    									<label for="exampleInputEmail2">上牌日期</label>
-    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="add.carSprq">
-  									</div>
-  									<div class="form-group">
-    									<label for="exampleInputEmail2">车检到期</label>
-    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="add.carCjdq">
-  									</div>
-  									<div class="form-group">
-    								<label for="exampleInputName2">是否在我投保车中</label>
-    								<select v-model="add.carSf" class="form-control">
-  											<option value="是">是</option>
-  											<option value="否">否</option>
-									</select>
-  									</div>
-  									<div class="form-group">
-    									<label for="exampleInputEmail2">二维日期</label>
-    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="add.carEwrq">
-  									</div>
-  									<div class="form-group">
-    								<label for="exampleInputName2">燃油类别 </label>
-    								<select v-model="add.carRylb" class="form-control">
-  											<option value="柴油">柴油</option>
-  											<option value="汽油">汽油</option>
-									</select>
-  									</div>
-  									<div class="form-group">
-    									<label for="exampleInputEmail2"> 下次保养里程</label>
-    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="add.carXcbylc">
-  									</div>
-  									<div class="form-group">
-    									<label for="exampleInputEmail2">下次保养日期 </label>
-    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="add.carXcbyrq">
-  									</div>
-  									<div class="form-group">
-    								<label for="exampleInputName2">交商业保险公司</label>
-    								<select v-model="add.column1" class="form-control" >
-  											<option v-for="item in selet4" :value="item.sybxid">{{item.sybxname}}</option>
-  											
-									</select>
-  									</div>
-  									<div class="form-group">
-    									<label for="exampleInputEmail2">商业险到期 </label>
-    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="add.column2">
-  									</div>
-  									<div class="form-group">
-    								<label for="exampleInputName2">交强险保险公司</label>
-    								<select v-model="add.carjqxbxgs" class="form-control" v-for="item in selet3">
-  											<option :value="item.qbxid">{{item.qbxname}}</option>
-  											
-									</select>
-  									</div>
-  									<div class="form-group">
-    									<label for="exampleInputEmail2">强险到期日期 </label>
-    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="add.carJqxdq">
-  									</div>
-  									<div class="form-group">
-    								<label for="exampleInputName2">客户名称</label>
-    								<select v-model="add.column3" class="form-control" >
-  											<option v-for="item in selet5" :value="item.id">{{item.khName}}</option>
-									</select>
-  									</div>
-									</form>
+								<el-form :inline="true"  class="demo-form-inline">
+									  <el-form-item label="车牌号码">
+									    <el-input  placeholder="车牌号码" v-model="add.carCph"></el-input>
+									  </el-form-item>
+									  
+									  <el-form-item label="车辆品牌">
+									    <el-select v-model="add.carClpp"  placeholder="车辆品牌">
+									      <el-option v-for="item in selet1" :value="item.carId">{{item.brandName}}</el-option>
+									    </el-select>
+									  </el-form-item>
+									  
+									  <el-form-item label="车辆型号">
+									    <el-input  placeholder="车辆型号" v-model="add.carType"></el-input>
+									  </el-form-item>
+									  <el-form-item label="驾驶员">
+									    <el-input  placeholder="驾驶员" v-model="add.carJsy"></el-input>
+									  </el-form-item>
+									  <el-form-item label="驾驶员电话">
+									    <el-input  placeholder="驾驶员电话" v-model="add.carPhone"></el-input>
+									  </el-form-item>
+									  <el-form-item label="出生日期">
+									        <el-date-picker type="date" placeholder="选择日期" v-model="add.carCsrq" style="width: 100%;"></el-date-picker>
+									  </el-form-item>
+									  <el-form-item label="车辆归属">
+									    <el-select v-model="add.carClgs"  placeholder="车辆归属">
+									      <el-option v-for="item in selet2" :value="item.affiliationid">{{item.affiliationname}}</el-option>
+									    </el-select>
+									  </el-form-item>
+									  <el-form-item label="驾驶员地址">
+									    <el-input  placeholder="驾驶员地址" v-model="add.carJsydz"></el-input>
+									  </el-form-item>
+									  <el-form-item label="驾照到期">
+									        <el-date-picker type="date" placeholder="驾照到期" v-model="add.carJzdq" style="width: 100%;"></el-date-picker>
+									  </el-form-item>
+									  <el-form-item label="车架号">
+									    <el-input  placeholder="车架号" v-model="add.carCjh"></el-input>
+									  </el-form-item>
+									  <el-form-item label="发动机号">
+									    <el-input  placeholder="发动机号" v-model="add.carFdjh"></el-input>
+									  </el-form-item>
+									 <el-form-item label="发动机品牌">
+									    <el-select v-model="add.carFdjpph"  placeholder="发动机品牌">
+									      <el-option v-for="item in selet2" :value="item.affiliationid">{{item.affiliationname}}</el-option>
+									    </el-select>
+									  </el-form-item>
+									  <el-form-item label="车辆年款">
+									    <el-input  placeholder="车辆年款" v-model="add.carCllk"></el-input>
+									  </el-form-item>
+									  <el-form-item label="里程">
+									    <el-input  placeholder="里程" v-model="add.carLc"></el-input>
+									  </el-form-item>
+									  <el-form-item label="载重">
+									    <el-input  placeholder="载重" v-model="add.carZz"></el-input>
+									  </el-form-item>
+									  <el-form-item label="车系">
+									    <el-input  placeholder="车系" v-model="add.carCx"></el-input>
+									  </el-form-item>
+									  <el-form-item label="购买日期">
+									        <el-date-picker type="date" placeholder="购买日期" v-model="add.carGmrq" style="width: 100%;"></el-date-picker>
+									  </el-form-item>
+									  <el-form-item label="上牌日期">
+									        <el-date-picker type="date" placeholder="上牌日期" v-model="add.carSprq" style="width: 100%;"></el-date-picker>
+									  </el-form-item>
+									  <el-form-item label="车检到期">
+									        <el-date-picker type="date" placeholder="车检到期" v-model="add.carCjdq" style="width: 100%;"></el-date-picker>
+									  </el-form-item>
+									   <el-form-item label="是否在我投保车中">
+										    <el-select v-model="add.carSf" placeholder="是否在我投保车中">
+										      <el-option label="是" value="是"></el-option>
+										      <el-option label="否" value="否"></el-option>
+										    </el-select>
+										  </el-form-item>
+									<el-form-item label="二维日期">
+									        <el-date-picker type="date" placeholder="二维日期" v-model="add.carEwrq" style="width: 100%;"></el-date-picker>
+									  </el-form-item>
+									   <el-form-item label="燃油类别">
+										    <el-select v-model="add.carSf" placeholder="燃油类别">
+										      <el-option label="柴油" value="柴油"></el-option>
+										      <el-option label="汽油" value="汽油"></el-option>
+										    </el-select>
+										  </el-form-item>
+										  <el-form-item label="下次保养里程">
+										    <el-input  placeholder="下次保养里程" v-model="add.carXcbylc"></el-input>
+										  </el-form-item>
+										  <el-form-item label="下次保养日期">
+									        <el-date-picker type="date" placeholder="下次保养日期" v-model="add.carXcbyrq" style="width: 100%;"></el-date-picker>
+									  </el-form-item>
+									  <el-form-item label="交商业保险公司">
+									    <el-select v-model="add.column1"  placeholder="交商业保险公司">
+									      <el-option  v-for="item in selet4" :value="item.sybxid">{{item.sybxname}}</el-option>
+									    </el-select>
+									  </el-form-item>
+									  <el-form-item label="商业险到期">
+									        <el-date-picker type="date" placeholder="商业险到期" v-model="add.column2" style="width: 100%;"></el-date-picker>
+									  </el-form-item>
+									  <el-form-item label="交强险保险公司">
+									    <el-select v-model="add.carjqxbxgs"  placeholder="交强险保险公司">
+									      <el-option v-for="item in selet3" :value="item.qbxid">{{item.qbxname}}</el-option>
+									    </el-select>
+									  </el-form-item>
+									  <el-form-item label="强险到期日期">
+									        <el-date-picker type="date" placeholder="强险到期日期" v-model="add.carJqxdq" style="width: 100%;"></el-date-picker>
+									  </el-form-item>
+									  <el-form-item label="客户名称">
+									    <el-select v-model="add.column3"  placeholder="客户名称">
+									      <el-option v-for="item in selet5" :value="item.id">{{item.khName}}</el-option>
+									    </el-select>
+									  </el-form-item>
+									</el-form>
+									
 							</div>
 						</div>
 						<div class="modal-footer">
@@ -363,150 +333,116 @@
 						<div class="modal-header">车辆资料编辑</div>
 						<div class="modal-body">
 							<div class="editStudent">
-									<form class="form-inline">
-  									<div class="form-group">
-    								<label for="exampleInputName2">车牌号码</label>
-    								<input type="text" class="form-control" id="exampleInputEmail2" v-model="edit.carCph">
-  									</div>
-  									<div class="form-group">
-    								<label for="exampleInputName2">车辆品牌</label>
-    								<select v-model="edit.carClpp" class="form-control" >
-  											<option v-for="item in selet1" :value="item.carId">{{item.brandName}}</option>
-  											
-									</select>
-  									</div>
-  									<div class="form-group">
-										<div class="form-group">
-    									<label for="exampleInputEmail2">车辆型号</label>
-    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="edit.carType">
-  									</div>
-    									<button type="button"   data-toggle="modal" href="#ppcx" class="btn btn-default">x</button>
-  									</div>
-  									<div class="form-group">
-    									<label for="exampleInputEmail2">驾驶员</label>
-    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="edit.carJsy">
-  									</div>
-  									<div class="form-group">
-    									<label for="exampleInputEmail2">驾驶员电话</label>
-    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="edit.carPhone">
-  									</div>
-  									<div class="form-group">
-    									<label for="exampleInputEmail2">出生日期</label>
-    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="edit.carCsrq">
-  									</div>
-  									<div class="form-group">
-    								<label for="exampleInputName2">车辆归属</label>
-    								<select v-model="edit.carClgs" class="form-control" >
-  											<option v-for="item in selet2" :value="item.affiliationid">{{item.affiliationname}}</option>
-									</select>
-  									</div>
-  									<div class="form-group">
-    									<label for="exampleInputEmail2">驾驶员地址</label>
-    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="edit.carJsydz">
-  									</div>
-  									<div class="form-group">
-    									<label for="exampleInputEmail2">驾照到期</label>
-    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="edit.carJzdq">
-  									</div>
-  									<div class="form-group">
-    									<label for="exampleInputEmail2">车架号</label>
-    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="edit.carCjh">
-  									</div>
-  									<div class="form-group">
-    									<label for="exampleInputEmail2">发动机号</label>
-    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="edit.carFdjh">
-  									</div>
-  									<div class="form-group">
-    								<label for="exampleInputName2">发动机品牌</label>
-    								<select v-model="edit.carFdjpph" class="form-control" >
-  											<option  v-for="item in selet1" :value="item.carId">{{item.engineName}}</option>
-  											
-									</select>
-  									</div>
-  									<div class="form-group">
-    									<label for="exampleInputEmail2">车辆年款</label>
-    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="edit.carCllk">
-  									</div>
-  									<div class="form-group">
-    									<label for="exampleInputEmail2">里程</label>
-    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="edit.carLc">
-  									</div>
-  									<div class="form-group">
-    									<label for="exampleInputEmail2">载重</label>
-    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="edit.carZz">
-  									</div>
-  									<div class="form-group">
-    									<label for="exampleInputEmail2">车系</label>
-    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="edit.carCx">
-  									</div>
-  									<div class="form-group">
-    									<label for="exampleInputEmail2">购买日期</label>
-    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="edit.carGmrq">
-  									</div>
-  									<div class="form-group">
-    									<label for="exampleInputEmail2">上牌日期</label>
-    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="edit.carSprq">
-  									</div>
-  									<div class="form-group">
-    									<label for="exampleInputEmail2">车检到期</label>
-    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="edit.carCjdq">
-  									</div>
-  									<div class="form-group">
-    								<label for="exampleInputName2">是否在我投保车中</label>
-    								<select v-model="edit.carSf" class="form-control">
-  											<option value="是">是</option>
-  											<option value="否">否</option>
-									</select>
-  									</div>
-  									<div class="form-group">
-    									<label for="exampleInputEmail2">二维日期</label>
-    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="edit.carEwrq">
-  									</div>
-  									<div class="form-group">
-    								<label for="exampleInputName2">燃油类别 </label>
-    								<select v-model="edit.carRylb" class="form-control">
-  											<option value="柴油">柴油</option>
-  											<option value="汽油">汽油</option>
-									</select>
-  									</div>
-  									<div class="form-group">
-    									<label for="exampleInputEmail2"> 下次保养里程</label>
-    									<input type="email" class="form-control" id="exampleInputEmail2" v-model="edit.carXcbylc">
-  									</div>
-  									<div class="form-group">
-    									<label for="exampleInputEmail2">下次保养日期 </label>
-    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="edit.carXcbyrq">
-  									</div>
-  									<div class="form-group">
-    								<label for="exampleInputName2">交商业保险公司</label>
-    								<select v-model="edit.column1" class="form-control" >
-  											<option v-for="item in selet4" :value="item.sybxid">{{item.sybxname}}</option>
-  											
-									</select>
-  									</div>
-  									<div class="form-group">
-    									<label for="exampleInputEmail2">商业险到期 </label>
-    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="edit.column2">
-  									</div>
-  									<div class="form-group">
-    								<label for="exampleInputName2">交强险保险公司</label>
-    								<select v-model="edit.carjqxbxgs" class="form-control" >
-  											<option v-for="item in selet3" :value="item.qbxid">{{item.qbxname}}</option>
-  											
-									</select>
-  									</div>
-  									<div class="form-group">
-    									<label for="exampleInputEmail2">强险到期日期 </label>
-    									<input type="date" value="2014-01-13" class="form-control" id="exampleInputEmail2" v-model="edit.carJqxdq">
-  									</div>
-  									<div class="form-group">
-    								<label for="exampleInputName2">客户名称</label>
-    								<select v-model="edit.column3" class="form-control" >
-  											<option v-for="item in selet5" :value="item.id">{{item.khName}}</option>
-  											
-									</select>
-  									</div>
-									</form>
+								<el-form :inline="true"  class="demo-form-inline">
+									  <el-form-item label="车牌号码">
+									    <el-input  placeholder="车牌号码" v-model="edit.carCph"></el-input>
+									  </el-form-item>
+									  
+									  <el-form-item label="车辆品牌">
+									    <el-select v-model="add.carClpp"  placeholder="车辆品牌">
+									      <el-option v-for="item in selet1" :value="edit.carId">{{item.brandName}}</el-option>
+									    </el-select>
+									  </el-form-item>
+									  
+									  <el-form-item label="车辆型号">
+									    <el-input  placeholder="车辆型号" v-model="edit.carType"></el-input>
+									  </el-form-item>
+									  <el-form-item label="驾驶员">
+									    <el-input  placeholder="驾驶员" v-model="edit.carJsy"></el-input>
+									  </el-form-item>
+									  <el-form-item label="驾驶员电话">
+									    <el-input  placeholder="驾驶员电话" v-model="edit.carPhone"></el-input>
+									  </el-form-item>
+									  <el-form-item label="出生日期">
+									        <el-date-picker type="date" placeholder="选择日期" v-model="edit.carCsrq" style="width: 100%;"></el-date-picker>
+									  </el-form-item>
+									  <el-form-item label="车辆归属">
+									    <el-select v-model="edit.carClgs"  placeholder="车辆归属">
+									      <el-option v-for="item in selet2" :value="item.affiliationid">{{item.affiliationname}}</el-option>
+									    </el-select>
+									  </el-form-item>
+									  <el-form-item label="驾驶员地址">
+									    <el-input  placeholder="驾驶员地址" v-model="edit.carJsydz"></el-input>
+									  </el-form-item>
+									  <el-form-item label="驾照到期">
+									        <el-date-picker type="date" placeholder="驾照到期" v-model="edit.carJzdq" style="width: 100%;"></el-date-picker>
+									  </el-form-item>
+									  <el-form-item label="车架号">
+									    <el-input  placeholder="车架号" v-model="edit.carCjh"></el-input>
+									  </el-form-item>
+									  <el-form-item label="发动机号">
+									    <el-input  placeholder="发动机号" v-model="edit.carFdjh"></el-input>
+									  </el-form-item>
+									 <el-form-item label="发动机品牌">
+									    <el-select v-model="edit.carFdjpph"  placeholder="发动机品牌">
+									      <el-option v-for="item in selet2" :value="item.affiliationid">{{item.affiliationname}}</el-option>
+									    </el-select>
+									  </el-form-item>
+									  <el-form-item label="车辆年款">
+									    <el-input  placeholder="车辆年款" v-model="edit.carCllk"></el-input>
+									  </el-form-item>
+									  <el-form-item label="里程">
+									    <el-input  placeholder="里程" v-model="edit.carLc"></el-input>
+									  </el-form-item>
+									  <el-form-item label="载重">
+									    <el-input  placeholder="载重" v-model="edit.carZz"></el-input>
+									  </el-form-item>
+									  <el-form-item label="车系">
+									    <el-input  placeholder="车系" v-model="edit.carCx"></el-input>
+									  </el-form-item>
+									  <el-form-item label="购买日期">
+									        <el-date-picker type="date" placeholder="购买日期" v-model="edit.carGmrq" style="width: 100%;"></el-date-picker>
+									  </el-form-item>
+									  <el-form-item label="上牌日期">
+									        <el-date-picker type="date" placeholder="上牌日期" v-model="edit.carSprq" style="width: 100%;"></el-date-picker>
+									  </el-form-item>
+									  <el-form-item label="车检到期">
+									        <el-date-picker type="date" placeholder="车检到期" v-model="edit.carCjdq" style="width: 100%;"></el-date-picker>
+									  </el-form-item>
+									   <el-form-item label="是否在我投保车中">
+										    <el-select v-model="edit.carSf" placeholder="是否在我投保车中">
+										      <el-option label="是" value="是"></el-option>
+										      <el-option label="否" value="否"></el-option>
+										    </el-select>
+										  </el-form-item>
+									<el-form-item label="二维日期">
+									        <el-date-picker type="date" placeholder="二维日期" v-model="edit.carEwrq" style="width: 100%;"></el-date-picker>
+									  </el-form-item>
+									   <el-form-item label="燃油类别">
+										    <el-select v-model="edit.carSf" placeholder="燃油类别">
+										      <el-option label="柴油" value="柴油"></el-option>
+										      <el-option label="汽油" value="汽油"></el-option>
+										    </el-select>
+										  </el-form-item>
+										  <el-form-item label="下次保养里程">
+										    <el-input  placeholder="下次保养里程" v-model="edit.carXcbylc"></el-input>
+										  </el-form-item>
+										  <el-form-item label="下次保养日期">
+									        <el-date-picker type="date" placeholder="下次保养日期" v-model="edit.carXcbyrq" style="width: 100%;"></el-date-picker>
+									  </el-form-item>
+									  <el-form-item label="交商业保险公司">
+									    <el-select v-model="edit.column1"  placeholder="交商业保险公司">
+									      <el-option  v-for="item in selet4" :value="item.sybxid">{{item.sybxname}}</el-option>
+									    </el-select>
+									  </el-form-item>
+									  <el-form-item label="商业险到期">
+									        <el-date-picker type="date" placeholder="商业险到期" v-model="edit.column2" style="width: 100%;"></el-date-picker>
+									  </el-form-item>
+									  <el-form-item label="交强险保险公司">
+									    <el-select v-model="edit.carjqxbxgs"  placeholder="交强险保险公司">
+									      <el-option v-for="item in selet3" :value="item.qbxid">{{item.qbxname}}</el-option>
+									    </el-select>
+									  </el-form-item>
+									  <el-form-item label="强险到期日期">
+									        <el-date-picker type="date" placeholder="强险到期日期" v-model="edit.carJqxdq" style="width: 100%;"></el-date-picker>
+									  </el-form-item>
+									  <el-form-item label="客户名称">
+									    <el-select v-model="edit.column3"  placeholder="客户名称">
+									      <el-option v-for="item in selet5" :value="item.id">{{item.khName}}</el-option>
+									    </el-select>
+									  </el-form-item>
+									</el-form>
+									
 							</div>
 						</div>
 						<div class="modal-footer">
@@ -739,6 +675,7 @@
 	<script type="text/javascript" src="../js/jquery.min.js" ></script>
 	<script type="text/javascript" src="../js/vue.js" ></script>
 	<script type="text/javascript" src="../js/bootstrap.min.js" ></script>
+	<script type="text/javascript" src="../js/element.js" ></script>
 	<script>
 		var vm = new Vue({
 			el:"#ctx",
@@ -875,8 +812,8 @@
 							},remove(item){
 								let that = this;
 								var id = item.carCph;
-								
-								$.ajax({
+								if(window.confirm('你确定要删除吗？')){
+					                $.ajax({
 										url:"http://127.0.0.1:8080/car/delect/",
 										data:{id:id},
 										type:"post",
@@ -884,6 +821,12 @@
 												that.find();
 											}
 									});
+					                 return true;
+					              }else{
+					                 //alert("取消");
+					                 return false;
+					             }
+								
 									
 							},
 							toEdit(item){
@@ -944,8 +887,8 @@
 								},remove2(item){
 									let that = this;
 									var id = item.id;
-									
-									$.ajax({
+									if(window.confirm('你确定要删除吗？')){
+					                $.ajax({
 											url:"http://127.0.0.1:8080/maintenance/delect/",
 											data:{id:id},
 											type:"post",
@@ -953,6 +896,12 @@
 													that.find2();
 												}
 									});
+					                 return true;
+					              }else{
+					                 //alert("取消");
+					                 return false;
+					             }
+									
 								},
 								
 								toEdit2(item){

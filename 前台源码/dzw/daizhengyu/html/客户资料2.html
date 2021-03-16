@@ -51,7 +51,7 @@
 	<body>
 		<div id="lx">
 		<div class="row">
-  			<div class="col-md-8"><h1>车辆资料</h1></div>
+  			<div class="col-md-8"><h1>客户资料</h1></div>
   			<div class="col-md-4">
   			<form class="form-inline">
 	  			<div class="form-group">
@@ -72,6 +72,7 @@
   		<div style="float: left;width:1490px ;height: 100px;">
 				<div style="float: left;width: 1200px;height: 60px;">
 					<div id="che" style="background-color: #EFF7FF; float: left;width: 1500px;height: 25px; margin-top: 10px;display: none;">
+						<button type="button" class="btn btn-default" style="border: 0px;">车辆编辑:</button>
 						<button type="button"   data-toggle="modal" href="#insertmodal" class="btn btn-default">新增</button>
   						<button type="button"  data-toggle="modal" href="#updatamodal" class="btn btn-default">修改</button>
   						<button type="button" class="btn btn-default" @click="remove2(edit)">删除</button>
@@ -79,7 +80,7 @@
 				</div>
 				<div style="float: left;width: 1490px;height: 40px;margin-top: -5px;">
 					<div id="kh" style="background-color: #EFF7FF; float: left;width: 1500px;height: 25px; display: none;">
-						<button type="button" class="btn btn-default">客户编辑</button>
+						<button type="button" class="btn btn-default" style="border: 0px;">客户编辑:</button>
 						<button type="button" @click="showmo3()" class="btn btn-default">增加客户和车</button>
 						<button type="button" @click="showmo4()" class="btn btn-default">增加客户</button>
 						<button type="button" @click="showmo5()" class="btn btn-default">修改客户</button>
@@ -146,8 +147,6 @@
 										<div class="form-group">
     									<label for="exampleInputEmail2">车辆型号</label>
     									<input type="email" class="form-control" id="exampleInputEmail2" v-model="add2.carType">
-  									</div>
-    									<button type="button"   data-toggle="modal" href="#ppcx" class="btn btn-default">x</button>
   									</div>
   									<div class="form-group">
     									<label for="exampleInputEmail2">驾驶员</label>
@@ -883,8 +882,8 @@
 	</div>
 		</div>
 		<div style="width: 1500px;height:300px; float: left;overflow: scroll;">
-				<table style=" width: 2910px; max-width: 2920px;height: 300px;max-height: 380px;" class="table table-bordered">
-					<tr style="height: 20px;background-color: #39CEDE;color: white;">
+				<table style=" width: 2910px; max-width: 2920px;max-height: 380px;" class="table table-bordered">
+					<tr style=";background-color: #39CEDE;color: white;">
 						<td class="wrap" style="width: 50px;">客户编码</td>
 						<td style="width: 120px">客户名称</td>
 						<td style="width: 120px">详细地址</td>
@@ -951,18 +950,10 @@
 						
 						<button type="button" @click="c()" class="btn btn-default">车辆信息</button>
 					</li>
-					<li style="margin-left: -4px;">
-						<button type="button" @click="c1()" class="btn btn-default">历史消费</button>
-						
-					</li>
-					<li style="margin-left: -4px;">
-						<button type="button" @click="c2()" class="btn btn-default">历史回访</button>
-						
-					</li>
 				</ul>
 		<div style="width: 1500px;height:240px; float: left;margin-top: -10px;overflow: scroll;">
-					<table id="clxx" style=" width: 2910px; max-width: 2920px;height: 300px;max-height: 380px;" class="table table-bordered">
-						<tr style="background-color: #39CEDE;height: 50px;">
+					<table id="clxx" style=" width: 2910px; max-width: 2920px;;max-height: 380px;" class="table table-bordered">
+						<tr style="background-color: #39CEDE;">
 							<td>车牌号码</td>
 							<td>车辆品牌</td>
 							<td>车辆型号</td>
@@ -992,7 +983,7 @@
 							<td>下次保养里程</td>
 							<td>会员码</td>
 						</tr>
-						<tr  v-for="item in selet6" @click="toEdit2(item)" style="height: 50px;">
+						<tr  v-for="item in selet6" @click="toEdit2(item)">
 			 				<td>{{item.carCph}}</td>
 			  				<td>{{item.carClpp}}</td>
 			  				<td>{{item.carType}}</td>
@@ -1705,8 +1696,8 @@
 							},remove(item){
 								let that = this;
 								var id = item.id;
-								
-								$.ajax({
+								if(window.confirm('你确定要删除吗？')){
+					               $.ajax({
 										url:"http://127.0.0.1:8080/consumer/delect/",
 										data:{id:id},
 										type:"post",
@@ -1714,6 +1705,12 @@
 												that.find();
 											}
 									});
+					                 return true;
+					              }else{
+					                 //alert("取消");
+					                 return false;
+					             }
+								
 									
 							},
 							toEdit(item){
@@ -1761,8 +1758,8 @@
 								},remove2(item){
 								let that = this;
 								var id = item.carCph;
-								
-								$.ajax({
+								if(window.confirm('你确定要删除吗？')){
+					               $.ajax({
 										url:"http://127.0.0.1:8080/car/delect/",
 										data:{id:id},
 										type:"post",
@@ -1771,6 +1768,12 @@
 												alert("删除成功")
 											}
 									});
+					                 return true;
+					              }else{
+					                 //alert("取消");
+					                 return false;
+					             }
+								
 									
 							},
 							toEdit2(item){

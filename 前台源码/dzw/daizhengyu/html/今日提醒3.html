@@ -4,24 +4,46 @@
 		<meta charset="UTF-8">
 		<title></title>
 		<link href="../../css/bootstrap.min.css" rel="stylesheet" />
+		<style>
+			nav{
+				margin-left: 600px;
+			}
+			table{
+				 width: 2910px; max-width: 2920px;
+			}
+			table tr:nth-child(1) td{
+				background-color: #31B0D5;
+			}
+			#cl{
+				min-height:200px;overflow-y:auto;max-height:300px;
+			}
+			#kh{
+				min-height:50px;overflow-y:auto;max-height:300px;
+			}
+		</style>
 	</head>
 	<body>
 		<!--待入库旧件-->
 		<div id="ctx">
-		<table class="table table-striped">
-  			<tr>
-				<td>车牌号码333</td>
-				<td>车牌号码333</td>
-				<td>车牌号码333</td>
-				<td>车牌号码333</td>
-				<td>车牌号码333</td>
-				<td>车牌号码333</td>
-				<td>车牌号码333</td>
-				<td>车牌号码333</td>
-				<td>车牌号码333</td>
-				<td>车牌号码333</td>
-				<td>车牌号码333</td>
-				<td>车牌号码333</td>
+		<table class="table table-bordered">
+  			<tr class="wrap" style="width: 50px;">
+				<td>编号</td>
+				<td>厂商代码</td>
+				<td>厂商名称</td>
+				<td>地址</td>
+				<td>经营情况</td>
+				<td>网址</td>
+				<td>开户行</td>
+				<td>银行账户</td>
+				<td>支付方式</td>
+				<td>厂商等级</td>
+				<td>厂商类别</td>
+				<td>供货商联系人</td>
+				<td>账期</td>
+				<td>备注</td>
+				<td>所属地区</td>
+				<td>0停用/1启用</td>
+				<td>字段宽度</td>
 			</tr>
 			<tr  v-for="item in page">
 	 				<td>{{item.sid}}</td>
