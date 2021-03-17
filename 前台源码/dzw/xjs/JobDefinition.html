@@ -9,6 +9,12 @@
 		
 		 <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
 		 <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+		
+		 <link rel="stylesheet" type="text/css" href="../yf/css/font-awesome.css" />
+		 <link rel="stylesheet" href="../yf/css/public-y.css">
+		 <link rel="stylesheet" href="../yf/css/car_contact.css">
+		 <!-- 引入样式 -->
+		 <link rel="stylesheet" href="../yf/package/lib/style.css">
 		<style type="text/css">
 			.clear1{
 				display: block;
@@ -24,7 +30,7 @@
 			}
 			.labcolor{
 				font-size: 20px;
-				color: greenyellow;
+				/* color: greenyellow; */
 			}
 			.headDiv{
 				background-color:ghostwhite;
@@ -69,12 +75,13 @@
 			.table td{
 				border: 1px solid gray;
 			}
-			body{
+			body,html{
 				width: 100%;
 				height: 100%;
 				margin: 0px;
 				padding: 0px;
-				background-color: ghostwhite
+				background-color: ghostwhite;
+				overflow-x: hidden;
 			}
 		</style>
 	</head>
@@ -83,52 +90,53 @@
 				<div class="clear1 headDiv">
 					<div class="headDiv_left">岗位定义</div>
 						<div class="headDiv_right">
-						<button class="btn btn-danger">
+						<vxe-button>
 						<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
 							关闭
-						</button>
+						</vxe-button>
 					</div>
 				</div>
 				<div class="bodyDiv">
 					<div class="buttonMenus">
-						<button class="btn btn-success" @click="add">
+						<vxe-button  @click="add">
 						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 							增加
-						</button>
-						<button class="btn btn-danger" @click="remove">
+						</vxe-button>
+						<vxe-button  @click="remove">
 						<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 							删除
-						</button>
-						<button class="btn btn-success" @click="update">
+						</vxe-button>
+						<vxe-button  @click="update">
 						<span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
 							保存
-						</button>
-						<button class="btn btn-info" @click="daoChu">
+						</vxe-button>
+						<vxe-button  @click="daoChu">
 						<span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
 							导出
-						</button>
+						</vxe-button>
 					</div>
 					<div class="row">
 						<div class="col-lg-3">
 							<label for="jid" class="labcolor">岗位编码</label>
-							<input type="text" name="" id="jid" value="" v-model="gangwei.jobId" />
+							<input type="text" id="jid"  v-model="gangwei.jobId" style="outline: none;"/>
 						</div>									
 						<div class="col-lg-3">
 							<label for="jname" class="labcolor">岗位名称</label>
-							<input type="text" name="" id="jname" value="" v-model="gangwei.jobName"/>
+							<input type="text" id="jname"  v-model="gangwei.jobName" style="outline: none;"/>
 						</div>									
 					</div>
-					<div>
-						<table class="table">
-							<tr>
-								<th>岗位编号</th>
-								<th>岗位名称</th>
-							</tr>
-							<tr v-for="item,index in list" @click="tc(item,index)">
-								<td>{{item.jobId}}</td>
-								<td>{{item.jobName}}</td>
-							</tr>
-						</table>
+					<div style="width: 100%;height: 100%;">
+						<vxe-table
+						border
+						show-header-overflow
+						show-overflow
+						highlight-hover-row
+						@cell-click="getJobInform"
+						auto-resize="true"
+						:data="list">
+						<vxe-table-column field="jobId" title="岗位编码"></vxe-table-column>
+						<vxe-table-column field="jobName" title="岗位名称"></vxe-table-column>
+					 	 </vxe-table>
 					</div>
 					<div>
 					合计:<span>{{num}}</span>条记录
@@ -136,12 +144,14 @@
 				</div>
 		</div>	
 	</body>
-	<script type="text/javascript" src="js/jquery-1.12.4.js" ></script>
-	<script type="text/javascript" src="js/bootstrap.min.js" ></script>
-	<script type="text/javascript" src="js/vue.js" ></script>
-	<script type="text/javascript">
-		new Vue({
-			el:"#ctx",
+	<script type="text/javascript" src="js/vue.js"></script>
+	<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="https://cdn.jsdelivr.net/npm/xe-utils"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vxe-table@3.1.4"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script>
+		var Main={
 			data(){
 				return{
 					gw:[],
@@ -159,6 +169,11 @@
 				}
 			},
 			methods:{
+				//选中列填充上方
+				getJobInform({row}){
+					console.log(row);
+					this.gangwei=JSON.parse(JSON.stringify(row));
+				},
 				getCount(){
 					let that=this;
 					$.ajax({
@@ -217,6 +232,7 @@
 					}
 					this.find();
 					this.getCount();
+					this.clear();
 				},
 				remove(){
 					let that=this;
@@ -230,11 +246,12 @@
 						crossDomain: true,
 						 async:false,
 						success:function(result){
-							alert(result);
+							/* alert(result); */
 						}
 					});
 					this.find();
 					this.getCount();
+					this.clear();
 				},
 				update(){
 					let that =this;
@@ -251,27 +268,87 @@
 							crossDomain: true,
 							data:json,
 							success:function(result){
-								alert(result);
+								if(result){
+									alert("修改成功");
+								}else{
+									alert("修改失败");
+								}
 							}
 						});
 					}
 					this.find();
 					this.getCount();
+					this.clear();
 				},
 				daoChu(){
 					window.location.href="http://127.0.0.1:8080/job/downLoadExportExcel";
-					alert("导出成功");
+					/* alert("导出成功"); */
 				},
 				tc(item,index){
 					this.gangwei.jobId=item.jobId;
 					this.gangwei.jobName=item.jobName;
 					/*this.index=index;*/
-				}
+				},
+				clear(){
+					this.gangwei={};
+				},
 			},
 			created(){
 				this.getCount();
 				this.find();
 			}
-		});
+		};
+		var Ctor = Vue.extend(Main);
+	new Ctor().$mount('#ctx');
+
+	VXETable.formats.mixin({
+		// 格式化性别
+		formatSex({ cellValue }) {
+			return cellValue ? (cellValue === '1' ? '男' : '女') : ''
+		},
+		formatCarStatus({ cellValue }) {
+			if (cellValue === 0) {
+				return "接车";
+			} else if (cellValue === 1) {
+				return "作业中"
+			} else if (cellValue === 2) {
+				return "完工"
+			} else {
+				return "-"
+			}
+		},
+		formatNull({ cellValue }) {
+			return cellValue ? cellValue : '-'
+		},
+		// 格式化下拉选项
+		formatSelect({ cellValue }, list) {
+			const item = list.find(item => item.value === cellValue)
+			return item ? item.label : ''
+		},
+		// 格式化日期，默认 yyyy-MM-dd HH:mm:ss
+		formatDate({ cellValue }, format) {
+			return XEUtils.toDateString(cellValue, format || 'yyyy-MM-dd HH:mm:ss')
+		},
+		// 四舍五入金额，每隔3位逗号分隔，默认2位数
+		formatAmount({ cellValue }, digits = 2) {
+			return XEUtils.commafy(XEUtils.toNumber(cellValue), { digits })
+		},
+		// 格式化银行卡，默认每4位空格隔开
+		formatBankcard({ cellValue }) {
+			return XEUtils.commafy(XEUtils.toString(cellValue), { spaceNumber: 4, separator: ' ' })
+		},
+		// 四舍五入,默认两位数
+		formatFixedNumber({ cellValue }, digits = 2) {
+			return XEUtils.toFixed(XEUtils.round(cellValue, digits), digits)
+		},
+		// 向下舍入,默认两位数
+		formatCutNumber({ cellValue }, digits = 2) {
+			return XEUtils.toFixed(XEUtils.floor(cellValue, digits), digits)
+		},
+		// 转换 moment 类型为字符串
+		toMomentString({ cellValue }, format) {
+			return cellValue ? cellValue.format(format) : ''
+		}
+	})
 	</script>
 </html>

@@ -14,6 +14,11 @@
         <button type="button" class="btn btn-primary" data-toggle="modal" href='#modal-id1' :disabled="select_userId == '' ? true : false" @click="select_User1">修改</button>
         <button type="button" class="btn btn-success" data-toggle="modal" href='#modal-id2'>新增</button>
         <button type="button" class="btn btn-danger" :disabled="select_userId == 1 ? true : false" @click="deleteUser">删除</button>
+        <input type="search" style="max-width: 200px !important;display: inline-block;
+        margin-left: 40px;" v-model="userName1" placeholder="根据名字查询：" class="form-control">
+        <button type="button" class="btn btn-primary" @click="findUser()">查询</button></button>
+        
+        
         <!-- 数据模态框 -->
         <table class="table table-hover">
             <thead>
@@ -190,6 +195,7 @@
                     sysUser: {},
                     sysRole: {},
                     list1: [],
+                    userName1:"",
                     check_flag: false,
                     updateUser: {
                         sex: 0,
@@ -232,6 +238,7 @@
                         xhrFields: {
                             withCredentials: true
                         },
+                        data:{name:that.userName1},
                         crossDomain: true,
                         type: "post",
                         success: function (result) {

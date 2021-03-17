@@ -9,6 +9,12 @@
 		
 		 <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
 		 <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+		
+		 <link rel="stylesheet" type="text/css" href="../yf/css/font-awesome.css" />
+		 <link rel="stylesheet" href="../yf/css/public-y.css">
+		 <link rel="stylesheet" href="../yf/css/car_contact.css">
+		 <!-- 引入样式 -->
+		 <link rel="stylesheet" href="../yf/package/lib/style.css">
 		<style type="text/css">
 			.clear1{
 				display: block;
@@ -81,6 +87,11 @@
 			.bg{
 				background: orchid;
 			}
+			.vxe-table .vxe-cell{
+				white-space: pre-line;
+    			word-break: break-all;
+				padding-left: 0px;
+			}
 		</style>
 	</head>
 	<body>
@@ -89,53 +100,49 @@
 				<div class="headDiv_left">通讯名录</div>
 				<div class="headDiv_right">
 				<input type="text" class="search" placeholder="匹配工号/姓名/手机" id="searchtext"/>
-				<button class="btn btn-success" @click="search">
+				<vxe-button  @click="search">
 					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 					搜索
-				</button>
-				<button class="btn btn-danger">
+				</vxe-button>
+				<vxe-button >
 					<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
 					关闭
-				</button>
+				</vxe-button>
 				</div>
 			</div>
 			<div class="bodyDiv">
 				<div>
 					<div class="buttonMenus">
-						<button class="btn btn-success" @click="save">
+						<vxe-button  @click="save">
 							<span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
 							保存
-						</button>
-						<button class="btn btn-info" @click="openSelBy">
+						</vxe-button>
+						<vxe-button  @click="openSelBy">
 							<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 							查询
-						</button>
-						<button class="btn btn-default" @click="daoChu">
+						</vxe-button>
+						<vxe-button  @click="daoChu">
 							<span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
 							导出
-						</button>
+						</vxe-button>
 					</div>
 					<div>
-						<table class="table">
-							<tr>
-								<th>部门</th>
-								<th>员工编号</th>
-								<th>姓名</th>
-								<th>分机/短号</th>
-								<th>直拨</th>
-								<th>手机</th>
-								<th>邮箱</th>
-							</tr>
-							<tr v-for="item in list">
-								<td><input type="text" name="" id="" :value="item.department.dName" readonly="readonly"  class="form-control" v-model="item.department.dName"/></td>
-								<td><input type="text" name="" id="" :value="item.eId"  readonly="readonly" class="form-control" v-model="item.eId"/></td>
-								<td><input type="text" name="" id="" :value="item.eName" readonly="readonly"  class="form-control" v-model="item.eName"/></td>
-								<td><input type="text" name="" id="" :value="item.extension"  class="form-control" v-model="item.extension"/></td>
-								<td><input type="text" name="" id="" :value="item.direct"  class="form-control" v-model="item.direct"/></td>
-								<td><input type="text" name="" id="" :value="item.phone" class="form-control" v-model="item.phone"/></td>
-								<td><input type="text" name="" id="" :value="item.email"  class="form-control" v-model="item.email"/></td>
-							</tr>
-						</table>
+						<vxe-table
+							border
+							show-overflow
+							:data="list"
+							:edit-config="{trigger: 'click', mode: 'cell', activeMethod: activeCellMethod}"
+							auto-resize="true"
+							@edit-disabled="editDisabledEvent">
+							<vxe-table-column type="seq" title="序号"  ></vxe-table-column>
+							<vxe-table-column field="department.dName" title="部门"></vxe-table-column>
+							<vxe-table-column field="eId" title="员工编号" ></vxe-table-column>
+							<vxe-table-column field="eName" title="姓名" ></vxe-table-column>
+							<vxe-table-column field="extension" title="分机/短号" width="" :edit-render="{name: 'input'}"></vxe-table-column>
+							<vxe-table-column field="direct" title="直拨"  :edit-render="{name: 'input'}"></vxe-table-column>
+							<vxe-table-column field="phone" title="手机"  :edit-render="{name: 'input'}"></vxe-table-column>
+							<vxe-table-column field="email" title="邮箱"  :edit-render="{name: 'input'}"></vxe-table-column>
+						</vxe-table>
 					</div>
 				</div>
 				<div>
@@ -149,14 +156,14 @@
 						<div class="modal-header">
 							<h3 class="col-lg-offset-1 col-lg-4">员工查询</h3>
 								<div class="text-right">
-									<button class="btn btn-success" @click="sel">
+									<vxe-button  @click="sel">
 										<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
 										确定
-									</button>
-									<button class="btn btn-danger" @click="closeSelBy">
+									</vxe-button>
+									<vxe-button  @click="closeSelBy">
 										<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 										关闭
-									</button>
+									</vxe-button>
 								</div>
 						</div>
 						<div class="modal-body">
@@ -365,14 +372,14 @@
 						<div class="modal-header">
 							<h3 class="col-lg-4">部门选择</h3>
 		            		<div class="text-right">
-		            			<button class="btn btn-success" @click="savedepartList">
+		            			<vxe-button  @click="savedepartList">
 									<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
 									选择
-								</button>
-								<button class="btn btn-danger" @click="closedepartDiv">
+								</vxe-button>
+								<vxe-button  @click="closedepartDiv">
 									<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
 									关闭
-								</button>
+								</vxe-button>
 		            		</div>
 						</div>
 						<div class="modal-body">
@@ -384,7 +391,19 @@
 			            		</select>
 			            	</div>
 			            	<div>
-			            		<table border="" cellspacing="" cellpadding="" class="table table2">
+								<vxe-table
+								border
+								highlight-hover-row
+								highlight-current-row
+								ref="xTable"
+								:data="departList"
+								auto-resize="true"
+								@current-change="currentChangeEvent">
+								<vxe-table-column field="dId" title="部门编码"></vxe-table-column>
+								<vxe-table-column field="dName" title="部门名称"></vxe-table-column>
+								<vxe-table-column field="departmentType.tName" title="部门分类"></vxe-table-column>
+							  </vxe-table>
+			            		<!-- <table border="" cellspacing="" cellpadding="" class="table table2">
 			            			<tr>
 			            				<th></th>
 			            				<th>部门编码</th>
@@ -397,7 +416,7 @@
 			            				<td  @click="chooseDepartmentTr(item)">{{item.dName}}</td>
 			            				<td  @click="chooseDepartmentTr(item)">{{item.departmentType.tName}}</td>
 			            			</tr>
-			            		</table>
+			            		</table> -->
 			            	</div>
 						</div>
 						<div class="modal-footer"></div>
@@ -406,11 +425,14 @@
 			</div>
 		</div>
 	</body>
-	<script type="text/javascript" src="js/jquery-1.12.4.js" ></script>
-	<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
-	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="js/vue.js"></script>
+	<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="https://cdn.jsdelivr.net/npm/xe-utils"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vxe-table@3.1.4"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script type="text/javascript">
-		new Vue({
+		var Main={
 			el:"#ctx",
 			data(){
 				return{
@@ -451,6 +473,20 @@
 				}
 			},
 			methods:{
+				//部门table行选中
+				currentChangeEvent({row}){
+					this.updateOrAddDepartment=JSON.parse(JSON.stringify(row));
+				},
+				//
+				activeCellMethod ({ column, columnIndex }) {
+					if (columnIndex === 1) {
+						return false
+					}
+					return true
+				},
+				editDisabledEvent ({ row, column }) {
+				this.$XModal.message({ message: '禁止编辑', status: 'error' })
+				},
 				//查询所有员工的通信名录
 				find(){
 					this.selEmployeeList();
@@ -756,7 +792,7 @@
 					/*alert("导出成功");*/
 				},
 				search(){
-					alert("正在根据条件进行员工通讯名录的查询");
+					// alert("正在根据条件进行员工通讯名录的查询");
 					this.selByNamePhone();
 				},
 				//对查询条件div进行查询
@@ -802,13 +838,13 @@
 				},
 				//将选择的部门填入
                	savedepartList(){
-               			if(this.updateOrAddDepartment==null||this.updateOrAddDepartment==""){
+               			if(this.updateOrAddDepartment==null||this.updateOrAddDepartment==""||this.updateOrAddDepartment==undefined){
                				alert("请先选择部门");
                				return;
                			}
                			this.employQuery={};
                			this.employQuery.dId=this.updateOrAddDepartment.dId;
-               			alert("正在将选择的部门填入");
+               			/* alert("正在将选择的部门填入"); */
                			$("#departDiv").modal("hide");
                	},
                	//打开部门框子
@@ -885,6 +921,47 @@
 			created(){
 				this.find();
 			}
-		});
+		};
+		var Ctor = Vue.extend(Main);
+		new Ctor().$mount('#ctx');
+
+	VXETable.formats.mixin({
+		// 格式化性别
+		formatSex({ cellValue }) {
+			return cellValue ? (cellValue === '1' ? '男' : '女') : ''
+		},
+		formatNull({ cellValue }) {
+			return cellValue ? cellValue : '-'
+		},
+		// 格式化下拉选项
+		formatSelect({ cellValue }, list) {
+			const item = list.find(item => item.value === cellValue)
+			return item ? item.label : ''
+		},
+		// 格式化日期，默认 yyyy-MM-dd HH:mm:ss
+		formatDate({ cellValue }, format) {
+			return XEUtils.toDateString(cellValue, format || 'yyyy-MM-dd HH:mm:ss')
+		},
+		// 四舍五入金额，每隔3位逗号分隔，默认2位数
+		formatAmount({ cellValue }, digits = 2) {
+			return XEUtils.commafy(XEUtils.toNumber(cellValue), { digits })
+		},
+		// 格式化银行卡，默认每4位空格隔开
+		formatBankcard({ cellValue }) {
+			return XEUtils.commafy(XEUtils.toString(cellValue), { spaceNumber: 4, separator: ' ' })
+		},
+		// 四舍五入,默认两位数
+		formatFixedNumber({ cellValue }, digits = 2) {
+			return XEUtils.toFixed(XEUtils.round(cellValue, digits), digits)
+		},
+		// 向下舍入,默认两位数
+		formatCutNumber({ cellValue }, digits = 2) {
+			return XEUtils.toFixed(XEUtils.floor(cellValue, digits), digits)
+		},
+		// 转换 moment 类型为字符串
+		toMomentString({ cellValue }, format) {
+			return cellValue ? cellValue.format(format) : ''
+		}
+	})
 	</script>
 </html>

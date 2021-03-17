@@ -1,156 +1,181 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title>外勤车辆</title>
-		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
-	</head>
-	<body>
-		<div id="ctn" class="container-fluid">
-			<div class="row" style="background-color: rgb(247,255,255);height: 50px;display: flex;align-items: center;">
-				<span style="font-size: 25px;margin-left: 20px;">外勤车辆</span>
-				<button class="btn" style="margin-left: 87%;">关闭</button>
-			</div>
-			<div class="row"  style="background-color: rgb(247,247,247);">
-				<div class="row">
-					<div style="margin-top: 10px;margin-left: 80.5%;">
-						<a href="#" style="font-size: 20px;color: black;margin-left: 20px;" @click="add()"><img src="img/4ee2fb32e66e49f242d1067c0bff1921.jpeg" style="width: 20px;margin-right: 5px;" >增加</a>
-						<a href="#" style="font-size: 20px;color: black;margin-left: 20px;" @click="remove(teamForm.column1)"><img src="img/886b14bb25788cdd0af693bef85ed117.jpeg" style="width: 20px;margin-right: 5px;" >删除</a>
-						<a href="#" style="font-size: 20px;color: black;margin-left: 20px;" @click="save()"><img src="img/afaa16537c1ec647315b40d55f46546f.jpeg" style="width: 20px;margin-right: 5px;" >保存</a>
-					</div>
-				</div>
-				<div class="row" style="height: 52px;">
-					<form class="form-inline">
-					  <div class="form-group" style="margin-left: 35px;">
-					    <label for="exampleInputName2" style="color: rgb(33,182,206);"><span style="color: red;">*</span>车牌号</label>
-					    <input v-model="teamForm.plateNumber" class="form-control" id="exampleInputName2"  style="width: 120px;">
-					  </div>
-					  <div class="form-group" style="margin-left: 10px;">
-					    <label for="exampleInputEmail2" style="color: rgb(33,182,206);">品牌</label>
-					    <input v-model="teamForm.brand" class="form-control" id="exampleInputEmail2"  style="width: 120px;">
-					  </div>
-						<div class="form-group" style="margin-left: 10px;">
-						  <label for="exampleInputEmail3" style="color: rgb(33,182,206);">车型</label>
-						  <input v-model="teamForm.motorcycleType" class="form-control" id="exampleInputEmail3"  style="width: 120px;">
-						</div>
-						<div class="form-group" style="margin-left: 10px;">
-						  <label for="exampleInputEmail4" style="color: rgb(33,182,206);"><span style="color: red;">*</span>当前里程</label>
-						  <input v-model="teamForm.currentMileage" class="form-control" id="exampleInputEmail4"  style="width: 150px;">
-						</div>
-						<div class="form-group" style="margin-left: 10px;">
-						  <label style="color: rgb(33,182,206);"  for="exampleInputEmail5">班组</label>
-							<select name="" style="width: 150px;"  id="exampleInputEmail5" class="form-control" v-model="teamName" @change="teamForm.attributionTeam = teamName">
-								<option selected="selected" :value="item.teamName" v-for="item in bzList">{{item.teamCode}}&nbsp;&nbsp;{{item.teamName}}</option>
-							</select>
-						</div>
-					</form>
-				</div>
-			</div>
+
+<head>
+	<meta charset="utf-8">
+	<title>外勤车辆</title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+</head>
+
+<body>
+	<div id="ctn" class="container-fluid">
+		<div class="row" style="background-color: rgb(247,255,255);height: 50px;display: flex;align-items: center;">
+			<span style="font-size: 25px;margin-left: 20px;">外勤车辆</span>
+
+			<button type="button" class="btn btn-primary" style="margin-left: 42%;" @click="selectCar">选择</button>
+			<button class="btn" style="margin-left: 42%;">关闭</button>
+		</div>
+		<div class="row" style="background-color: rgb(247,247,247);">
 			<div class="row">
-				<div class="col-md-3">
-					<table class="table table-bordered table-striped table-hover">
-						<tr style="background-color: rgb(33,182,206); color: white;">
-							<td>车牌号</td>
-							<td>品牌</td>
-							<td>车型</td>
-							<td>当前里程</td>
-							<td>归属班组</td>
-						</tr>
-						<tr v-for="item in list" @click="teamForm = item">
-							<td>{{item.plateNumber}}</td>
-							<td>{{item.brand}}</td>
-							<td>{{item.motorcycleType}}</td>
-							<td>{{item.currentMileage}}</td>
-							<td>{{item.attributionTeam}}</td>
-						</tr>
-					</table>
+				<div style="margin-top: 10px;margin-left: 80.5%;">
+					<a href="#" style="font-size: 20px;color: black;margin-left: 20px;" @click="add()"><img
+							src="img/4ee2fb32e66e49f242d1067c0bff1921.jpeg"
+							style="width: 20px;margin-right: 5px;">增加</a>
+					<a href="#" style="font-size: 20px;color: black;margin-left: 20px;"
+						@click="remove(teamForm.column1)"><img src="img/886b14bb25788cdd0af693bef85ed117.jpeg"
+							style="width: 20px;margin-right: 5px;">删除</a>
+					<a href="#" style="font-size: 20px;color: black;margin-left: 20px;" @click="save()"><img
+							src="img/afaa16537c1ec647315b40d55f46546f.jpeg"
+							style="width: 20px;margin-right: 5px;">保存</a>
 				</div>
-				
+			</div>
+			<div class="row" style="height: 52px;">
+				<form class="form-inline">
+					<div class="form-group" style="margin-left: 35px;">
+						<label for="exampleInputName2" style="color: rgb(33,182,206);"><span
+								style="color: red;">*</span>车牌号</label>
+						<input v-model="teamForm.plateNumber" class="form-control" id="exampleInputName2"
+							style="width: 120px;">
+					</div>
+					<div class="form-group" style="margin-left: 10px;">
+						<label for="exampleInputEmail2" style="color: rgb(33,182,206);">品牌</label>
+						<input v-model="teamForm.brand" class="form-control" id="exampleInputEmail2"
+							style="width: 120px;">
+					</div>
+					<div class="form-group" style="margin-left: 10px;">
+						<label for="exampleInputEmail3" style="color: rgb(33,182,206);">车型</label>
+						<input v-model="teamForm.motorcycleType" class="form-control" id="exampleInputEmail3"
+							style="width: 120px;">
+					</div>
+					<div class="form-group" style="margin-left: 10px;">
+						<label for="exampleInputEmail4" style="color: rgb(33,182,206);"><span
+								style="color: red;">*</span>当前里程</label>
+						<input v-model="teamForm.currentMileage" class="form-control" id="exampleInputEmail4"
+							style="width: 150px;">
+					</div>
+					<div class="form-group" style="margin-left: 10px;">
+						<label style="color: rgb(33,182,206);" for="exampleInputEmail5">班组</label>
+						<select name="" style="width: 150px;" id="exampleInputEmail5" class="form-control"
+							v-model="teamName" @change="teamForm.attributionTeam = teamName">
+							<option selected="selected" :value="item.teamName" v-for="item in bzList">
+								{{item.teamCode}}&nbsp;&nbsp;{{item.teamName}}</option>
+						</select>
+					</div>
+				</form>
 			</div>
 		</div>
-		
-		
-		
-		
-		<script src="js/jquery-1.12.4.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-		<script src="js/vue-2.6.js"></script>
-		<script>
-			new Vue({
-				el:"#ctn",
-				data(){
-					return {
-						url:"http://127.0.0.1:8080/teamForm/",
-						bzList:[],
-						list:[],
-						teamForm:{column1:0},
-						teamName:""
-					}
-				},
-				methods:{
-						remove(id){
-							let that = this;
-							var bool = confirm("是否删除？");
-							if(bool){
-								$.ajax({
-									url:that.url+"remove/"+id,
-									type:"post",
-									success:function(result){
-										alert("删除成功！");
-										location.reload();
-									}
-								})
-							}
-						},
-					save(){
-						let that = this;
-						$.ajax({
-								url:that.url+"saveOrUpdate",
-								data:that.teamForm,
-								type:"post",
-								success:function(result){
-									alert("成功！");
-									location.reload();
-								},
-								error:function(){
-									alert("错误");
-									location.reload();
-								}
-						})
-					},
-					add(){
-						this.teamForm = {column1:0};
-					},
-					bzFind(){
-						let that = this;
-						$.ajax({
-							url:that.url+"bzFind",
-							dataType:"json",
-							success:function(result){
-								console.log(result);
-								that.bzList = result;
-							}
-						})
-					},
-					find(){
-						let that = this;
-						$.ajax({
-							url:that.url+"find",
-							dataType:"json",
-							success:function(result){
-								console.log(result);
-								that.list = result;
-							}
-						})
-					}
-					
-				},
-				created(){
-					this.bzFind();
-					this.find();
+		<div class="row">
+			<div class="col-md-3">
+				<table class="table table-bordered table-striped table-hover">
+					<tr style="background-color: rgb(33,182,206); color: white;">
+						<td>车牌号</td>
+						<td>品牌</td>
+						<td>车型</td>
+						<td>当前里程</td>
+						<td>车辆状态</td>
+						<td>归属班组</td>
+					</tr>
+					<tr v-for="item in list" @click="teamForm = item">
+						<td>{{item.plateNumber}}</td>
+						<td>{{item.brand}}</td>
+						<td>{{item.motorcycleType}}</td>
+						<td>{{item.currentMileage}}</td>
+						<td>{{item.column3}}</td>
+						<td>{{item.attributionTeam}}</td>
+					</tr>
+				</table>
+			</div>
+
+		</div>
+	</div>
+
+
+
+
+	<script src="js/jquery-1.12.4.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/vue-2.6.js"></script>
+	<script>
+		var vm = new Vue({
+			el: "#ctn",
+			data() {
+				return {
+					url: "http://127.0.0.1:8080/teamForm/",
+					bzList: [],
+					list: [],
+					teamForm: { column1: 0 },
+					teamName: ""
 				}
-			})
-			
-		</script>
-	</body>
+			},
+			methods: {
+				remove(id) {
+					let that = this;
+					var bool = confirm("是否删除？");
+					if (bool) {
+						$.ajax({
+							url: that.url + "remove/" + id,
+							type: "post",
+							success: function (result) {
+								alert("删除成功！");
+								location.reload();
+							}
+						})
+					}
+				},
+				save() {
+					let that = this;
+					$.ajax({
+						url: that.url + "saveOrUpdate",
+						data: that.teamForm,
+						type: "post",
+						success: function (result) {
+							alert("成功！");
+							location.reload();
+						},
+						error: function () {
+							alert("错误");
+							location.reload();
+						}
+					})
+				},
+				add() {
+					this.teamForm = { column1: 0 };
+				},
+				bzFind() {
+					let that = this;
+					$.ajax({
+						url: that.url + "bzFind",
+						dataType: "json",
+						success: function (result) {
+							console.log(result);
+							that.bzList = result;
+						}
+					})
+				},
+				find() {
+					let that = this;
+					$.ajax({
+						url: that.url + "find",
+						dataType: "json",
+						async:false,
+						success: function (result) {
+							console.log(result);
+							that.list = result;
+						}
+					})
+				},
+				selectCar(){
+					let message = this.teamForm;
+    				window.parent.postMessage(message,"*");
+				},
+
+			},
+			created() {
+				this.bzFind();
+				this.find();
+			}
+		})
+	</script>
+</body>
+
 </html>

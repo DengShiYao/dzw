@@ -1,9 +1,9 @@
 package com.accp.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -13,11 +13,11 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author dsy
- * @since 2021-02-25
+ * @since 2021-03-08
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -31,14 +31,14 @@ public class Acquisition extends Model<Acquisition> {
     @TableId(value = "ac_id", type = IdType.AUTO)
     private Integer acId;
 
-    @ApiModelProperty(value = "维修单号,外加维修表")
-    private String acRepairid;
+    @ApiModelProperty(value = "项目号,外键项目表")
+    private Integer acRepairid;
 
     @ApiModelProperty(value = "领料日期")
     private String acTime;
 
     @ApiModelProperty(value = "物料id，外键商品表")
-    private Integer acGoods;
+    private String acGoods;
 
     @ApiModelProperty(value = "备用列1")
     private String column1;
@@ -49,11 +49,29 @@ public class Acquisition extends Model<Acquisition> {
     @ApiModelProperty(value = "备用列3")
     private String column3;
 
-    @TableField(exist = false)
-    private Goods goods;
+    @ApiModelProperty(value = "领料人")
+    private String acPeople;
 
-    @TableField(exist =false)
-    private Servicingproject servicingproject;
+    @ApiModelProperty(value = "数量")
+    private Integer acNumber;
+
+    @ApiModelProperty(value = "金额")
+    @TableField("ac_sumPrice")
+    private Double acSumprice;
+
+    @ApiModelProperty(value = "服务顾问")
+    @TableField("ac_serviceAdvice")
+    private String acServiceadvice;
+
+    @ApiModelProperty(value = "免单原因")
+    private String acMiandan;
+
+    @TableField(exist = false)
+    private  Goods goods;
+
+    @TableField(exist = false)
+    private  Servicingproject servicingproject;
+
 
     public static final String AC_ID = "ac_id";
 
@@ -68,6 +86,16 @@ public class Acquisition extends Model<Acquisition> {
     public static final String COLUMN2 = "column2";
 
     public static final String COLUMN3 = "column3";
+
+    public static final String AC_PEOPLE = "ac_people";
+
+    public static final String AC_NUMBER = "ac_number";
+
+    public static final String AC_SUMPRICE = "ac_sumPrice";
+
+    public static final String AC_SERVICEADVICE = "ac_serviceAdvice";
+
+    public static final String AC_MIANDAN = "ac_miandan";
 
     @Override
     protected Serializable pkVal() {

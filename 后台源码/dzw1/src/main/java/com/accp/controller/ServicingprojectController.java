@@ -1,20 +1,17 @@
 package com.accp.controller;
 
 
-import com.accp.domain.Acquisition;
-import com.accp.domain.Cargoods;
 import com.accp.domain.Servicing;
 import com.accp.domain.Servicingproject;
-import com.accp.service.impl.AcquisitionServiceImpl;
-import com.accp.service.impl.CargoodsServiceImpl;
 import com.accp.service.impl.ServicingServiceImpl;
 import com.accp.service.impl.ServicingprojectServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
+
+//import sun.security.smartcardio.SunPCSC;
 
 /**
  * <p>
@@ -76,7 +73,7 @@ public class ServicingprojectController {
      */
     public  List<Servicingproject> selBySerNumber(@PathVariable String serNumber){
         QueryWrapper<Servicingproject> queryWrapper = new QueryWrapper<>();
-        queryWrapper.lambda().eq(Servicingproject::getColumn1,serNumber);
+        queryWrapper.lambda().eq(Servicingproject::getWxGdannumber,serNumber);
         List<Servicingproject> list = servicingprojectService.list(queryWrapper);
         return  list;
     }
@@ -97,6 +94,33 @@ public class ServicingprojectController {
             price+=servicingproject.getWxJsjies();
         }
         return price;
+    }
+
+    /**
+     * 根据id查询项目
+     * @return
+     */
+    @GetMapping("/selById/{id}")
+    public  Servicingproject selById(@PathVariable Integer id){
+        return  servicingprojectService.getById(id);
+    }
+
+    /**
+     * 修改项目
+     * @return
+     */
+    @PostMapping("/updateServicingProject")
+    public  boolean updateServicingProject(@RequestBody Servicingproject servicingproject){
+        boolean a= servicingprojectService.updateById(servicingproject);
+        return  a;
+    }
+
+    /**
+     * 删除项目
+     * @return
+     */
+    public boolean removeServicingProject(@PathVariable Integer id){
+        return servicingprojectService.removeById(id);
     }
 }
 

@@ -3,14 +3,14 @@
 
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title></title>
     <!-- 引入样式 -->
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/public-y.css">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css" />
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/public-y.css" />
     <!-- 引入样式 -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vxe-table/lib/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vxe-table@3.1.4/lib/style.css" />
     <style>
         .el-menu-vertical-demo:not(.el-menu--collapse) {
             width: 220px;
@@ -23,6 +23,12 @@
             top: -5px;
             width: 18px;
             padding: 0px;
+        }
+
+        .el-dialog {
+            width: 100% !important;
+            height: 100% im !important;
+            margin: 0px !important;
         }
 
         .el-menu-vertical-demo {
@@ -63,7 +69,7 @@
         }
 
         .scrollContent::-webkit-scrollbar-track-piece {
-            background-color: #FFFFFF;
+            background-color: #ffffff;
         }
 
         /*滚动条整体部分*/
@@ -76,19 +82,19 @@
         .scrollContent::-webkit-scrollbar-thumb {
             background-color: #bfbfbf;
             border-radius: 5px;
-            border: 1px solid #F1F1F1;
-            box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+            border: 1px solid #f1f1f1;
+            box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
         }
 
         /*滚动条的轨道*/
         .scrollContent::-webkit-scrollbar-track {
             /* -webhit-box-shadow: inset 0 0 5px transparent; */
             background-color: transparent !important;
-            background-color: #FFFFFF;
+            background-color: #ffffff;
         }
 
         .scrollContent::-webkit-scrollbar-thumb:hover {
-            background-color: #A8A8A8;
+            background-color: #a8a8a8;
         }
 
         .scrollContent::-webkit-scrollbar-thumb:active {
@@ -97,7 +103,7 @@
 
         /*边角，即两个滚动条的交汇处*/
         .scrollContent::-webkit-scrollbar-corner {
-            background-color: #FFFFFF;
+            background-color: #ffffff;
         }
 
         body,
@@ -148,26 +154,26 @@
             right: 0px;
         }
     </style>
-
 </head>
 
 <body>
     <script src="http://unpkg.com/vue/dist/vue.js"></script>
     <script src="http://unpkg.com/element-ui@2.15.1/lib/index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/xe-utils"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vxe-table@3.1.4"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/vxe-table@3.1.4"></script>
     <script src="js/menu.js"></script>
     <script src="js/jquery-1.12.4.js"></script>
     <!-- <script src="js/vue-2.6.js"></script> -->
     <script src="js/bootstrap.js"></script>
-    <div id="app" style="height: 100%;">
-        <el-container style="height: 100%;">
-            <el-aside style="width: auto;background-color: #636e72;color: #ffffff;" class="scrollContent">
+    <div id="app" style="height: 100%">
+        <el-container style="height: 100%">
+            <el-aside style="width: auto; background-color: #636e72; color: #ffffff" class="scrollContent">
                 <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" :collapse="isCollapse"
                     @close="handleClose" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
                     <el-menu-item index="6" @click="toUnfoldAndFold">
-                        <i :class="isCollapseIcon"></i> <!-- <i class="el-icon-s-fold"></i> -->
-                        <span slot="title" style="font-size: 20px;"><strong>德召文卡修系统</strong></span>
+                        <i :class="isCollapseIcon"></i>
+                        <!-- <i class="el-icon-s-fold"></i> -->
+                        <span slot="title" style="font-size: 20px"><strong>德召文卡修系统</strong></span>
                     </el-menu-item>
                     <el-submenu v-bind:index="item.menuId+'-'+index+1" v-for="item,index in menu">
                         <template slot="title">
@@ -176,7 +182,6 @@
                         </template>
                         <tree :menu="item.sysMenuC" :index1="index+1" @create-tab="createTab"></tree>
                     </el-submenu>
-
                 </el-menu>
             </el-aside>
             <el-container>
@@ -184,14 +189,15 @@
                     <el-row :gutter="24">
                         <el-col :span="18" :offset="0">
                             <div class="col-md-11">
-                                <ul class="nav nav-tabs" style="padding-left: 65px;">
-                                    <li role="presentation" v-for="item in menuM"><a href="#"
-                                            @click="find_MenuC(item.menuId)">{{item.menuName}}</a></li>
+                                <ul class="nav nav-tabs" style="padding-left: 65px">
+                                    <li role="presentation" v-for="item in menuM">
+                                        <a href="#" @click="find_MenuC(item.menuId)">{{item.menuName}}</a>
+                                    </li>
                                 </ul>
                             </div>
                         </el-col>
                         <el-badge :value="pickUpNum" class="item" :hidden="pickUpNum == 0 ? true:false">
-                            <el-button size="small" data-toggle="modal" href='#modal-id3 ' @click="findPickUp1">场外接车
+                            <el-button size="small" @click="findPickUp1">场外接车
                             </el-button>
                         </el-badge>
                     </el-row>
@@ -202,7 +208,7 @@
                             <div class="grid-content bg-purple-dark">
                                 <el-tag closable class="el-tag" @close="handleCloseTag(tag)" v-for="tag in tabs"
                                     :key="tag.column1" :type="tag.type">
-                                    <a :href="'#'+tag.column1" style="color:black;"
+                                    <a :href="'#'+tag.column1" style="color: black"
                                         data-toggle="tab">{{tag.menuName}}</a>
                                 </el-tag>
                             </div>
@@ -211,7 +217,7 @@
                     <el-row>
                         <el-col :span="24" class="tab-content">
                             <div v-for="item in tabs" class="grid-content bg-purple-dark tab-content"
-                                style="height:609px;" :class="['tab-pane',item.active?'active':'']" :id="item.column1">
+                                style="height: 609px" :class="['tab-pane',item.active?'active':'']" :id="item.column1">
                                 <!-- scrolling="no" -->
                                 <iframe :src="item.url" width="100%" height="100%" frameborder="no" border="0"></iframe>
 
@@ -226,13 +232,15 @@
 
         <!-- 场外接车弹框 -->
         <div class="modal fade" id="modal-id3">
-            <div class="modal-dialog" style="width: 800px;">
+            <div class="modal-dialog" style="width: 800px">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" style="color: black;">场外接车</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                        <h4 class="modal-title" style="color: black">场外接车</h4>
                     </div>
-                    <div class="modal-body" style="width: 800px;height: 350px;">
+                    <div class="modal-body" style="width: 800px; height: 350px">
                         <!-- <template>
                             <el-table style="width: 100%" :data="pickUp" max-height="250">
                                 <el-table-column fixed prop="id" label="编号" width="120">
@@ -276,32 +284,43 @@
                         </vxe-table> -->
                         <div style="height: 100%">
                             <template>
-                                <vxe-grid border :loading="loading" stripe highlight-hover-row 
-                                    resizable ref="xTable" class="mytable-scrollbar" auto-resize height="100%"
-                                    :data="tableData" :columns="tableColumn" @current-change="currentChangeEvent" round
+                                <vxe-grid border :loading="loading" stripe highlight-hover-row resizable ref="xTable"
+                                    class="mytable-scrollbar" auto-resize height="100%" :data="tableData"
+                                    :columns="tableColumn" @current-change="currentChangeEvent" round
                                     show-header-overflow show-overflow>
-                                    <template  v-slot:user-slot="{ row }">
-                                        <vxe-button type="text" status="primary" content="接车"></vxe-button>
+                                    <template v-slot:user-slot="{ row }">
+                                        <vxe-button status="primary" style="color: black" icon="fa fa-download"
+                                            @click="clickFooterItem(row)">{{row.status == "待接车"?"接车":"维修"}}</vxe-button>
                                     </template>
                                 </vxe-grid>
                             </template>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                        <button type="button" class="btn btn-primary">确定</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            关 闭
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- 接车模态框 -->
+        <el-dialog title="选择车辆" :visible.sync="dialogVisible" width="30%" :before-close="handleClose1"
+            style="width: 100%;height: 100%;">
+            <div style="width: 100%;">
+                <iframe id="iframe" src="../ZengQingNian/外勤车辆.html" width="100%" height="100%" frameborder="no"
+                    border="0"></iframe>
+            </div>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="dialogVisible = false">关 闭</el-button>
+            </span>
+        </el-dialog>
+
     </div>
-
-
 
     <!-- <script:::: src="js/vue-2.6.js" type="text/javascript" charset="utf-8"></script::::> -->
 
     <script>
-
         var user = sessionStorage.getItem("user");
         Vue.component("tree", {
             props: ["menu", "index1"],
@@ -315,9 +334,9 @@
             methods: {
                 createTab(item) {
                     this.$emit("create-tab", item);
-                }
-            }
-        })
+                },
+            },
+        });
         var perms = [];
         menuApi.findPerms(function (result) {
             perms = result;
@@ -331,28 +350,110 @@
                     isCollapse: false,
                     isCollapseIcon: "el-icon-s-fold",
                     tabs: [
-                        { id: 0, menuName: "首页", column1: "index", active: true, path: "首页信息.html" }
+                        {
+                            id: 0,
+                            menuName: "首页",
+                            column1: "index",
+                            active: true,
+                            url: "../daizhengyu/html/首页信息.html",
+                        },
                     ],
                     pickUpNum: 0,
                     pickNum: 0,
-                    tableColumn:[
-                        { field: 'id', title: '编号', showOverflow: true, width: 150, visible: true},
-                        { field: 'userName', title: '客户姓名', showOverflow: true, width: 150, visible: true},
-                        { field: 'plateNumber', title: '车牌号码', showOverflow: true, width: 150, visible: true},
-                        { field: 'phone', title: '联系电话', showOverflow: true, width: 150, visible: true},
-                        { field: 'position', title: '地理位置', showOverflow: true, width: 150, visible: true},
-                        { field: 'faultDescription', title: '故障原因', showOverflow: true, width: 150, visible: true},
-                        { field: 'status', title: '状态', showOverflow: true, width: 150, visible: true},
-                        { field: 'column1', title: '是否已读', showOverflow: true, width: 150, visible: true},
-                        { field: '', title: '操作', showOverflow: true, width: 150, visible: true,slots: { default: 'user-slot' } }
-                    ], 
+                    tableColumn: [
+                        {
+                            field: "id",
+                            title: "编号",
+                            showOverflow: true,
+                            width: 100,
+                            visible: true,
+                        },
+                        {
+                            field: "userName",
+                            title: "客户姓名",
+                            showOverflow: true,
+                            width: 100,
+                            visible: true,
+                        },
+                        {
+                            field: "plateNumber",
+                            title: "车牌号码",
+                            showOverflow: true,
+                            width: 100,
+                            visible: true,
+                        },
+                        {
+                            field: "phone",
+                            title: "联系电话",
+                            showOverflow: true,
+                            width: 120,
+                            visible: true,
+                        },
+                        {
+                            field: "position",
+                            title: "地理位置",
+                            showOverflow: true,
+                            width: 250,
+                            visible: true,
+                        },
+                        {
+                            field: "faultDescription",
+                            title: "故障原因",
+                            showOverflow: true,
+                            width: 250,
+                            visible: true,
+                        },
+                        {
+                            field: "status",
+                            title: "状态",
+                            showOverflow: true,
+                            width: 100,
+                            visible: true,
+                            fixed: "right",
+                        },
+                        {
+                            field: "column1",
+                            title: "是否已读",
+                            showOverflow: true,
+                            width: 100,
+                            visible: true,
+                        },
+                        {
+                            field: "",
+                            title: "操作",
+                            showOverflow: true,
+                            width: 100,
+                            visible: true,
+                            fixed: "right",
+                            slots: { default: "user-slot" },
+                        },
+                    ],
                     tableData: [],
-                    loading:false
+                    loading: false,
+                    dialogVisible: false,
+                    iframeData: null,
+                    pick_upId: null,
+                    obj:{},
                 };
             },
+            mounted() {
+                let that = this;
+                window.addEventListener("message", function (e) {
+                    that.iframeData = e.data
+                    console.log(that.obj);
+                    that.updatePick_upStatus(that.iframeData,that.obj);
+                });
+            },
             methods: {
-                currentChangeEvent({row}){
-                        console.log(JSON.stringify(this.$refs.xTable.getCurrentRecord()));;
+                handleClose1(done) {
+                    this.$confirm('确认关闭？')
+                        .then(_ => {
+                            done();
+                        })
+                        .catch(_ => { });
+                },
+                currentChangeEvent({ row }) {
+                    console.log(JSON.stringify(this.$refs.xTable.getCurrentRecord()));
                 },
                 handleOpen(key, keyPath) {
                     console.log(key, keyPath);
@@ -368,15 +469,15 @@
                         type: "post",
                         async: false,
                         xhrFields: {
-                            withCredentials: true
+                            withCredentials: true,
                         },
                         crossDomain: true,
                         dataType: "JSON",
                         success: function (result) {
                             user1 = result;
-                        }
-                    })
-                    if (!user && (user1.loginName == null && user == null)) {
+                        },
+                    });
+                    if (!user && user1.loginName == null && user == null) {
                         alert("您还没有登录，请重新登录后在进入首页.....");
                         window.location.href = "../../login/chahua3434/login.html";
                         return false;
@@ -391,18 +492,17 @@
                         if (item.column1 == tag.column1) {
                             this.tabs.splice(index, 1);
                         }
-
                     });
                 },
                 //查看
                 /* 左侧树形展开折叠 */
                 toUnfoldAndFold() {
                     this.isCollapse = this.isCollapse ? false : true;
-                    this.isCollapseIcon = this.isCollapse ? "el-icon-s-unfold" : "el-icon-s-fold";
+                    this.isCollapseIcon = this.isCollapse
+                        ? "el-icon-s-unfold"
+                        : "el-icon-s-fold";
                 },
-                toTagSwitch() {
-
-                },
+                toTagSwitch() { },
                 // 查询主菜单
                 find_Menu() {
                     let that = this;
@@ -411,15 +511,16 @@
                         type: "post",
                         async: false,
                         xhrFields: {
-                            withCredentials: true
+                            withCredentials: true,
                         },
                         crossDomain: true,
                         dataType: "JSON",
                         success: function (result) {
                             that.menuM = result;
-                        }
-                    })
+                        },
+                    });
                 },
+                //查询所有的菜单不包括最大模块
                 find_MenuC(menuId) {
                     let that = this;
                     $.ajax({
@@ -427,34 +528,35 @@
                         type: "post",
                         async: false,
                         xhrFields: {
-                            withCredentials: true
+                            withCredentials: true,
                         },
                         crossDomain: true,
                         dataType: "JSON",
                         success: function (result) {
                             that.menu = [];
                             that.menu = result;
-                        }
-                    })
+                        },
+                    });
                 },
                 //点击时查询所有的
                 findPickUp1() {
-                    this.loading=true;
+                    this.loading = true;
                     let that = this;
                     $.ajax({
                         url: basePath + "pickUp",
                         type: "post",
                         async: false,
                         xhrFields: {
-                            withCredentials: true
+                            withCredentials: true,
                         },
                         crossDomain: true,
                         dataType: "JSON",
                         success: function (result) {
-                            that.loading=false;
+                            that.loading = false;
+                            $("#modal-id3").modal("show");
                             that.tableData = result;
                             console.log(that.tableData);
-                        }
+                        },
                     });
                 },
                 //查询是否有新数据
@@ -465,20 +567,31 @@
                         type: "post",
                         async: false,
                         xhrFields: {
-                            withCredentials: true
+                            withCredentials: true,
                         },
                         crossDomain: true,
                         dataType: "JSON",
                         success: function (result) {
                             that.pickUpNum = result;
-                        }
+                        },
                     });
                 },
+                //弹出信息
                 open1() {
                     const h = this.$createElement;
+                    let that = this;
                     this.$notify({
-                        title: '场外接车',
-                        message: h('i', { style: 'color: teal' }, '有一个用户现在需要接车，请查看！')
+                        title: "场外接车",
+                        message: h(
+                            "i",
+                            { style: "color: teal;cursor:pointer" },
+                            "有一个用户现在需要接车，请查看！"
+                        ),
+                        onClick(){
+                            that.findPickUp1();
+                            that.findPickUpNum();
+                            this.close();
+                        }
                     });
                 },
                 //创建标签叶
@@ -486,15 +599,147 @@
                     if (item.sysMenuC && item.sysMenuC.length > 0) {
                         return;
                     }
-                    this.tabs.forEach(item => { item.active = false; });
+                    this.tabs.forEach((item) => {
+                        item.active = false;
+                    });
                     this.$set(item, "active", true);
-                    var filterItem = this.tabs.filter(sitem => sitem.column1 == item.column1);
+                    var filterItem = this.tabs.filter(
+                        (sitem) => sitem.column1 == item.column1
+                    );
                     if (filterItem && filterItem.length > 0) {
                         this.$set(filterItem[0], "active", true);
                     } else {
                         this.tabs.push(item);
                     }
                 },
+                //接车点击弹开框
+                clickFooterItem(row) {
+                    this.obj = row;
+                    if (row.column2 == '' || row.column2 == null) {
+                        this.pick_upId = row.id;
+                        this.dialogVisible = true;
+                    } else {
+                        this.pick_upId = 0;
+                        this.dialogVisible = false;
+                        let that = this;
+                        $.ajax({
+                            url: basePath + "servicing/takeRescueFinish/"+row.sernumber,
+                            type: "post",
+                            xhrFields: {
+                                withCredentials: true,
+                            },
+                            async:false,
+                            data:{
+                                carId:JSON.parse(row.column2).column1,
+                                pickUpId:row.id,
+                            },
+                            crossDomain: true,
+                            success:function(result){
+                                alert(result == true ? "接车完成，进入维修":"接车失败，路上出现故障");
+                            }
+                        });
+                        this.findPickUp1();
+                    }
+                },
+                setIntervalSelectMessage() {
+                    let that = this;
+                    $.ajax({
+                        url: basePath + "pickUp/findPickNum",
+                        type: "post",
+                        async: false,
+                        xhrFields: {
+                            withCredentials: true,
+                        },
+                        crossDomain: true,
+                        dataType: "JSON",
+                        success: function (result) {
+                            if (that.pickUpNum < result) {
+                                that.findPickUpNum();
+                                that.open1();
+                            } else if (that.pickUpNum > result) {
+                                that.pickUpNum = result;
+                            }
+                        },
+                    });
+                },
+                updatePick_upStatus(data) {
+                    console.log(data);
+                    if (data.column1 == "" || data.column1 == null) {
+                        alert("请双击选中需要前往接车的车辆！");
+                        return false;
+                    }
+                    if (data.column3 == "接车中") {
+                        alert("此车辆正在接车中！");
+                        return false;
+                    }
+                    $("#iframe").get(0).contentWindow.location.reload(true);
+                    let that = this;
+                    that.dialogVisible = false;
+                    console.log("+++++++++++++++++++++++");
+                    that.iframeData.column3 = "接车中";
+                    $.ajax({
+                        url: basePath + "/pickUp/updatePick_upStatus",
+                        type: "post",
+                        async: false,
+                        xhrFields: {
+                            withCredentials: true,
+                        },
+                        data: {
+                            id: that.pick_upId,
+                            carObj: JSON.stringify(that.iframeData),
+                            carObjId: that.iframeData.column1,
+                            carObject:data,
+                            serNumber:that.getSerNumber(),
+                        },
+                        crossDomain: true,
+                        dataType: "JSON",
+                        success: function (result) {
+                            if (result == true) {
+                                alert("车辆开始前往目的地接车！");
+                                that.findPickUp1();
+                            }
+                        },
+                    });
+                    this.setIntervalSelectMessage();
+                },
+                initWebSocket: function () {
+                    // WebSocket与普通的请求所用协议有所不同，ws等同于http，wss等同于https                
+                    this.websock = new WebSocket("ws://localhost:8080/websocket/DPS007");
+                    this.websock.onopen = this.websocketonopen;
+                    this.websock.onerror = this.websocketonerror;
+                    this.websock.onmessage = this.websocketonmessage;
+                    this.websock.onclose = this.websocketclose;
+                },
+                websocketonopen: function () {
+                    console.log("WebSocket连接成功");
+                },
+                websocketonerror: function (e) {
+                    console.log("WebSocket连接发生错误" + e);
+                },
+                websocketonmessage: function (e) {
+                    this.setIntervalSelectMessage();
+                },
+                websocketclose: function (e) {
+                    console.log("connection closed ");
+                },
+                //自动获取维修单号
+                getSerNumber(){
+                    let that =this;
+                    serNumber = null;
+                    $.ajax({
+                        url:basePath+"/servicing/getServicingId",
+                      /*   dataType:"json", */
+                        async:false,
+                        xhrFields: {
+                            withCredentials: true,
+                        },
+                        crossDomain: true,
+                        success:function(result){
+                            serNumber = result;
+                        },
+                    });
+                    return serNumber;
+                }
             },
             created() {
                 var flag = this.isLogin();
@@ -504,35 +749,12 @@
                 this.find_Menu();
                 this.find_MenuC(1);
                 this.findPickUpNum();
-                setInterval(() => {
-                    let that = this;
-                    $.ajax({
-                        url: basePath + "pickUp/findPickNum",
-                        type: "post",
-                        async: false,
-                        xhrFields: {
-                            withCredentials: true
-                        },
-                        crossDomain: true,
-                        dataType: "JSON",
-                        success: function (result) {
-                            if (that.pickUpNum < result) {
-                                that.findPickUpNum();
-                                that.open1();
-                            } else if (that.pickUpNum > result) {
-
-                            }
-                        }
-                    });
-                }, 5000);
-            }
-        }
-        var Ctor = Vue.extend(Main)
-        new Ctor().$mount('#app')
-
+                this.initWebSocket();
+            },
+        };
+        var Ctor = Vue.extend(Main);
+        new Ctor().$mount("#app");
     </script>
-
-
 </body>
 
 </html>

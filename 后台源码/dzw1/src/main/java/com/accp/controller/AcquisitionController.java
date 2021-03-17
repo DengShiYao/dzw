@@ -2,9 +2,11 @@ package com.accp.controller;
 
 
 import com.accp.domain.Acquisition;
+import com.accp.domain.Goods;
 import com.accp.domain.Servicing;
 import com.accp.domain.Servicingproject;
 import com.accp.service.impl.AcquisitionServiceImpl;
+import com.accp.service.impl.GoodsServiceImpl;
 import com.accp.service.impl.ServicingServiceImpl;
 import com.accp.service.impl.ServicingprojectServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -38,6 +40,9 @@ public class AcquisitionController {
     @Autowired
     AcquisitionServiceImpl acquisitionService;
 
+    @Autowired
+    GoodsServiceImpl goodsService;
+
     @GetMapping("selAcquisitionByChepai/{chepai}")
     /**
      * 根据车牌查询领料
@@ -59,7 +64,39 @@ public class AcquisitionController {
         for(int i=0;i<list2.size();i++){
             list2.get(i).setServicingproject(list1.get(i));
         }
+        for (Acquisition acquisition :list2){
+            Goods goods =goodsService.getById(acquisition.getAcGoods());
+            acquisition.setGoods(goods);
+        }
         return  list2;
     }
+    @GetMapping("/selBySerNumber/{serNumber}")
+    /**
+     * 根据维修单号查询领料
+     */
+    public List<Acquisition> selBySerNumber(@PathVariable String serNumber){
+        QueryWrapper<Servicing> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().eq(Servicing::getSerNumber,serNumber);
+        List<Servicing> list = servicingService.list(queryWrapper);
+        String [] array = new String[list.size()];
+        for(int i=0;i<array.length;i++){
+            array[i]=list.get(i).getSerNumber();
+        }
+        List<Servicingproject> list1 =servicingprojectService.selByArray(array);
+        Integer [] array1= new Integer[list1.size()];
+        for (int i=0;i<array1.length;i++){
+            array1[i]=list1.get(i).getWxId();
+        }
+        List<Acquisition> list2 =acquisitionService.selByArray(array1);
+        for(int i=0;i<list2.size();i++){
+            list2.get(i).setServicingproject(list1.get(i));
+        }
+        for (Acquisition acquisition :list2){
+            Goods goods =goodsService.getById(acquisition.getAcGoods());
+            acquisition.setGoods(goods);
+        }
+        return  list2;
+    }
+
 }
 

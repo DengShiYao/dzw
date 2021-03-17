@@ -429,10 +429,9 @@
                     console.log(e.data);
                     let iframeVue1 = JSON.parse(JSON.stringify(e.data));
                     /*  let iframeVue1 = JSON.stringify(e.data); */
-                    console.log(iframeVue1);
+//                  console.log(iframeVue1);
                     if (iframeVue1.aa == "car") {
-                        console.log("dd")
-
+//                      console.log("dd")
                         //车辆页面传输过来的数据
                         that.iframeVue.chepai = iframeVue1.val.carCph;
                         that.iframeVue.chejia = iframeVue1.val.carCjh;
@@ -448,12 +447,12 @@
                         that.iframeVue.xcbyrq = iframeVue1.val.carXcbyrq;
                         console.log(that.iframeVue);
                         $("#carInformation").modal("hide");
-                    } else if (iframeVue1.aa == "bb") {
+                    } else if (iframeVue1.aa == "dd") {
                         console.log("ssddd")
                         $("#ServicingInformation").modal("hide");
-                        location.reload();
+                        that.selWorkingCar();
+//                      location.reload();
                     }else if(iframeVue1.aa == "cc"){
-                        alert("即将跳转结算中心");
                         $("#ServicingInformation").modal("hide");
                         window.location.href="../../ZengQingNian/结算中心.html";
                     }
@@ -581,7 +580,6 @@
                         /* contentType:"applicatiton/json;charset=utf-8", */
                         success: function (result) {
                             if (result) {
-                                alert("成功");
                                 $("#ServicingInformation").modal("show");
                                 //像子页面传值
                                 that.iframe = that.$refs.iframe;
@@ -721,7 +719,6 @@
                 //根据条件进行右上侧搜索框进行搜索
                 selByParse(){
                     var parse=$("#search").val();
-                    alert(parse);
                     if(parse==""||parse==null){
                         parse="我是空数据";
                     }

@@ -92,7 +92,6 @@
 						addStudent(){
 								let that = this;
 									var json = JSON.stringify(that.add);
-									alert(json)
 								$.ajax({
 										url:"http://127.0.0.1:8080/car/insert/",
 										data:json,
@@ -110,7 +109,6 @@
 						find(){
 								let that = this;
 								var car = that.clss;
-								alert("车辆搜索"+car);
 								$.ajax({
 										url:"http://127.0.0.1:8080/car/selectPage/",
 										data:{car:car},
@@ -124,7 +122,6 @@
 									});
 							},findKhID(id){
 								let that = this;
-								alert("用户id"+id)
 								$.ajax({
 										url:"http://127.0.0.1:8080/car/SelectKhID/",
 										data:{id:id},
@@ -185,7 +182,6 @@
 							},remove(item){
 								let that = this;
 								var id = item.carCph;
-								alert(id)
 								$.ajax({
 										url:"http://127.0.0.1:8080/car/delect/",
 										data:{id:id},
@@ -238,7 +234,6 @@
 									},
 								find2(cph){
 									let that = this;
-									alert(cph)
 									$.ajax({
 											url:"http://127.0.0.1:8080/maintenance/selectPage/",
 											data:{cph:cph},
@@ -252,7 +247,6 @@
 								},remove2(item){
 									let that = this;
 									var id = item.id;
-									alert(id)
 									$.ajax({
 											url:"http://127.0.0.1:8080/maintenance/delect/",
 											data:{id:id},

@@ -1,9 +1,16 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="utf-8">
 		<title>维修单</title>
-		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+
+		<link rel="stylesheet" type="text/css" href="../yf/css/font-awesome.css" />
+		<link rel="stylesheet" href="../yf/css/public-y.css">
+		<link rel="stylesheet" href="../yf/css/car_contact.css">
+		<!-- 引入样式 -->
+		<link rel="stylesheet" href="../yf/package/lib/style.css">
 		<style type="text/css">
 			iframe {
 				height: 900px;
@@ -14,24 +21,38 @@
 			form {
 				color: #269ABC;
 			}
+			
 			html {
-				-ms-overflow-style:none;
-				overflow:-moz-scrollbars-none;
-				}
-			html::-webkit-scrollbar{width:0px}
+				-ms-overflow-style: none;
+				overflow: -moz-scrollbars-none;
+			}
+			
+			html::-webkit-scrollbar {
+				width: 0px
+			}
+			
+			#ctn {
+				height: 100%;
+			}
+			
+			body,
+			html {
+				height: 100%;
+			}
 		</style>
 	</head>
+
 	<body>
 		<div id="ctn" class="container-fluid">
 			<div class="row" style="background-color: rgb(247,255,255);display: flex; align-items: center;height: 50px;">
 				<span style="font-size: 25px;margin-left: 20px;">维修单</span>
-				<button class="btn" style="margin-left: 89%;">取消</button>
+				<!-- <button class="btn" style="margin-left: 89%;">取消</button> -->
 			</div>
 			<div class="row" style="background-color: rgb(247,247,247);height: 40px;display: flex;align-items: center;">
 				<span style="font-size: 17px;margin-left: 20px;">单号：{{addServicing.serNumber}}</span>
-				<button style="margin-left: 80.6%;" type="button" class="btn btn-success"v-if="setButtonStatus1" @click="takeCarFinish">接车完成</button>
-				<button style="margin-left: 80.6%;" type="button" class="btn btn-success" v-if="setButtonStatus2"@click="testOnCompletion">竣工检验</button>
-				<button style="margin-left: 80.6%;" type="button" class="btn btn-success" v-if="setButtonStatus3"@click="settlement">结算</button>
+				<button style="margin-left: 78.6%;" type="button" class="btn btn-success" v-if="setButtonStatus1" @click="takeCarFinish">接车完成</button>
+				<button style="margin-left: 78.6%;" type="button" class="btn btn-success" v-if="setButtonStatus2" @click="testOnCompletion">竣工检验</button>
+				<button style="margin-left: 78.6%;" type="button" class="btn btn-success" v-if="setButtonStatus3" @click="settlement">结算</button>
 			</div>
 			<div class="row" style="border-top: 1px solid rgb(33,182,206);">
 				<form class="form-inline" style="margin-top: 10px;">
@@ -52,7 +73,7 @@
 							<input type="text" class="form-control" id="exampleInputName4" v-model="addServicing.serCarbrand" readonly="readonly">
 						</div>
 					</div>
-					
+
 					<div style="margin-bottom: 10px;">
 						<div class="form-group" style="margin-left: 30px;">
 							发动机号
@@ -67,7 +88,7 @@
 							<input type="text" class="form-control" id="exampleInputName7" v-model="addServicing.serServiceguwen" :readonly="billsTrue?false:'readonly'">
 						</div>
 					</div>
-					
+
 					<div style="margin-bottom: 10px;">
 						<div class="form-group" style="margin-left: 30px;">
 							车主姓名
@@ -82,7 +103,7 @@
 							<input type="text" class="form-control" id="exampleInputName10" v-model="addServicing.serLianxiphone" readonly="readonly">
 						</div>
 					</div>
-					
+
 					<div style="margin-bottom: 10px;">
 						<div class="form-group" style="margin-left: 30px;">
 							进厂里程
@@ -101,7 +122,7 @@
 							<input type="text" class="form-control" id="exampleInputName14" v-model="addServicing.serJctime" :readonly="billsTrue?false:'readonly'">
 						</div>
 					</div>
-					
+
 					<div style="margin-bottom: 10px;">
 						<div class="form-group" style="margin-left: 30px;">
 							业务类别
@@ -120,7 +141,7 @@
 							<input type="text" class="form-control" id="exampleInputName18" v-model="addServicing.serExpecttime" :readonly="billsTrue?false:'readonly'">
 						</div>
 					</div>
-					
+
 					<div style="margin-bottom: 10px;">
 						<div class="form-group" style="margin-left: 30px;">
 							结算方式
@@ -139,7 +160,7 @@
 							<input type="text" class="form-control" id="exampleInputName22" v-model="addServicing.serScjinchang" readonly="readonly">
 						</div>
 					</div>
-					
+
 					<div style="margin-bottom: 10px;">
 						<div class="form-group" style="margin-left: 30px;">
 							预估金额
@@ -150,7 +171,7 @@
 							<input type="text" style="width: 694px;" class="form-control" id="exampleInputName24" v-model="addServicing.serJdbeizu" :readonly="billsTrue?false:'readonly'">
 						</div>
 					</div>
-					
+
 					<div class="form-group" style="margin-left: 30px;">
 						报修陈述
 						<textarea rows="" cols="127" class="form-control" :readonly="billsTrue?false:'readonly'">
@@ -159,40 +180,38 @@
 					</div>
 				</form>
 			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<ul class="nav nav-tabs">
-						<li :class="{active:item.active}" v-for="item in tabs"><a :href="'#'+item.ename" data-toggle="tab" @click="activeBool(item)">{{item.name}}</a></li>
-					</ul>
-				</div>
+			<!--维修项目领料情况结算信息-->
+			<div class="col-sm-12" style="height: 66px; padding: 2px 10px !important;background-color: rgb(247, 247, 247);">
+				<vxe-radio-group v-model="selectTab">
+					<vxe-radio-button label="tab1" content="维修项目"></vxe-radio-button>
+					<vxe-radio-button label="tab2" content="领料情况"></vxe-radio-button>
+					<vxe-radio-button label="tab3" content="结算信息"></vxe-radio-button>
+				</vxe-radio-group>
 			</div>
-			<div class="row" style="display: flex; background-color:rgb(239,247,255);height: 36px;align-items: center;" v-if="wxVisble">
-				<div class="col-md-3" style="display: flex;justify-content: center;align-items: center;justify-content: space-around;">
-					<a href="##" @click="wxModalShow(0)">单个增加</a>
-					<a href="##" @click="wxModalShow1(1)">多个增加</a>
-					<a href="##">修改</a>
-					<a href="##">删除</a>
+			<div class="col-sm-12 tableX">
+				<div v-show="selectTab === 'tab1'">
+					<template>
+						<vxe-grid border stripe :menu-config="tableMenu1" @menu-click="contextMenuClickEvent1" highlight-hover-row highlight-current-row resizable ref="xTable1" class="mytable-scrollbar" auto-resize height="100%" :data="tableData1" :columns="tableColumn1" @current-change="currentChangeEvent1" round show-header-overflow show-overflow>
+						</vxe-grid>
+					</template>
 				</div>
-			</div>
-			<div class="row" style="display: flex; background-color:rgb(239,247,255);height: 36px;align-items: center;" v-if="llVisble">
-				<div class="col-md-3" style="display: flex;justify-content: center;align-items: center;justify-content: space-around;">
-					<a href="##" @click="llModalShow">单个增加</a>
-					<a href="##">多个增加</a>
-					<a href="##">修改</a>
-					<a href="##">删除</a>
+				<div v-show="selectTab === 'tab2'">
+					<template>
+						<vxe-grid border stripe :menu-config="tableMenu2" @menu-click="contextMenuClickEvent2" highlight-hover-row highlight-current-row resizable ref="xTable2" class="mytable-scrollbar" auto-resize height="100%" :data="tableData2" :columns="tableColumn2" @current-change="currentChangeEvent2" round show-header-overflow show-overflow>
+						</vxe-grid>
+					</template>
 				</div>
-			</div>
-			<div class="row">
-				<div class="tab-content">
-					<div v-for="item in tabs" :id="item.ename" :class="['tab-pane',item.active?'active':'']">
-						<iframe :src="item.path"></iframe>
-					</div>
+				<div v-show="selectTab === 'tab3'">
+					<template>
+						<vxe-grid border stripe highlight-hover-row highlight-current-row resizable ref="xTable3" class="mytable-scrollbar" auto-resize height="100%" :data="tableData3" :columns="tableColumn3" @current-change="currentChangeEvent3" round show-header-overflow show-overflow>
+						</vxe-grid>
+					</template>
 				</div>
-			</div>
+				<div class="col-sm-12" style="height: 4%;line-height: 35px;">
+					共<span v-text="tableData1.length"></span>条数据
+				</div>
 
-
-
-			<!--维修项目模态框-->
+				<!--维修项目新增模态框-->
 			<div class="modal fade" id="wxMoal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 				<div class="modal-dialog" role="document">
 
@@ -209,7 +228,7 @@
 									<div class="col-sm-8">
 									  <input type="text" class="form-control" id="inputPassword3" v-model="serproject.wxProjectnae">
 									</div>
-									<button class="btn btn-success" style="margin-left: 30px;" @click="xzWeiXiu()">选择</button>
+									<input type="button" class="btn btn-success" style="margin-left: 30px;" @click="xzWeiXiu()" value="选择"/>
 							  </div>
 							  <div class="form-group">
 							    <label for="inputPassword3" class="col-sm-2 control-label">价类</label>
@@ -272,54 +291,109 @@
 
 				</div>
 			</div>
-			<!--维修项目模态框2-->
+				<!--维修项目修改模态框-->
+			<div class="modal fade" id="wxMoal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
 
-			<div class="modal fade" id="wxdMoal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-				<!-- <div class="modal-dialog" role="document" style="width: 1200px;">
-				  <div class="modal-content">
-				   <div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<span class="modal-title" style="font-size: 20px;"><strong>物料需求</strong></span>
-					<button style="margin-left: 71%;" class="btn btn-default">选择</button>
-					<button style="margin-left: 10px;" class="btn btn-success">保存</button>
-				   </div>
-				   <div class="modal-body" style="background-color: rgb(247,247,247);height: 450px important;">
-					<div class="modal-body " style="padding: 0px !important;">
-						<div style="width: 100%; height: 580px;">
-							<iframe src="../yf/maintain_pro.html" width="100%" height="100%"></iframe>
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<span class="modal-title" style="font-size: 20px;"><strong>维修项目</strong></span>
+							<button style="margin-left: 70%;" class="btn btn-success" @click="updateWxProject">保存</button>
 						</div>
-			   >
-					</div>
-					
-				   </div>
-				   <div class="modal-footer">
-				   </div>
-				  </div>
-			 
-				 </div> -->
-				<div class="modal-dialog modal-lg" role="document" style="width: 1200px;">
-				 <div class="modal-content">
-				  <div class="modal-header">
-				   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-					 aria-hidden="true">&times;</span></button>
-				   <h4 class="modal-title clearfix" id="myModalLabel">供货单位
-				   </h4>
-				  </div>
-				  <div class="modal-body " style="padding: 0px !important;">
-				   <div style="width: 100%; height: 580px;">
-					<iframe id="iframe" src="../yf/maintain_pro.html" width="100%" ref="iframe" height="100%"
-					 frameborder="no" border="0" style="border: none;"></iframe>
-					<!-- transform:scale(1.1,1.1) -->
-				   </div>
-				   <!-- <iframe src="supplier.html" frameborder="0" style="width: 100%;  height: 550px;"></iframe> -->
-				  </div>
-			 
-				 </div>
-				</div>
-			   </div>   
+						<div class="modal-body" style="background-color: rgb(247,247,247);">
+							<button class="btn btn-success" style="margin-left: 30px;" @click="xzWeiXiu()">选择</button>
+							<form class="form-horizontal">
+							  <div class="form-group">
+							    <label for="inputEmail3" class="col-sm-2 control-label">维修项目</label>
+									<div class="col-sm-8">
+									  <input type="text" class="form-control" id="inputPassword3" v-model="updateServicingProject.wxProjectnae">
+									</div>
+							  </div>
+							  <div class="form-group">
+							    <label for="inputPassword3" class="col-sm-2 control-label">价类</label>
+							    <div class="col-sm-4">
+							      <input type="text" class="form-control" id="inputPassword3" v-model="updateServicingProject.wxJialei">
+							    </div>
+									<label for="inputPassword3" class="col-sm-2 control-label">免单原因</label>
+									<div class="col-sm-4">
+									  <input type="text" class="form-control" id="inputPassword3" v-model="updateServicingProject.wxMiandan">
+									</div>
+							  </div>
+								<div class="form-group">
+								  <label for="inputPassword3" class="col-sm-2 control-label">服务顾问</label>
+								  <div class="col-sm-3">
+								    <input type="text" class="form-control" id="inputPassword3" v-model="updateServicingProject.wxServiceuser">
+								  </div>
+									<label for="inputPassword3" class="col-sm-3 control-label">技师结算标价</label>
+									<div class="col-sm-3">
+									  <input type="text" class="form-control" id="inputPassword3" v-model="updateServicingProject.wxJsjies">
+									</div>
+								</div>
+								<div class="form-group">
+								  <label for="inputPassword3" class="col-sm-2 control-label">数量</label>
+								  <div class="col-sm-4">
+								    <input type="text" class="form-control" id="inputPassword3" v-model="updateServicingProject.wxNumber">
+								  </div>
+									<label for="inputPassword3" class="col-sm-2 control-label">工时单价</label>
+									<div class="col-sm-4">
+									  <input type="text" class="form-control" id="inputPassword3" v-model="updateServicingProject.wxGsdanjia">
+									</div>
+								</div>
+								<div class="form-group">
+								  <label for="inputEmail3" class="col-sm-2 control-label">故障描述</label>
+								  <div class="col-sm-10">
+								    <input type="text" class="form-control" id="inputEmail3" v-model="updateServicingProject.wxGzmiaoshu">
+								  </div>
+								</div>
+								<div class="form-group">
+								  <label for="inputEmail3" class="col-sm-2 control-label">故障原因</label>
+								  <div class="col-sm-10">
+								    <input type="text" class="form-control" id="inputEmail3"  v-model="updateServicingProject.wxGzyuanyin">
+								  </div>
+								</div>
+								<div class="form-group">
+								  <label for="inputPassword3" class="col-sm-2 control-label">维修班组</label>
+								  <div class="col-sm-4">
+								    <input type="text" class="form-control" id="inputPassword3"  v-model="updateServicingProject.wxWeixiubz">
+								  </div>
+									<label for="inputPassword3" class="col-sm-2 control-label">工单号</label>
+									<div class="col-sm-4">
+									  <input type="text" class="form-control" id="inputPassword3"  v-model="updateServicingProject.wxGdannumber">
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
 
-			<!--领料模态框-->
-			<div class="modal fade" id="llMoal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+						</div>
+					</div>
+
+				</div>
+			</div>
+				<!--维修项目模态框2-->
+
+				<div class="modal fade" id="wxdMoal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<div class="modal-dialog modal-lg" role="document" style="width: 1200px;">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+					 aria-hidden="true">&times;</span></button>
+								<h4 class="modal-title clearfix" id="myModalLabel">供货单位
+				   </h4>
+							</div>
+							<div class="modal-body " style="padding: 0px !important;">
+								<div style="width: 100%; height: 580px;">
+									<iframe id="iframe" src="../yf/maintain_pro.html" width="100%" ref="iframe" height="100%" frameborder="no" border="0" style="border: none;"></iframe>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+				<!--领料模态框-->
+				<div class="modal fade" id="llMoal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 				<div class="modal-dialog" role="document" style="width: 800px;">
 
 					<div class="modal-content">
@@ -410,469 +484,793 @@
 
 				</div>
 			</div>
-			
-			
-		
-			
-		</div>
-		<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-		<script src="js/vue-2.6.js"></script>
-		<script type="text/javascript">
-			new Vue({
-				el: "#ctn",
-				data() {
-					return {
-						modalIndex: 0,
-						iframCheckbox: false,
-						tabs: [{
-							id: 0,
-							name: "维修项目",
-							ename: "weixiu",
-							active: false,
-							path: "pages/weixiu.html"
-						}, {
-							id: 1,
-							name: "领料情况",
-							ename: "lingliao",
-							active: false,
-							path: "pages/ll.html"
-						}, {
-							id: 2,
-							name: "结算信息",
-							ename: "jies",
-							active: false,
-							path: "pages/jiesuan.html"
-						}],
-						//管理增删改得显示隐藏
-						llVisble: false,
-						wxVisble: false,
-						//新增的维修单
-						addServicing:{
-							serChepai:"",
-							serNumber:"",
-							serScjinchang:"",
-							serShangcilicheng:"",
-							serChejia:"",
-							serChexinhao:"",
-							serCarbrand:"",
-							serMotornumber:"",
-							serMotorbrand:"",
-							serDriver:"",
-							serCarzhuname:"",
-							serLianxiphone:"",
-							serServiceguwen:"",
-							serJinchanglicheng:"",
-							serJinchangyl:"",
-							serJctime:"",
-							serServietype:"",
-							serSgbanci:"",
-							serJiecaruser:"",
-							serExpecttime:"",
-							serJsfangshi:"",
-							serPeikuan:"",
-							serSgtime:"",
-							serExpectmoney:"",
-							serJdbeizu:"",
-							//关闭模态框标识,告知维修接车页面关闭模态框
-							closeLogin:true,
-							//根据单号查询到的维修项目list
-							ServicingProjectList:[]
-						},
-						//判断是否是打开单据
-						billsTrue:true,
-						//新增得单个维修项目
-						iframeVue:{},
-						//所有班组
-						teamForm:{},
-						//单个维修项目
-						serproject:{wxProjectnae:""},
-						//多个维修项目
-						sjList:[],
-						//维修项目路径
-						url:"http://127.0.0.1:8080/servicingproject/",
-						//接车按钮标识用于判断按钮名为接车完成、竣工检验、结算
-						setButtonStatus1:false,
-						setButtonStatus2:false,
-						setButtonStatus3:false,
-					}
-				},
-				mounted() {
-					let that = this;
-					window.addEventListener("message", function (e) {
-						let iframeVue = JSON.parse(JSON.stringify(e.data));
-						console.log(iframeVue);
-						if(iframeVue.aa=="aa"){
-							//维修接车传递的数据
-							console.log(iframeVue);
-							that.setButtonStatus1=false;
-							that.setButtonStatus2=false;
-							that.setButtonStatus3=false;
-							that.addServicing.serChepai = iframeVue.val.chepai;
-							that.addServicing.serChejia=iframeVue.val.chejia;
-							that.addServicing.serChexinghao=iframeVue.val.chexinghao;
-							that.addServicing.serCarbrand=iframeVue.val.carbrand;
-							that.addServicing.serMotornumber=iframeVue.val.motornumber;
-							that.addServicing.serCarzhuname=iframeVue.val.carzhuname;
-							that.addServicing.serDriver=iframeVue.val.driver;
-							that.addServicing.serLianxiphone=iframeVue.val.lianxiphone;
-							that.addServicing.serMotorbrand=iframeVue.val.motorbrand;
-							that.addServicing.serNumber=iframeVue.val.serNumber;
-							that.addServicing.setButtonStatus=iframeVue.val.setButtonStatus;
-							console.log(that.addServicing);
-							//根据单据状态显示按钮
-							if(that.addServicing.setButtonStatus==0){
-								that.setButtonStatus1=true;
-								that.billsTrue=true;
-							}else if(that.addServicing.setButtonStatus==1){
-								that.setButtonStatus2=true;
-								that.billsTrue=true;
-							}else{
-								that.setButtonStatus3=true;
-								that.billsTrue=false;
-							}
-							that.selServicingById();
-							that.selCarLastRecordByChepai(that.addServicing.serChepai);
-							that.selSumPrice();
-							console.log(that);
-							/* if(that.addServicing.serNumber!=null){
+
+			</div>
+			<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+			<script src="js/bootstrap.min.js"></script>
+			<script src="js/vue-2.6.js"></script>
+			<!--引入-->
+			<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+			<script src="https://cdn.jsdelivr.net/npm/xe-utils"></script>
+			<script src="https://cdn.jsdelivr.net/npm/vxe-table@3.1.4"></script>
+			<script src="../yf/js/common.js"></script>
+			<script type="text/javascript">
+				var Main = {
+					data() {
+						return {
+							selectTab: 'tab1',
+							tableColumn1: [
+								{ field: 'wxId', title: '项目编号', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+								{ field: 'wxProjectnae', title: '项目名称', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+								{ field: 'wxJialei', title: '价类', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+								{ field: 'wxMiandan', title: '免单原因', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+								{ field: 'wxServiceuser', title: '服务顾问', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+								{ field: 'wxNumber', title: '数量', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+								{ field: 'wxGsdanjia', title: '工时单价', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+								{ field: 'wxJsjies', title: '技师结算标价', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+								{ field: 'wxGzyuanyin', title: '故障原因', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+								{ field: 'wxGzmiaoshu', title: '故障描述', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+								{ field: 'wxWeixiubz', title: '维修班组', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+								{ field: 'wxGdannumber', title: '工单号', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' }
+							],
+							tableColumn2: [
+								{ field: 'column1', title: '类别', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+								{ field: 'acTime', title: '领料日期', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+								{ field: 'acPeople', title: '领料人', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+								{ field: 'goods.goodsId', title: '物料编码', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+								{ field: 'goods.goodsName', title: '物料名称', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+								{ field: 'goods.unit', title: '单位', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+								{ field: 'servicingproject.wxJialei', title: '价类', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+								{ field: 'acNumber', title: '数量', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+								{ field: 'goods.price', title: '单价', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+								{ field: 'acSumprice', title: '金额', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+								{ field: 'acServiceadvice', title: '服务顾问', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+								{ field: 'acMiandan', title: '免单原因', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' }
+							],
+							tableColumn3: [
+								{ field: 'settlementStatus', title: '结算状态', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+								{ field: 'settlementStatus', title: '结算金额', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+								{ field: 'settlementUser', title: '结算人', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+								{ field: 'settlementTime', title: '结算时间', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' },
+								{ field: 'balance', title: '结算方式', sortable: true, showOverflow: true, width: 150, visible: true, formatter: 'formatNull' }
+							],
+							tableData1: [
+								//{ id: "1", name: "AA", time: "2020-11-11" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }
+							],
+							tableData2: [
+								//{ id: "1", name: "AA", time: "2020-11-11" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }
+							],
+							tableData3: [
+								//{ id: "1", name: "AA", time: "2020-11-11" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }, { id: "1", name: "AA" }
+							],
+							modalIndex: 0,
+							iframCheckbox: false,
+							//表格右键菜单
+							tableMenu1: {
+								header: {
+									options: [
+										[
+											{ code: '1', name: '单个增加', prefixIcon: 'fa fa-file-powerpoint-o', className: 'my-copy-item' }
+										],
+										[
+											{ code: '2', name: '多个增加', prefixIcon: 'fa fa-hand-peace-o', className: 'my-copy-item' }
+										],
+										[
+											{ code: '3', name: '修改', prefixIcon: 'fa fa-wheelchair-alt', className: 'my-copy-item' }
+										],
+										[
+											{ code: '4', name: '删除', prefixIcon: 'fa fa-copy', className: 'my-copy-item' },
+										],
+										[
+											{ code: '5', name: '维修班组', prefixIcon: 'fa fa-copy', className: 'my-copy-item' },
+										],
+										[
+											{ code: '6', name: '重置价格', prefixIcon: 'fa fa-copy', className: 'my-copy-item' },
+										]
+									]
+								},
+								body: {
+									options: [
+										[
+											{ code: '1', name: '单个增加', prefixIcon: 'fa fa-file-powerpoint-o', className: 'my-copy-item' }
+										],
+										[
+											{ code: '2', name: '多个增加', prefixIcon: 'fa fa-hand-peace-o', className: 'my-copy-item' }
+										],
+										[
+											{ code: '3', name: '修改', prefixIcon: 'fa fa-wheelchair-alt', className: 'my-copy-item' }
+										],
+										[
+											{ code: '4', name: '删除', prefixIcon: 'fa fa-copy', className: 'my-copy-item' },
+										],
+										[
+											{ code: '5', name: '维修班组', prefixIcon: 'fa fa-copy', className: 'my-copy-item' },
+										],
+										[
+											{ code: '6', name: '重置价格', prefixIcon: 'fa fa-copy', className: 'my-copy-item' },
+										]
+									]
+								}
+							},
+							tableMenu2: {
+								body: {
+									options: [
+										[
+											{ code: '7', name: '物料需求', prefixIcon: 'fa fa-copy', className: 'my-copy-item' },
+											{ code: '8', name: '领料*', prefixIcon: 'fa fa-copy', className: 'my-copy-item' },
+											{ code: '9', name: '重置价格', prefixIcon: 'fa fa-copy', className: 'my-copy-item' },
+											{ code: '10', name: '库房领料', prefixIcon: 'fa fa-copy', className: 'my-copy-item' }
+										],
+									]
+								}
+							},
+							//管理增删改得显示隐藏
+							llVisble: false,
+							wxVisble: false,
+							//新增的维修单
+							addServicing: {
+								serChepai: "",
+								serNumber: "",
+								serScjinchang: "",
+								serShangcilicheng: "",
+								serChejia: "",
+								serChexinhao: "",
+								serCarbrand: "",
+								serMotornumber: "",
+								serMotorbrand: "",
+								serDriver: "",
+								serCarzhuname: "",
+								serLianxiphone: "",
+								serServiceguwen: "",
+								serJinchanglicheng: "",
+								serJinchangyl: "",
+								serJctime: "",
+								serServietype: "",
+								serSgbanci: "",
+								serJiecaruser: "",
+								serExpecttime: "",
+								serJsfangshi: "",
+								serPeikuan: "",
+								serSgtime: "",
+								serExpectmoney: "",
+								serJdbeizu: "",
+								//关闭模态框标识,告知维修接车页面关闭模态框
+								closeLogin: true,
+								//根据单号查询到的维修项目list
+								ServicingProjectList: []
+							},
+							//判断是否是打开单据
+							billsTrue: true,
+							//新增得单个维修项目
+							iframeVue: {},
+							//所有班组
+							teamForm: {},
+							//单个维修项目
+							serproject: { wxProjectnae: "" },
+							//多个维修项目
+							sjList: [],
+							//维修项目路径
+							url: "http://127.0.0.1:8080/servicingproject/",
+							//接车按钮标识用于判断按钮名为接车完成、竣工检验、结算
+							setButtonStatus1: false,
+							setButtonStatus2: false,
+							setButtonStatus3: false,
+							//修改项目对象
+							updateServicingProject: {}
+						}
+					},
+					mounted() {
+						/* alert("我是维修单mounted"); */
+						let that = this;
+						window.addEventListener("message", function(e) {
+							console.log(e.data);
+							let iframeVue = JSON.parse(JSON.stringify(e.data));
+							/* console.log(iframeVue); */
+							if(iframeVue.aa == "aa") {
+								//维修接车传递的数据
+								console.log(iframeVue);
+								that.setButtonStatus1 = false;
+								that.setButtonStatus2 = false;
+								that.setButtonStatus3 = false;
+								that.addServicing.serChepai = iframeVue.val.chepai;
+								that.addServicing.serChejia = iframeVue.val.chejia;
+								that.addServicing.serChexinghao = iframeVue.val.chexinghao;
+								that.addServicing.serCarbrand = iframeVue.val.carbrand;
+								that.addServicing.serMotornumber = iframeVue.val.motornumber;
+								that.addServicing.serCarzhuname = iframeVue.val.carzhuname;
+								that.addServicing.serDriver = iframeVue.val.driver;
+								that.addServicing.serLianxiphone = iframeVue.val.lianxiphone;
+								that.addServicing.serMotorbrand = iframeVue.val.motorbrand;
+								that.addServicing.serNumber = iframeVue.val.serNumber;
+								that.addServicing.setButtonStatus = iframeVue.val.setButtonStatus;
+								console.log(that.addServicing);
+								//根据单据状态显示按钮
+								if(that.addServicing.setButtonStatus == 0) {
+									that.setButtonStatus1 = true;
+									that.billsTrue = true;
+								} else if(that.addServicing.setButtonStatus == 1) {
+									that.setButtonStatus2 = true;
+									that.billsTrue = true;
+								} else {
+									that.setButtonStatus3 = true;
+									that.billsTrue = false;
+								}
 								that.selServicingById();
-								that.billsTrue=false;
-							}else{
 								that.selCarLastRecordByChepai(that.addServicing.serChepai);
-								that.billsTrue=true;
-							} */
-						} else if(iframeVue.aa=="bb"){
-							alert("11111");
-							//
-							if(that.modalIndex === 0){
-								alert("2222222");
-								that.serproject.column1=iframeVue.code.seId;//项目号
-								that.serproject.wxProjectnae = iframeVue.code.seName;//项目名称
-								that.serproject.wxGdannumber=that.addServicing.serNumber;//工单号
-								console.log(that.serproject);
-								/* $("#wxdMoal").modal("hide");//关闭选择模态框 */
 								that.selServicingProjectBySerNumber();
 								that.selSumPrice();
-							}else{
-								that.sjList = iframeVue.code;
-								console.log(that.sjList);
-								//定义一个数组，里面存储维修项目对象
-								var projectList=[];
-								for(var i=0;i<that.sjList.length;i++){
-										var project={};
-										project.wxProjectnae=that.sjList[i].seName;
-										project.wxNumber=1;
-										project.wxGsdanjia = that.sjList[i].price;//工时单价
-										project.wxJsjies = that.sjList[i].vipPrice;//技师结算单价
-										project.wxJialei="自费";
-										project.column1=that.sjList[i].seId;//项目号
-										project.wxGdannumber=that.addServicing.serNumber;//工单号
-										/* project.wxGdannumber="00000RE210200001";//工单号 */
+								console.log(that);
+								/* if(that.addServicing.serNumber!=null){
+									that.selServicingById();
+									that.billsTrue=false;
+								}else{
+									that.selCarLastRecordByChepai(that.addServicing.serChepai);
+									that.billsTrue=true;
+								} */
+							} else if(iframeVue.aa == "bb") {
+								/* alert("11111"); */
+								//
+								if(that.modalIndex === 0) {
+									/* alert("2222222"); */
+									that.serproject.column1 = iframeVue.code.seId; //项目号
+									that.serproject.wxProjectnae = iframeVue.code.seName; //项目名称
+									that.serproject.wxGdannumber = that.addServicing.serNumber; //工单号
+									console.log(that.serproject);
+									/* $("#wxdMoal").modal("hide");//关闭选择模态框 */
+									that.selServicingProjectBySerNumber();
+									that.selSumPrice();
+								} else {
+									that.sjList = iframeVue.code;
+									//								console.log(that.sjList);
+									//定义一个数组，里面存储维修项目对象
+									var projectList = [];
+									for(var i = 0; i < that.sjList.length; i++) {
+										var project = {};
+										project.wxProjectnae = that.sjList[i].seName;
+										project.wxNumber = 1;
+										project.wxGsdanjia = that.sjList[i].price; //工时单价
+										project.wxJsjies = that.sjList[i].vipPrice; //技师结算单价
+										project.wxJialei = "自费";
+										project.column1 = that.sjList[i].seId; //项目号
+										project.wxGdannumber = that.addServicing.serNumber; //工单号
+										/* project.wxGdannumber = "00000RE210200001";  *///工单号 */
 										projectList.push(project);
 									}
-								console.log(projectList);
-								var json=JSON.stringify(projectList);
-								console.log(json);
+									//console.log(projectList);
+									var json = JSON.stringify(projectList);
+									console.log(json);
+									$.ajax({
+										url: "http://127.0.0.1:8080/servicingproject/addProjectList",
+										type: "post",
+										data: json,
+										xhrFields: {
+											withCredentials: true
+										},
+										crossDomain: true,
+										async: false,
+										contentType: "application/json;charset=utf-8",
+										success: function(result) {
+											if(result) {
+												alert("保存成功！")
+											} else {
+												alert("保存失败！")
+											}
+											/* location.reload(); */
+										}
+									});
+									that.selServicingProjectBySerNumber();
+									that.selSumPrice();
+								}
+								if(iframeVue)
+									$("#wxdMoal").modal("hide");
+							}else if(iframeVue.aa="jiesuan"){
+								/* alert("结算中心传值"); */
+								//结算中心传值
+								that.addServicing.serNumber=iframeVue.val.serNumber;
+								that.addServicing.setButtonStatus = iframeVue.val.setButtonStatus;
+								if(that.addServicing.setButtonStatus == 0) {
+									that.setButtonStatus1 = false;
+									that.billsTrue = true;
+								} else if(that.addServicing.setButtonStatus == 1) {
+									that.setButtonStatus2 = false;
+									that.billsTrue = true;
+								} else {
+									that.setButtonStatus3 = false;
+									that.billsTrue = false;
+									if(iframeVue.val.jsLogo){
+										that.selSaleInformationBySernuber();
+									}
+								}
+								that.selServicingById();
+								that.selServicingProjectBySerNumber();
+								that.selSumPrice();
+							}
+						});
+					},
+					methods: {
+						//第一个表格的右键菜单点击进入
+						contextMenuClickEvent1({ menu, row, column }) {
+							/* alert(menu.code); */
+							if(menu.code == 1) {
+								//单个增加
+								this.wxModalShow();
+							} else if(menu.code == 2) {
+								//多个增加
+								this.wxModalShow1();
+							} else if(menu.code == 3) {
+								console.log(row);
+								console.log(row.wxId);
+								var id = row.wxId;
+								this.selServicingProjectById(id);
+								//修改
+							} else if(menu.code == 4) {
+								var id = row.wxId;
+								this.removeServicingProject(id);
+								//删除
+							}
+							console.log(menu.code);
+
+						},
+						contextMenuClickEvent2({ menu, row, column }) {
+							if(menu.code == 7) {
+								//物料需求
+								/* alert("物料需求"); */
+							} else if(menu.code == 8) {
+								//领料
+								/* alert("领料"); */
+							} else if(menu.code == 9) {
+								//重置价格
+								/* alert("重置价格"); */
+							} else if(menu.code == 10) {
+								//库房领料
+								/* alert("库房领料"); */
+							}
+							console.log(menu.code);
+						},
+						currentChangeEvent1({ row }) {
+							//获取选中行
+							console.log(this.$refs.xTable1.getCurrentRecord());
+						},
+						currentChangeEvent2({ row }) {
+
+						},
+						currentChangeEvent3({ row }) {},
+						//选择维修 0 单个 1 多个
+						xzWeiXiu() {
+							//像子页面传值
+							this.modalIndex = 0;
+							this.iframe = this.$refs.iframe
+							this.iframeWindow = this.iframe.contentWindow;
+							let message = [false, false];
+							console.log(message);
+							this.iframeWindow.postMessage(message, '*');
+							$("#wxdMoal").modal("show");
+						},
+						//维修模态框得显示
+						wxModalShow(index) {
+							$("#iframe").get(0).contentWindow.location.reload(true);
+							this.modalIndex = index;
+							/* alert("222"); */
+							$("#wxMoal").modal("show");
+						},
+						//维修多选框
+						wxModalShow1() {
+							$("#iframe").get(0).contentWindow.location.reload(true);
+							setTimeout(() => {
+								this.modalIndex = 1;
+								this.iframCheckbox = false;
+								//像子页面传值
+								this.iframe = this.$refs.iframe
+								this.iframeWindow = this.iframe.contentWindow;
+								let message = [false, true];
+								console.log("+++++++++++++++++++++++++");
+								console.log(message);
+								console.log("+++++++++++++++++++++++++");
+								this.iframeWindow.postMessage(message, '*');
+								$("#wxdMoal").modal("show");
+							}, 500)
+
+						},
+						//领料模态框显示
+						llModalShow() {
+							$("#llMoal").modal("show");
+						},
+						//控制增删改得显示隐藏 
+						activeBool(item) {
+							if(item.ename === "weixiu") {
+								this.wxVisble = true;
+								this.llVisble = false;
+							} else if(item.ename === "lingliao") {
+								this.llVisble = true;
+								this.wxVisble = false;
+							} else {
+								this.llVisble = false;
+								this.wxVisble = false;
+							}
+						},
+						//根据传过来的车牌查询出该车上次进厂的里程及进厂时间
+						selCarLastRecordByChepai(chepai) {
+							/* alert(chepai); */
+							let that = this;
+							$.ajax({
+								url: "http://127.0.0.1:8080/servicing/selCarLastRecordByChepai/" + chepai,
+								dataType: "json",
+								type: "get",
+								xhrFields: {
+									withCredentials: true
+								},
+								crossDomain: true,
+								async: false,
+								success: function(result) {
+									let servicing = result;
+									console.log(servicing);
+									that.addServicing.serShangcilicheng = servicing.serJinchanglicheng;
+									that.addServicing.serScjinchang = servicing.serJctime;
+									console.log(that.addServicing);
+								}
+							});
+						},
+						//根据维修单号查询该维修单相关信息
+						selServicingById() {
+							let serNumber = this.addServicing.serNumber;
+							let that = this;
+							/* alert(serNumber); */
+							$.ajax({
+								url: "http://127.0.0.1:8080/servicing/selServicingById/" + serNumber,
+								type: "get",
+								xhrFields: {
+									withCredentials: true
+								},
+								crossDomain: true,
+								async: false,
+								success: function(result) {
+									console.log(result);
+									that.addServicing = result;
+								}
+							});
+						},
+						//保存维修项目
+						saveWxProject() {
+							let that = this;
+							/* alert("保存单个项目"); */
+							console.log(this.serproject);
+							$.ajax({
+								url: "http://127.0.0.1:8080/servicingproject/addWxProject",
+								type: "post",
+								data: that.serproject,
+								xhrFields: {
+									withCredentials: true
+								},
+								crossDomain: true,
+								async: false,
+								success: function(result) {
+									if(result) {
+										alert("保存成功！")
+									} else {
+										alert("保存失败！")
+									}
+									that.selServicingProjectBySerNumber();
+									that.selSumPrice();
+								   $("#wxMoal").modal("hide"); 
+									/* location.reload(); */
+								}
+							})
+
+						},
+						//查所有班组
+						teamFormAll() {
+							let that = this;
+							$.ajax({
+								url: "http://127.0.0.1:8080/teamForm/bzFind",
+								dataType: "json",
+								success: function(result) {
+									console.log(result);
+									that.teamForm = result;
+								}
+							})
+						},
+						//接车完成
+						takeCarFinish() {
+							let that = this;
+							var json = JSON.stringify(that.addServicing);
+							var flag = confirm("是否接车完毕?");
+							if(flag) {
 								$.ajax({
-									url:"http://127.0.0.1:8080/servicingproject/addProjectList",
-									type:"post",
-									data:json,
+									url: "http://127.0.0.1:8080/servicing/takeCarFinish",
+									data: json,
+									type: "post",
 									xhrFields: {
 										withCredentials: true
 									},
 									crossDomain: true,
-									async:false,
-									contentType:"application/json;charset=utf-8",
-									success:function(result){
-										if(result){
-											alert("保存成功！")
-										}else{
-											alert("保存失败！")
-										}
-										/* location.reload(); */
+									async: false,
+									contentType: "application/json;charset=utf-8",
+									success: function(result) {
+										/* alert(result); */
 									}
 								});
-								that.selServicingProjectBySerNumber();
-								that.selSumPrice();
+								/* alert("竣工检验"); */
+								var message = {
+									aa: 'dd',
+									val: this.closeLogin,
+								}
+								window.parent.postMessage(message, "*");
 							}
-							if(iframeVue)
-							$("#wxdMoal").modal("hide");
-						}
-					});
-				},
-				methods: {
-					//选择维修 0 单个 1 多个
-					xzWeiXiu() {
-						//像子页面传值
-						this.modalIndex = 0;
-						this.iframe = this.$refs.iframe
-						this.iframeWindow = this.iframe.contentWindow;
-						let message = [false, false];
-						console.log(message);
-						this.iframeWindow.postMessage(message, '*');
-						$("#wxdMoal").modal("show");
-					},
-					//维修模态框得显示
-					wxModalShow(index) {
-						$("#iframe").get(0).contentWindow.location.reload(true);
-						this.modalIndex = index;
-						alert("222");
-						$("#wxMoal").modal("show");
-					},
-					//维修多选框
-					wxModalShow1(){
-					$("#iframe").get(0).contentWindow.location.reload(true);
-					setTimeout(()=>{
-						this.modalIndex = 1;
-						this.iframCheckbox = false;
-						//像子页面传值
-						this.iframe = this.$refs.iframe
-						this.iframeWindow = this.iframe.contentWindow;
-						let message= [false, true];
-						console.log(message);
-						this.iframeWindow.postMessage(message, '*');
-						$("#wxdMoal").modal("show");
-					},500)
-				   
-					},
-					//领料模态框显示
-					llModalShow(){
-						$("#llMoal").modal("show");
-					},
-					//控制增删改得显示隐藏 
-					activeBool(item) {
-						if (item.ename === "weixiu") {
-							this.wxVisble = true;
-							this.llVisble = false;
-						} else if (item.ename === "lingliao") {
-							this.llVisble = true;
-							this.wxVisble = false;
-						}else{
-							this.llVisble = false;
-							this.wxVisble = false;
-						}
-					},
-					//根据传过来的车牌查询出该车上次进厂的里程及进厂时间
-					selCarLastRecordByChepai(chepai){
-						/* alert(chepai); */
-						let that=this;
-						$.ajax({
-							url:"http://127.0.0.1:8080/servicing/selCarLastRecordByChepai/"+chepai,
-							dataType:"json",
-							type:"get",
-							xhrFields: {
-								withCredentials: true
-							},
-							crossDomain: true,
-							async:false,
-							success:function(result){
-								let servicing=result;
-								console.log(servicing);
-								that.addServicing.serShangcilicheng=servicing.serJinchanglicheng;
-								that.addServicing.serScjinchang=servicing.serJctime;
-								console.log(that.addServicing);
-							}
-						});
-					},
-					/* //自动获取维修单号
-					getSerNumber(){
-						let that=this;
-						console.log(that);
-						$.ajax({
-							url:"http://127.0.0.1:8080/servicing/getServicingId",
-							type:"get",
-							xhrFields: {
-								withCredentials: true
-							},
-							crossDomain: true,
-							async:false,
-							success:function(result){
-								console.log(result);
-								that.addServicing.serNumber=result;
-							}
-						});
-					}, */
-					//根据维修单号查询该维修单相关信息
-					selServicingById(){
-						let serNumber=this.addServicing.serNumber;
-						let that=this;
-						/* alert(serNumber); */
-						$.ajax({
-							url:"http://127.0.0.1:8080/servicing/selServicingById/"+serNumber,
-							type:"get",
-							xhrFields: {
-								withCredentials: true
-							},
-							crossDomain: true,
-							async:false,
-							success:function(result){
-								console.log(result);
-								that.addServicing=result;
-							}
-						});
-					},
-					//保存维修项目
-					saveWxProject(){
-						let that = this;
-						alert("保存单个项目");
-						console.log(this.serproject);
+						},
+						//竣工检验
+						testOnCompletion() {
+							let that = this;
+							var json = JSON.stringify(that.addServicing);
 							$.ajax({
-								url:"http://127.0.0.1:8080/servicingproject/addWxProject",
-								type:"post",
-								data:that.serproject,
+								url: "http://127.0.0.1:8080/servicing/testOnCompletion",
+								data: json,
+								type: "post",
 								xhrFields: {
-								withCredentials: true
+									withCredentials: true
 								},
 								crossDomain: true,
-								async:false,
-								success:function(result){
-									if(result){
-										alert("保存成功！")
-									}else{
-										alert("保存失败！")
-									}
-									$("#wxMoal").modal("hide");
-									/* location.reload(); */
+								async: false,
+								contentType: "application/json;charset=utf-8",
+								success: function(result) {
+									/* alert(result); */
 								}
-							})
-						
-					},
-					//查所有班组
-					teamFormAll(){
-						let that = this;
-						$.ajax({
-							url:"http://127.0.0.1:8080/teamForm/bzFind",
-							dataType:"json",
-							success:function(result){
-								console.log(result);
-								that.teamForm = result;
+							});
+							/* alert("竣工检验"); */
+							var message = {
+								aa: 'dd',
+								val: this.closeLogin,
 							}
-						})
-					},
-					//接车完成
-					takeCarFinish(){
-						let that=this;
-						var json=JSON.stringify(that.addServicing);
-						var flag= confirm("是否接车完毕?");
-						if(flag){
+							window.parent.postMessage(message, "*");
+						},
+						//结算
+						settlement() {
+							var serNumber = this.addServicing.serNumber;
+							let that = this;
 							$.ajax({
-							url:"http://127.0.0.1:8080/servicing/takeCarFinish",
-							data:json,
-							type:"post",
-							xhrFields: {
-								withCredentials: true
-							},
-							crossDomain: true,
-							async:false,
-							contentType:"application/json;charset=utf-8",
-							success:function(result){
-								alert(result);
-							}
-						});
-						/* alert("竣工检验"); */
-						var message={
-								aa:'bb',
-								val:this.closeLogin,
-						}
-						window.parent.postMessage(message, "*");
-						}
-					},
-					//竣工检验
-					testOnCompletion(){
-						let that=this;
-						var json=JSON.stringify(that.addServicing);
-						$.ajax({
-							url:"http://127.0.0.1:8080/servicing/testOnCompletion",
-							data:json,
-							type:"post",
-							xhrFields: {
-								withCredentials: true
-							},
-							crossDomain: true,
-							async:false,
-							contentType:"application/json;charset=utf-8",
-							success:function(result){
-								alert(result);
-							}
-						});
-						/* alert("竣工检验"); */
-						var message={
-								aa:'bb',
-								val:this.closeLogin,
-						}
-						window.parent.postMessage(message, "*");
-					},
-					//结算
-					settlement(){
-						var serNumber=this.addServicing.serNumber;
-						let that=this;
-						$.ajax({
-							url:"http://127.0.0.1:8080/listOfSales/addListOfSale/"+serNumber,
-							type:"post",
-							xhrFields: {
-								withCredentials: true
-							},
-							crossDomain: true,
-							async:false,
-							success:function(result){
-								if(result){
-									alert("成功");
-									var message={
-											aa:'cc',
-											val:this.closeLogin,
+								url: "http://127.0.0.1:8080/listOfSales/addListOfSale/" + serNumber,
+								type: "post",
+								xhrFields: {
+									withCredentials: true
+								},
+								crossDomain: true,
+								async: false,
+								success: function(result) {
+									if(result) {
+										alert("成功");
+										var message = {
+											aa: 'cc',
+											val: this.closeLogin,
+										}
+										window.parent.postMessage(message, "*");
+									} else {
+										alert("失败");
 									}
-									window.parent.postMessage(message, "*");
-								}else{
-									alert("失败");
 								}
-							}
-						});
-						alert("结算");
+							});
+							/* alert("结算"); */
+						},
+						//根据维修单号查询当前单号下的维修项目
+						selServicingProjectBySerNumber() {
+							let that = this;
+							var serNumber = that.addServicing.serNumber;
+							/* serNumber="00000RE210200001"; */
+							/* alert(serNumber); */
+							$.ajax({
+								url: "http://127.0.0.1:8080/servicingproject/selBySerNumber/" + serNumber,
+								type: "get",
+								xhrFields: {
+									withCredentials: true
+								},
+								crossDomain: true,
+								async: false,
+								dataType: "json",
+								success: function(result) {
+									console.log(result);
+									that.tableData1 = result;
+								}
+							});
+						},
+						//查询该维修单的预计金额
+						selSumPrice() {
+							let that = this;
+							var serNumber = that.addServicing.serNumber;
+							/* alert(serNumber); */
+							$.ajax({
+								url: "http://127.0.0.1:8080/servicingproject/getPrice/" + serNumber,
+								type: "get",
+								xhrFields: {
+									withCredentials: true
+								},
+								crossDomain: true,
+								async: false,
+								success: function(result) {
+									console.log(result);
+									that.addServicing.serExpectmoney = result;
+								}
+							});
+						},
+						//根据项目id查询该项目
+						selServicingProjectById(id) {
+							let that = this;
+							$.ajax({
+								url: "http://127.0.0.1:8080/servicingproject/selById/" + id,
+								type: "get",
+								xhrFields: {
+									withCredentials: true
+								},
+								crossDomain: true,
+								async: false,
+								dataType: "json",
+								success: function(result) {
+									console.log(result);
+									that.updateServicingProject = result;
+								}
+							});
+							$("#wxMoal1").modal("show");
+						},
+						//更新项目
+						updateWxProject() {
+							let that = this;
+							console.log(that.updateServicingProject);
+							that.updateServicingProject.listAcquisition = [];
+							that.updateServicingProject.servicing = {};
+							that.updateServicingProject.cargoods = {};
+							var json = JSON.stringify(that.updateServicingProject);
+							$.ajax({
+								url: "http://127.0.0.1:8080/servicingproject/updateServicingProject",
+								data: json,
+								type: "post",
+								xhrFields: {
+									withCredentials: true
+								},
+								crossDomain: true,
+								contentType: "application/json;charset=utf-8",
+								async: false,
+								success: function(result) {
+									if(result) {
+										alert("成功");
+									} else {
+										alert("失败");
+									}
+								}
+							});
+							$("#wxMoal1").modal("hide");
+							that.selServicingProjectBySerNumber();
+						},
+						//删除项目
+						removeServicingProject(id) {
+							let that = this;
+							$.ajax({
+								url: "http://127.0.0.1:8080/servicingproject/removeServicingProject/" + id,
+								type: "delete",
+								xhrFields: {
+									withCredentials: true
+								},
+								crossDomain: true,
+								async: false,
+								success: function(result) {
+									if(result) {
+										alert("成功");
+									} else {
+										alert("失败");
+									}
+								}
+							});
+							that.selServicingProjectBySerNumber();
+						},
+						//根据单号查询领料表
+						selAcquisitionBySerNumber(){
+							let that=this;
+							var serNumber=that.addServicing.serNumber;
+							$.ajax({
+								url: "http://127.0.0.1:8080/acquisition/selBySerNumber/" +serNumber,
+								type: "get",
+								dataType: "json",
+								xhrFields: {
+									withCredentials: true
+								},
+								crossDomain: true,
+								async: false,
+								success: function (result) {
+									console.log(result);
+									that.tableData2 = result;
+								}
+							});
+						},
+						//根据单号查询结算信息
+						 selSaleInformationBySernuber(){
+							 let that= this;
+							 var serNumber=that.addServicing.serNumber;
+							 $.ajax({
+									url: "http://127.0.0.1:8080/listOfSales/selBySernumber/" +serNumber,
+									type: "get",
+									dataType: "json",
+									xhrFields: {
+										withCredentials: true
+									},
+									crossDomain: true,
+									async: false,
+									success: function (result) {
+										console.log(result);
+										that.tableData3 = result;
+										
+									}
+								});
+						 }
 					},
-					//根据维修单号查询当前单号下的维修项目
-					selServicingProjectBySerNumber(){
-						let that=this;
-						var serNumber=that.addServicing.serNumber;
-						$.ajax({
-							url:"http://127.0.0.1:8080/servicingproject/selBySerNumber/"+serNumber,
-							type:"get",
-							xhrFields: {
-								withCredentials: true
-							},
-							crossDomain: true,
-							async:false,
-							dataType:"json",
-							success:function(result){
-								that.ServicingProjectList=result;
+					watch: {
+						selectTab() {
+							if(this.selectTab === "tab1") {
+								this.selServicingProjectBySerNumber();
+								console.log("1");
+							} else if(this.selectTab === "tab2") {
+								this.selAcquisitionBySerNumber();
+								console.log("2");
+							} else {
+								this.selSaleInformationBySernuber();
+								console.log("3");
 							}
-						});
+							console.log(this.selectTab)
+						}
 					},
-					//查询该维修单的预计金额
-					selSumPrice(){
-						let that=this;
-						var serNumber=that.addServicing.serNumber;
-						/* alert(serNumber); */
-						$.ajax({
-							url:"http://127.0.0.1:8080/servicingproject/getPrice/"+serNumber,
-							type:"get",
-							xhrFields: {
-								withCredentials: true
-							},
-							crossDomain: true,
-							async:false,
-							success:function(result){
-								console.log(result);
-								that.addServicing.serExpectmoney=result;
-							}
-						});
+					created() {
+						this.selServicingProjectBySerNumber();
+						this.selSumPrice();
+						/* this.teamFormAll(); */
 					}
-				},
-				created(){
-					this.teamFormAll();
-				}
-			})
-			
-		</script>
+				};
+				var Ctor = Vue.extend(Main);
+				new Ctor().$mount('.container-fluid');
+				VXETable.formats.mixin({
+					// 格式化性别
+					formatSex({ cellValue }) {
+						return cellValue ? (cellValue === '1' ? '男' : '女') : ''
+					},
+					formatCarStatus({ cellValue }) {
+						if(cellValue === 0) {
+							return "接车";
+						} else if(cellValue === 1) {
+							return "作业中"
+						} else if(cellValue === 2) {
+							return "完工"
+						} else {
+							return "-"
+						}
+					},
+					formatNull({ cellValue }) {
+						return cellValue ? cellValue : '-'
+					},
+					// 格式化下拉选项
+					formatSelect({ cellValue }, list) {
+						const item = list.find(item => item.value === cellValue)
+						return item ? item.label : ''
+					},
+					// 格式化日期，默认 yyyy-MM-dd HH:mm:ss
+					formatDate({ cellValue }, format) {
+						return XEUtils.toDateString(cellValue, format || 'yyyy-MM-dd HH:mm:ss')
+					},
+					// 四舍五入金额，每隔3位逗号分隔，默认2位数
+					formatAmount({ cellValue }, digits = 2) {
+						return XEUtils.commafy(XEUtils.toNumber(cellValue), { digits })
+					},
+					// 格式化银行卡，默认每4位空格隔开
+					formatBankcard({ cellValue }) {
+						return XEUtils.commafy(XEUtils.toString(cellValue), { spaceNumber: 4, separator: ' ' })
+					},
+					// 四舍五入,默认两位数
+					formatFixedNumber({ cellValue }, digits = 2) {
+						return XEUtils.toFixed(XEUtils.round(cellValue, digits), digits)
+					},
+					// 向下舍入,默认两位数
+					formatCutNumber({ cellValue }, digits = 2) {
+						return XEUtils.toFixed(XEUtils.floor(cellValue, digits), digits)
+					},
+					// 转换 moment 类型为字符串
+					toMomentString({ cellValue }, format) {
+						return cellValue ? cellValue.format(format) : ''
+					}
+				})
+			</script>
 	</body>
+
 </html>

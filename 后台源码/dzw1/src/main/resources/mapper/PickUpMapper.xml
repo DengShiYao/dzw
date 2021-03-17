@@ -18,7 +18,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, userName, plate_number, phone, position, fault_description, status, column1, column2, column3
+        id, userName, plate_number, phone, position, fault_description, status, sernumber,column1, column2, column3
     </sql>
 
 </mapper>

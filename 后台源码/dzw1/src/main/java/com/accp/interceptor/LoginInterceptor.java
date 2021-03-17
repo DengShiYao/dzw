@@ -15,6 +15,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         response.setContentType("text/html;charset=utf-8");
         HttpSession session = request.getSession();
         Object obj = session.getAttribute("user");
+//        session.setAttribute("user",new SysUser().setUserId(1));
         if(obj != null){
             return true;
         }
