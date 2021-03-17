@@ -69,6 +69,9 @@ public class PickUp extends Model<PickUp> {
     @ApiModelProperty(value = "时间")
     private String submissionTime;
 
+    @ApiModelProperty(value = "维修单号")
+    private  String sernumber;
+
 
     public static final String ID = "id";
 
@@ -95,6 +98,8 @@ public class PickUp extends Model<PickUp> {
     public static final String PRICE = "price";
 
     public static final String SUBMISSIONTIME = "submissionTime";
+
+    public static  String SERNUMBER="sernumber";
 
     @Override
     protected Serializable pkVal() {

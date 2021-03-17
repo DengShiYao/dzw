@@ -808,7 +808,7 @@
 							that.a=that.list.length;
 						}
 					});
-					alert("正在进行条件查询");
+					/* alert("正在进行条件查询"); */
 				},
 				huiGun(){
 					if(this.changeEid==null||this.changeEid==""||this.changeEid==undefined){
@@ -905,7 +905,7 @@
 				selByDiv(){
 					let that=this;
 					if(that.departrueQw==null){
-						alert("123");
+						/* ("123");alert */
 						this.find();
 						return;
 					}
@@ -999,7 +999,7 @@
 					this.exit.jobId=this.checkedEclos.jId;
 					console.log(this.exit);
 					/*Vue.set(this.exit,"eId",this.checkedEclos.eId);*/
-					alert("正在将选择的员工填入");
+					/* alert("正在将选择的员工填入"); */
 					$("#xzyg").modal("hide");
 				},
 				//门店选择
@@ -1055,12 +1055,11 @@
 					/*alert("1122");*/
 					/*$("#storeLogin").modal("hide");
 					$("#storeLogin").modal("show");*/
-					alert("正在按条件查询门店");
+					/* alert("正在按条件查询门店"); */
 				},
 				//搜索框查询
 				searchWorkMan(){
-					
-					alert("正在根据搜索框内容进行员工条件查询");
+					/* alert("正在根据搜索框内容进行员工条件查询"); */
 				},
 				//打开离职技工窗口
 				openJgDiv(){
@@ -1085,7 +1084,7 @@
 					this.exit.sId=1;
 					console.log(this.exit);
 					/*Vue.set(this.exit,"eId",this.checkTclos.technicalNumber);*/
-					alert("正在讲该技工进行录入");
+					/* alert("正在讲该技工进行录入"); */
 					$("#jgDiv").modal("hide");
 				},
 				//根据门店和部门查询员工
@@ -1264,7 +1263,7 @@
                			}
                			this.departrueQw={};
                			this.departrueQw.dId=this.updateOrAddDepartment.dId;
-               			alert("正在将选择的部门填入");
+               			/* alert("正在将选择的部门填入"); */
                			$("#departDiv").modal("hide");
                	},
                	//打开部门框子

@@ -197,7 +197,7 @@
                             </div>
                         </el-col>
                         <el-badge :value="pickUpNum" class="item" :hidden="pickUpNum == 0 ? true:false">
-                            <el-button size="small" data-toggle="modal" href="#modal-id3 " @click="findPickUp1">场外接车
+                            <el-button size="small" @click="findPickUp1">场外接车
                             </el-button>
                         </el-badge>
                     </el-row>
@@ -308,7 +308,8 @@
         <el-dialog title="选择车辆" :visible.sync="dialogVisible" width="30%" :before-close="handleClose1"
             style="width: 100%;height: 100%;">
             <div style="width: 100%;">
-                <iframe id="iframe" src="../ZengQingNian/外勤车辆.html" width="100%" height="100%" frameborder="no" border="0"></iframe>
+                <iframe id="iframe" src="../ZengQingNian/外勤车辆.html" width="100%" height="100%" frameborder="no"
+                    border="0"></iframe>
             </div>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="dialogVisible = false">关 闭</el-button>
@@ -408,7 +409,7 @@
                             showOverflow: true,
                             width: 100,
                             visible: true,
-                            fixed:"right",
+                            fixed: "right",
                         },
                         {
                             field: "column1",
@@ -423,7 +424,7 @@
                             showOverflow: true,
                             width: 100,
                             visible: true,
-                            fixed:"right",
+                            fixed: "right",
                             slots: { default: "user-slot" },
                         },
                     ],
@@ -432,14 +433,15 @@
                     dialogVisible: false,
                     iframeData: null,
                     pick_upId: null,
+                    obj:{},
                 };
             },
             mounted() {
                 let that = this;
                 window.addEventListener("message", function (e) {
                     that.iframeData = e.data
-                    
-                    that.updatePick_upStatus(that.iframeData);
+                    console.log(that.obj);
+                    that.updatePick_upStatus(that.iframeData,that.obj);
                 });
             },
             methods: {
@@ -551,6 +553,7 @@
                         dataType: "JSON",
                         success: function (result) {
                             that.loading = false;
+                            $("#modal-id3").modal("show");
                             that.tableData = result;
                             console.log(that.tableData);
                         },
@@ -576,13 +579,19 @@
                 //弹出信息
                 open1() {
                     const h = this.$createElement;
+                    let that = this;
                     this.$notify({
                         title: "场外接车",
                         message: h(
                             "i",
-                            { style: "color: teal" },
+                            { style: "color: teal;cursor:pointer" },
                             "有一个用户现在需要接车，请查看！"
                         ),
+                        onClick(){
+                            that.findPickUp1();
+                            that.findPickUpNum();
+                            this.close();
+                        }
                     });
                 },
                 //创建标签叶
@@ -605,15 +614,33 @@
                 },
                 //接车点击弹开框
                 clickFooterItem(row) {
+                    this.obj = row;
                     if (row.column2 == '' || row.column2 == null) {
                         this.pick_upId = row.id;
                         this.dialogVisible = true;
                     } else {
                         this.pick_upId = 0;
                         this.dialogVisible = false;
+                        let that = this;
+                        $.ajax({
+                            url: basePath + "servicing/takeRescueFinish/"+row.sernumber,
+                            type: "post",
+                            xhrFields: {
+                                withCredentials: true,
+                            },
+                            async:false,
+                            data:{
+                                carId:JSON.parse(row.column2).column1,
+                                pickUpId:row.id,
+                            },
+                            crossDomain: true,
+                            success:function(result){
+                                alert(result == true ? "接车完成，进入维修":"接车失败，路上出现故障");
+                            }
+                        });
+                        this.findPickUp1();
                     }
                 },
-                //轮查，5秒一次查询是否有新的消息
                 setIntervalSelectMessage() {
                     let that = this;
                     $.ajax({
@@ -630,23 +657,26 @@
                                 that.findPickUpNum();
                                 that.open1();
                             } else if (that.pickUpNum > result) {
+                                that.pickUpNum = result;
                             }
                         },
                     });
                 },
                 updatePick_upStatus(data) {
-                    if(data.column1 == "" || data.column1 == null){
+                    console.log(data);
+                    if (data.column1 == "" || data.column1 == null) {
                         alert("请双击选中需要前往接车的车辆！");
                         return false;
                     }
-                    if(data.column3 == "接车中"){
+                    if (data.column3 == "接车中") {
                         alert("此车辆正在接车中！");
                         return false;
                     }
                     $("#iframe").get(0).contentWindow.location.reload(true);
                     let that = this;
                     that.dialogVisible = false;
-                    that.iframeData.column3="接车中";
+                    console.log("+++++++++++++++++++++++");
+                    that.iframeData.column3 = "接车中";
                     $.ajax({
                         url: basePath + "/pickUp/updatePick_upStatus",
                         type: "post",
@@ -657,7 +687,9 @@
                         data: {
                             id: that.pick_upId,
                             carObj: JSON.stringify(that.iframeData),
-                            carObjId:that.iframeData.column1,
+                            carObjId: that.iframeData.column1,
+                            carObject:data,
+                            serNumber:that.getSerNumber(),
                         },
                         crossDomain: true,
                         dataType: "JSON",
@@ -668,6 +700,45 @@
                             }
                         },
                     });
+                    this.setIntervalSelectMessage();
+                },
+                initWebSocket: function () {
+                    // WebSocket与普通的请求所用协议有所不同，ws等同于http，wss等同于https                
+                    this.websock = new WebSocket("ws://localhost:8080/websocket/DPS007");
+                    this.websock.onopen = this.websocketonopen;
+                    this.websock.onerror = this.websocketonerror;
+                    this.websock.onmessage = this.websocketonmessage;
+                    this.websock.onclose = this.websocketclose;
+                },
+                websocketonopen: function () {
+                    console.log("WebSocket连接成功");
+                },
+                websocketonerror: function (e) {
+                    console.log("WebSocket连接发生错误" + e);
+                },
+                websocketonmessage: function (e) {
+                    this.setIntervalSelectMessage();
+                },
+                websocketclose: function (e) {
+                    console.log("connection closed ");
+                },
+                //自动获取维修单号
+                getSerNumber(){
+                    let that =this;
+                    serNumber = null;
+                    $.ajax({
+                        url:basePath+"/servicing/getServicingId",
+                      /*   dataType:"json", */
+                        async:false,
+                        xhrFields: {
+                            withCredentials: true,
+                        },
+                        crossDomain: true,
+                        success:function(result){
+                            serNumber = result;
+                        },
+                    });
+                    return serNumber;
                 }
             },
             created() {
@@ -678,9 +749,7 @@
                 this.find_Menu();
                 this.find_MenuC(1);
                 this.findPickUpNum();
-                setInterval(() => {
-                    this.setIntervalSelectMessage();
-                }, 5000);
+                this.initWebSocket();
             },
         };
         var Ctor = Vue.extend(Main);

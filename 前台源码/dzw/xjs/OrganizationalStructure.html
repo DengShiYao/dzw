@@ -183,6 +183,9 @@
 			width: 100%;
 			height: 100%;
 		}
+		.span1{
+   		 color:rgb(196, 68, 66);
+		}	
 	</style>
 </head>
 
@@ -254,7 +257,7 @@
 				</vxe-button>
 			</div>
 			<div style="display:flex;;height: 100%;background-color: #fff;">
-				<div style="width: 30%;height: 100%;background-color: #fff;">
+				<div style="width: 20%;height: 100%;background-color: #fff;">
 					 <!-- 左侧树形 -->
 					 <vxe-table border="none"
 					 resizable
@@ -269,7 +272,7 @@
 					 <vxe-table-column field="storeName" tree-node ></vxe-table-column>
 				   </vxe-table>
 				</div>
-				<div style="width: 70%;height: 100%;background: #fff;">
+				<div style="width: 80%;height: 100%;background: #fff;">
 					<template>
 						<div style="height: 100%;">
 							<vxe-grid border stripe height="100%" :columns="tableColumn1" :data="employList"
@@ -319,21 +322,27 @@
 										<tr>
 											<td colspan="4">
 												<div class="form-group">
-													<label for="eId" class="control-label">员工编号</label>
+													<label for="eId" class="control-label">
+														<span class="span1">*</span>
+														员工编号</label>
 													<input type="text"         class="form-control"
 														v-model="addEmploy.eId" readonly="readonly" />
 												</div>
 											</td>
 											<td colspan="4">
 												<div class="form-group">
-													<label for="eName" class="control-label">员工姓名</label>
+													<label for="eName" class="control-label">
+														<span class="span1">*</span>
+														员工姓名</label>
 													<input type="text"         class="form-control"
 														v-model="addEmploy.eName" />
 												</div>
 											</td>
 											<td colspan="4">
 												<div class="form-group">
-													<label for="sex" class="control-label">性别:</label>
+													<label for="sex" class="control-label">
+														<span class="span1">*</span>
+														性别:</label>
 													<select      class="form-control"
 														v-model="addEmploy.sexId">
 														<option v-for="item in sexList" :value="item.sexId">
@@ -349,7 +358,9 @@
 										<tr>
 											<td colspan="6">
 												<div class="form-group">
-													<label for="store" class="control-label">所在门店</label>
+													<label for="store" class="control-label">
+														<span class="span1">*</span>
+														所在门店</label>
 													<select     class="form-control" v-model="addEmploy.mId"
 														@change="getDepartmentList(addEmploy.mId)">
 														<option   ></option>
@@ -360,7 +371,9 @@
 											</td>
 											<td colspan="6">
 												<div class="form-group">
-													<label for="depart" class="control-label">所在部门:</label>
+													<label for="depart" class="control-label">
+														<span class="span1">*</span>
+														所在部门:</label>
 													<select  class="form-control"    
 														v-model="addEmploy.dId">
 														<option   ></option>
@@ -812,21 +825,27 @@
 										<tr>
 											<td colspan="4">
 												<div class="form-group">
-													<label for="eId" class="control-label">员工编号</label>
+													<label for="eId" class="control-label">
+														<span class="span1">*</span>
+														员工编号</label>
 													<input type="text"      value="11" class="form-control"
 														v-model="updateEmploy.eId" readonly="readonly" />
 												</div>
 											</td>
 											<td colspan="4">
 												<div class="form-group">
-													<label for="eName" class="control-label">员工姓名</label>
+													<label for="eName" class="control-label">
+														<span class="span1">*</span>
+														员工姓名</label>
 													<input type="text"      value="等比"
-														class="form-control" v-model="updateEmploy.eName" />
+														class="form-control" v-model="updateEmploy.eName"/>
 												</div>
 											</td>
 											<td colspan="4">
 												<div class="form-group">
-													<label for="sex" class="control-label">性别:</label>
+													<label for="sex" class="control-label">
+														<span class="span1">*</span>
+														性别:</label>
 													<select      class="form-control"
 														v-model="updateEmploy.sexId">
 														<option v-for="item in sexList" :value="item.sexId">
@@ -843,7 +862,9 @@
 										<tr>
 											<td colspan="6">
 												<div class="form-group">
-													<label for="store" class="control-label">所在门店</label>
+													<label for="store" class="control-label">
+														<span class="span1">*</span>
+														所在门店</label>
 													<select     class="form-control" v-model="updateEmploy.mId"
 														@change="getDepartmentList(updateEmploy.mId)">
 														<option   ></option>
@@ -854,7 +875,9 @@
 											</td>
 											<td colspan="6">
 												<div class="form-group">
-													<label for="depart" class="control-label">所在部门:</label>
+													<label for="depart" class="control-label">
+														<span class="span1">*</span>
+														所在部门:</label>
 													<select  class="form-control"    
 														v-model="updateEmploy.dId">
 														<option   ></option>
@@ -2525,7 +2548,7 @@
             },
             getTreeExpansionEvent () {
               let treeExpandRecords = this.$refs.xTree.getTreeExpandRecords()
-              this.$XModal.alert(treeExpandRecords.length)
+              /* this.$XModal.alert(treeExpandRecords.length) */
             },
 			//初始化
 			find() {
@@ -3129,7 +3152,7 @@
 					crossDomain: true,
 					contentType: "application/json;charset=utf-8",
 					success: function (result) {
-						alert(result);
+						/* alert(result); */
 					}
 				});
 				$("#addEployDiv").modal("hide");
@@ -3167,7 +3190,7 @@
 					crossDomain: true,
 					contentType: "application/json;charset=utf-8",
 					success: function (result) {
-						alert(result);
+						/* alert(result); */
 					}
 				});
 				$("#updateEployDiv").modal("hide");
@@ -3311,16 +3334,16 @@
 						}
 					}
 				});
-				alert("修改员工角色成功");
+				/* alert("修改员工角色成功"); */
 				$("#eployRole").modal("hide");
 			},
 			//角色管理全部选择与取消
 			changeRole(a) {
 				if (!a) {
-					alert("取消全选");
+					/* alert("取消全选"); */
 					this.jobChecks = [];
 				} else {
-					alert("全选");
+					/* alert("全选"); */
 					/* this.jobChecks=[]; */
 					this.selAllPostition();
 					console.log(this.postitionList);
@@ -3330,10 +3353,10 @@
 			//字段显示全部选择与取消
 			changeZd(b) {
 				if (!b) {
-					alert("取消全选");
+					/* alert("取消全选"); */
 					this.zdChecks = [];
 				} else {
-					alert("全选");
+					/* alert("全选"); */
 					this.zdChecks = this.zdList.map(item => item.id);
 				}
 			},
@@ -3346,7 +3369,7 @@
 				$("#showZd").modal("show");
 			},
 			primaryZd() {
-				alert("设置字段成功");
+				/* alert("设置字段成功"); */
 				$("#showZd").modal("hide");
 			},
 			//打开性别框子
@@ -3396,7 +3419,7 @@
 				this.addEmploy.sexId = this.updateOrAddSex.sexId;
 				this.updateEmploy.sexId = this.updateOrAddSex.sexId;
 				alert(this.addEmploy.sexId);
-				alert("正在将选择的性别填入");
+				/* alert("正在将选择的性别填入"); */
 				$("#sexDiv").modal("hide");
 				console.log(this.addEmploy);
 				this.getSexList();
@@ -3415,12 +3438,12 @@
 			//将选择的部门填入
 			savedepartList() {
 				if (this.updateOrAddDepartment == null || this.updateOrAddDepartment == ""||this.updateOrAddDepartment==undefined) {
-					alert("请先选择部门");
+					/* alert("请先选择部门"); */
 					return;
 				}
 				this.employQuery = {};
 				this.employQuery.dId = this.updateOrAddDepartment.dId;
-				alert("正在将选择的部门填入");
+				/* alert("正在将选择的部门填入"); */
 				$("#departDiv").modal("hide");
 			},
 			//打开民族模态框
@@ -3461,7 +3484,7 @@
 						console.log(result);
 					}
 				});
-				alert("保存成功");
+				/* alert("保存成功"); */
 				this.getNationalList();
 				this.nationalAdd = false;
 				this.setNationalListFirst();
@@ -3472,7 +3495,7 @@
 				this.updateEmploy.nationalId = this.updateOrAddNational.nationalId;
 				this.getNationalList();
 				console.log(this.addEmploy);
-				alert("正在将选择的民族填入");
+				/* alert("正在将选择的民族填入"); */
 				$("#nationalDiv").modal("hide");
 			},
 			//籍贯
@@ -3513,14 +3536,14 @@
 						console.log(result);
 					}
 				});
-				alert("保存成功");
+				/* alert("保存成功"); */
 				this.getNplaceList();
 				this.nplaceList = false;
 			},
 			nplaceOk() {
 				this.addEmploy.nplaceId = this.updateOrAddNplace.nplaceId;
 				this.updateEmploy.nplaceId = this.updateOrAddNplace.nplaceId;
-				alert("正在将选择的籍贯填入");
+				/* alert("正在将选择的籍贯填入"); */
 				$("#nplaceDiv").modal("hide");
 				this.getNplaceList();
 			},
@@ -3562,7 +3585,7 @@
 						console.log(result);
 					}
 				});
-				alert("保存成功");
+				/* alert("保存成功"); */
 				this.getEducationList();
 				this.educationAdd = false;
 			},
@@ -3570,7 +3593,7 @@
 				this.addEmploy.educationId = this.updateOrAddEducation.educationId;
 				this.updateEmploy.educationId = this.updateOrAddEducation.educationId;
 				this.getEducationList();
-				alert("正在将选择的学历填入");
+				/* alert("正在将选择的学历填入"); */
 				$("#educationDiv").modal("hide");
 			},
 			//学校
@@ -3611,7 +3634,7 @@
 						console.log(result);
 					}
 				});
-				alert("保存成功");
+				/* alert("保存成功"); */
 				this.getSchoolList();
 				this.schoolAdd = false;
 			},
@@ -3619,7 +3642,7 @@
 				this.addEmploy.schoolId = this.updateOrAddSchool.schoolId;
 				this.updateEmploy.schoolId = this.updateOrAddSchool.schoolId;
 				this.getSchoolList();
-				alert("正在将选择的学校填入");
+				/* alert("正在将选择的学校填入"); */
 				$("#schoolDiv").modal("hide");
 			},
 			//专业
@@ -3659,7 +3682,7 @@
 						console.log(result);
 					}
 				});
-				alert("保存成功");
+				/* alert("保存成功"); */
 				this.getMajorList();
 				this.majorAdd = false;
 			},
@@ -3667,7 +3690,7 @@
 				this.addEmploy.majorId = this.updateOrAddMajor.majorId;
 				this.updateEmploy.majorId = this.updateOrAddMajor.majorId;
 				this.getMajorList();
-				alert("正在将选择的专业填入");
+				/* alert("正在将选择的专业填入"); */
 				$("#majorDiv").modal("hide");
 			},
 			//专业资格
@@ -3707,7 +3730,7 @@
 						console.log(result);
 					}
 				});
-				alert("保存成功");
+				/* alert("保存成功"); */
 				this.getPQList();
 				this.pqAdd = false;
 			},
@@ -3715,7 +3738,7 @@
 				this.addEmploy.PQId = this.updateOrAddPq.PQId;
 				this.updateEmploy.PQId = this.updateOrAddPq.PQId;
 				this.getPQList();
-				alert("正在将选择的专业资格填入");
+				/* alert("正在将选择的专业资格填入"); */
 				$("#PQDiv").modal("hide");
 			},
 			//学位
@@ -3755,7 +3778,7 @@
 						console.log(result);
 					}
 				});
-				alert("保存成功");
+				/* alert("保存成功"); */
 				this.getDegreeList();
 				this.degreeAdd = false;
 			},
@@ -3763,7 +3786,7 @@
 				this.addEmploy.degreeId = this.updateOrAddDegree.degreeId;
 				this.updateEmploy.degreeId = this.updateOrAddDegree.degreeId;
 				this.getDegreeList();
-				alert("正在将选择的学位填入");
+				/* alert("正在将选择的学位填入"); */
 				$("#degreeDiv").modal("hide");
 			},
 			//银行
@@ -3803,12 +3826,12 @@
 						console.log(result);
 					}
 				});
-				alert("保存成功");
+				/* alert("保存成功"); */
 				this.getBankList();
 				this.bankAdd = false;
 			},
 			bankOk() {
-				alert("正在将选择的银行填入");
+				/* alert("正在将选择的银行填入"); */
 				$("#bankDiv").modal("hide");
 				this.addEmploy.bankId = this.updateOrAddBank.bankId;
 				this.updateEmploy.bankId = this.updateOrAddBank.bankId;
@@ -3899,7 +3922,7 @@
 						console.log(result);
 					}
 				});
-				alert("修改门店成功");
+				/* alert("修改门店成功"); */
 				$("#updateStore").modal("hide");
 				this.find();
 			},
@@ -3927,7 +3950,7 @@
 							console.log(result);
 						}
 					});
-					alert("删除门店成功");
+					/* alert("删除门店成功"); */
 				}
 				this.find();
 			},

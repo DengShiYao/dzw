@@ -1,7 +1,10 @@
 package com.accp.controller;
 
 
-import com.accp.domain.*;
+import com.accp.domain.Cargoods;
+import com.accp.domain.FieldVehicles;
+import com.accp.domain.PickUp;
+import com.accp.domain.Servicing;
 import com.accp.service.impl.*;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +39,12 @@ public class ServicingController {
 
     @Autowired
     GoodsServiceImpl goodsService;
+
+    @Autowired
+    PickUpServiceImpl pickUpService;
+
+    @Autowired
+    FieldVehiclesServiceImpl fieldVehiclesService;
 
     @GetMapping("/getServicingId")
     /**
@@ -220,6 +229,35 @@ public class ServicingController {
             servicing.setCargoods(cargoods);
         }
         return  list;
+    }
+
+    /**
+     * 救援接车
+     * @param pickUp
+     * @return
+     */
+    @PostMapping("/findPickNum")
+    public boolean rescueAdviser(@RequestBody PickUp pickUp, @RequestBody PickUp obj){
+        return  servicingService.rescueAdviser(pickUp);
+    }
+
+    /**
+     * 救援接车完成
+     * @param serNumber
+     * @return
+     */
+    @PostMapping("/takeRescueFinish/{serNumber}")
+    public boolean takeRescueFinish(@PathVariable  String serNumber,Integer pickUpId,Integer carId){
+        System.out.println("救援接车完成");
+        System.out.println(serNumber);
+        pickUpService.removeById(pickUpId);
+        FieldVehicles fieldVehicles = new FieldVehicles();
+        fieldVehicles.setColumn1(carId);
+        fieldVehicles.setColumn3("空闲");
+        QueryWrapper<FieldVehicles> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("column1",carId);
+        fieldVehicles.update(queryWrapper);
+        return  servicingService.takeRescueFinish(serNumber);
     }
 
 }

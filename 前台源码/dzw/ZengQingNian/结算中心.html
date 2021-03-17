@@ -27,7 +27,7 @@
 	<div id="ctn" class="container-fluid" style="height: 100%;">
 		<div class="row" style="background-color: rgb(247,255,255);display: flex; align-items: center;height: 50px;">
 			<span style="font-size: 25px;margin-left: 20px;">结算中心</span>
-			<vxe-button  style="margin-left: 80%;" @click="selSalStatusByParse">
+			<vxe-button  style="margin-left: 76%;" @click="selSalStatusByParse">
 				<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 				查询
 			</vxe-button>
@@ -90,19 +90,19 @@
 	</div>
 
 	<div class="row" style="height: 40px;background-color: rgb(247,247,247);display: flex; align-items: center;">
-		<vxe-button   style="font-size: 20px;color: black;margin-left: 20px;" @click="mendian()">
+		<vxe-button   style="color: black;margin-left: 20px;" @click="mendian()">
 			<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
 			门店选择
 		</vxe-button>
-		<vxe-button  style="font-size: 20px;color: black;margin-left: 56.5%;" @click="sy()">
+		<vxe-button  style="color: black;margin-left: 60%;" @click="sy()">
 			<span class="glyphicon glyphicon-yen" aria-hidden="true"></span>
 			收银
 		</vxe-button>
-		<vxe-button   style="font-size: 20px;color: black;margin-left: 100px;" @click="showRepair">
+		<vxe-button   style="color: black;margin-left: 100px;" @click="showRepair">
 			<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 			打开单据
 		</vxe-button>
-		<vxe-button  style="font-size: 20px;color: black;margin-left: 35px;" @click="daochu" >
+		<vxe-button  style="color: black;margin-left: 35px;" @click="daochu" >
 			<span class="glyphicon glyphicon-cloud-download" aria-hidden="true"></span>
 			导出
 		</vxe-button>
@@ -186,7 +186,7 @@
 								<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>	
 								确定
 							</vxe-button>
-							<vxe-button  style="margin-left: 79%;"@click="$refs.xTable1.setAllCheckboxRow(true)" >
+							<vxe-button  style="margin-left: 70%;"@click="$refs.xTable1.setAllCheckboxRow(true)" >
 								<span class="glyphicon glyphicon-sort-by-attributes" aria-hidden="true"></span>
 								全部选择
 							</vxe-button>
@@ -304,12 +304,9 @@
 				currentChangeEvent (){},
 				getSaleCell({row}){
 					this.chooseSaleTr=JSON.parse(JSON.stringify(row));
+					console.log(this.chooseSaleTr.column1);
 				},
 				sy() {
-					/* if(this.chooseSaleTr==null||this.chooseSaleTr==""||this.chooseSaleTr==undefined){
-						alert("请先单击选择要操作行");
-						return;
-					} */
 					var price = this.chooseSaleTr.settlementMoney;
 					if (price == "" || price == null || price == undefined) {
 						alert("请先点击要结算的销售单");
@@ -369,6 +366,7 @@
 				},
 				pay() {
 					let that = this;
+					alert("我进来了");
 					// console.log("http://127.0.0.1:8080//qrcode?totalAmount=" + this.order.totalAmount + "&subject=" + this.order.subject + "&storeId=123456&timeoutExpress=5m&outTradeNo=" + this.order.orderid);
 					$.ajax({
 						// url: "http://127.0.0.1:8080//qrcode?totalAmount=0.00&subject=支付宝扫码支付测试&storeId=123456&timeoutExpress=5m&outTradeNo=132131313132",
@@ -479,7 +477,7 @@
 						},
 						crossDomain: true,
 						success: function (result) {
-							alert(result);
+							/* alert(result); */
 						}
 					});
 				},
@@ -537,10 +535,10 @@
 				//全选门店或者全部取消
 				checkAllStore(c){
 					if(!c){
-						 alert("取消全选");
+						 /* alert("取消全选"); */
 						 this.storeChecks=[];
 					}else{
-						alert("全选");
+						/* alert("全选"); */
 						this.storeChecks= this.storeList.map(item=>item.storeId);
 					}
 				},
@@ -596,6 +594,7 @@
 			  },
 			  //显示维修单模态框
 			  showRepair(){
+				  console.log(this.chooseTableTr.column1);
 				if(this.chooseSaleTr.column1==""||this.chooseSaleTr.column1==null||this.chooseSaleTr.column1==undefined){
 					alert("请选择要操作的行");
 					return;
@@ -621,7 +620,7 @@
 					});
 					console.log(eList);
 					var lzList=eList.toString();
-					alert(lzList);
+					/* alert(lzList); */
 					window.location.href="http://127.0.0.1:8080/listOfSales/downLoadExportExcel?lzList="+List;
 			  }
 

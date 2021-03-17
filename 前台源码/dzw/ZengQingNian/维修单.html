@@ -46,13 +46,13 @@
 		<div id="ctn" class="container-fluid">
 			<div class="row" style="background-color: rgb(247,255,255);display: flex; align-items: center;height: 50px;">
 				<span style="font-size: 25px;margin-left: 20px;">维修单</span>
-				<button class="btn" style="margin-left: 89%;">取消</button>
+				<!-- <button class="btn" style="margin-left: 89%;">取消</button> -->
 			</div>
 			<div class="row" style="background-color: rgb(247,247,247);height: 40px;display: flex;align-items: center;">
 				<span style="font-size: 17px;margin-left: 20px;">单号：{{addServicing.serNumber}}</span>
-				<button style="margin-left: 80.6%;" type="button" class="btn btn-success" v-if="setButtonStatus1" @click="takeCarFinish">接车完成</button>
-				<button style="margin-left: 80.6%;" type="button" class="btn btn-success" v-if="setButtonStatus2" @click="testOnCompletion">竣工检验</button>
-				<button style="margin-left: 80.6%;" type="button" class="btn btn-success" v-if="setButtonStatus3" @click="settlement">结算</button>
+				<button style="margin-left: 78.6%;" type="button" class="btn btn-success" v-if="setButtonStatus1" @click="takeCarFinish">接车完成</button>
+				<button style="margin-left: 78.6%;" type="button" class="btn btn-success" v-if="setButtonStatus2" @click="testOnCompletion">竣工检验</button>
+				<button style="margin-left: 78.6%;" type="button" class="btn btn-success" v-if="setButtonStatus3" @click="settlement">结算</button>
 			</div>
 			<div class="row" style="border-top: 1px solid rgb(33,182,206);">
 				<form class="form-inline" style="margin-top: 10px;">
@@ -708,10 +708,10 @@
 									that.billsTrue=true;
 								} */
 							} else if(iframeVue.aa == "bb") {
-								alert("11111");
+								/* alert("11111"); */
 								//
 								if(that.modalIndex === 0) {
-									alert("2222222");
+									/* alert("2222222"); */
 									that.serproject.column1 = iframeVue.code.seId; //项目号
 									that.serproject.wxProjectnae = iframeVue.code.seName; //项目名称
 									that.serproject.wxGdannumber = that.addServicing.serNumber; //工单号
@@ -790,7 +790,7 @@
 					methods: {
 						//第一个表格的右键菜单点击进入
 						contextMenuClickEvent1({ menu, row, column }) {
-							alert(menu.code);
+							/* alert(menu.code); */
 							if(menu.code == 1) {
 								//单个增加
 								this.wxModalShow();
@@ -814,16 +814,16 @@
 						contextMenuClickEvent2({ menu, row, column }) {
 							if(menu.code == 7) {
 								//物料需求
-								alert("物料需求");
+								/* alert("物料需求"); */
 							} else if(menu.code == 8) {
 								//领料
-								alert("领料");
+								/* alert("领料"); */
 							} else if(menu.code == 9) {
 								//重置价格
-								alert("重置价格");
+								/* alert("重置价格"); */
 							} else if(menu.code == 10) {
 								//库房领料
-								alert("库房领料");
+								/* alert("库房领料"); */
 							}
 							console.log(menu.code);
 						},
@@ -850,7 +850,7 @@
 						wxModalShow(index) {
 							$("#iframe").get(0).contentWindow.location.reload(true);
 							this.modalIndex = index;
-							alert("222");
+							/* alert("222"); */
 							$("#wxMoal").modal("show");
 						},
 						//维修多选框
@@ -932,7 +932,7 @@
 						//保存维修项目
 						saveWxProject() {
 							let that = this;
-							alert("保存单个项目");
+							/* alert("保存单个项目"); */
 							console.log(this.serproject);
 							$.ajax({
 								url: "http://127.0.0.1:8080/servicingproject/addWxProject",
@@ -986,7 +986,7 @@
 									async: false,
 									contentType: "application/json;charset=utf-8",
 									success: function(result) {
-										alert(result);
+										/* alert(result); */
 									}
 								});
 								/* alert("竣工检验"); */
@@ -1012,7 +1012,7 @@
 								async: false,
 								contentType: "application/json;charset=utf-8",
 								success: function(result) {
-									alert(result);
+									/* alert(result); */
 								}
 							});
 							/* alert("竣工检验"); */
@@ -1047,7 +1047,7 @@
 									}
 								}
 							});
-							alert("结算");
+							/* alert("结算"); */
 						},
 						//根据维修单号查询当前单号下的维修项目
 						selServicingProjectBySerNumber() {
